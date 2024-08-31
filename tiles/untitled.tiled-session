@@ -1,0 +1,78 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "untitled.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "13_Conference_Hall_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "18_Jail_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "21_Clothing_Store_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "23_Tevelision_and_Film_Studio_Shadowless_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "24_Ice_Cream_Shop_48x48.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "gym.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "test.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "untitled.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": -1437.878787878788,
+                "y": -125.75757575757552
+            }
+        }
+    },
+    "last.imagePath": "C:/Users/matth/OneDrive/Desktop/tile-interiors/1_Interiors/48x48/Theme_Sorter_48x48",
+    "map.fixedSize": false,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 48,
+    "map.tileWidth": 48,
+    "openFiles": [
+        "untitled.tmx",
+        "test.tsx",
+        "gym.tsx",
+        "13_Conference_Hall_48x48.tsx",
+        "23_Tevelision_and_Film_Studio_Shadowless_48x48.tsx",
+        "18_Jail_48x48.tsx",
+        "21_Clothing_Store_48x48.tsx",
+        "24_Ice_Cream_Shop_48x48.tsx"
+    ],
+    "project": "untitled.tiled-project",
+    "recentFiles": [
+        "24_Ice_Cream_Shop_48x48.tsx",
+        "21_Clothing_Store_48x48.tsx",
+        "18_Jail_48x48.tsx",
+        "23_Tevelision_and_Film_Studio_Shadowless_48x48.tsx",
+        "13_Conference_Hall_48x48.tsx",
+        "gym.tsx",
+        "test.tsx",
+        "untitled.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 48,
+        "width": 48
+    }
+}

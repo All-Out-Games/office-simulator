@@ -1,0 +1,52 @@
+Detective_Camera.png
+	size: 1244, 1244
+	filter: Linear, Linear
+	scale: 0.5
+Detective_Camera/images/active_camera
+	bounds: 735, 1051, 185, 150
+	rotate: 90
+Detective_Camera/images/camera
+	bounds: 579, 918, 185, 150
+	rotate: 90
+Detective_Camera/images/destruction_support/debris_A
+	bounds: 891, 1051, 171, 132
+	rotate: 90
+Detective_Camera/images/destruction_support/debris_B
+	bounds: 1029, 1051, 101, 102
+Detective_Camera/images/destruction_support/debris_C
+	bounds: 1141, 888, 73, 72
+Detective_Camera/images/destruction_support/debris_D
+	bounds: 1151, 1163, 47, 52
+Detective_Camera/images/destruction_support/debris_E
+	bounds: 1029, 1163, 116, 70
+	offsets: 0, 0, 116, 71
+Detective_Camera/images/destruction_support/flash
+	bounds: 6, 918, 362, 318
+	offsets: 3, 4, 368, 326
+Detective_Camera/images/destruction_support/small_smoke_cloud
+	bounds: 911, 907, 130, 138
+	offsets: 3, 3, 136, 144
+Detective_Camera/images/destruction_support/smoke_cloud
+	bounds: 374, 918, 212, 199
+	offsets: 3, 3, 218, 205
+	rotate: 90
+Detective_Camera/images/destruction_support/spark_A
+	bounds: 1141, 966, 79, 76
+	offsets: 1, 1, 81, 78
+	rotate: 90
+Detective_Camera/images/destruction_support/spark_B
+	bounds: 1047, 891, 69, 33
+	offsets: 1, 1, 71, 35
+Detective_Camera/images/destruction_support/spark_C
+	bounds: 1204, 1163, 32, 33
+	offsets: 1, 1, 34, 35
+Detective_Camera/images/shadow
+	bounds: 1047, 930, 115, 88
+	rotate: 90
+Detective_Camera/images/tripod
+	bounds: 735, 889, 156, 170
+	offsets: 1, 0, 157, 170
+	rotate: 90
+Detective_Camera/images/wall_mount
+	bounds: 1136, 1051, 106, 83
+	rotate: 90

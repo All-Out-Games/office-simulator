@@ -1,0 +1,39 @@
+13
+614180323329
+1615130377585010 1709872699639149100
+{
+  "name": "ConferenceCollider",
+  "local_enabled": true,
+  "local_position": {
+    "X": -11.6820344924926758,
+    "Y": 27.7610759735107422
+  },
+  "local_rotation": 0,
+  "local_scale": {
+    "X": 0.9279328584671021,
+    "Y": 1
+  },
+  "previous_sibling": "41935759828076:1709266382464835400",
+  "parent": "20729943549895:1717370554324774500"
+},
+{
+  "cid": 1,
+  "aoid": "1615130378378627:1709872699639397800",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Box_Collider",
+  "data": {
+    "size": {
+      "X": 20.9896564483642578,
+      "Y": 19.9721889495849609
+    },
+    "offset": {
+      "X": 2.8501458168029785,
+      "Y": -2.2650694847106934
+    },
+    "is_trigger": true,
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
+  }
+}

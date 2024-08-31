@@ -1,0 +1,30 @@
+using AO;
+
+public class References : Component
+{
+
+  [Serialized] public AudioAsset ErrorSfx;
+  [Serialized] public AudioAsset ClickSfx;
+  [Serialized] public UIText MoneyStatText;
+  [Serialized] public UIText ExperienceStatText;
+  [Serialized] public UIText RoleStatText;
+
+
+  public static References _instance;
+  public static References Instance
+  {
+      get
+      {
+          if (_instance.Alive() == false)
+          {
+              foreach (var c in Scene.Components<References>())
+              {
+                  _instance = c;
+                  _instance.Awaken();
+                  break;
+              }
+          }
+          return _instance;
+      }
+  }
+}

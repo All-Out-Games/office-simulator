@@ -1,0 +1,75 @@
+13
+154618822657
+317295880115818 1709189374699906100
+{
+  "name": "Collider",
+  "local_enabled": true,
+  "local_position": {
+    "X": -37.5710601806640625,
+    "Y": 18.6067237854003906
+  },
+  "local_rotation": 0,
+  "local_scale": {
+    "X": 1,
+    "Y": 1
+  },
+  "previous_sibling": "317301720439824:1709189376532336800",
+  "next_sibling": "317739938206632:1709189514025357200",
+  "parent": "19930234797654:1717370303412044900"
+},
+{
+  "cid": 1,
+  "aoid": "317295880637744:1709189374700069400",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Sprite_Renderer",
+  "data": {
+    "texture": "",
+    "depth_offset": -0.8213730454444885,
+    "tint": {
+      "X": 0.8627451062202454,
+      "Y": 0.5921568870544434,
+      "Z": 0.5921568870544434,
+      "W": 0
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
+  }
+},
+{
+  "cid": 2,
+  "aoid": "317295880794770:1709189374700118200",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Edge_Collider",
+  "data": {
+    "is_trigger": false,
+    "is_loop": false,
+    "points": [
+      {
+        "X": 0.5438575744628906,
+        "Y": -5.9449520111083984
+      },
+      {
+        "X": -0.7382583618164062,
+        "Y": -5.9474925994873047
+      },
+      {
+        "X": -0.7355155944824219,
+        "Y": 4.3595867156982422
+      },
+      {
+        "X": 0.5312232971191406,
+        "Y": 4.4316711425781250
+      },
+      {
+        "X": 0.5612831115722656,
+        "Y": -5.9630613327026367
+      }
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
+  }
+}

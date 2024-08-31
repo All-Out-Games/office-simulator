@@ -1,0 +1,14 @@
+murder_key_book.png
+	size: 2368, 2368
+	filter: Linear, Linear
+	scale: 0.5
+images/closed Book
+	bounds: 1209, 1568, 651, 792
+images/empty book
+	bounds: 6, 1567, 1197, 793
+images/old key
+	bounds: 1866, 1472, 324, 395
+	rotate: 90
+images/spiderwebs
+	bounds: 1866, 1802, 494, 558
+	offsets: 0, 0, 497, 560

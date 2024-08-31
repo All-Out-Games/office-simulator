@@ -1,0 +1,994 @@
+{
+"skeleton": { "hash": "OVbv5Hgghr0", "spine": "4.0.64", "x": -194.25, "y": -143.21, "width": 383.2, "height": 545.33 },
+"bones": [
+
+	{ "name": "root" },
+	{ "name": "Camera", "parent": "root" },
+	{ "name": "Tripod", "parent": "Camera", "length": 246.08, "rotation": 90, "x": -7.19, "y": -57.84 },
+	{ "name": "Mount_Wall", "parent": "Tripod", "rotation": -90, "x": 236.88, "y": -129.39 },
+	{ "name": "Head", "parent": "Mount_Wall", "rotation": 90, "x": -129.39, "y": 0.05 },
+	{ "name": "shadow", "parent": "Camera", "x": -0.92, "y": -55.71 },
+	{ "name": "destruction", "parent": "root" },
+	{ "name": "Debris", "parent": "destruction", "y": 244.05 },
+	{ "name": "debris_A", "parent": "Debris", "x": 62.47, "y": 9.09, "transform": "noScale" },
+	{ "name": "debris_B", "parent": "Debris", "x": -11.75, "y": 64.72, "transform": "noScale" },
+	{ "name": "debris_C", "parent": "Debris", "x": -103.44, "y": -75.31, "transform": "noScale" },
+	{ "name": "debris_D", "parent": "Debris", "x": 108.27, "y": 26.37, "transform": "noScale" },
+	{ "name": "debris_E", "parent": "Debris", "x": 63.26, "y": -40.3, "transform": "noScale" },
+	{ "name": "Flash", "parent": "root", "x": 3.42, "y": 211.27 },
+	{ "name": "flash_back", "parent": "Flash", "x": 2.87, "y": -8.95 },
+	{ "name": "flash_front", "parent": "Flash", "x": 22.87, "y": 2.72 },
+	{ "name": "Smoke", "parent": "root", "x": 10.1, "y": 222.25 },
+	{ "name": "big_Smoke", "parent": "Smoke", "x": -33.44, "transform": "noScale" },
+	{ "name": "small_smoke_cloud", "parent": "Smoke", "x": 40.1, "y": 14.64, "transform": "noScale" },
+	{ "name": "Sparks", "parent": "root", "y": 502.57 },
+	{ "name": "spark_A", "parent": "Sparks" },
+	{ "name": "Spark_B", "parent": "Sparks", "y": 0.5 },
+	{ "name": "Spark_C", "parent": "Sparks", "y": 0.5 },
+	{ "name": "Head_Wall", "parent": "Head", "rotation": -90, "x": 28.41, "y": -66.42 }
+],
+"slots": [
+	{ "name": "flash_back", "bone": "flash_back" },
+	{ "name": "shadow", "bone": "shadow", "attachment": "Detective_Camera/images/shadow2" },
+	{ "name": "mount2", "bone": "Mount_Wall", "attachment": "Detective_Camera/images/tripod2" },
+	{ "name": "big_Smoke", "bone": "big_Smoke" },
+	{ "name": "camera", "bone": "Head_Wall", "attachment": "Detective_Camera/images/active_camera2" },
+	{ "name": "debris_A", "bone": "debris_A" },
+	{ "name": "debris_B", "bone": "debris_B" },
+	{ "name": "debris_C", "bone": "debris_C" },
+	{ "name": "debris_D", "bone": "debris_D" },
+	{ "name": "debris_E", "bone": "debris_E" },
+	{ "name": "spark_A", "bone": "spark_A" },
+	{ "name": "Spark_B", "bone": "Spark_B" },
+	{ "name": "Spark_C", "bone": "Spark_C" },
+	{ "name": "flash_front", "bone": "flash_front" },
+	{ "name": "small_smoke_cloud", "bone": "small_smoke_cloud" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"big_Smoke": {
+				"Detective_Camera/images/destruction_support/smoke_cloud": { "width": 435, "height": 410 }
+			},
+			"camera": {
+				"Detective_Camera/images/active_camera2": { "path": "Detective_Camera/images/active_camera", "x": -68.98, "y": 44.64, "width": 369, "height": 300 },
+				"Detective_Camera/images/camera": { "x": -68.98, "y": 44.64, "width": 369, "height": 300 }
+			},
+			"debris_A": {
+				"Detective_Camera/images/destruction_support/debris_A": { "width": 341, "height": 264 }
+			},
+			"debris_B": {
+				"Detective_Camera/images/destruction_support/debris_B": { "width": 202, "height": 204 }
+			},
+			"debris_C": {
+				"Detective_Camera/images/destruction_support/debris_C": { "width": 146, "height": 144 }
+			},
+			"debris_D": {
+				"Detective_Camera/images/destruction_support/debris_D": { "width": 94, "height": 103 }
+			},
+			"debris_E": {
+				"Detective_Camera/images/destruction_support/debris_E": { "width": 232, "height": 142 }
+			},
+			"flash_back": {
+				"Detective_Camera/images/destruction_support/flash": { "scaleX": -1, "rotation": 126.62, "width": 736, "height": 652 }
+			},
+			"flash_front": {
+				"Detective_Camera/images/destruction_support/flash": { "width": 736, "height": 652 }
+			},
+			"mount2": {
+				"Detective_Camera/images/tripod2": { "path": "Detective_Camera/images/tripod", "x": -89.75, "y": -136.09, "width": 313, "height": 339 },
+				"Detective_Camera/images/wall_mount": { "width": 211, "height": 166 }
+			},
+			"shadow": {
+				"Detective_Camera/images/shadow2": { "path": "Detective_Camera/images/shadow", "width": 230, "height": 175 }
+			},
+			"small_smoke_cloud": {
+				"Detective_Camera/images/destruction_support/small_smoke_cloud": { "width": 271, "height": 287 }
+			},
+			"spark_A": {
+				"Detective_Camera/images/destruction_support/spark_A": { "width": 162, "height": 156 }
+			},
+			"Spark_B": {
+				"Detective_Camera/images/destruction_support/spark_B": { "width": 142, "height": 69 }
+			},
+			"Spark_C": {
+				"Detective_Camera/images/destruction_support/spark_C": { "width": 68, "height": 69 }
+			}
+		}
+	}
+],
+"animations": {
+	"appear_ground": {
+		"slots": {
+			"camera": {
+				"rgba": [
+					{ "color": "ffffff00" },
+					{ "time": 0.0833, "color": "fffffffe" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/camera" }
+				]
+			},
+			"mount2": {
+				"rgba": [
+					{ "color": "ffffff00" },
+					{ "time": 0.0833, "color": "fffffffe" }
+				]
+			},
+			"shadow": {
+				"rgba": [
+					{
+						"color": "ffffff00",
+						"curve": [ 0.044, 1, 0.089, 1, 0.044, 1, 0.089, 1, 0.044, 1, 0.089, 1, 0.044, 0, 0.089, 1 ]
+					},
+					{ "time": 0.1333, "color": "fffffffe" }
+				]
+			}
+		},
+		"bones": {
+			"Tripod": {
+				"scale": [
+					{
+						"x": 0.015,
+						"y": 1.197,
+						"curve": [ 0.044, 0.78, 0.089, 1.163, 0.044, 1.022, 0.089, 0.934 ]
+					},
+					{
+						"time": 0.1333,
+						"x": 1.163,
+						"y": 0.934,
+						"curve": [ 0.172, 1.163, 0.211, 1, 0.172, 0.934, 0.211, 1 ]
+					},
+					{ "time": 0.25, "curve": "stepped" },
+					{
+						"time": 0.6,
+						"curve": [ 0.622, 0.938, 0.644, 0.814, 0.622, 1.064, 0.644, 1.192 ]
+					},
+					{
+						"time": 0.6667,
+						"x": 0.814,
+						"y": 1.192,
+						"curve": [ 0.694, 0.814, 0.722, 1.071, 0.694, 1.192, 0.722, 0.929 ]
+					},
+					{
+						"time": 0.75,
+						"x": 1.071,
+						"y": 0.929,
+						"curve": [ 0.783, 1.071, 0.817, 1, 0.783, 0.929, 0.817, 1 ]
+					},
+					{ "time": 0.85 }
+				],
+				"shear": [
+					{ "x": -1.1 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{
+						"value": 425.66,
+						"curve": [ 0.039, 425.66, 0.078, 387.13 ]
+					},
+					{
+						"time": 0.1167,
+						"value": 310.07,
+						"curve": [ 0.226, 93.04, 0.428, -30.17 ]
+					},
+					{
+						"time": 0.5833,
+						"value": -30.17,
+						"curve": [ 0.644, -30.17, 0.65, 10.45 ]
+					},
+					{
+						"time": 0.7167,
+						"value": 18.64,
+						"curve": [ 0.742, 21.73, 0.807, -1.78 ]
+					},
+					{ "time": 0.85, "value": -1.78 }
+				],
+				"translate": [
+					{
+						"time": 0.0833,
+						"curve": [ 0.156, -5.97, 0.218, -15.22, 0.103, 216.49, 0.218, 442.15 ]
+					},
+					{
+						"time": 0.3333,
+						"x": -13.93,
+						"y": 443.44,
+						"curve": [ 0.416, -13.02, 0.482, -9.29, 0.417, 444.36, 0.528, 227.33 ]
+					},
+					{ "time": 0.5833 }
+				],
+				"scale": [
+					{
+						"time": 0.5833,
+						"curve": [ 0.606, 1.253, 0.635, 1.471, 0.606, 0.798, 0.635, 0.605 ]
+					},
+					{
+						"time": 0.65,
+						"x": 1.379,
+						"y": 0.697,
+						"curve": [ 0.678, 1.209, 0.706, 0.869, 0.678, 0.864, 0.706, 1.198 ]
+					},
+					{
+						"time": 0.7333,
+						"x": 0.869,
+						"y": 1.198,
+						"curve": [ 0.767, 0.869, 0.8, 0.956, 0.767, 1.198, 0.8, 1.066 ]
+					},
+					{ "time": 0.8333 }
+				],
+				"shear": [
+					{ "x": -1.75 }
+				]
+			},
+			"shadow": {
+				"scale": [
+					{
+						"x": 2.213,
+						"y": 0.049,
+						"curve": [ 0.044, 1.339, 0.122, 0.902, 0.044, 0.749, 0.122, 1.098 ]
+					},
+					{
+						"time": 0.1667,
+						"x": 0.902,
+						"y": 1.098,
+						"curve": [ 0.206, 0.902, 0.278, 1, 0.206, 1.098, 0.278, 1 ]
+					},
+					{ "time": 0.3167 }
+				]
+			}
+		}
+	},
+	"appear_wall": {
+		"slots": {
+			"camera": {
+				"rgba": [
+					{ "color": "ffffff00" },
+					{ "time": 0.0833, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/camera" }
+				]
+			},
+			"mount2": {
+				"rgba": [
+					{
+						"color": "ffffff00",
+						"curve": [ 0.028, 1, 0.056, 1, 0.028, 1, 0.056, 1, 0.028, 1, 0.056, 1, 0.028, 0.67, 0.056, 1 ]
+					},
+					{ "time": 0.0833, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/wall_mount" }
+				]
+			},
+			"shadow": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Mount_Wall": {
+				"translate": [
+					{
+						"x": -0.54,
+						"y": -28.21,
+						"curve": [ 0.067, -0.54, 0.133, 0.46, 0.067, 6.72, 0.138, 38.02 ]
+					},
+					{
+						"time": 0.2,
+						"x": 0.46,
+						"y": 24.18,
+						"curve": [ 0.272, 0.46, 0.344, 0, 0.272, 8.06, 0.344, 0 ]
+					},
+					{ "time": 0.4167 }
+				],
+				"scale": [
+					{
+						"x": 0.05,
+						"y": 1.327,
+						"curve": [ 0.067, 0.891, 0.141, 1.481, 0.067, 1.019, 0.135, 0.784 ]
+					},
+					{
+						"time": 0.2,
+						"x": 1.311,
+						"y": 0.865,
+						"curve": [ 0.272, 1.104, 0.344, 1, 0.272, 0.955, 0.344, 1 ]
+					},
+					{ "time": 0.4167 }
+				],
+				"shear": [
+					{ "x": -1.1 }
+				]
+			},
+			"Head_Wall": {
+				"rotate": [
+					{ "value": -50.74, "curve": "stepped" },
+					{
+						"time": 0.0667,
+						"value": -50.74,
+						"curve": [ 0.178, 187.86, 0.322, -12.07 ]
+					},
+					{
+						"time": 0.4333,
+						"value": -12.07,
+						"curve": [ 0.483, -12.07, 0.533, -1.78 ]
+					},
+					{ "time": 0.5833, "value": -1.78 }
+				],
+				"shear": [
+					{ "x": -1.75 }
+				]
+			}
+		}
+	},
+	"destruction": {
+		"slots": {
+			"big_Smoke": {
+				"rgba": [
+					{
+						"color": "ffffff00",
+						"curve": [ 0.078, 1, 0.156, 1, 0.078, 1, 0.156, 1, 0.078, 1, 0.156, 1, 0.078, 0.67, 0.156, 1 ]
+					},
+					{ "time": 0.2333, "color": "ffffffff", "curve": "stepped" },
+					{
+						"time": 0.3333,
+						"color": "ffffffff",
+						"curve": [ 0.432, 1, 0.588, 1, 0.432, 1, 0.588, 1, 0.432, 1, 0.588, 1, 0.432, 1, 0.588, 0.88 ]
+					},
+					{
+						"time": 0.7333,
+						"color": "ffffffa6",
+						"curve": [ 0.835, 1, 0.932, 1, 0.835, 1, 0.932, 1, 0.835, 1, 0.932, 1, 0.835, 0.49, 0.932, 0.27 ]
+					},
+					{ "time": 1, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/smoke_cloud" }
+				]
+			},
+			"camera": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"debris_A": {
+				"rgba": [
+					{
+						"time": 0.6667,
+						"color": "ffffffff",
+						"curve": [ 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 0.33, 0.889, 0 ]
+					},
+					{ "time": 1, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/debris_A" }
+				]
+			},
+			"debris_B": {
+				"rgba": [
+					{
+						"time": 0.6667,
+						"color": "ffffffff",
+						"curve": [ 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 0.33, 0.889, 0 ]
+					},
+					{ "time": 1, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/debris_B" }
+				]
+			},
+			"debris_C": {
+				"rgba": [
+					{
+						"time": 0.6667,
+						"color": "ffffffff",
+						"curve": [ 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 0.33, 0.889, 0 ]
+					},
+					{ "time": 1, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/debris_C" }
+				]
+			},
+			"debris_D": {
+				"rgba": [
+					{
+						"time": 0.6667,
+						"color": "ffffffff",
+						"curve": [ 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 0.33, 0.889, 0 ]
+					},
+					{ "time": 1, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/debris_D" }
+				]
+			},
+			"debris_E": {
+				"rgba": [
+					{
+						"time": 0.6667,
+						"color": "ffffffff",
+						"curve": [ 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 1, 0.889, 1, 0.778, 0.33, 0.889, 0 ]
+					},
+					{ "time": 1, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/debris_E" }
+				]
+			},
+			"flash_back": {
+				"rgba": [
+					{
+						"color": "ffffffff",
+						"curve": [ 0.111, 1, 0.222, 1, 0.111, 1, 0.222, 1, 0.111, 1, 0.222, 1, 0.111, 0.33, 0.222, 0 ]
+					},
+					{ "time": 0.3333, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/flash" }
+				]
+			},
+			"flash_front": {
+				"rgba": [
+					{
+						"color": "ffffffff",
+						"curve": [ 0.056, 1, 0.111, 1, 0.056, 1, 0.111, 1, 0.056, 1, 0.111, 1, 0.056, 0.33, 0.111, 0 ]
+					},
+					{ "time": 0.1667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/flash" }
+				]
+			},
+			"mount2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"shadow": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"small_smoke_cloud": {
+				"rgba": [
+					{
+						"color": "ffffff00",
+						"curve": [ 0.078, 1, 0.156, 1, 0.078, 1, 0.156, 1, 0.078, 1, 0.156, 1, 0.078, 0.67, 0.156, 1 ]
+					},
+					{ "time": 0.2333, "color": "ffffffff", "curve": "stepped" },
+					{
+						"time": 0.3333,
+						"color": "ffffffff",
+						"curve": [ 0.432, 1, 0.588, 1, 0.432, 1, 0.588, 1, 0.432, 1, 0.588, 1, 0.432, 1, 0.588, 0.88 ]
+					},
+					{
+						"time": 0.7333,
+						"color": "ffffffa6",
+						"curve": [ 0.835, 1, 0.932, 1, 0.835, 1, 0.932, 1, 0.835, 1, 0.932, 1, 0.835, 0.49, 0.932, 0.27 ]
+					},
+					{ "time": 1, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/small_smoke_cloud" }
+				]
+			},
+			"spark_A": {
+				"rgba": [
+					{
+						"color": "ffffff00",
+						"curve": [ 0.056, 1, 0.111, 1, 0.056, 1, 0.111, 1, 0.056, 1, 0.111, 1, 0.056, 0, 0.111, 0.33 ]
+					},
+					{ "time": 0.1667, "color": "ffffffff", "curve": "stepped" },
+					{
+						"time": 0.4167,
+						"color": "ffffffff",
+						"curve": [ 0.522, 1, 0.628, 1, 0.522, 1, 0.628, 1, 0.522, 1, 0.628, 1, 0.522, 0.33, 0.628, 0 ]
+					},
+					{ "time": 0.7333, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/spark_A" }
+				]
+			},
+			"Spark_B": {
+				"rgba": [
+					{
+						"color": "ffffff00",
+						"curve": [ 0.056, 1, 0.111, 1, 0.056, 1, 0.111, 1, 0.056, 1, 0.111, 1, 0.056, 0, 0.111, 0.33 ]
+					},
+					{ "time": 0.1667, "color": "ffffffff", "curve": "stepped" },
+					{
+						"time": 0.3167,
+						"color": "ffffffff",
+						"curve": [ 0.422, 1, 0.528, 1, 0.422, 1, 0.528, 1, 0.422, 1, 0.528, 1, 0.422, 0.33, 0.528, 0 ]
+					},
+					{ "time": 0.6333, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/spark_B" }
+				]
+			},
+			"Spark_C": {
+				"rgba": [
+					{
+						"color": "ffffff00",
+						"curve": [ 0.056, 1, 0.111, 1, 0.056, 1, 0.111, 1, 0.056, 1, 0.111, 1, 0.056, 0, 0.111, 0.33 ]
+					},
+					{ "time": 0.1667, "color": "ffffffff", "curve": "stepped" },
+					{
+						"time": 0.3167,
+						"color": "ffffffff",
+						"curve": [ 0.422, 1, 0.528, 1, 0.422, 1, 0.528, 1, 0.422, 1, 0.528, 1, 0.422, 0.33, 0.528, 0 ]
+					},
+					{ "time": 0.6333, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "Detective_Camera/images/destruction_support/spark_C" }
+				]
+			}
+		},
+		"bones": {
+			"Flash": {
+				"scale": [
+					{
+						"x": 0.653,
+						"y": 0.653,
+						"curve": [ 0.046, 1.759, 0.111, 1.714, 0.046, 1.759, 0.111, 1.714 ]
+					},
+					{ "time": 0.1667, "x": 1.714, "y": 1.714 }
+				]
+			},
+			"big_Smoke": {
+				"rotate": [
+					{
+						"curve": [ 0.2, 2.67, 0.486, 4.37 ]
+					},
+					{
+						"time": 0.7333,
+						"value": 5.12,
+						"curve": [ 0.831, 5.41, 0.922, 5.57 ]
+					},
+					{ "time": 1, "value": 5.57 }
+				],
+				"scale": [
+					{
+						"x": 0.16,
+						"y": 0.16,
+						"curve": [ 0.2, 0.563, 0.486, 0.819, 0.2, 0.563, 0.486, 0.819 ]
+					},
+					{
+						"time": 0.7333,
+						"x": 0.932,
+						"y": 0.932,
+						"curve": [ 0.831, 0.976, 0.922, 1, 0.831, 0.976, 0.922, 1 ]
+					},
+					{ "time": 1 }
+				]
+			},
+			"small_smoke_cloud": {
+				"rotate": [
+					{
+						"curve": [ 0.2, -8.03, 0.486, -13.13 ]
+					},
+					{
+						"time": 0.7333,
+						"value": -15.38,
+						"curve": [ 0.831, -16.25, 0.922, -16.72 ]
+					},
+					{ "time": 1, "value": -16.72 }
+				],
+				"scale": [
+					{
+						"x": 0.16,
+						"y": 0.16,
+						"curve": [ 0.2, 0.563, 0.486, 0.819, 0.2, 0.563, 0.486, 0.819 ]
+					},
+					{
+						"time": 0.7333,
+						"x": 0.932,
+						"y": 0.932,
+						"curve": [ 0.831, 0.976, 0.922, 1, 0.831, 0.976, 0.922, 1 ]
+					},
+					{ "time": 1 }
+				]
+			},
+			"Smoke": {
+				"rotate": [
+					{
+						"curve": [ 0.278, 4.87, 0.722, 7.3 ]
+					},
+					{ "time": 1, "value": 7.3 }
+				],
+				"translate": [
+					{
+						"y": -99.41,
+						"curve": [ 0.222, 0, 0.778, 0, 0.145, 102.65, 0.778, 238.54 ]
+					},
+					{ "time": 1, "y": 238.54 }
+				],
+				"scale": [
+					{
+						"curve": [ 0.278, 3.105, 0.722, 4.158, 0.278, 7.463, 0.722, 10.695 ]
+					},
+					{ "time": 1, "x": 4.158, "y": 10.695 }
+				]
+			},
+			"spark_A": {
+				"rotate": [
+					{},
+					{ "time": 0.7333, "value": 361.09 }
+				],
+				"translatex": [
+					{
+						"value": 19.03,
+						"curve": [ 0.133, -188.11, 0.302, -267.36 ]
+					},
+					{
+						"time": 0.4167,
+						"value": -318.68,
+						"curve": [ 0.564, -384.57, 0.66, -461.77 ]
+					},
+					{ "time": 0.7333, "value": -546.15 }
+				],
+				"translatey": [
+					{
+						"value": -263.19,
+						"curve": [ 0.064, -72.93, 0.154, -3.91 ]
+					},
+					{
+						"time": 0.2,
+						"value": 22.2,
+						"curve": [ 0.268, 60.78, 0.561, 68.49 ]
+					},
+					{
+						"time": 0.6333,
+						"value": 22.2,
+						"curve": [ 0.657, 7.35, 0.694, -29.02 ]
+					},
+					{ "time": 0.7333, "value": -99.1 }
+				]
+			},
+			"Spark_B": {
+				"rotate": [
+					{ "value": 38.41 }
+				],
+				"translatex": [
+					{
+						"value": 9.51,
+						"curve": [ 0.111, 270.97, 0.248, 361.84 ]
+					},
+					{
+						"time": 0.3333,
+						"value": 401.7,
+						"curve": [ 0.433, 448.2, 0.533, 471.46 ]
+					},
+					{ "time": 0.6333, "value": 471.46 }
+				],
+				"translatey": [
+					{
+						"value": -275.87,
+						"curve": [ 0.063, -49.69, 0.215, 18.58 ]
+					},
+					{
+						"time": 0.3167,
+						"value": 61.26,
+						"curve": [ 0.403, 97.48, 0.544, 114.14 ]
+					},
+					{ "time": 0.65, "value": 114.14 }
+				]
+			},
+			"Spark_C": {
+				"translate": [
+					{
+						"y": -285.39,
+						"curve": [ 0.111, 259.83, 0.224, 327.03, 0.111, -139.52, 0.222, -66.59 ]
+					},
+					{
+						"time": 0.3333,
+						"x": 379.63,
+						"y": -66.59,
+						"curve": [ 0.427, 424.62, 0.531, 446.11, 0.433, -66.59, 0.533, -91.29 ]
+					},
+					{ "time": 0.6333, "x": 454.04, "y": -140.04 }
+				]
+			},
+			"debris_A": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -58.31 }
+				],
+				"translatex": [
+					{},
+					{ "time": 1, "value": 631.07 }
+				],
+				"translatey": [
+					{
+						"curve": [ 0.18, 152.5, 0.333, 185.23 ]
+					},
+					{
+						"time": 0.5,
+						"value": 185.23,
+						"curve": [ 0.667, 185.23, 0.85, 148.18 ]
+					},
+					{ "time": 1, "value": -46.31 }
+				]
+			},
+			"debris_B": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": 311.31 }
+				],
+				"translatex": [
+					{},
+					{ "time": 1, "value": -156.1 }
+				],
+				"translatey": [
+					{
+						"curve": [ 0.18, 152.5, 0.333, 170.41 ]
+					},
+					{
+						"time": 0.5,
+						"value": 170.41,
+						"curve": [ 0.667, 170.41, 0.85, 148.18 ]
+					},
+					{ "time": 1, "value": -46.31 }
+				]
+			},
+			"debris_C": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": 901.72 }
+				],
+				"translatex": [
+					{},
+					{ "time": 1, "value": -702 }
+				],
+				"translatey": [
+					{
+						"curve": [ 0.18, 152.5, 0.333, 151.89 ]
+					},
+					{
+						"time": 0.5,
+						"value": 151.89,
+						"curve": [ 0.667, 151.89, 0.85, 148.18 ]
+					},
+					{ "time": 1, "value": -46.31 }
+				]
+			},
+			"debris_D": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -1389.88 }
+				],
+				"translatex": [
+					{},
+					{ "time": 1, "value": 924 }
+				],
+				"translatey": [
+					{
+						"curve": [ 0.18, 152.5, 0.333, 231.53 ]
+					},
+					{
+						"time": 0.5,
+						"value": 231.53,
+						"curve": [ 0.667, 231.53, 0.85, 148.18 ]
+					},
+					{ "time": 1, "value": -46.31 }
+				]
+			},
+			"debris_E": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -360.8 }
+				],
+				"translatex": [
+					{},
+					{ "time": 1, "value": 258 }
+				],
+				"translatey": [
+					{
+						"curve": [ 0.18, 152.5, 0.333, 222.27 ]
+					},
+					{
+						"time": 0.5,
+						"value": 222.27,
+						"curve": [ 0.667, 222.27, 0.85, 148.18 ]
+					},
+					{ "time": 1, "value": -46.31 }
+				]
+			},
+			"destruction": {
+				"translate": [
+					{
+						"curve": [ 0.167, 0, 0.25, 0, 0.088, 266.9, 0.25, 342 ]
+					},
+					{
+						"time": 0.4167,
+						"y": 342,
+						"curve": [ 0.583, 0, 0.833, 0, 0.583, 342, 0.889, 147.41 ]
+					},
+					{ "time": 1, "y": -264 }
+				]
+			}
+		}
+	},
+	"idle_ground": {
+		"slots": {
+			"camera": {
+				"attachment": [
+					{ "time": 0.9167, "name": "Detective_Camera/images/camera" },
+					{ "time": 1.5, "name": "Detective_Camera/images/active_camera2" },
+					{ "time": 2.9167, "name": "Detective_Camera/images/camera" },
+					{ "time": 3.5, "name": "Detective_Camera/images/active_camera2" }
+				]
+			}
+		},
+		"bones": {
+			"Head": {
+				"rotate": [
+					{ "value": -1.78, "curve": "stepped" },
+					{
+						"time": 0.25,
+						"value": -1.78,
+						"curve": [ 0.75, -1.78, 1.25, 1.97 ]
+					},
+					{ "time": 1.75, "value": 1.97, "curve": "stepped" },
+					{
+						"time": 2.25,
+						"value": 1.97,
+						"curve": [ 2.75, 1.97, 3.25, -1.78 ]
+					},
+					{ "time": 3.75, "value": -1.78 }
+				],
+				"shear": [
+					{ "x": -1.75, "curve": "stepped" },
+					{
+						"time": 0.25,
+						"x": -1.75,
+						"curve": [ 0.75, -1.75, 1.25, 0, 0.75, 0, 1.25, -2.1 ]
+					},
+					{ "time": 1.75, "y": -2.1, "curve": "stepped" },
+					{
+						"time": 2.25,
+						"y": -2.1,
+						"curve": [ 2.75, 0, 3.25, -1.75, 2.75, -2.1, 3.25, 0 ]
+					},
+					{ "time": 3.75, "x": -1.75 }
+				]
+			},
+			"Tripod": {
+				"scale": [
+					{
+						"curve": [ 0.333, 1, 0.667, 0.997, 0.333, 1, 0.667, 1.012 ]
+					},
+					{
+						"time": 1,
+						"x": 0.997,
+						"y": 1.012,
+						"curve": [ 1.333, 0.997, 1.667, 1, 1.333, 1.012, 1.667, 1 ]
+					},
+					{
+						"time": 2,
+						"curve": [ 2.333, 1, 2.667, 0.997, 2.333, 1, 2.667, 1.012 ]
+					},
+					{
+						"time": 3,
+						"x": 0.997,
+						"y": 1.012,
+						"curve": [ 3.333, 0.997, 3.667, 1, 3.333, 1.012, 3.667, 1 ]
+					},
+					{ "time": 4 }
+				],
+				"shear": [
+					{
+						"x": -1.1,
+						"curve": [ 0.667, -1.1, 1.333, 0.97, 0.667, 0, 1.333, 0 ]
+					},
+					{
+						"time": 2,
+						"x": 0.97,
+						"curve": [ 2.667, 0.97, 3.333, -1.1, 2.667, 0, 3.333, 0 ]
+					},
+					{ "time": 4, "x": -1.1 }
+				]
+			}
+		}
+	},
+	"idle_wall": {
+		"slots": {
+			"camera": {
+				"attachment": [
+					{ "time": 0.9167, "name": "Detective_Camera/images/camera" },
+					{ "time": 1.5, "name": "Detective_Camera/images/active_camera2" },
+					{ "time": 2.9167, "name": "Detective_Camera/images/camera" },
+					{ "time": 3.5, "name": "Detective_Camera/images/active_camera2" }
+				]
+			},
+			"mount2": {
+				"attachment": [
+					{ "name": "Detective_Camera/images/wall_mount" }
+				]
+			},
+			"shadow": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"Head_Wall": {
+				"rotate": [
+					{ "value": -1.78, "curve": "stepped" },
+					{
+						"time": 0.25,
+						"value": -1.78,
+						"curve": [ 0.75, -1.78, 1.25, 1.97 ]
+					},
+					{ "time": 1.75, "value": 1.97, "curve": "stepped" },
+					{
+						"time": 2.25,
+						"value": 1.97,
+						"curve": [ 2.75, 1.97, 3.25, -1.78 ]
+					},
+					{ "time": 3.75, "value": -1.78 }
+				],
+				"scale": [
+					{
+						"curve": [ 0.333, 1, 0.667, 0.997, 0.333, 1, 0.667, 1.012 ]
+					},
+					{
+						"time": 1,
+						"x": 0.997,
+						"y": 1.012,
+						"curve": [ 1.333, 0.997, 1.667, 1, 1.333, 1.012, 1.667, 1 ]
+					},
+					{
+						"time": 2,
+						"curve": [ 2.333, 1, 2.667, 0.997, 2.333, 1, 2.667, 1.012 ]
+					},
+					{
+						"time": 3,
+						"x": 0.997,
+						"y": 1.012,
+						"curve": [ 3.333, 0.997, 3.667, 1, 3.333, 1.012, 3.667, 1 ]
+					},
+					{ "time": 4 }
+				],
+				"shear": [
+					{ "x": -1.75, "curve": "stepped" },
+					{
+						"time": 0.25,
+						"x": -1.75,
+						"curve": [ 0.75, -1.75, 1.25, 0, 0.75, 0, 1.25, -2.1 ]
+					},
+					{ "time": 1.75, "y": -2.1, "curve": "stepped" },
+					{
+						"time": 2.25,
+						"y": -2.1,
+						"curve": [ 2.75, 0, 3.25, -1.75, 2.75, -2.1, 3.25, 0 ]
+					},
+					{ "time": 3.75, "x": -1.75 }
+				]
+			},
+			"Mount_Wall": {
+				"shear": [
+					{
+						"x": -1.1,
+						"curve": [ 0.667, -1.1, 1.333, 0.97, 0.667, 0, 1.333, 0 ]
+					},
+					{
+						"time": 2,
+						"x": 0.97,
+						"curve": [ 2.667, 0.97, 3.333, -1.1, 2.667, 0, 3.333, 0 ]
+					},
+					{ "time": 4, "x": -1.1 }
+				]
+			}
+		}
+	}
+}
+}

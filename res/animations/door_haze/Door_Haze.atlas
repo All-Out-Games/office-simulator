@@ -1,0 +1,14 @@
+Door_Haze.png
+	size: 284, 108
+	filter: Linear, Linear
+	scale: 0.5
+darkness/cloud_1
+	bounds: 109, 9, 90, 85
+	offsets: 2, 2, 94, 89
+	rotate: 90
+darkness/cloud_2
+	bounds: 6, 6, 97, 93
+	offsets: 2, 2, 101, 97
+darkness/cloud_3
+	bounds: 200, 20, 77, 79
+	offsets: 2, 2, 81, 83

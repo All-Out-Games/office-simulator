@@ -1,0 +1,7 @@
+murder_dust_cloud.png
+	size: 952, 952
+	filter: Linear, Linear
+	scale: 0.5
+images/dust_cloud
+	bounds: 6, 139, 937, 804
+	offsets: 24, 24, 986, 843

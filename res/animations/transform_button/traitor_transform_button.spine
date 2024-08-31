@@ -1,0 +1,336 @@
+{
+"skeleton": { "hash": "LmbNDQ8Ohdc", "spine": "4.0.64", "x": -157.37, "y": -41.25, "width": 325.89, "height": 307.19 },
+"bones": [
+
+	{ "name": "root" },
+	{ "name": "bad_guy", "parent": "root", "x": 47.52, "y": 179.94 },
+	{ "name": "good_guy", "parent": "root", "x": -63.37, "y": 131.2 },
+	{ "name": "switch", "parent": "root", "x": -68.65, "scaleX": 0.9374, "scaleY": 0.9374 },
+	{ "name": "bone4", "parent": "root", "scaleX": 0.7984, "scaleY": 0.7984 }
+],
+"slots": [
+	{ "name": "bad_guy", "bone": "bad_guy", "attachment": "bad_guy" },
+	{ "name": "good_guy", "bone": "good_guy", "attachment": "good_guy" },
+	{ "name": "switch_backing", "bone": "bone4", "attachment": "switch_backing" },
+	{ "name": "switch", "bone": "switch", "attachment": "switch" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"bad_guy": {
+				"bad_guy": { "x": 0.5, "width": 241, "height": 172 }
+			},
+			"good_guy": {
+				"good_guy": { "x": 0.5, "y": 0.5, "width": 189, "height": 173 }
+			},
+			"switch": {
+				"switch": { "x": 0.5, "y": 0.5, "width": 129, "height": 89 },
+				"switch_evil": { "x": 0.5, "y": 0.5, "width": 129, "height": 89 }
+			},
+			"switch_backing": {
+				"switch_backing": { "x": 0.5, "y": 0.5, "width": 235, "height": 79 }
+			}
+		}
+	}
+],
+"animations": {
+	"bad_idle": {
+		"slots": {
+			"good_guy": {
+				"rgba": [
+					{ "color": "787878ff" }
+				]
+			},
+			"switch": {
+				"attachment": [
+					{ "name": "switch_evil" }
+				]
+			}
+		},
+		"bones": {
+			"switch": {
+				"translate": [
+					{ "x": 137.29 }
+				]
+			},
+			"bad_guy": {
+				"translatex": [
+					{ "value": -9.31 }
+				],
+				"translatey": [
+					{ "value": -44.63 }
+				],
+				"scale": [
+					{ "x": 1.013, "y": 1.013 }
+				]
+			},
+			"good_guy": {
+				"translatex": [
+					{ "value": 17.26 }
+				],
+				"translatey": [
+					{ "value": 49.71 }
+				],
+				"scale": [
+					{ "x": 0.9, "y": 0.9 }
+				]
+			}
+		},
+		"drawOrder": [
+			{
+				"offsets": [
+					{ "slot": "bad_guy", "offset": 1 }
+				]
+			},
+			{
+				"time": 0.3167,
+				"offsets": [
+					{ "slot": "bad_guy", "offset": 1 }
+				]
+			}
+		]
+	},
+	"bad_to_good": {
+		"slots": {
+			"bad_guy": {
+				"rgba": [
+					{
+						"color": "ffffffff",
+						"curve": [ 0.078, 2, 0.156, 0.53, 0.078, 2, 0.156, 0.53, 0.078, 2, 0.156, 0.53, 0.078, 2, 0.156, 1 ]
+					},
+					{ "time": 0.2333, "color": "868686ff" }
+				]
+			},
+			"good_guy": {
+				"rgba": [
+					{
+						"color": "787878ff",
+						"curve": [ 0.111, 0, 0.122, 1, 0.111, 0, 0.122, 1, 0.111, 0, 0.122, 1, 0.111, 2, 0.122, 1 ]
+					},
+					{ "time": 0.2333, "color": "ffffffff" }
+				]
+			},
+			"switch": {
+				"attachment": [
+					{ "name": "switch_evil" },
+					{ "time": 0.1167, "name": "switch" }
+				]
+			}
+		},
+		"bones": {
+			"switch": {
+				"translate": [
+					{
+						"x": 137.29,
+						"curve": [ 0.183, 138, 0.063, 0, 0.089, 0, 0.144, 0 ]
+					},
+					{ "time": 0.2333 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1167, "x": 1.114, "y": 0.793 },
+					{ "time": 0.2333 }
+				]
+			},
+			"bad_guy": {
+				"translatex": [
+					{
+						"value": -9.31,
+						"curve": [ 0.054, -7, 0.048, 31.39 ]
+					},
+					{
+						"time": 0.1167,
+						"value": 30.61,
+						"curve": [ 0.179, 30, 0.179, -8.08 ]
+					},
+					{ "time": 0.2333, "value": -9.31 }
+				],
+				"translatey": [
+					{
+						"value": -44.63,
+						"curve": [ 0.125, -42, 0.099, -4.85 ]
+					},
+					{ "time": 0.2333, "value": -3.16 }
+				],
+				"scale": [
+					{
+						"x": 1.013,
+						"y": 1.013,
+						"curve": [ 0.078, 1.013, 0.156, 0.899, 0.078, 1.013, 0.156, 0.899 ]
+					},
+					{ "time": 0.2333, "x": 0.899, "y": 0.899 }
+				]
+			},
+			"good_guy": {
+				"translatex": [
+					{
+						"value": 17.26,
+						"curve": [ 0.06, 12, 0.052, -19.82 ]
+					},
+					{
+						"time": 0.1167,
+						"value": -19.85,
+						"curve": [ 0.211, -18, 0.174, 15.67 ]
+					},
+					{ "time": 0.2333, "value": 17.26 }
+				],
+				"translatey": [
+					{
+						"value": 49.71,
+						"curve": [ 0.166, 45, 0.087, 2.7 ]
+					},
+					{ "time": 0.2333, "value": 2.54 }
+				],
+				"scale": [
+					{
+						"x": 0.9,
+						"y": 0.9,
+						"curve": [ 0.078, 0.9, 0.156, 1, 0.078, 0.9, 0.156, 1 ]
+					},
+					{ "time": 0.2333 }
+				]
+			}
+		},
+		"drawOrder": [
+			{
+				"offsets": [
+					{ "slot": "bad_guy", "offset": 1 }
+				]
+			},
+			{ "time": 0.1167 }
+		]
+	},
+	"good_idle": {
+		"slots": {
+			"bad_guy": {
+				"rgba": [
+					{ "color": "868686ff", "curve": "stepped" },
+					{ "time": 0.4, "color": "868686ff" }
+				]
+			}
+		},
+		"bones": {
+			"bad_guy": {
+				"translate": [
+					{ "x": -9.31, "y": -3.16 }
+				],
+				"scale": [
+					{ "x": 0.899, "y": 0.899 }
+				]
+			},
+			"good_guy": {
+				"translate": [
+					{ "x": 17.26, "y": 2.54 }
+				]
+			}
+		}
+	},
+	"good_to_bad": {
+		"slots": {
+			"bad_guy": {
+				"rgba": [
+					{
+						"color": "868686ff",
+						"curve": [ 0.078, 0.53, 0.156, 1, 0.078, 0.53, 0.156, 1, 0.078, 0.53, 0.156, 1, 0.078, 1, 0.156, 1 ]
+					},
+					{ "time": 0.2333, "color": "ffffffff" }
+				]
+			},
+			"good_guy": {
+				"rgba": [
+					{
+						"color": "ffffffff",
+						"curve": [ 0.111, 1, 0.122, 0.47, 0.111, 1, 0.122, 0.47, 0.111, 1, 0.122, 0.47, 0.111, 1, 0.122, 1 ]
+					},
+					{ "time": 0.2333, "color": "787878ff" }
+				]
+			},
+			"switch": {
+				"attachment": [
+					{ "time": 0.1167, "name": "switch_evil" }
+				]
+			}
+		},
+		"bones": {
+			"switch": {
+				"translate": [
+					{
+						"curve": [ 0.149, 0, 0.073, 137.01, 0.078, 0, 0.156, 0 ]
+					},
+					{ "time": 0.2333, "x": 137.29 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1167, "x": 1.114, "y": 0.793 },
+					{ "time": 0.2333 }
+				]
+			},
+			"bad_guy": {
+				"translatex": [
+					{
+						"value": -9.31,
+						"curve": [ 0.054, -8.08, 0.054, 29.89 ]
+					},
+					{
+						"time": 0.1167,
+						"value": 30.61,
+						"curve": [ 0.185, 31.39, 0.179, -6.39 ]
+					},
+					{ "time": 0.2333, "value": -9.31 }
+				],
+				"translatey": [
+					{
+						"value": -3.16,
+						"curve": [ 0.135, -4.85, 0.108, -43.23 ]
+					},
+					{ "time": 0.2333, "value": -44.63 }
+				],
+				"scale": [
+					{
+						"x": 0.899,
+						"y": 0.899,
+						"curve": [ 0.112, 0.896, 0.156, 1.013, 0.112, 0.896, 0.156, 1.013 ]
+					},
+					{ "time": 0.2333, "x": 1.013, "y": 1.013 }
+				]
+			},
+			"good_guy": {
+				"translatex": [
+					{
+						"value": 17.26,
+						"curve": [ 0.06, 15.67, 0.022, -19.9 ]
+					},
+					{
+						"time": 0.1167,
+						"value": -19.85,
+						"curve": [ 0.181, -19.82, 0.173, 12.66 ]
+					},
+					{ "time": 0.2333, "value": 17.26 }
+				],
+				"translatey": [
+					{
+						"value": 2.54,
+						"curve": [ 0.147, 2.7, 0.067, 46.62 ]
+					},
+					{ "time": 0.2333, "value": 49.71 }
+				],
+				"scale": [
+					{
+						"curve": [ 0.078, 1, 0.054, 0.914, 0.078, 1, 0.054, 0.914 ]
+					},
+					{ "time": 0.2333, "x": 0.9, "y": 0.9 }
+				]
+			}
+		},
+		"drawOrder": [
+			{
+				"time": 0.1167,
+				"offsets": [
+					{ "slot": "bad_guy", "offset": 1 }
+				]
+			}
+		]
+	}
+}
+}

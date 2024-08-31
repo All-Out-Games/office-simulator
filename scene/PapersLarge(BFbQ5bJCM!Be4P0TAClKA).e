@@ -1,0 +1,56 @@
+13
+128849018881
+305338778423436 1709185623099331200
+{
+  "name": "PapersLarge",
+  "local_enabled": true,
+  "local_position": {
+    "X": -22.7745761871337891,
+    "Y": 7.4859118461608887
+  },
+  "local_rotation": 0,
+  "local_scale": {
+    "X": 4,
+    "Y": 4
+  },
+  "previous_sibling": "305537709327331:1709185685514899400",
+  "next_sibling": "815229161039953:1709621723193682300",
+  "parent": "812070970290054:1709620732295121700",
+  "spawn_as_networked_entity": true
+},
+{
+  "cid": 1,
+  "aoid": "305338778504284:1709185623099356000",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Sprite_Renderer",
+  "data": {
+    "texture": "48x48/Modern_Office_Singles_48x48_155.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
+  }
+},
+{
+  "cid": 2,
+  "aoid": "798670483116624:1709616527823478500",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Interactable",
+  "data": {
+    "prompt_offset": {
+      "X": 0,
+      "Y": 1
+    },
+    "text": "",
+    "hold_text": "",
+    "radius": 2,
+    "required_hold_time": 0.6000000238418579
+  }
+}

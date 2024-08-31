@@ -1,0 +1,33 @@
+murder_duster.png
+	size: 3388, 3388
+	filter: Linear, Linear
+	scale: 0.5
+images/backing
+	bounds: 6, 2394, 1181, 987
+images/brush
+	bounds: 1368, 1757, 960, 1258
+	rotate: 180
+images/brush_dusty
+	bounds: 1108, 2068, 960, 1258
+images/dust_cloud
+	bounds: 6, 881, 937, 804
+	offsets: 24, 24, 986, 843
+images/fingerprint
+	bounds: 1774, 881, 352, 465
+	offsets: 3, 3, 358, 471
+images/fingerprint_dust_bowl
+	bounds: 1673, 154, 492, 334
+images/hand_L
+	bounds: 6, 71, 870, 804
+images/hand_L_front
+	bounds: 1107, 881, 870, 661
+	rotate: 90
+images/hand_R
+	bounds: 882, 6, 869, 785
+	rotate: 90
+images/hand_R_front
+	bounds: 1673, 494, 655, 381
+	offsets: 0, 0, 655, 382
+images/tape
+	bounds: 6, 1691, 697, 1096
+	rotate: 90

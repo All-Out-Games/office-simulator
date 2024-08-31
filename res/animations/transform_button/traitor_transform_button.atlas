@@ -1,0 +1,18 @@
+traitor_transform_button.png
+	size: 504, 272
+	filter: Linear, Linear
+bad_guy
+	bounds: 4, 96, 239, 170
+	offsets: 1, 1, 241, 172
+good_guy
+	bounds: 247, 95, 186, 171
+	offsets: 2, 1, 189, 173
+switch
+	bounds: 372, 4, 127, 87
+	offsets: 1, 1, 129, 89
+switch_backing
+	bounds: 4, 15, 233, 77
+	offsets: 1, 1, 235, 79
+switch_evil
+	bounds: 241, 4, 127, 87
+	offsets: 1, 1, 129, 89

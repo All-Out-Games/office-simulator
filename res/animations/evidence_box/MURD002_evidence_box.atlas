@@ -1,0 +1,30 @@
+MURD002_evidence_box.png
+	size: 804, 232
+	filter: Linear, Linear
+behind_box
+	bounds: 239, 40, 194, 186
+	offsets: 1, 1, 196, 188
+front_box
+	bounds: 437, 32, 194, 152
+	offsets: 1, 1, 196, 154
+	rotate: 90
+middle_paper
+	bounds: 593, 4, 101, 108
+	offsets: 2, 2, 105, 112
+	rotate: 90
+middle_paper2
+	bounds: 593, 109, 111, 117
+	offsets: 1, 1, 113, 119
+middle_paper3
+	bounds: 705, 4, 101, 93
+	offsets: 1, 1, 103, 95
+	rotate: 90
+middle_paper4
+	bounds: 708, 109, 76, 111
+	offsets: 1, 1, 78, 113
+shadow
+	bounds: 4, 66, 231, 160
+	offsets: 7, 7, 246, 174
+shine
+	bounds: 4, 15, 38, 47
+	offsets: 1, 1, 40, 49

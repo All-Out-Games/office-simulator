@@ -1,0 +1,147 @@
+{
+"skeleton": { "hash": "K7CB4h8T3gQ", "spine": "4.0.64", "x": -650.5, "y": -792, "width": 1301, "height": 1584 },
+"bones": [
+
+	{ "name": "root" },
+	{ "name": "Book", "parent": "root" },
+	{ "name": "old key", "parent": "Book", "y": 31.13 }
+],
+"slots": [
+	{ "name": "Book", "bone": "Book", "attachment": "images/closed Book" },
+	{ "name": "old key", "bone": "old key" },
+	{ "name": "spiderwebs", "bone": "Book" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"Book": {
+				"images/closed Book": { "width": 1301, "height": 1584 },
+				"images/empty book": { "x": -544.95, "y": 0.7, "width": 2393, "height": 1585 }
+			},
+			"old key": {
+				"images/old key": { "x": 18.27, "y": -13.62, "width": 648, "height": 789 }
+			},
+			"spiderwebs": {
+				"images/spiderwebs": { "x": 7.41, "y": 98.99, "width": 993, "height": 1120 }
+			}
+		}
+	}
+],
+"animations": {
+	"idle": {},
+	"idle_open": {
+		"slots": {
+			"Book": {
+				"attachment": [
+					{ "name": "images/empty book" }
+				]
+			},
+			"old key": {
+				"attachment": [
+					{ "name": "images/old key" }
+				]
+			},
+			"spiderwebs": {
+				"attachment": [
+					{ "name": "images/spiderwebs" }
+				]
+			}
+		}
+	},
+	"idle_open_no_key": {
+		"slots": {
+			"Book": {
+				"attachment": [
+					{ "name": "images/empty book" }
+				]
+			},
+			"spiderwebs": {
+				"attachment": [
+					{ "name": "images/spiderwebs" }
+				]
+			}
+		}
+	},
+	"open": {
+		"slots": {
+			"Book": {
+				"attachment": [
+					{ "time": 0.2, "name": "images/empty book" }
+				]
+			},
+			"old key": {
+				"attachment": [
+					{ "time": 0.2, "name": "images/old key" }
+				]
+			},
+			"spiderwebs": {
+				"attachment": [
+					{ "time": 0.2, "name": "images/spiderwebs" }
+				]
+			}
+		},
+		"bones": {
+			"Book": {
+				"scale": [
+					{
+						"curve": [ 0.033, 1, 0.067, 1.032, 0.033, 1, 0.067, 0.983 ]
+					},
+					{
+						"time": 0.1,
+						"x": 1.095,
+						"y": 0.948,
+						"curve": [ 0.138, 1.166, 0.159, 0.914, 0.139, 0.908, 0.159, 1.137 ]
+					},
+					{
+						"time": 0.2,
+						"x": 0.914,
+						"y": 1.137,
+						"curve": [ 0.228, 0.914, 0.253, 1.148, 0.228, 1.137, 0.25, 0.885 ]
+					},
+					{
+						"time": 0.2833,
+						"x": 1.067,
+						"y": 0.962,
+						"curve": [ 0.311, 0.994, 0.356, 0.939, 0.311, 1.025, 0.356, 1.081 ]
+					},
+					{
+						"time": 0.3833,
+						"x": 0.957,
+						"y": 1.056,
+						"curve": [ 0.425, 0.986, 0.475, 1, 0.425, 1.019, 0.475, 1 ]
+					},
+					{ "time": 0.5167 }
+				]
+			},
+			"old key": {
+				"rotate": [
+					{ "time": 0.2 },
+					{ "time": 0.3667, "value": -3.25 },
+					{ "time": 0.4667 }
+				],
+				"translate": [
+					{
+						"time": 0.2,
+						"curve": [ 0.244, 0, 0.239, 0, 0.228, 48.58, 0.256, 72.86 ]
+					},
+					{
+						"time": 0.2833,
+						"y": 72.86,
+						"curve": [ 0.344, 0, 0.322, 0, 0.317, 72.86, 0.35, 48.58 ]
+					},
+					{ "time": 0.3833 },
+					{ "time": 0.45, "y": 22.78 },
+					{ "time": 0.5167 }
+				],
+				"scale": [
+					{ "time": 0.2 },
+					{ "time": 0.25, "x": 0.967, "y": 1.033 },
+					{ "time": 0.3167, "x": 1.033, "y": 0.967 },
+					{ "time": 0.4 }
+				]
+			}
+		}
+	}
+}
+}

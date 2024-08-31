@@ -1,0 +1,140 @@
+002MURDER_killer.png
+	size: 2096, 2096
+	filter: Linear, Linear
+	scale: 0.5
+crazed_killer/angry
+	bounds: 1333, 1918, 130, 81
+	rotate: 90
+crazed_killer/apron
+	bounds: 529, 1869, 219, 130
+	rotate: 90
+crazed_killer/body_base
+	bounds: 330, 1875, 213, 227
+	rotate: 90
+crazed_killer/bow
+	bounds: 639, 1731, 52, 88
+crazed_killer/brow_angry_L
+	bounds: 1161, 1727, 73, 64
+crazed_killer/brow_angry_R
+	bounds: 1378, 1728, 63, 66
+crazed_killer/brow_neutral_L
+	bounds: 1447, 1737, 65, 57
+crazed_killer/brow_neutral_R
+	bounds: 1792, 1747, 58, 56
+crazed_killer/brow_raised_L
+	bounds: 250, 1738, 76, 25
+crazed_killer/brow_raised_R
+	bounds: 332, 1741, 54, 22
+crazed_killer/brow_sad_L
+	bounds: 108, 1744, 73, 29
+crazed_killer/brow_sad_R
+	bounds: 262, 1878, 59, 40
+crazed_killer/eyeball_L
+	bounds: 1420, 1918, 108, 94
+	rotate: 90
+crazed_killer/eyeball_R
+	bounds: 1797, 1812, 100, 92
+	rotate: 90
+crazed_killer/hair
+	bounds: 639, 1768, 238, 133
+	rotate: 90
+crazed_killer/hair_back
+	bounds: 1063, 1738, 174, 120
+	rotate: 90
+crazed_killer/hand_L_closed_hold
+	bounds: 1897, 1918, 94, 97
+crazed_killer/hand_L_fist
+	bounds: 1290, 1808, 104, 102
+	rotate: 90
+crazed_killer/hand_L_flat
+	bounds: 1520, 1918, 141, 71
+	rotate: 90
+crazed_killer/hand_L_open
+	bounds: 505, 1741, 128, 123
+crazed_killer/hand_L_pointing
+	bounds: 1009, 1872, 129, 102
+	offsets: 0, 1, 129, 103
+	rotate: 90
+crazed_killer/hand_L_posed
+	bounds: 770, 1807, 113, 135
+	offsets: 0, 1, 113, 136
+crazed_killer/hand_R_closed_hold
+	bounds: 1895, 1725, 85, 93
+	rotate: 90
+crazed_killer/hand_R_fist
+	bounds: 1996, 1816, 96, 92
+	rotate: 90
+crazed_killer/hand_R_flat
+	bounds: 889, 1764, 135, 102
+crazed_killer/hand_R_hold
+	bounds: 1997, 1918, 90, 95
+crazed_killer/hand_R_knife
+	bounds: 1598, 1814, 98, 96
+	rotate: 90
+crazed_killer/hand_R_open
+	bounds: 1117, 1918, 105, 117
+crazed_killer/hand_R_pointing
+	bounds: 1189, 1797, 115, 95
+	rotate: 90
+crazed_killer/hand_R_posed
+	bounds: 889, 1872, 114, 124
+crazed_killer/highlight_L
+	bounds: 363, 2075, 15, 13
+crazed_killer/highlight_R
+	bounds: 363, 2075, 15, 13
+crazed_killer/knife
+	bounds: 6, 1779, 139, 250
+	rotate: 90
+crazed_killer/leg_L
+	bounds: 1563, 1730, 78, 116
+	rotate: 90
+crazed_killer/leg_R
+	bounds: 767, 1727, 74, 107
+	rotate: 90
+crazed_killer/lid_angry_L
+	bounds: 1228, 1918, 109, 99
+	rotate: 90
+crazed_killer/lid_angry_R
+	bounds: 1697, 1918, 101, 93
+	rotate: 90
+crazed_killer/lid_closed_L
+	bounds: 1398, 1800, 112, 94
+	rotate: 90
+crazed_killer/lid_closed_R
+	bounds: 1700, 1809, 103, 91
+	offsets: 0, 1, 103, 92
+	rotate: 90
+crazed_killer/lid_happy_L
+	bounds: 1498, 1805, 107, 94
+	rotate: 90
+crazed_killer/lid_happy_R
+	bounds: 6, 1730, 96, 43
+crazed_killer/lid_neutral_L
+	bounds: 1895, 1816, 95, 96
+crazed_killer/lid_neutral_R
+	bounds: 1290, 1725, 82, 77
+crazed_killer/lid_sad_L
+	bounds: 1597, 1918, 104, 94
+	rotate: 90
+crazed_killer/lid_sad_R
+	bounds: 1796, 1918, 98, 95
+	rotate: 90
+crazed_killer/pupil_L
+	bounds: 330, 2061, 27, 27
+crazed_killer/pupil_R
+	bounds: 392, 1737, 22, 26
+crazed_killer/rage_emote
+	bounds: 1994, 1756, 56, 54
+	offsets: 0, 1, 56, 55
+crazed_killer/sad
+	bounds: 187, 1737, 57, 36
+crazed_killer/shadow
+	bounds: 6, 1924, 318, 164
+	offsets: 7, 5, 332, 174
+crazed_killer/smile
+	bounds: 262, 1769, 237, 101
+crazed_killer/smile_closed
+	bounds: 775, 2002, 172, 86
+crazed_killer/tongue
+	bounds: 1685, 1726, 76, 101
+	rotate: 90

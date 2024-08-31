@@ -1,0 +1,19 @@
+MURDER_Alarm.png
+	size: 1092, 1092
+	filter: Linear, Linear
+	scale: 0.5
+images/Line
+	bounds: 643, 852, 218, 171
+	offsets: 22, 14, 250, 202
+	rotate: 90
+images/alarm
+	bounds: 980, 873, 212, 105
+	rotate: 90
+images/base
+	bounds: 820, 871, 154, 199
+	offsets: 0, 1, 155, 200
+images/wave1
+	bounds: 387, 852, 250, 233
+	offsets: 85, 18, 420, 333
+images/wave2
+	bounds: 6, 851, 375, 234
