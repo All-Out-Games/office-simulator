@@ -15,6 +15,7 @@
   },
   "previous_sibling": "435459973762249:1725064894993337700",
   "next_sibling": "438004644441367:1725065693397378000",
+  "parent": "812070970290054:1709620732295121700",
   "spawn_as_networked_entity": true,
   "linked_prefab": "GarbageCan.prefab"
 },

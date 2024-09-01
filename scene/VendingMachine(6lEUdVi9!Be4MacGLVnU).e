@@ -68,4 +68,13 @@
     "restitution": 0,
     "restitution_threshold": 1
   }
+},
+{
+  "cid": 2,
+  "aoid": "493340708566964:1725083057045220000",
+  "component_type": "Mono_Component",
+  "mono_component_type": "VendingMachine",
+  "data": {
+
+  }
 }

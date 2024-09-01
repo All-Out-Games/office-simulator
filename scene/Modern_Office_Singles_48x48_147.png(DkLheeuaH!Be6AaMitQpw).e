@@ -39,18 +39,25 @@
   }
 },
 {
-  "cid": 3,
-  "aoid": "1003546463877673:1709680808714189700",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
+  "cid": 2,
+  "aoid": "36685837580508:1725145215746271000",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
   "data": {
-    "prompt_offset": {
-      "X": 0,
-      "Y": 1
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
+    "PromptText": "Fix Jam",
+    "MinimumRoleRequired": 1,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 0,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
+    "SpawnsDuringDay": true,
+    "SpawnsDuringNight": true,
+    "XpReward": 3,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

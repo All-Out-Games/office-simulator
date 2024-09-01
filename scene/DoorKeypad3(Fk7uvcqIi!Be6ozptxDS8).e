@@ -5,7 +5,7 @@
   "name": "DoorKeypad3",
   "local_enabled": true,
   "local_position": {
-    "X": -17.2440681457519531,
+    "X": -17.6382942199707031,
     "Y": 4.3137345314025879
   },
   "local_rotation": 0,

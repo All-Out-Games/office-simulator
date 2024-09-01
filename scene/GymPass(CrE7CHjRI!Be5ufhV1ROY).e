@@ -24,7 +24,7 @@
   "internal_component_type": "Edge_Collider",
   "data": {
     "is_trigger": false,
-    "is_loop": false,
+    "is_loop": true,
     "points": [
       {
         "X": -1,
@@ -67,5 +67,14 @@
     "hold_text": "",
     "radius": 2,
     "required_hold_time": 0.6000000238418579
+  }
+},
+{
+  "cid": 2,
+  "aoid": "479015049008272:1725078560631231400",
+  "component_type": "Mono_Component",
+  "mono_component_type": "GymPass",
+  "data": {
+
   }
 }

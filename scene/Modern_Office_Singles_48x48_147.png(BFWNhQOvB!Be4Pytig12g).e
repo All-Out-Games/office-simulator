@@ -39,18 +39,25 @@
   }
 },
 {
-  "cid": 3,
-  "aoid": "1003540087010925:1709680806713415700",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
+  "cid": 2,
+  "aoid": "36803872275570:1725145252780258300",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
   "data": {
-    "prompt_offset": {
-      "X": 0,
-      "Y": 1
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
+    "PromptText": "Buy Ink",
+    "MinimumRoleRequired": 2,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 0,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
+    "SpawnsDuringDay": false,
+    "SpawnsDuringNight": false,
+    "XpReward": 4,
+    "CashReward": 0,
+    "CashCost": 25
   }
 }

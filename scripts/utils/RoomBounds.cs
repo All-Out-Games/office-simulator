@@ -1,9 +1,33 @@
 using AO;
+    public enum Room
+    {
+        GYM,
+        HALLS,
+        CATETERIA,
+        FINANCE,
+        SERVERS,
+        LIBRARY,
+        JANITORCLOSET,
+        HR,
+        CONFERENCE,
+        CONFERENCE_SPEAKER,
+        
+        OFFICE1,
+        OFFICE2,
+        OFFICE3,
+        OFFICE4,
+        OFFICE5,
+        OFFICE6,
+        OFFICE7,
+        OFFICE8,
+        OFFICE_MANAGER,
+        OFFICE_CEO
+    }
 
 public class RoomBounds : Component
 {
     [Serialized]
-    public string RoomName;
+    public Room RoomName;
 
     public override void Start()
     {
@@ -12,13 +36,26 @@ public class RoomBounds : Component
         Entity.GetComponent<Box_Collider>().OnCollisionEnter = (Entity other) =>
         {
             var op = other.GetComponent<OfficePlayer>();
-            op.CurrentRoom.Set(RoomName);
+            op.CurrentRoom = RoomName;
         };
 
         Entity.GetComponent<Box_Collider>().OnCollisionExit = (Entity other) =>
         {
             var player = other.GetComponent<OfficePlayer>();
-            player.CurrentRoom.Set(null);
+            player.CurrentRoom = Room.HALLS;
         };
+    }
+
+    public static List<Player> GetPlayersInRoom(Room room)
+    {
+        var players = new List<Player>();
+
+        foreach (Player player in Player.AllPlayers)
+        {
+            var op = (OfficePlayer)player;
+            if (op.CurrentRoom == room) players.Add(player);
+        }
+
+        return players;
     }
 }

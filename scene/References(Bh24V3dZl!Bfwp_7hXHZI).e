@@ -14,7 +14,7 @@
     "Y": 1
   },
   "previous_sibling": "429188883773483:1725062927405301300",
-  "next_sibling": "435329664278787:1725064854108040000"
+  "next_sibling": "92861236545954:1725162841063887900"
 },
 {
   "cid": 1,
@@ -22,10 +22,10 @@
   "component_type": "Mono_Component",
   "mono_component_type": "References",
   "data": {
-    "ErrorSfx": "",
-    "ClickSfx": "",
+    "ErrorSfx": "sfx/error.wav",
+    "ClickSfx": "sfx/notification.wav",
     "MoneyStatText": "430070096685611:1725063203890567000",
-    "ExperienceStatText": "431433028826719:1725063631517818500",
+    "ExperienceStatText": "436369706085219:1725065180426720700",
     "RoleStatText": "431433028826719:1725063631517818500"
   }
 }

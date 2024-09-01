@@ -12,7 +12,7 @@ public enum DayState
 public partial class DayNightManager : Component
 {
   public static DayNightManager Instance;
-  public float DayLength = 10;
+  public float DayLength = 15;
   public float NightLength = 15;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
@@ -43,11 +43,17 @@ public partial class DayNightManager : Component
 
   public override void Update()
   {
+    // Don't progress time during board meetings
+    if (PromoNPC.Instance.BoardMeetingActive) return;
+
     if (Network.IsClient)
     {
       var op = (OfficePlayer)Network.LocalPlayer;
-      var clampedAmbiant = Math.Clamp(1 - Darkness, 0f, 0.3f);
-      op.CameraControl.AmbientColour = new Vector3(clampedAmbiant, clampedAmbiant, clampedAmbiant);
+      if (op.CurrentRoom != Room.HR)
+      {
+        var clampedAmbiant = Math.Clamp(1 - Darkness, 0f, 0.3f);
+        op.CameraControl.AmbientColour = new Vector3(clampedAmbiant, clampedAmbiant, clampedAmbiant);
+      }
     }
     else if (Network.IsServer)
     {
@@ -67,12 +73,6 @@ public partial class DayNightManager : Component
           break;
       }
     }
-  }
-
-  public void SendDuskMessages()
-  {
-
-
   }
 
   // Server update fns that actually progress time
@@ -112,11 +112,6 @@ public partial class DayNightManager : Component
       transitionStartTime.Set(Time.TimeSinceStartup);
       CurrentState = DayState.NIGHT;
 
-      foreach (Player player in Player.AllPlayers)
-      {
-        player.AddEffect<TransformToKillerEffect>();
-      }
-
       CallClient_StartClientNight();
     }
   }
@@ -146,14 +141,23 @@ public partial class DayNightManager : Component
   [ClientRpc]
   public void StartClientNight()
   {
+
+    foreach (Player player in Player.AllPlayers)
+    {
+      var op = (OfficePlayer)player;
+      if (op.CurrentRole != Role.JANITOR) continue;
+      player.AddEffect<KillerEffect>();
+    }
+
+    // CLIENT ONLY FROM HERE
     var playerRef = (OfficePlayer)Network.LocalPlayer;
     if (!playerRef.Alive()) return;
+
+    playerRef.SetLightOn(true);
 
     foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
       jukkebox.SetNightVersion(true);
     }
-
-    playerRef.SetLightOn(true);
 
     nightSfxHandle1 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-hit.wav"), new SFX.PlaySoundDesc() { Volume = 1f });
     nightSfxHandle2 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-music.wav"), new SFX.PlaySoundDesc() { Volume = 1f });
@@ -162,14 +166,20 @@ public partial class DayNightManager : Component
   [ClientRpc]
   public void StopClientNight()
   {
+    foreach (Player player in Player.AllPlayers)
+    {
+      player.RemoveEffect<KillerEffect>(false);
+    }
+
+    // CLIENT ONLY FROM HERE
     var playerRef = (OfficePlayer)Network.LocalPlayer;
     if (!playerRef.Alive()) return;
-
-    playerRef.SetLightOn(false);
 
     foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
       jukkebox.SetNightVersion(false);
     }
+
+    playerRef.SetLightOn(false);
 
     // Assuming these are no-op if the handle is null?
     SFX.Stop(nightSfxHandle1);

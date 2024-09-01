@@ -5,7 +5,7 @@
   "name": "DoorKeypad1",
   "local_enabled": true,
   "local_position": {
-    "X": -26.0402660369873047,
+    "X": -26.6265354156494141,
     "Y": 4.3137345314025879
   },
   "local_rotation": 0,
@@ -14,6 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "53135077941816:1709269896307097500",
+  "next_sibling": "38236657206387:1725145702323829800",
   "parent": "54588633413777:1709270352367421400",
   "spawn_as_networked_entity": true
 },
@@ -35,21 +36,5 @@
     "wait_for_load": false,
     "wrap": false,
     "mask_in_shadow": false
-  }
-},
-{
-  "cid": 3,
-  "aoid": "306035737170473:1709185841773630800",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
-  "data": {
-    "prompt_offset": {
-      "X": -0.3499999940395355,
-      "Y": 0.3000000119209290
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
   }
 }

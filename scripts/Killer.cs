@@ -27,6 +27,91 @@ public class TransformToKillerEffect : MyEffect
     }
 }
 
+public class BoardMeetingEffect : MyEffect, INetworkedComponent
+{
+    public override bool IsActiveEffect => false;
+    public override bool BlockAbilityActivation => true;
+
+    public Random random;
+
+    public float Timer;
+
+    public Entity UI;
+
+    public List<OfficePlayer> candidates;
+    
+    public override void OnEffectStart(bool isDropIn)
+    {
+        random = new Random();
+
+        UI = Entity.Instantiate(Assets.GetAsset<Prefab>("BoardMeetingUI.prefab"));
+
+        var seatList = new List<Seat>();
+        var seats = Scene.Components<Seat>();
+        foreach (Seat seat in seats)
+        {
+            if (seat.Occupied.Value) continue;
+            seatList.Add(seat);
+        }
+
+        var boardSeats = seatList.Where(seat => seat.Type == "Board");
+        var candidateSeats = seatList.Where(seat => seat.Type == "Candidate");
+
+        Notifications.Show("A board meeting to elect a new CEO has been called...");
+
+        if (Player.IsBoardElectionCandidate)
+        {
+            candidates.Add(Player);
+
+            Player.Teleport(candidateSeats.First().Position);
+            // h4x h4x h4x ;(
+            candidateSeats.First().Entity.Position = new Vector2(candidateSeats.First().Position.X+2, candidateSeats.First().Position.Y);
+        }
+
+        var randomSeat = seatList[random.Next(seatList.Count)];
+        if (Network.IsServer) randomSeat.Occupied.Set(true);
+
+        Player.Teleport(randomSeat.Position);
+        Player.AddFreezeReason("board_meeting");
+
+        var voteLeft= UI.TryGetChildByName("VoteLeft");
+        var voteRight= UI.TryGetChildByName("VoteRight");
+
+        if (voteLeft.Alive() && voteRight.Alive())
+        {
+            var voteLeftButton = voteLeft.GetComponent<UIButton>();
+            var voteRightButton = voteRight.GetComponent<UIButton>();
+
+            var voteLeftText = voteLeft.GetComponent<UIText>();
+            var voteRightText = voteRight.GetComponent<UIText>();
+
+            voteLeftButton.OnClicked = () => {
+                candidates[0].BoardVotes.Set(candidates[0].BoardVotes.Value + 1);
+            };
+
+            voteRightButton.OnClicked = () => {
+                candidates[1].BoardVotes.Set(candidates[1].BoardVotes.Value + 1);
+            };
+        }
+    }
+
+    public override void OnEffectEnd(bool interrupt)
+    {
+        Player.Teleport(new Vector2(0, 0));
+        Player.RemoveFreezeReason("board_meeting");
+    }
+
+    public override void OnEffectUpdate()
+    {
+        Timer += Time.DeltaTime;
+        if (Timer >= 10)
+        {
+            Player.RemoveEffect<BoardMeetingEffect>(false);
+        }
+    }
+}
+
+
 public class KillerEffect : MyEffect, INetworkedComponent
 {
     public override bool IsActiveEffect => false;
@@ -55,7 +140,6 @@ public class KillerEffect : MyEffect, INetworkedComponent
         if (!isDropIn)
         {
             Player.AddInvisibilityReason(nameof(KillerEffect));
-            Player.AddNameInvisibilityReason(nameof(KillerEffect));
             Player.AddFreezeReason("transforming");
             // SFX.Play(Assets.GetAsset<AudioAsset>("sfx/transform_scary.wav"), new SFX.PlaySoundDesc(){Positional=true, Position=Player.Entity.Position});
             // SFX.Play(Assets.GetAsset<AudioAsset>("sfx/v2/killer-transform_to_imposter_end_v2.wav"), new SFX.PlaySoundDesc(){Positional=true, Position=Player.Entity.Position});
@@ -76,7 +160,6 @@ public class KillerEffect : MyEffect, INetworkedComponent
     {
         Player.KillerSpineAnimator.LocalEnabled = false;
         Player.RemoveInvisibilityReason(nameof(KillerEffect));
-        Player.RemoveNameInvisibilityReason(nameof(KillerEffect));
         Player.RemoveFreezeReason("transforming");
         if (!interrupt)
         {

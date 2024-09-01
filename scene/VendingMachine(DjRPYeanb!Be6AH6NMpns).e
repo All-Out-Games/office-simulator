@@ -39,22 +39,6 @@
   }
 },
 {
-  "cid": 2,
-  "aoid": "999541306153909:1709679552075393100",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
-  "data": {
-    "prompt_offset": {
-      "X": 0,
-      "Y": 1
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
-  }
-},
-{
   "cid": 4,
   "aoid": "999541306260100:1709679552075426400",
   "component_type": "Internal_Component",
@@ -83,5 +67,14 @@
     "friction": 0.2000000029802322,
     "restitution": 0,
     "restitution_threshold": 1
+  }
+},
+{
+  "cid": 2,
+  "aoid": "10751304760795:1725137078654472800",
+  "component_type": "Mono_Component",
+  "mono_component_type": "VendingMachine",
+  "data": {
+
   }
 }

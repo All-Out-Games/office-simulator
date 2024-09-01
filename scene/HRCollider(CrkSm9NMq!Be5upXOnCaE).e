@@ -25,16 +25,25 @@
   "data": {
     "size": {
       "X": 13.6138305664062500,
-      "Y": 15.0074501037597656
+      "Y": 15.5134391784667969
     },
     "offset": {
       "X": 0.1053458452224731,
-      "Y": -0.2749743461608887
+      "Y": -0.5279688835144043
     },
     "is_trigger": true,
     "density": 1,
     "friction": 0.2000000029802322,
     "restitution": 0,
     "restitution_threshold": 1
+  }
+},
+{
+  "cid": 2,
+  "aoid": "33048719651405:1725144074581991300",
+  "component_type": "Mono_Component",
+  "mono_component_type": "RoomBounds",
+  "data": {
+    "RoomName": 7
   }
 }

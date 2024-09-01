@@ -5,7 +5,7 @@
   "name": "Jail_Singles_48x48_212.png",
   "local_enabled": true,
   "local_position": {
-    "X": -34.1612854003906250,
+    "X": -34.0492630004882812,
     "Y": 26.4861392974853516
   },
   "local_rotation": 0,

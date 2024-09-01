@@ -35,7 +35,7 @@ public partial class Activity : Component
   [Serialized] public int CashCost = 0;
 
   // Refs
-  private Interactable interactable;
+  protected Interactable interactable;
   private Sprite_Renderer spriteRenderer;
 
   // State
@@ -68,7 +68,7 @@ public partial class Activity : Component
   public override void Start()
   {
     interactable.PromptOffset = new Vector2(-0.5f, 0.25f);
-    interactable.OnInteract += OnInteract;
+    interactable.OnInteract = OnInteract;
     interactable.CanUseCallback += MeetsBasicRequirements;
     interactable.Text = GetPromptWithRewardsAndCost();
   }
@@ -91,6 +91,10 @@ public partial class Activity : Component
     op.Experience.Set(op.Experience + XpReward);
     op.Cash.Set(op.Cash + (CashReward - CashCost));
     CurrentState = ActivityState.COOLDOWN;
+    if (OnCompleteSfx != null)
+    {
+      GameManager.Instance.CallClient_PlaySFX(OnCompleteSfx.Name);
+    }
   }
 
   public override void Update()

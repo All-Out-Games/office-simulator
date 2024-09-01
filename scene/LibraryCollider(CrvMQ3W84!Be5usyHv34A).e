@@ -37,4 +37,13 @@
     "restitution": 0,
     "restitution_threshold": 1
   }
+},
+{
+  "cid": 2,
+  "aoid": "33138332732289:1725144102698551900",
+  "component_type": "Mono_Component",
+  "mono_component_type": "RoomBounds",
+  "data": {
+    "RoomName": 5
+  }
 }

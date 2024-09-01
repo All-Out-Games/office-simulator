@@ -36,4 +36,45 @@
     "wrap": false,
     "mask_in_shadow": false
   }
+},
+{
+  "cid": 2,
+  "aoid": "497198806867725:1725084267544203700",
+  "component_type": "Mono_Component",
+  "mono_component_type": "PromoNPC",
+  "data": {
+
+  }
+},
+{
+  "cid": 3,
+  "aoid": "28430631260789:1725142625633231300",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Edge_Collider",
+  "data": {
+    "is_trigger": false,
+    "is_loop": true,
+    "points": [
+      {
+        "X": -0.5162802338600159,
+        "Y": -0.5723648667335510
+      },
+      {
+        "X": -0.4952488243579865,
+        "Y": 0.7931862473487854
+      },
+      {
+        "X": 0.3795767128467560,
+        "Y": 0.8282395005226135
+      },
+      {
+        "X": 0.4391651451587677,
+        "Y": -0.5828896164894104
+      }
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
+  }
 }

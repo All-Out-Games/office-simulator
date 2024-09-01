@@ -22,16 +22,48 @@ public partial class OfficePlayer : Player
     set => currentRole.Set((int)value);
   }
 
+  public SyncVar<int> currentRoom = new((int)Room.HALLS);
+  public Room CurrentRoom
+  {
+    get => (Room)currentRoom.Value;
+    set => currentRoom.Set((int)value);
+  }
+
   public SyncVar<int> Salary = new(25);
   public SyncVar<int> Experience = new(0);
   public SyncVar<int> Cash = new(125);
-  public SyncVar<string> CurrentRoom = new();
+
+  public int RequiredExperience => CurrentRole == Role.MANAGER ? 250 : 100;
 
   public Spine_Animator KillerSpineAnimator;
+  public SyncVar<bool> HasGymPass = new(false);
+  public SyncVar<bool> HasGivenSpeech = new(false);
 
+  public SyncVar<bool> Caffeinated = new(false);
+
+  public SyncVar<int> BoardVotes = new(0);
+  public SyncVar<bool> IsBoardElectionCandidate = new(false);
+
+  public override Vector2 CalculatePlayerVelocity(Vector2 currentVelocity, Vector2 input, float deltaTime)
+  {
+      var multiplier = 2f;
+      if (HasEffect<KillerEffect>())
+      {
+        multiplier *= 0.6f;
+      }
+      if (Caffeinated)
+      {
+        multiplier *= 1.25f;
+      }
+
+      Vector2 velocity = DefaultPlayerVelocityCalculation(currentVelocity, input, deltaTime, multiplier);
+      return velocity;
+  }
 
   public override void Awake()
   {
+    Game.SetVoiceEnabled(true);
+    
     Experience.OnSync += (oldValue, newValue) =>
     {
       References.Instance.ExperienceStatText.Text = "Experience: " + newValue + "/100";
@@ -166,53 +198,52 @@ public partial class OfficePlayer : Player
         KillerSpineAnimator.SpineInstance.SetStateMachine(killerStateMachine, killerEntity);
         KillerSpineAnimator.LocalEnabled = false;
     }
-
-
-
   }
 
   public void SetLightOn(bool on)
   {
     if (on)
     {
-      lightEntity = Entity.Create();
-      lightEntity.SetParent(this.Entity, false);
-      lightEntity.AddComponent<SpookyLight>();
+      if (!lightEntity.Alive())
+      {
+        lightEntity = Entity.Create();
+        lightEntity.SetParent(this.Entity, false);
+        lightEntity.AddComponent<SpookyLight>();
+      }
     }
     else
     {
+      if (!lightEntity.Alive()) return;
       lightEntity.Destroy();
     }
   }
-
-
 
   public override void Update()
   {
     bool moving = Velocity.Length > 0.03f;
     KillerSpineAnimator.SpineInstance.StateMachine.SetBool("moving", moving);
 
-    var roleStatTextSettings = References.Instance.RoleStatText.Settings;
-    roleStatTextSettings.Color = new Vector4(1, 1, 1, 1);
-    References.Instance.RoleStatText.Text = "Your Role: " + CurrentRole.ToString();
-    References.Instance.RoleStatText.Settings = roleStatTextSettings;
-
-    if (DayNightManager.Instance.CurrentState == DayState.NIGHT)
-    {
-      // Special display of the role for zombie janitors
-      if (CurrentRole == Role.JANITOR)
-      {
-        roleStatTextSettings = References.Instance.RoleStatText.Settings;
-        roleStatTextSettings.Color = new Vector4(1, 0, 0, 1);
-        References.Instance.RoleStatText.Text = "Your Role: \"Janitor\"";
-        References.Instance.RoleStatText.Settings = roleStatTextSettings;
-      }
-    }
-
     if (IsLocal)
     {
       // Make the camera follow the player
       CameraControl.Position = Entity.Position + new Vector2(0, 0.5f);
+
+      var roleStatTextSettings = References.Instance.RoleStatText.Settings;
+      roleStatTextSettings.Color = new Vector4(1, 1, 1, 1);
+      References.Instance.RoleStatText.Text = "Your Role: " + CurrentRole.ToString();
+      References.Instance.RoleStatText.Settings = roleStatTextSettings;
+
+      if (DayNightManager.Instance.CurrentState == DayState.NIGHT)
+      {
+        // Special display of the role for zombie janitors
+        if (CurrentRole == Role.JANITOR)
+        {
+          roleStatTextSettings = References.Instance.RoleStatText.Settings;
+          roleStatTextSettings.Color = new Vector4(1, 0, 0, 1);
+          References.Instance.RoleStatText.Text = "Your Role: \"Janitor\"";
+          References.Instance.RoleStatText.Settings = roleStatTextSettings;
+        }
+      }
     }
   }
 }

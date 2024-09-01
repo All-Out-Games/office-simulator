@@ -14,7 +14,8 @@
     "Y": 2.0408177375793457
   },
   "previous_sibling": "501783085026816:1709523374439378600",
-  "next_sibling": "752404217607240:1709602009806869400"
+  "next_sibling": "752404217607240:1709602009806869400",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
@@ -55,5 +56,16 @@
     "friction": 0.2000000029802322,
     "restitution": 0,
     "restitution_threshold": 1
+  }
+},
+{
+  "cid": 3,
+  "aoid": "36198591636445:1725145062870374100",
+  "component_type": "Mono_Component",
+  "mono_component_type": "GymDoor",
+  "data": {
+    "Inside": "479363041692426:1725078669815797700",
+    "Outside": "479268511860644:1725078640156557200",
+    "RoomName": 0
   }
 }

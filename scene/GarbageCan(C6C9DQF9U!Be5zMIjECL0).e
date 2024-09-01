@@ -13,7 +13,9 @@
     "X": 4,
     "Y": 4
   },
-  "next_sibling": "1054928737194895:1709696930166218900",
+  "previous_sibling": "19843171803632:1717370276095583100",
+  "next_sibling": "435380927043440:1725064870192006400",
+  "parent": "812070970290054:1709620732295121700",
   "spawn_as_networked_entity": true,
   "linked_prefab": "GarbageCan.prefab"
 },

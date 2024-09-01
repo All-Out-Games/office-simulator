@@ -14,7 +14,7 @@
     "Y": 1
   },
   "previous_sibling": "305338778423436:1709185623099331200",
-  "next_sibling": "818071941109426:1709622615130522700",
+  "next_sibling": "1003837032344710:1709680899881538400",
   "parent": "812070970290054:1709620732295121700",
   "spawn_as_networked_entity": true
 },
@@ -48,15 +48,15 @@
     "MinimumRoleRequired": 1,
     "ActiveTexture": "Destroyed Computer - light.png",
     "CooldownTexture": "",
-    "OnCompleteSfx": "",
+    "OnCompleteSfx": "sfx/server-boot.wav",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
-    "CooldownSeconds": 0,
-    "AvailableForSeconds": 0,
-    "HideWhenOnCooldown": false,
+    "CooldownSeconds": 3,
+    "AvailableForSeconds": 25,
+    "HideWhenOnCooldown": true,
     "SpawnsDuringDay": false,
     "SpawnsDuringNight": true,
-    "XpReward": 25,
+    "XpReward": 15,
     "CashReward": 0,
     "CashCost": 0
   }

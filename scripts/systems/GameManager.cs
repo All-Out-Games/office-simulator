@@ -11,6 +11,11 @@ public partial class GameManager : Component
     SetupLeaderboards();
   }
 
+  public Player[] GetPlayersByRole(Role role)
+  {
+    return Player.AllPlayers.Where(p => ((OfficePlayer)p).CurrentRole == role).ToArray();
+  }
+
   private void SetupLeaderboards()
   {
     Leaderboard.Register("Role", (Player[] players, string[] scores) =>
@@ -19,6 +24,15 @@ public partial class GameManager : Component
       {
         OfficePlayer op = (OfficePlayer)players[i];
         scores[i] = op.CurrentRole.ToString();;
+      }
+    });
+
+    Leaderboard.Register("Room", (Player[] players, string[] scores) =>
+    {
+      for (int i = 0; i < players.Length; i++)
+      {
+        OfficePlayer op = (OfficePlayer)players[i];
+        scores[i] = op.CurrentRoom.ToString();;
       }
     });
   }

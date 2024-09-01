@@ -24,17 +24,26 @@
   "internal_component_type": "Box_Collider",
   "data": {
     "size": {
-      "X": 11.7626533508300781,
-      "Y": 7.9326992034912109
+      "X": 12.7324867248535156,
+      "Y": 8.9535293579101562
     },
     "offset": {
-      "X": -0.8202428817749023,
-      "Y": 2.7309422492980957
+      "X": -0.4366521835327148,
+      "Y": 2.5563273429870605
     },
     "is_trigger": true,
     "density": 1,
     "friction": 0.2000000029802322,
     "restitution": 0,
     "restitution_threshold": 1
+  }
+},
+{
+  "cid": 2,
+  "aoid": "481033725622863:1725079194001819500",
+  "component_type": "Mono_Component",
+  "mono_component_type": "RoomBounds",
+  "data": {
+    "RoomName": 0
   }
 }
