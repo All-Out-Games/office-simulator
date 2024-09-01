@@ -43,7 +43,8 @@
   "component_type": "Mono_Component",
   "mono_component_type": "PromoNPC",
   "data": {
-
+    "candidateSeat1": "95544766965045:1725163683035228100",
+    "candidateSeat2": "95565775158631:1725163689626655800"
   }
 },
 {

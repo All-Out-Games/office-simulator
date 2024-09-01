@@ -37,4 +37,13 @@
     "wrap": false,
     "mask_in_shadow": false
   }
+},
+{
+  "cid": 2,
+  "aoid": "119308726904190:1725171139098727000",
+  "component_type": "Mono_Component",
+  "mono_component_type": "OfficeSwitch",
+  "data": {
+
+  }
 }

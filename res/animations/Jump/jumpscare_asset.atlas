@@ -1,0 +1,52 @@
+jumpscare_asset.png
+	size: 8304, 8304
+	filter: Linear, Linear
+Jumpscare/Backlight1
+	bounds: 2, 6087, 3569, 2214
+	offsets: 1, 1, 3571, 2216
+Jumpscare/Backlight2
+	bounds: 3573, 6087, 3569, 2214
+	offsets: 1, 1, 3571, 2216
+Jumpscare/Behind1
+	bounds: 2, 2516, 3569, 2214
+	offsets: 1, 1, 3571, 2216
+	rotate: 90
+Jumpscare/Behind2
+	bounds: 2, 300, 3569, 2214
+	offsets: 1, 1, 3571, 2216
+Jumpscare/Body1
+	bounds: 7144, 5348, 2953, 675
+	offsets: 11, 1, 2974, 686
+	rotate: 90
+Jumpscare/Body2
+	bounds: 2218, 5413, 2963, 672
+	offsets: 8, 1, 2977, 685
+Jumpscare/HandL1
+	bounds: 7048, 3623, 1253, 1723
+	offsets: 1, 1, 1255, 1742
+Jumpscare/HandL2
+	bounds: 5789, 2346, 1245, 1715
+	offsets: 1, 1, 1248, 1736
+Jumpscare/HandR1
+	bounds: 5158, 944, 1574, 1400
+	offsets: 46, 11, 1621, 1412
+Jumpscare/HandR2
+	bounds: 3573, 1725, 1583, 1405
+	offsets: 45, 6, 1629, 1412
+Jumpscare/HeadBOTTOM 1
+	bounds: 6734, 225, 1558, 1385
+	offsets: 16, 2, 1577, 1390
+Jumpscare/HeadBOTTOM 2
+	bounds: 3573, 345, 1558, 1378
+	offsets: 16, 2, 1577, 1383
+Jumpscare/HeadTOP 1
+	bounds: 5789, 4063, 2022, 1257
+	offsets: 2, 6, 2027, 1269
+	rotate: 90
+Jumpscare/HeadTOP 2
+	bounds: 7036, 1612, 2009, 1263
+	offsets: 2, 4, 2022, 1275
+	rotate: 90
+Jumpscare/Vignette
+	bounds: 2218, 3132, 3569, 2214
+	offsets: 1, 1, 3571, 2216

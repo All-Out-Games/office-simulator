@@ -4,6 +4,7 @@ public class OfficeController : Component
 {
   [Serialized] public Role RequiredRole;
   [Serialized] public int Cost;
+  public SyncVar<bool> Unlocked = new(false);
 
   public SyncVar<Entity> Owner = new();
   

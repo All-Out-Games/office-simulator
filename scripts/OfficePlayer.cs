@@ -11,7 +11,6 @@ public enum Role
 public partial class OfficePlayer : Player
 {
   public SyncVar<bool> IsDead = new(false);
-  public SyncVar<int> Health = new(100);
   private Entity lightEntity;
 
   public CameraControl CameraControl;
@@ -29,8 +28,10 @@ public partial class OfficePlayer : Player
     set => currentRoom.Set((int)value);
   }
 
+  public Entity UI;
+
   public SyncVar<int> Salary = new(25);
-  public SyncVar<int> Experience = new(0);
+  public SyncVar<int> Experience = new(1000);
   public SyncVar<int> Cash = new(125);
 
   public int RequiredExperience => CurrentRole == Role.MANAGER ? 250 : 100;
@@ -44,9 +45,11 @@ public partial class OfficePlayer : Player
   public SyncVar<int> BoardVotes = new(0);
   public SyncVar<bool> IsBoardElectionCandidate = new(false);
 
+  public SyncVar<Entity> AssignedMeetingSeat = new();
+
   public override Vector2 CalculatePlayerVelocity(Vector2 currentVelocity, Vector2 input, float deltaTime)
   {
-      var multiplier = 2f;
+      var multiplier = 1.5f;
       if (HasEffect<KillerEffect>())
       {
         multiplier *= 0.6f;
@@ -63,15 +66,22 @@ public partial class OfficePlayer : Player
   public override void Awake()
   {
     Game.SetVoiceEnabled(true);
+    var spawns = Scene.Components<Spawn_Point>();
+    foreach (Spawn_Point spawn in spawns)
+    {
+      // Only teleport to the first spawn
+      Teleport(spawn.Position);
+      continue;
+    }
     
     Experience.OnSync += (oldValue, newValue) =>
     {
-      References.Instance.ExperienceStatText.Text = "Experience: " + newValue + "/100";
+      if (IsLocal) References.Instance.ExperienceStatText.Text = "XP: " + newValue + "/100";
     };
 
     Cash.OnSync += (oldValue, newValue) =>
     {
-      References.Instance.MoneyStatText.Text = "Cash $" + newValue;
+      if (IsLocal) References.Instance.MoneyStatText.Text = "Cash $" + newValue;
     };
 
     if (IsLocal)
@@ -141,6 +151,9 @@ public partial class OfficePlayer : Player
         aoLayer.CreateTransition(dragMove, aoRunState, false).CreateBoolCondition(dragBodyBool, false);
         aoLayer.CreateTransition(dragIdle, dragMove, false).CreateBoolCondition(aoMovingBool, true);
         aoLayer.CreateTransition(dragMove, dragIdle, false).CreateBoolCondition(aoMovingBool, false);
+
+        var tp = aoLayer.TryGetStateByName("Teleport_Appear");
+        aoLayer.CreateTransition(tp, aoIdleState, true);
     }
 
     {
@@ -148,30 +161,12 @@ public partial class OfficePlayer : Player
         killerEntity.LocalScale = new Vector2(0.22f, 0.22f);
         killerEntity.SetParent(Entity, false);
         KillerSpineAnimator = killerEntity.AddComponent<Spine_Animator>();
-        KillerSpineAnimator.SpineInstance.SetSkeleton(Assets.GetAsset<SpineSkeletonAsset>("animations/killer/002MURDER_killer.spine"));
+        KillerSpineAnimator.SpineInstance.SetSkeleton(Assets.GetAsset<SpineSkeletonAsset>("animations/Impostor/imposter_monster.spine"));
         KillerSpineAnimator.MaskInShadow = true;
         KillerSpineAnimator.SpineInstance.Scale = new Vector2(2.4f, 2.4f);
         var killerStateMachine = StateMachine.Make();
 
         var killerLayer = killerStateMachine.CreateLayer("killer_layer", 0);
-        var throwLayer = killerStateMachine.CreateLayer("throw_layer", 1);
-
-        var aimThrowTrigger = killerStateMachine.CreateVariable("aim_throw", StateMachineVariableKind.TRIGGER);
-        var throwTrigger = killerStateMachine.CreateVariable("throw", StateMachineVariableKind.TRIGGER);
-        var throwCancelTrigger = killerStateMachine.CreateVariable("throw_cancel", StateMachineVariableKind.TRIGGER);
-        var throwStart = throwLayer.CreateState("knife_throw_skill_shot/start", 0, false);
-        var throwHold = throwLayer.CreateState("knife_throw_skill_shot/hold", 0, true);
-        var throwRelease = throwLayer.CreateState("knife_throw_skill_shot/throw", 0, false);
-        var throwIdle = throwLayer.CreateState("__CLEAR_TRACK__", 0, false);
-        var throwEmpty = throwLayer.CreateState("empty", 0, false);
-        throwLayer.CreateGlobalTransition(throwStart).CreateTriggerCondition(aimThrowTrigger);
-        throwLayer.CreateTransition(throwStart, throwHold, true);
-        throwLayer.CreateTransition(throwStart, throwRelease, false).CreateTriggerCondition(throwTrigger);
-        throwLayer.CreateTransition(throwHold, throwRelease, false).CreateTriggerCondition(throwTrigger);
-        throwLayer.CreateTransition(throwRelease, throwEmpty, true);
-        throwLayer.CreateGlobalTransition(throwEmpty).CreateTriggerCondition(throwCancelTrigger);
-        throwLayer.SetInitialState(throwIdle);
-        throwLayer.CreateTransition(throwEmpty, throwIdle, true);
 
         var movingBool = killerStateMachine.CreateVariable("moving", StateMachineVariableKind.BOOLEAN);
         var idleState = killerLayer.CreateState("idle", 0, true);
@@ -180,20 +175,20 @@ public partial class OfficePlayer : Player
         killerLayer.CreateTransition(runState, idleState, false).CreateBoolCondition(movingBool, false);
         killerLayer.SetInitialState(idleState);
 
-        var attackTrigger = killerStateMachine.CreateVariable("attack", StateMachineVariableKind.TRIGGER);
-        var attackState = killerLayer.CreateState("knife_swipe", 0, false);
-        killerLayer.CreateGlobalTransition(attackState).CreateTriggerCondition(attackTrigger);
-        killerLayer.CreateTransition(attackState, idleState, true);
-
         var transformToTrigger = killerStateMachine.CreateVariable("transform_end", StateMachineVariableKind.TRIGGER);
-        var transformToEndState = killerLayer.CreateState("transform_to_imposter_end", 0, false);
+        var transformToEndState = killerLayer.CreateState("teleport_appear", 0, false);
         killerLayer.CreateGlobalTransition(transformToEndState).CreateTriggerCondition(transformToTrigger);
         killerLayer.CreateTransition(transformToEndState, idleState, true);
 
         var transformBackTrigger = killerStateMachine.CreateVariable("transform_back_start", StateMachineVariableKind.TRIGGER);
-        var transformFromStartState = killerLayer.CreateState("transform_to_normal_start", 0, false);
+        var transformFromStartState = killerLayer.CreateState("teleport_disapear", 0, false);
         killerLayer.CreateGlobalTransition(transformFromStartState).CreateTriggerCondition(transformBackTrigger);
         killerLayer.CreateTransition(transformFromStartState, idleState, true);
+
+        var attackTrigger = killerStateMachine.CreateVariable("attack", StateMachineVariableKind.TRIGGER);
+        var attackState = killerLayer.CreateState("convertbreath", 0, false);
+        killerLayer.CreateGlobalTransition(attackState).CreateTriggerCondition(attackTrigger);
+        killerLayer.CreateTransition(attackState, idleState, true);
 
         KillerSpineAnimator.SpineInstance.SetStateMachine(killerStateMachine, killerEntity);
         KillerSpineAnimator.LocalEnabled = false;
@@ -225,8 +220,16 @@ public partial class OfficePlayer : Player
 
     if (IsLocal)
     {
+      if (HasEffect<KillerEffect>())
+      {
+        DrawDefaultAbilityUI(new AbilityDrawOptions() {
+          Abilities = new Ability[] { GetAbility<KillAbility>() }
+        });
+      }
+
       // Make the camera follow the player
       CameraControl.Position = Entity.Position + new Vector2(0, 0.5f);
+      CameraControl.Zoom = 1.175f;
 
       var roleStatTextSettings = References.Instance.RoleStatText.Settings;
       roleStatTextSettings.Color = new Vector4(1, 1, 1, 1);
@@ -279,8 +282,5 @@ public abstract class MyAbility : Ability
 {
     public new OfficePlayer Player => (OfficePlayer)base.Player;
 
-    public override bool CanTarget(Player p)
-    {
-      return true;
-    }
+
 }

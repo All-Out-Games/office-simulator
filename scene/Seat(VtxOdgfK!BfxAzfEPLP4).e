@@ -15,7 +15,8 @@
   },
   "previous_sibling": "95499693725785:1725163668893269900",
   "next_sibling": "95509626060235:1725163672009590200",
-  "parent": "92861236545954:1725162841063887900"
+  "parent": "92861236545954:1725162841063887900",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 3,
@@ -23,6 +24,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Seat",
   "data": {
-    "Type": "Boardw"
+    "Type": "Board",
+    "FaceLeft": true
   }
 }

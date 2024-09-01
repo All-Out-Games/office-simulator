@@ -13,7 +13,7 @@ public partial class DayNightManager : Component
 {
   public static DayNightManager Instance;
   public float DayLength = 15;
-  public float NightLength = 15;
+  public float NightLength = 6;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
 
@@ -85,11 +85,12 @@ public partial class DayNightManager : Component
       Darkness.Set(0.85f);
       transitionStartTime.Set(Time.TimeSinceStartup);
       CurrentState = DayState.DUSK;
+      CallClient_StartClientDusk();
 
       var playerRef = (OfficePlayer)Player.AllPlayers[0];
       if (playerRef.Alive())
       {
-        GameManager.Instance.CallClient_PlaySFX("sfx/alarm.wav");
+        GameManager.Instance.CallClient_PlaySFX("sfx/pre-night.wav");
       }
     }
   }
@@ -104,7 +105,7 @@ public partial class DayNightManager : Component
       curNightfallMessageIndex++;
     }
 
-    if (Time.TimeSinceStartup - transitionStartTime >= 15f)
+    if (Time.TimeSinceStartup - transitionStartTime >= 14.5f)
     {
       // Advance to night time
       Darkness.Set(0.986f);
@@ -135,6 +136,14 @@ public partial class DayNightManager : Component
       // Advance to Day
       Darkness.Set(0f);
       CurrentState = DayState.DAY;
+    }
+  }
+
+  [ClientRpc]
+  public void StartClientDusk()
+  {
+    foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
+      jukkebox.Stop();
     }
   }
 

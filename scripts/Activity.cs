@@ -116,10 +116,18 @@ public partial class Activity : Component
     switch (CurrentState)
     {
       case ActivityState.ACTIVE:
+        if (SpawnsDuringNight && DayNightManager.Instance.CurrentState != DayState.NIGHT)
+        {
+          CurrentState = ActivityState.COOLDOWN;
+          break;
+        }
+
         if (AvailableForSeconds > 0 && timeInState.Value >= AvailableForSeconds)
         {
           CurrentState = ActivityState.COOLDOWN;
+          break;
         }
+        
         break;
       case ActivityState.COOLDOWN:
         if (timeInState.Value >= CooldownSeconds)

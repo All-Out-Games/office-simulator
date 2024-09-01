@@ -1,36 +1,11 @@
 using AO;
-public class TransformToKillerEffect : MyEffect
-{
-    public override bool IsActiveEffect => true;
-    public override bool FreezePlayer => true;
 
-    public override void OnEffectStart(bool isDropIn)
-    {
-        Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_start");
-        if (!isDropIn)
-        {
-            DurationRemaining = Player.SpineAnimator.SpineInstance.StateMachine.TryGetLayerByName("main").GetCurrentStateLength();
-            // SFX.Play(Assets.GetAsset<AudioAsset>("sfx/MurderMystery Player Character/transform_to_imposter_start.wav"), new SFX.PlaySoundDesc(){Positional=true, Position=Player.Entity.Position});
-        }
-    }
-
-    public override void OnEffectEnd(bool interrupt)
-    {
-        if (!interrupt)
-        {
-            Player.AddEffect<KillerEffect>();
-        }
-    }
-
-    public override void OnEffectUpdate()
-    {
-    }
-}
 
 public class BoardMeetingEffect : MyEffect, INetworkedComponent
 {
-    public override bool IsActiveEffect => false;
+    public override bool IsActiveEffect => true;
     public override bool BlockAbilityActivation => true;
+    public override bool FreezePlayer => true;
 
     public Random random;
 
@@ -38,44 +13,49 @@ public class BoardMeetingEffect : MyEffect, INetworkedComponent
 
     public Entity UI;
 
-    public List<OfficePlayer> candidates;
+    public List<OfficePlayer> candidates = new List<OfficePlayer>();
+    public override float DefaultDuration => 10f;
     
+    public bool HasPlayedEndSound;
+
     public override void OnEffectStart(bool isDropIn)
     {
-        random = new Random();
+
+        if (!Player.IsLocal) return;
+
+        random = new Random((int)Player.Entity.NetworkId);
 
         UI = Entity.Instantiate(Assets.GetAsset<Prefab>("BoardMeetingUI.prefab"));
 
-        var seatList = new List<Seat>();
-        var seats = Scene.Components<Seat>();
-        foreach (Seat seat in seats)
-        {
-            if (seat.Occupied.Value) continue;
-            seatList.Add(seat);
-        }
-
-        var boardSeats = seatList.Where(seat => seat.Type == "Board");
-        var candidateSeats = seatList.Where(seat => seat.Type == "Candidate");
-
         Notifications.Show("A board meeting to elect a new CEO has been called...");
 
-        if (Player.IsBoardElectionCandidate)
+        foreach (Player player in AO.Player.AllPlayers)
         {
-            candidates.Add(Player);
-
-            Player.Teleport(candidateSeats.First().Position);
-            // h4x h4x h4x ;(
-            candidateSeats.First().Entity.Position = new Vector2(candidateSeats.First().Position.X+2, candidateSeats.First().Position.Y);
+            var op = (OfficePlayer)player;
+            if (op.IsBoardElectionCandidate)
+            {
+                candidates.Add(op);
+            }
         }
 
-        var randomSeat = seatList[random.Next(seatList.Count)];
-        if (Network.IsServer) randomSeat.Occupied.Set(true);
+        candidates.Sort((a, b) => (int)a.Entity.NetworkId - (int)b.Entity.NetworkId);
 
-        Player.Teleport(randomSeat.Position);
-        Player.AddFreezeReason("board_meeting");
+        foreach (var candidate in candidates)
+        {
+            Notifications.Show($"{candidate.Name} is a candidate for CEO.");
+        }
+
+        var playerSeat = Player.AssignedMeetingSeat;
+
+        Player.Teleport(playerSeat.Value.Position);
+        Player.SetFacingDirection(playerSeat.Value.GetComponent<Seat>().FaceLeft ? false : true);
+
 
         var voteLeft= UI.TryGetChildByName("VoteLeft");
         var voteRight= UI.TryGetChildByName("VoteRight");
+
+        var leftCandidate = candidates[0];
+        var rightCandidate = candidates[1];
 
         if (voteLeft.Alive() && voteRight.Alive())
         {
@@ -85,12 +65,15 @@ public class BoardMeetingEffect : MyEffect, INetworkedComponent
             var voteLeftText = voteLeft.GetComponent<UIText>();
             var voteRightText = voteRight.GetComponent<UIText>();
 
+            voteLeftText.Text = leftCandidate.Name;
+            voteRightText.Text = rightCandidate.Name;
+
             voteLeftButton.OnClicked = () => {
-                candidates[0].BoardVotes.Set(candidates[0].BoardVotes.Value + 1);
+                leftCandidate.BoardVotes.Set(leftCandidate.BoardVotes.Value + 1);
             };
 
             voteRightButton.OnClicked = () => {
-                candidates[1].BoardVotes.Set(candidates[1].BoardVotes.Value + 1);
+                rightCandidate.BoardVotes.Set(rightCandidate.BoardVotes.Value + 1);
             };
         }
     }
@@ -98,15 +81,46 @@ public class BoardMeetingEffect : MyEffect, INetworkedComponent
     public override void OnEffectEnd(bool interrupt)
     {
         Player.Teleport(new Vector2(0, 0));
-        Player.RemoveFreezeReason("board_meeting");
+        var leftCandidate = candidates[0];
+        var rightCandidate = candidates[1];
+
+        if (Player.IsLocal)
+        {
+            UI.Destroy();
+            if (rightCandidate.BoardVotes.Value >= leftCandidate.BoardVotes.Value)
+            {
+                Notifications.Show($"{rightCandidate.Name} has been elected as CEO!");
+            }
+            else
+            {
+                Notifications.Show($"{leftCandidate.Name} has been elected as CEO!");
+            }
+        }
+
+        if (Network.IsServer)
+        {
+            leftCandidate.BoardVotes.Set(0);
+            rightCandidate.BoardVotes.Set(0);
+
+            if (rightCandidate.BoardVotes.Value >= leftCandidate.BoardVotes.Value)
+            {
+                rightCandidate.CurrentRole = Role.CEO;
+                leftCandidate.CurrentRole = Role.MANAGER;
+                leftCandidate.Experience.Set(0);
+            }
+            else
+            {
+                leftCandidate.CurrentRole = Role.CEO;
+            }
+
+        }
     }
 
     public override void OnEffectUpdate()
     {
-        Timer += Time.DeltaTime;
-        if (Timer >= 10)
+        if (AO.Util.OneTime(DurationRemaining <= 4.25f, ref HasPlayedEndSound))
         {
-            Player.RemoveEffect<BoardMeetingEffect>(false);
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/levelup.wav"), new SFX.PlaySoundDesc() {Volume=1f});
         }
     }
 }
@@ -118,10 +132,11 @@ public class KillerEffect : MyEffect, INetworkedComponent
     public override bool BlockAbilityActivation => !DoneAnim;
 
     public bool DoneAnim = false;
+    public ulong sfxHandle;
     
     public void OnKillerAnimationEnd(string animationName)
     {
-        if (animationName == "transform_to_imposter_end")
+        if (animationName == "teleport_appear")
         {
             Player.RemoveFreezeReason("transforming");
             DoneAnim = true;
@@ -139,10 +154,15 @@ public class KillerEffect : MyEffect, INetworkedComponent
     {
         if (!isDropIn)
         {
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume=0.75f, Positional = true, Position = Player.Entity.Position});
+
+            if (!Player.IsLocal)
+            {
+                sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=1.5f, Position = Player.Entity.Position, Positional=true} );
+            }
+
             Player.AddInvisibilityReason(nameof(KillerEffect));
             Player.AddFreezeReason("transforming");
-            // SFX.Play(Assets.GetAsset<AudioAsset>("sfx/transform_scary.wav"), new SFX.PlaySoundDesc(){Positional=true, Position=Player.Entity.Position});
-            // SFX.Play(Assets.GetAsset<AudioAsset>("sfx/v2/killer-transform_to_imposter_end_v2.wav"), new SFX.PlaySoundDesc(){Positional=true, Position=Player.Entity.Position});
             Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
             Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd += OnKillerAnimationEnd;
         }
@@ -158,6 +178,8 @@ public class KillerEffect : MyEffect, INetworkedComponent
 
     public override void OnEffectEnd(bool interrupt)
     {
+        SFX.Stop(sfxHandle);
+        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_off.wav"), new() { Volume=0.75f, Positional = true, Position = Player.Entity.Position});
         Player.KillerSpineAnimator.LocalEnabled = false;
         Player.RemoveInvisibilityReason(nameof(KillerEffect));
         Player.RemoveFreezeReason("transforming");
@@ -182,11 +204,11 @@ public class TransformFromKillerEffect : MyEffect
 
     public override void OnEffectStart(bool isDropIn)
     {
+        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() {Positional = true, Position = Player.Entity.Position});
         Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_back_start");
         if (isDropIn)
         {
             DurationRemaining = Player.KillerSpineAnimator.SpineInstance.StateMachine.TryGetLayerByName("killer_layer").GetCurrentStateLength();
-            // SFX.Play(Assets.GetAsset<AudioAsset>("sfx/v2/killer-transform_to_normal_start2_v2.wav"), new SFX.PlaySoundDesc(){Positional=true, Position=Player.Entity.Position});
         }
     }
 
@@ -234,21 +256,20 @@ public class FinishTransformFromKillerEffect : MyEffect
 public partial class KillAbility : MyAbility
 {
     public override TargettingMode TargettingMode => TargettingMode.Nearest;
-    public override float MaxDistance => 1f;
+    public override float MaxDistance => 1.5f;
     public override int MaxTargets => 1;
     public override Texture Icon => Assets.GetAsset<Texture>("Ability_Icons/kill_cleaver_icon.png");
     public override float Cooldown => 30f;
 
+    public override bool CanTarget(Player p)
+    {
+        var op = (OfficePlayer)p;
+        return op.CurrentRole != Role.JANITOR;
+    }
+
     public override bool OnTryActivate(List<Player> targetPlayers, Vector2 positionOrDirection, float magnitude)
     {
-        if (Player.HasEffect<KillerEffect>())
-        {
-            Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("attack");
-        }
-        else 
-        {
-            Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("murder_attack");
-        }
+        Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("attack");
 
         if (Network.IsServer)
         {
@@ -266,53 +287,122 @@ public partial class KillAbility : MyAbility
     [ClientRpc]
     public static void KillPlayer(Player player, Player killer)
     {
-
+        player.AddEffect<KillEffect>();
     }
-}
-
-public class KillerKillAbility : KillAbility
-{
-    public override float Cooldown => 3f;
 }
 
 public class KillEffect : MyEffect
 {
-    public enum DeathSourceEnum
-    {
-        Knife,
-        Bullet,
-        ThrownKnife,
-        LeftGame,
-    }
-
     public override bool IsActiveEffect => true;
     public override bool FreezePlayer => true;
     public override bool IsValidTarget => false;
-    public override float DefaultDuration => 1.0f;
+    public override float DefaultDuration => 1.133f;
 
-    public DeathSourceEnum DeathSource = DeathSourceEnum.Knife;
+    public SpineInstance JumpSpineInstance;
+
 
     public override void OnEffectStart(bool isDropIn)
     {
-        if (!isDropIn)
-        {
-            Player.RemoveEffect<KillerEffect>(true);
-            Player.AddInvisibilityReason(nameof(KillEffect));
-        }
+        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/disguise_activate.wav"), new() {Positional = true, Position = Player.Entity.Position});
+
+        Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("teleport_away");
 
         if (Network.IsServer)
         {
             Player.IsDead.Set(true);
         }
+
+        JumpSpineInstance = SpineInstance.Make();
+        JumpSpineInstance.SetSkeleton(Assets.GetAsset<SpineSkeletonAsset>("animations/Jump/jumpscare_asset.spine"));
+        JumpSpineInstance.SetAnimation("appear", false);
     }
 
     public override void OnEffectEnd(bool interrupt)
     {
-        Player.RemoveInvisibilityReason(nameof(KillEffect));
+        if (!interrupt)
+        {
+            Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("teleport_appear");
+            Player.AddEffect<SpectatorEffect>();
+        }
+
+        JumpSpineInstance.Destroy();
     }
 
     public override void OnEffectUpdate()
     {
+        JumpSpineInstance.Update(Time.DeltaTime);
+
+        if (Player.IsLocal)
+        {
+            UI.Image(UI.ScreenRect, UI.WhiteSprite, Vector4.Black);
+            UI.DrawSkeleton(UI.SafeRect.CenterRect(), JumpSpineInstance, Vector2.One*100, 0);
+        }
     }
 }
 
+public class SpectatorEffect : MyEffect
+{
+    public override bool IsActiveEffect => false;
+    public override bool IsValidTarget => false;
+
+    public bool HasNameInvisReason = false;
+
+    public void UpdateInvis()
+    {
+        if (Player.IsLocal || (Network.LocalPlayer.Alive() && Network.LocalPlayer.HasEffect<SpectatorEffect>()))
+        {
+            Player.SpineAnimator.SpineInstance.ColorMultiplier = new Vector4(1, 1, 1, 0.5f);
+            if (HasNameInvisReason)
+            {
+                HasNameInvisReason = false;
+                Player.RemoveNameInvisibilityReason(nameof(SpectatorEffect));
+            }
+        }
+        else
+        {
+            Player.SpineAnimator.SpineInstance.ColorMultiplier = new Vector4(1, 1, 1, 0);
+            if (!HasNameInvisReason)
+            {
+                HasNameInvisReason = true;
+                Player.AddNameInvisibilityReason(nameof(SpectatorEffect));
+            }
+        }
+    }
+
+    public override void OnEffectStart(bool isDropIn)
+    {
+        UpdateInvis();
+        Player.Teleport(new Vector2(29.046f, -65.001f));
+        Player.SpineAnimator.DepthOffset = -10000;
+        Player.SpineAnimator.SpineInstance.StateMachine.SetBool("ghost_form", true);
+        if (!isDropIn)
+        {
+            Player.AddEmoteBlockReason(nameof(SpectatorEffect));
+        }
+
+        if (Network.IsServer)
+        {
+            Player.CurrentRole = Role.JANITOR;
+            Player.Experience.Set(0);
+            Player.Cash.Set(0);
+        }
+    }
+
+    public override void OnEffectUpdate()
+    {
+        UpdateInvis();
+    }
+
+    public override void OnEffectEnd(bool interrupt)
+    {
+        Player.Teleport(Vector2.Zero);
+        Player.RemoveEmoteBlockReason(nameof(SpectatorEffect));
+        Player.SpineAnimator.DepthOffset = 0;
+        Player.SpineAnimator.SpineInstance.StateMachine.SetBool("ghost_form", false);
+        Player.SpineAnimator.SpineInstance.ColorMultiplier = new Vector4(1, 1, 1, 1);
+        if (HasNameInvisReason)
+        {
+            Player.RemoveNameInvisibilityReason(nameof(SpectatorEffect));
+        }
+    }
+}

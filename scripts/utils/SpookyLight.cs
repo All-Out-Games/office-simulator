@@ -9,9 +9,9 @@ public class SpookyLight : Component
   public override void Awake()
   {
     light = Entity.AddComponent<Light>();
-    light.Color = new Vector4(1, 0.6f, 0.5f, 0);
+    light.Color = new Vector4(1, 0.6f, 0.4f, 0);
     light.Intensity = 1f;
-    light.Radi = new Vector2(0, 7f);
+    light.Radi = new Vector2(0, 8.5f);
     light.ShadowCaster = true;
     random = new Random();
   }

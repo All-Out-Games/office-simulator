@@ -1,0 +1,111 @@
+imposter_monster.png
+	size: 1495, 1039
+	filter: Linear, Linear
+ArmL_A
+	bounds: 1372, 439, 84, 191
+	offsets: 1, 1, 86, 192
+ArmL_B
+	bounds: 1213, 141, 53, 131
+	offsets: 1, 1, 55, 133
+	rotate: 90
+Black Vomit/VomitSpatter
+	bounds: 687, 267, 301, 177
+Black Vomit/VomitStream
+	bounds: 1213, 196, 182, 168
+	offsets: 1, 1, 184, 170
+	rotate: 90
+Body1
+	bounds: 370, 460, 250, 321
+	rotate: 90
+Body2
+	bounds: 1049, 380, 250, 321
+	rotate: 90
+Body3
+	bounds: 364, 208, 250, 321
+	rotate: 90
+Body4
+	bounds: 370, 712, 335, 325
+Corruption BreathCloud/Breath_A
+	bounds: 1383, 266, 114, 75
+	offsets: 1, 1, 116, 77
+	rotate: 90
+Corruption BreathCloud/Breath_C
+	bounds: 918, 21, 173, 161
+	offsets: 1, 1, 175, 163
+FingerL_A
+	bounds: 1201, 21, 27, 63
+	offsets: 1, 1, 29, 65
+	rotate: 90
+FingerL_B
+	bounds: 1372, 382, 55, 118
+	rotate: 90
+FingerL_C
+	bounds: 1201, 50, 107, 89
+FingerL_D
+	bounds: 1346, 163, 89, 31
+FingerR_A
+	bounds: 990, 397, 51, 47
+	offsets: 1, 1, 53, 49
+FingerR_B
+	bounds: 804, 19, 61, 112
+	rotate: 90
+FingerR_C
+	bounds: 1443, 705, 46, 128
+FingerR_D
+	bounds: 918, 184, 81, 54
+	rotate: 90
+HandL_A
+	bounds: 1093, 11, 106, 171
+	offsets: 1, 1, 108, 173
+HandL_B
+	bounds: 352, 2, 85, 134
+	offsets: 1, 1, 87, 136
+	rotate: 90
+Head1
+	bounds: 693, 446, 354, 189
+Head2
+	bounds: 1130, 835, 362, 202
+Head3
+	bounds: 1076, 632, 365, 201
+Head4
+	bounds: 2, 2, 348, 306
+Head_Bite1
+	bounds: 2, 310, 360, 361
+Head_Scream1
+	bounds: 2, 310, 360, 361
+Head_Bite2
+	bounds: 707, 851, 421, 186
+Head_Scream2
+	bounds: 2, 673, 366, 364
+LegL_A
+	bounds: 488, 13, 74, 164
+	rotate: 90
+LegL_B
+	bounds: 1383, 196, 68, 87
+	rotate: 90
+LegR_B
+	bounds: 1383, 196, 68, 87
+	rotate: 90
+LegR_A
+	bounds: 654, 7, 73, 148
+	rotate: 90
+PalmL
+	bounds: 1443, 635, 37, 41
+	offsets: 1, 1, 39, 43
+	rotate: 90
+PalmR
+	bounds: 1443, 674, 29, 50
+	offsets: 1, 1, 31, 52
+	rotate: 90
+Scream Lines/Scream_1
+	bounds: 687, 82, 229, 183
+	offsets: 1, 1, 231, 185
+Scream Lines/Scream_2
+	bounds: 990, 184, 221, 194
+	offsets: 1, 1, 223, 196
+Shadow
+	bounds: 352, 89, 305, 117
+	offsets: 1, 1, 307, 119
+Teleport Gank Pool/TeleportGankPool
+	bounds: 707, 637, 367, 212
+	offsets: 1, 1, 369, 214

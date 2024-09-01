@@ -3,7 +3,7 @@
 305537709327331 1709185685514899400
 {
   "name": "Phone",
-  "local_enabled": true,
+  "local_enabled": false,
   "local_position": {
     "X": -21.0976715087890625,
     "Y": 7.9345588684082031
@@ -40,17 +40,24 @@
 },
 {
   "cid": 2,
-  "aoid": "79088771543303:1709278039408713300",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
+  "aoid": "139789244564213:1725177564965483000",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
   "data": {
-    "prompt_offset": {
-      "X": -0.3499999940395355,
-      "Y": 0.3499999940395355
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
+    "PromptText": "",
+    "MinimumRoleRequired": 0,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "sfx/creepy-phone.wav",
+    "OnActiveSfx": "sfx/office_phone-ring_medium-loudaif-14604.wav",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 30,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
+    "SpawnsDuringDay": true,
+    "SpawnsDuringNight": true,
+    "XpReward": 0,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

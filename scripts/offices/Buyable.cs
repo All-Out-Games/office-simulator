@@ -40,12 +40,13 @@ public class Buyable : Component
 
     if (op.Cash < Cost)
     {
-      GameManager.Instance.ShowNotification("You don't have enough cash");
-      GameManager.Instance.PlaySFX("sfx/error.wav");
+      GameManager.Instance.CallClient_ShowNotification("You don't have enough cash");
+      GameManager.Instance.CallClient_PlaySFX("sfx/error.wav");
       return;
     }
 
-    GameManager.Instance.PlaySFX("sfx/money.wav");
+    GameManager.Instance.CallClient_PlaySFX("sfx/money.wav");
+    op.Cash.Set(op.Cash - Cost);
     Bought.Set(true);
   }
 
@@ -60,7 +61,7 @@ public class Buyable : Component
     else
     {
       if (Controller.IsOwnedByMyClient) {
-        interactable.Text = $"Buy {Entity.Name} - {Cost}";
+        interactable.Text = $"Buy {Entity.Name} - ${Cost}";
         spriteRenderer.Tint = new Vector4(0, 0, 0, 0.35f);
       }
       else

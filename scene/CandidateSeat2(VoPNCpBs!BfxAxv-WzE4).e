@@ -13,7 +13,9 @@
     "X": 1,
     "Y": 1
   },
-  "previous_sibling": "95081104864640:1725163537558882300"
+  "previous_sibling": "95081104864640:1725163537558882300",
+  "next_sibling": "132451319738736:1725175262654185100",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 2,
@@ -21,6 +23,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Seat",
   "data": {
-    "Type": "Candidate"
+    "Type": "Candidate",
+    "FaceLeft": false
   }
 }

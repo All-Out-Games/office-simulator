@@ -12,20 +12,28 @@ public class OfficeDoor : TwoWayDoor
     interactable.OnInteract = (Player player) =>
     {
       if (!Network.IsServer) return;
-
       var op = (OfficePlayer)player;
+
+      if (Controller.IsOwned && Controller.Owner != player.Entity && !Controller.Unlocked)
+      {
+          GameManager.Instance.CallClient_ShowNotification("This office is locked...");
+          GameManager.Instance.CallClient_PlaySFX("sfx/error.wav");
+          return;
+      }
 
       if (!Controller.IsOwned)
       {
         if (op.Cash < Controller.Cost)
         {
-          GameManager.Instance.ShowNotification("You don't have enough cash");
-          GameManager.Instance.PlaySFX("sfx/error.wav");
+          GameManager.Instance.CallClient_ShowNotification("You don't have enough cash");
+          GameManager.Instance.CallClient_PlaySFX("sfx/error.wav");
           return;
         }
-      }
 
-      Controller.Owner.Set(op.Entity);
+        GameManager.Instance.CallClient_PlaySFX("sfx/rank-up.wav");
+        op.Cash.Set(op.Cash - Controller.Cost);
+        Controller.Owner.Set(op.Entity);
+      }
 
       base.OnInteract(player);
     };
@@ -34,6 +42,7 @@ public class OfficeDoor : TwoWayDoor
   private string GetOfficeName()
   {
     if (Controller.IsOwnedByMyClient) return "Your Office";
+    if (Controller.IsOwned) return Controller.Owner.Value.Name + "'s Office";
     return Controller.Entity.Parent.Name;
   }
 
@@ -47,6 +56,11 @@ public class OfficeDoor : TwoWayDoor
     if (op.CurrentRoom != RoomName)
     {
       if (Controller.IsOwned) {
+        if (!Controller.Unlocked && !Controller.IsOwnedByMyClient)
+        {
+          interactable.Text = $"{GetOfficeName} (Locked)";
+        }
+
         interactable.Text = $"Enter {GetOfficeName()}";
       }
       else 

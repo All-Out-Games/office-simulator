@@ -5,8 +5,8 @@
   "name": "GarbageCan",
   "local_enabled": true,
   "local_position": {
-    "X": -5.4889626502990723,
-    "Y": 1.3615280389785767
+    "X": -5.4108376502990723,
+    "Y": 0.3654301762580872
   },
   "local_rotation": 0,
   "local_scale": {

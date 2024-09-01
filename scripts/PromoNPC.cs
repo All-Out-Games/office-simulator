@@ -3,6 +3,9 @@ using AO;
 
 public partial class PromoNPC : Component
 {
+    [Serialized] Seat candidateSeat1;
+    [Serialized] Seat candidateSeat2;
+
     public SyncVar<bool> BoardMeetingActive = new(false);
     public Interactable interactable;
     public static PromoNPC Instance;
@@ -16,8 +19,6 @@ public partial class PromoNPC : Component
         {
             if (!Network.IsServer) return;
             var op = (OfficePlayer)p;
-
-            CallClient_StartBoardMeeting();
 
             if (DayNightManager.Instance.CurrentState == DayState.NIGHT)
             {
@@ -39,7 +40,6 @@ public partial class PromoNPC : Component
                 GameManager.Instance.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
             }
 
-            if (!Network.IsServer) return;
             switch (op.CurrentRole)
             {
                 case Role.JANITOR:
@@ -53,23 +53,50 @@ public partial class PromoNPC : Component
                     GameManager.Instance.CallClient_PlaySFX("sfx/rank-up.wav");
                     break;
                 case Role.MANAGER:
-                    if (!op.HasGivenSpeech)
-                    {
-                        GameManager.Instance.CallClient_ShowNotification("You must give a speech in the conference room first...");
-                        GameManager.Instance.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
-                        return;
-                    }
+                    // if (!op.HasGivenSpeech)
+                    // {
+                    //     GameManager.Instance.CallClient_ShowNotification("You must give a speech in the conference room first...");
+                    //     GameManager.Instance.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+                    //     break;
+                    // }
 
                     var CEOPlayers = GameManager.Instance.GetPlayersByRole(Role.CEO);
                     var CEOPlayer = CEOPlayers.Length > 0 ? (OfficePlayer)CEOPlayers[0] : null;
-                    if (CEOPlayer != null && CEOPlayer.Alive())
+                    if (CEOPlayer.Alive())
                     {
+                        foreach (Player player in Player.AllPlayers)
+                        {
+                            var op2 = (OfficePlayer)player;
+                            op2.IsBoardElectionCandidate.Set(false);
+                        }
+
                         CEOPlayer.IsBoardElectionCandidate.Set(true);
+                        op.IsBoardElectionCandidate.Set(true);
+
+                        var seats = new List<Seat>();
+                        foreach (var seat in Scene.Components<Seat>())
+                        {
+                            if (seat.Type == "Board")
+                            {
+                                seats.Add(seat);
+                            }
+                        }
+
+                        foreach (Player player in Player.AllPlayers)
+                        {
+                            var op2 = (OfficePlayer)player;
+                            op2.AssignedMeetingSeat.Set(seats.PopFront().Entity);
+                        }
+
+                        CEOPlayer.AssignedMeetingSeat.Set(candidateSeat1.Entity);
+                        op.AssignedMeetingSeat.Set(candidateSeat2.Entity);
+
+                        CallClient_StartBoardMeeting();
+                    } else {
+                        op.CurrentRole = Role.CEO;
+                        op.Experience.Set(0);
+                        GameManager.Instance.CallClient_PlaySFX("sfx/rank-up.wav");
                     }
-
-                    op.IsBoardElectionCandidate.Set(true);
-
-                    CallClient_StartBoardMeeting();
 
                     break;
                 case Role.CEO:
@@ -84,10 +111,14 @@ public partial class PromoNPC : Component
     [ClientRpc]
     public void StartBoardMeeting()
     {
+        if (Network.IsClient) {
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/clue_found2.wav"), new());
+        }
+
         if (Network.IsServer) {
             BoardMeetingActive.Set(true);
         }
-        
+
         foreach (Player player in Player.AllPlayers)
         {
             player.AddEffect<BoardMeetingEffect>();

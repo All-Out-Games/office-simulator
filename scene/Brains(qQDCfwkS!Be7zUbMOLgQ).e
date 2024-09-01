@@ -47,7 +47,7 @@
     "MinimumRoleRequired": 0,
     "ActiveTexture": "Kitchen_Singles_48x48_216.png",
     "CooldownTexture": "",
-    "OnCompleteSfx": "",
+    "OnCompleteSfx": "sfx/character_eating_loop_end_swallow_short.wav",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
     "CooldownSeconds": 5,
