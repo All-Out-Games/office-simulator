@@ -7,7 +7,7 @@ public partial class Revolver : MyAbility
     public override Type Effect => typeof(ShootGunEffect);
     public override Type TargettingEffect => typeof(AimingRevolver);
     public override float MaxDistance => 10f;
-    public override float Cooldown => DayNightManager.Instance.CurrentState == DayState.NIGHT ? 25f : 60f;
+    public override float Cooldown => DayNightManager.Instance.CurrentState == DayState.NIGHT ? 10f : 60f;
 
     public override bool CanBeginTargeting()
     {

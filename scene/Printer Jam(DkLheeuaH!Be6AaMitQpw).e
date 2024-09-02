@@ -5,8 +5,8 @@
   "name": "Printer Jam",
   "local_enabled": true,
   "local_position": {
-    "X": 27.4440956115722656,
-    "Y": -12.0078926086425781
+    "X": 27.4738101959228516,
+    "Y": -11.7924633026123047
   },
   "local_rotation": 268.5541381835937500,
   "local_scale": {

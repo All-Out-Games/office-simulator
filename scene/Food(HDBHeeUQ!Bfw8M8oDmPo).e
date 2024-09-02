@@ -45,7 +45,7 @@
   "mono_component_type": "Activity",
   "data": {
     "PromptText": "Nom Nom",
-    "MinimumRoleRequired": 1,
+    "MinimumRoleRequired": 0,
     "MaxRole": 3,
     "ActiveTexture": "Kitchen_Singles_48x48_387.png",
     "CooldownTexture": "",
@@ -57,7 +57,7 @@
     "HideWhenOnCooldown": true,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": false,
-    "XpReward": 7,
+    "XpReward": 4,
     "CashReward": 0,
     "CashCost": 0
   }

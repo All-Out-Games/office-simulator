@@ -46,7 +46,7 @@
   "data": {
     "PromptText": "Give Speech (2 audience required)",
     "MinimumRoleRequired": 2,
-    "MaxRole": 3,
+    "MaxRole": 2,
     "ActiveTexture": "sfx/Clothing_Store_Singles_48x48_423.png",
     "CooldownTexture": "",
     "OnCompleteSfx": "sfx/talking.wav",

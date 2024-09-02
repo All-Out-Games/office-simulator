@@ -5,13 +5,13 @@
   "name": "RequestPromoTeleporter",
   "local_enabled": true,
   "local_position": {
-    "X": -45.2567214965820312,
-    "Y": 2.0836534500122070
+    "X": -45.0359573364257812,
+    "Y": 1.2814002037048340
   },
   "local_rotation": 0,
   "local_scale": {
-    "X": 8,
-    "Y": 8
+    "X": 10,
+    "Y": 10
   },
   "previous_sibling": "287660153059416:1709456192270255000",
   "parent": "21563711469729:1717370815923742600",

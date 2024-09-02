@@ -5,8 +5,8 @@
   "name": "CafeteriaJukebox",
   "local_enabled": true,
   "local_position": {
-    "X": -31.7350444793701172,
-    "Y": 24.2460498809814453
+    "X": -32.0090904235839844,
+    "Y": 23.2256278991699219
   },
   "local_rotation": 0,
   "local_scale": {

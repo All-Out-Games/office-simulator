@@ -111,7 +111,7 @@ public class KillerEffect : MyEffect, INetworkedComponent
 
             if (!Player.IsLocal)
             {
-                sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.75f, Position = Player.Entity.Position, Positional=true} );
+                sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.4f, Position = Player.Entity.Position, Positional=true} );
             }
 
             Player.AddInvisibilityReason(nameof(KillerEffect));

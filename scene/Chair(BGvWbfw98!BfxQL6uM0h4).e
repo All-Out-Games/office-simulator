@@ -5,8 +5,8 @@
   "name": "Chair",
   "local_enabled": true,
   "local_position": {
-    "X": -21.7406997680664062,
-    "Y": 8.3937168121337891
+    "X": -21.8168869018554688,
+    "Y": 8.3106021881103516
   },
   "local_rotation": 0,
   "local_scale": {

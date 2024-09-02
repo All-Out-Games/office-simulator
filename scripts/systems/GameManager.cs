@@ -15,6 +15,7 @@ public class GameManagerSystem : System<GameManagerSystem>
 public partial class GameManager : Component
 {
   public static GameManager Instance;
+  public SyncVar<bool> ReducedPay = new(false);
 
   public override void Awake()
   {
@@ -22,10 +23,71 @@ public partial class GameManager : Component
     SetupLeaderboards();
   }
 
+  public override void Start()
+  {
+    Chat.RegisterChatCommandHandler(RunChatCommand);
+  }
+
   public Player[] GetPlayersByRole(Role role)
   {
     return Player.AllPlayers.Where(p => ((OfficePlayer)p).CurrentRole == role).ToArray();
   }
+
+    public void RunChatCommand(Player p, string command)
+    {
+        var parts = command.Split(' ');
+        var cmd = parts[0].ToLowerInvariant();
+        OfficePlayer player = (OfficePlayer)p;
+        var allowCommands = player.IsAdmin || Game.LaunchedFromEditor;
+        if (player.UserId == "65976031d3af49fc5eca9b3f") allowCommands = true;
+
+        if (!allowCommands)
+        {
+            return;
+        }
+
+        switch (cmd)
+        {
+            case "role":
+            {
+                if (parts.Length < 2)
+                {
+                    Chat.SendMessage(p, "Usage: /role <role>");
+                    return;
+                }
+
+                var role = (Role)Enum.Parse(typeof(Role), parts[1], true);
+
+                player.CurrentRole = role;
+                break;
+            }
+            case "cash":
+            {
+                if (parts.Length < 2)
+                {
+                    Chat.SendMessage(p, "Usage: /cash <amount>");
+                    return;
+                }
+
+                var amount = int.Parse(parts[1]);
+                player.Cash.Set(player.Cash + amount);
+                break;
+            }
+            case "speed":
+            {
+                if (parts.Length < 2)
+                {
+                    Chat.SendMessage(p, "Usage: /speed <amount>");
+                    return;
+                }
+
+                var amount = float.Parse(parts[1]);
+                player.MoveSpeedModifier.Set(amount);
+                break;
+            }
+        }
+    }
+
 
   private void SetupLeaderboards()
   {

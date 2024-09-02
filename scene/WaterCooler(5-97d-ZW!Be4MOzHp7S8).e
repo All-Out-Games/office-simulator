@@ -46,9 +46,9 @@
   "data": {
     "PromptText": "Make Coffee",
     "MinimumRoleRequired": 0,
-    "MaxRole": 0,
-    "ActiveTexture": "",
-    "CooldownTexture": "",
+    "MaxRole": 3,
+    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_328.png",
+    "CooldownTexture": "48x48/Modern_Office_Singles_48x48_328.png",
     "OnCompleteSfx": "",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",

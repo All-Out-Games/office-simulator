@@ -70,7 +70,7 @@
   "data": {
     "width": 1,
     "height": 2,
-    "padding": 0,
+    "padding": 15,
     "size_source": 0
   }
 },

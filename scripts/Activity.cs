@@ -176,12 +176,13 @@ public partial class Activity : Component
 
         spriteRenderer.Texture = HideWhenOnCooldown ? null : CooldownTexture;
 
-        // Cleanup flasher if it exists
-        if (Entity.GetComponent<SpriteFlasher>().Alive())
-        {
-          Entity.RemoveComponent<SpriteFlasher>();
-        }
         break;
+    }
+    
+    // Cleanup flasher if it exists
+    if (Entity.GetComponent<SpriteFlasher>().Alive() && CurrentState == ActivityState.COOLDOWN || !CheckAllRequirements(Network.LocalPlayer).Success)
+    {
+      Entity.RemoveComponent<SpriteFlasher>();
     }
   }
 

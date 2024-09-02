@@ -6,7 +6,7 @@
   "local_enabled": true,
   "local_position": {
     "X": -44.2402763366699219,
-    "Y": -20.0809555053710938
+    "Y": -21.6638679504394531
   },
   "local_rotation": 0,
   "local_scale": {

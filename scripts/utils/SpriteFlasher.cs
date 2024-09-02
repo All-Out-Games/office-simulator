@@ -5,8 +5,8 @@ public class SpriteFlasher : Component
 {
   private Sprite_Renderer spriteRenderer;
   private float curTintOffset;
-  public float FlashDepth = 0.5f;
-  public float FlashSpeed = 2f;
+  public float FlashDepth = 0.625f;
+  public float FlashSpeed = 1.6f;
 
   public override void Awake()
   {
@@ -25,4 +25,9 @@ public class SpriteFlasher : Component
     float tintValue = MathF.Sin(curTintOffset) * FlashDepth + 0.8f;
     Entity.GetComponent<Sprite_Renderer>().Tint = new Vector4(tintValue, tintValue, tintValue, 1f);
   }
+
+    public override void OnDestroy()
+    {
+      spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 1f);
+    }
 }

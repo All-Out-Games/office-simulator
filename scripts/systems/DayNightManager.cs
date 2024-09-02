@@ -15,8 +15,8 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 5;
-  public float NightLength = 50;
+  public float DayLength = 110;
+  public float NightLength = 45;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
 
@@ -134,9 +134,9 @@ public partial class DayNightManager : Component
       {
         var op = (OfficePlayer)player;
         if (op.CurrentRole == Role.JANITOR) {
-          GameManager.Instance.CallClient_ShowNotification(janitorNightfallMessages[curNightfallMessageIndex]);
+          op.CallClient_ShowNotification(janitorNightfallMessages[curNightfallMessageIndex]);
         } else {
-          GameManager.Instance.CallClient_ShowNotification(nightfallMessages[curNightfallMessageIndex]);
+          op.CallClient_ShowNotification(nightfallMessages[curNightfallMessageIndex]);
         }
       }
 

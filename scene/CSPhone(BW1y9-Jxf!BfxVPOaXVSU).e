@@ -5,8 +5,8 @@
   "name": "CSPhone",
   "local_enabled": true,
   "local_position": {
-    "X": 11.4357604980468750,
-    "Y": 8.5848979949951172
+    "X": 11.6566581726074219,
+    "Y": 8.3985157012939453
   },
   "local_rotation": 0,
   "local_scale": {

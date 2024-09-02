@@ -14,6 +14,7 @@
     "Y": 5
   },
   "previous_sibling": "31107385502216:1725143465478511400",
+  "next_sibling": "27189155094788:1725317218999904000",
   "parent": "800167119170877:1709616997400723400",
   "spawn_as_networked_entity": true
 },
@@ -44,7 +45,7 @@
   "mono_component_type": "Activity",
   "data": {
     "PromptText": "Nom Nom",
-    "MinimumRoleRequired": 1,
+    "MinimumRoleRequired": 0,
     "MaxRole": 3,
     "ActiveTexture": "Kitchen_Singles_48x48_387.png",
     "CooldownTexture": "",
@@ -56,7 +57,7 @@
     "HideWhenOnCooldown": true,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": false,
-    "XpReward": 7,
+    "XpReward": 4,
     "CashReward": 0,
     "CashCost": 0
   }

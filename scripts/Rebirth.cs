@@ -6,7 +6,7 @@ public class Rebirth : Component
   public override void Awake()
   {
     interactable = AddComponent<Interactable>();
-    interactable.Text = "Rebirth as Janitor";
+    interactable.Text = "Rebirth as Janitor (you keep your cash)";
     interactable.OnInteract += (Player p) => {
       var op = (OfficePlayer)p;
       op.CurrentRole = Role.JANITOR;

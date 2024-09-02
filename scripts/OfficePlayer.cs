@@ -13,6 +13,7 @@ public partial class OfficePlayer : Player
   public SyncVar<bool> IsDead = new(false);
   private Entity lightEntity;
 
+  public bool ShownPromoPrompt = false;
   public CameraControl CameraControl;
   private SyncVar<int> currentRole = new((int)Role.JANITOR);
   public Role CurrentRole
@@ -30,7 +31,7 @@ public partial class OfficePlayer : Player
 
   public Entity StatsUI;
 
-  public int Salary => CurrentRole switch
+  public int InternalSalary => CurrentRole switch
   {
     Role.JANITOR => 60,
     Role.EMPLOYEE => 200,
@@ -38,6 +39,8 @@ public partial class OfficePlayer : Player
     Role.CEO => 500,
     _ => 0
   };
+
+  public int Salary => GameManager.Instance.ReducedPay ? InternalSalary / 2 : InternalSalary;
 
   public SyncVar<int> Experience = new(0);
   public SyncVar<int> Cash = new(0);
@@ -54,10 +57,11 @@ public partial class OfficePlayer : Player
   public SyncVar<Entity> AssignedMeetingSeat = new();
 
   public SyncVar<Entity> OfficeController = new();
+  public SyncVar<float> MoveSpeedModifier = new(1.25f);
 
   public override Vector2 CalculatePlayerVelocity(Vector2 currentVelocity, Vector2 input, float deltaTime)
   {
-      var multiplier = 1.25f;
+      var multiplier = MoveSpeedModifier.Value;
       if (HasEffect<KillerEffect>())
       {
         multiplier *= 0.6f;
@@ -91,6 +95,12 @@ public partial class OfficePlayer : Player
     {
       if (IsLocal) {
         References.Instance.ExperienceStatText.Text = "XP: " + Math.Clamp(newValue, 0, 100) + "/100";
+
+        if (Experience.Value >= 100 && !ShownPromoPrompt)
+        {
+          ShownPromoPrompt = true;
+          CallClient_ShowNotification("You can now request a promotion in the Finance room.");
+        }
 
         if (newValue >= 100)
         {
@@ -307,6 +317,31 @@ public partial class OfficePlayer : Player
       return ts;
   }
 
+  public UI.TextSettings GetGreenTextSettings(float size, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
+  {
+      if (font == null)
+      {
+          font = UI.Fonts.BarlowBold;
+      }
+      var ts = new UI.TextSettings()
+      {
+          Font = font,
+          Size = size,
+          Color = Vector4.LightGreen,
+          DropShadowColor = new Vector4(0f,0f,0.02f,0.5f),
+          DropShadowOffset = new Vector2(0f,-3f),
+          HorizontalAlignment = halign,
+          VerticalAlignment = UI.VerticalAlignment.Center,
+          WordWrap = false,
+          WordWrapOffset = 0,
+          Outline = true,
+          OutlineThickness = 3,
+          Offset = new Vector2(0, offset),
+      };
+      return ts;
+  }
+
+
   public override void Update()
   {
     bool moving = Velocity.Length > 0.03f;
@@ -387,6 +422,11 @@ public partial class OfficePlayer : Player
     {
       ts = GetRedTextSettings(0.225f);
       UI.Text(rect, "JANITOR", ts);
+    }
+    else if (CurrentRole == Role.CEO)
+    {
+      ts = GetGreenTextSettings(0.35f);
+      UI.Text(rect, "CEO", ts);
     }
     else {
       UI.Text(rect, CurrentRole.ToString(), ts);
