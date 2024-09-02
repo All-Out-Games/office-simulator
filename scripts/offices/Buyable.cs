@@ -40,12 +40,12 @@ public class Buyable : Component
 
     if (op.Cash < Cost)
     {
-      GameManager.Instance.CallClient_ShowNotification("You don't have enough cash");
-      GameManager.Instance.CallClient_PlaySFX("sfx/error.wav");
+      op.CallClient_ShowNotification("You don't have enough cash");
+      op.CallClient_PlaySFX("sfx/error.wav");
       return;
     }
 
-    GameManager.Instance.CallClient_PlaySFX("sfx/money.wav");
+    op.CallClient_PlaySFX("sfx/money.wav");
     op.Cash.Set(op.Cash - Cost);
     Bought.Set(true);
   }

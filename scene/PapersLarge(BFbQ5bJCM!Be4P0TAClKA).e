@@ -40,17 +40,25 @@
 },
 {
   "cid": 2,
-  "aoid": "798670483116624:1709616527823478500",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
+  "aoid": "274049598110874:1725219689835411300",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
   "data": {
-    "prompt_offset": {
-      "X": 0,
-      "Y": 1
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
+    "PromptText": "File Paperwork",
+    "MinimumRoleRequired": 1,
+    "MaxRole": 3,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 60,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": true,
+    "SpawnsDuringDay": false,
+    "SpawnsDuringNight": false,
+    "XpReward": 5,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

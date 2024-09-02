@@ -46,6 +46,7 @@
   "data": {
     "PromptText": "Fix Servers",
     "MinimumRoleRequired": 1,
+    "MaxRole": 2,
     "ActiveTexture": "Destroyed Computer - light.png",
     "CooldownTexture": "",
     "OnCompleteSfx": "sfx/server-boot.wav",
@@ -56,7 +57,7 @@
     "HideWhenOnCooldown": true,
     "SpawnsDuringDay": false,
     "SpawnsDuringNight": true,
-    "XpReward": 25,
+    "XpReward": 9,
     "CashReward": 0,
     "CashCost": 0
   }

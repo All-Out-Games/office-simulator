@@ -46,6 +46,7 @@
   "data": {
     "PromptText": "Eat Brains",
     "MinimumRoleRequired": 0,
+    "MaxRole": 0,
     "ActiveTexture": "Kitchen_Singles_48x48_216.png",
     "CooldownTexture": "",
     "OnCompleteSfx": "sfx/character_eating_loop_end_swallow_short.wav",

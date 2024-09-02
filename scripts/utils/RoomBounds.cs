@@ -1,6 +1,7 @@
 using AO;
     public enum Room
     {
+        LOBBY,
         GYM,
         HALLS,
         CATETERIA,
@@ -54,6 +55,19 @@ public class RoomBounds : Component
         {
             var op = (OfficePlayer)player;
             if (op.CurrentRoom == room) players.Add(player);
+        }
+
+        return players;
+    }
+
+    public List<Player> GetPlayersInRoom()
+    {
+        var players = new List<Player>();
+
+        foreach (Player player in Player.AllPlayers)
+        {
+            var op = (OfficePlayer)player;
+            if (op.CurrentRoom == RoomName) players.Add(player);
         }
 
         return players;

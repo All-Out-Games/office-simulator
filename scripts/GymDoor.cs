@@ -14,7 +14,7 @@ public class GymDoor : TwoWayDoor
 
       if (!op.HasGymPass)
       {
-        GameManager.Instance.CallClient_ShowNotification("You don't have a gym pass!");
+        op.CallClient_ShowNotification("You don't have a gym pass!");
         return;
       }
 

@@ -8,6 +8,12 @@ public class GymPass : Component
   public override void Awake()
   {
     interactable = Entity.GetComponent<Interactable>();
+    interactable.CanUseCallback += (Player p) => 
+    {
+      var op = (OfficePlayer)p;
+      return !op.HasGymPass;
+    };
+
     interactable.OnInteract = (Player p) => 
     {
       if (!Network.IsServer) return;
@@ -15,19 +21,14 @@ public class GymPass : Component
 
       if (op.Cash < Cost)
       {
-        GameManager.Instance.CallClient_ShowNotification("You don't have enough money to buy a gym pass!");
-        return;
-      }
-
-      if (op.HasGymPass)
-      {
-        GameManager.Instance.CallClient_ShowNotification("You already have a gym pass!");
+        op.CallClient_ShowNotification("You don't have enough money to buy a gym pass!");
         return;
       }
 
       op.Cash.Set(op.Cash - Cost);
       op.HasGymPass.Set(true);
-      GameManager.Instance.CallClient_PlaySFX("sfx/coin.wav");
+      op.CallClient_PlaySFX("sfx/money.wav");
+      op.CallClient_ShowNotification("You now have access to the gym...");
     };
   }
 

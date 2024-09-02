@@ -25,7 +25,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_168.png",
+    "texture": "48x48/Modern_Office_Singles_48x48_169.png",
     "depth_offset": 0,
     "tint": {
       "X": 1,
@@ -78,7 +78,8 @@
   "data": {
     "PromptText": "Take Out The Trash",
     "MinimumRoleRequired": 0,
-    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_168.png",
+    "MaxRole": 0,
+    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_169.png",
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_167.png",
     "OnCompleteSfx": "sfx/paper.wav",
     "OnActiveSfx": "",

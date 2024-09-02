@@ -32,7 +32,7 @@
       "Z": 1,
       "W": 1
     },
-    "layer": 2,
+    "layer": 0,
     "wait_for_load": false,
     "wrap": false,
     "mask_in_shadow": false
@@ -76,14 +76,15 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Activity",
   "data": {
-    "PromptText": "Go for a Run",
+    "PromptText": "Lift Weights",
     "MinimumRoleRequired": 0,
+    "MaxRole": 3,
     "ActiveTexture": "8_Gym_Singles_48x48/Gym_Singles_48x48_87.png",
     "CooldownTexture": "",
     "OnCompleteSfx": "sfx/gym.wav",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
-    "CooldownSeconds": 120,
+    "CooldownSeconds": 30,
     "AvailableForSeconds": 0,
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,

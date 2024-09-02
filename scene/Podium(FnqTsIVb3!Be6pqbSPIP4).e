@@ -13,7 +13,7 @@
     "X": 5,
     "Y": 5
   },
-  "previous_sibling": "1569653303622866:1709858430973732900",
+  "previous_sibling": "1006556809980262:1709681753225734100",
   "next_sibling": "1580960165460135:1709861978559678900",
   "parent": "812070970290054:1709620732295121700",
   "spawn_as_networked_entity": true
@@ -45,19 +45,20 @@
   "mono_component_type": "SpeechPodium",
   "data": {
     "PromptText": "Give Speech (2 audience required)",
-    "MinimumRoleRequired": 0,
+    "MinimumRoleRequired": 2,
+    "MaxRole": 3,
     "ActiveTexture": "sfx/Clothing_Store_Singles_48x48_423.png",
     "CooldownTexture": "",
     "OnCompleteSfx": "sfx/talking.wav",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
-    "CooldownSeconds": 0,
+    "CooldownSeconds": 10,
     "AvailableForSeconds": 0,
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
     "XpReward": 50,
     "CashReward": 0,
-    "CashCost": 0
+    "CashCost": 100
   }
 }

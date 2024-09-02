@@ -23,6 +23,6 @@
   "component_type": "Mono_Component",
   "mono_component_type": "DayNightManager",
   "data": {
-
+    "ClockUIRef": "279352859622104:1725221353760728600"
   }
 }

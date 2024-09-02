@@ -15,7 +15,7 @@ public class Money : Component
             if (Network.IsServer)
             {
                 // 5 pieces of cash per salary
-                op.Cash.Set(op.Cash + op.Salary / 5);
+                op.Cash.Set(op.Cash + op.Salary / 7);
             }
             Chat.SendMessage(op, "Thank you for your hard work!");
             if (Network.LocalPlayer == p)
@@ -53,6 +53,6 @@ public class Money : Component
         var interactible = Entity.GetComponent<Interactable>();
         var op = (OfficePlayer)Network.LocalPlayer;
         if (!op.Alive()) return;
-        interactible.Text = $"Collect a payment (+${op.Salary/5})";
+        interactible.Text = $"Collect a payment (+${op.Salary/7})";
     }
 }

@@ -15,7 +15,8 @@
   },
   "previous_sibling": "755308936654648:1709602921177382400",
   "next_sibling": "754559835493162:1709602686143047300",
-  "parent": "20729943549895:1717370554324774500"
+  "parent": "20729943549895:1717370554324774500",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
@@ -44,6 +45,6 @@
   "component_type": "Mono_Component",
   "mono_component_type": "RoomBounds",
   "data": {
-    "RoomName": 4
+    "RoomName": 5
   }
 }

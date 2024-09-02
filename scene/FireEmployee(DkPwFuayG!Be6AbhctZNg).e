@@ -14,7 +14,7 @@
     "Y": 1
   },
   "previous_sibling": "815229161039953:1709621723193682300",
-  "next_sibling": "1006538626706386:1709681747520638300",
+  "next_sibling": "1006556809980262:1709681753225734100",
   "parent": "812070970290054:1709620732295121700",
   "spawn_as_networked_entity": true
 },
@@ -39,18 +39,26 @@
   }
 },
 {
-  "cid": 2,
-  "aoid": "1003883562620750:1709680914480651600",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
+  "cid": 3,
+  "aoid": "273831140370210:1725219621293182400",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
   "data": {
-    "prompt_offset": {
-      "X": 0,
-      "Y": 1
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
+    "PromptText": "Fire Employee",
+    "MinimumRoleRequired": 2,
+    "MaxRole": 0,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 120,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
+    "SpawnsDuringDay": true,
+    "SpawnsDuringNight": true,
+    "XpReward": 15,
+    "CashReward": 50,
+    "CashCost": 0
   }
 }

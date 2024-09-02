@@ -28,8 +28,8 @@ public class VendingMachine : Component
             }
             else
             {
-                GameManager.Instance.CallClient_ShowNotification("Vending machines are strictly for full time employees!");
-                GameManager.Instance.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+                op.CallClient_ShowNotification("Vending machines are strictly for full time employees!");
+                op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
             }
         }
         else
@@ -39,15 +39,15 @@ public class VendingMachine : Component
                 if (op.Cash >= Cost)
                 {
                     InStock.Set(false);
-
                     op.Cash.Set(op.Cash - Cost);
-                    if (Network.LocalPlayer != op) return;
-                    GameManager.Instance.CallClient_PlaySFX("sfx/vending.wav");
+                    op.CallClient_PlaySFX("sfx/vending.wav");
+                    op.Caffeinated.Set(true);
+                    op.CaffinatedAt.Set(Time.TimeSinceStartup);
                 }
                 else
                 {
-                    GameManager.Instance.CallClient_ShowNotification("I need more money");
-                    GameManager.Instance.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+                    op.CallClient_ShowNotification("I need more money");
+                    op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
                 }
             }
         }

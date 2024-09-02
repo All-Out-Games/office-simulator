@@ -25,11 +25,11 @@
   "data": {
     "size": {
       "X": 20.9896564483642578,
-      "Y": 13.3727455139160156
+      "Y": 14.6081180572509766
     },
     "offset": {
       "X": 2.8501458168029785,
-      "Y": 1.0346522331237793
+      "Y": 0.4169659614562988
     },
     "is_trigger": true,
     "density": 1,
@@ -44,6 +44,6 @@
   "component_type": "Mono_Component",
   "mono_component_type": "RoomBounds",
   "data": {
-    "RoomName": 8
+    "RoomName": 9
   }
 }

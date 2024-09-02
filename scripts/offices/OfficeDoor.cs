@@ -16,23 +16,42 @@ public class OfficeDoor : TwoWayDoor
 
       if (Controller.IsOwned && Controller.Owner != player.Entity && !Controller.Unlocked)
       {
-          GameManager.Instance.CallClient_ShowNotification("This office is locked...");
-          GameManager.Instance.CallClient_PlaySFX("sfx/error.wav");
-          return;
+        if (op.CurrentRoom != RoomName)
+        {
+          if (op.Cash < 333)
+          {
+            op.CallClient_ShowNotification("This office is locked... not enough $ to breach");
+            op.CallClient_PlaySFX("sfx/error.wav");
+            return;
+          } else {
+            // Breach for money
+            op.CallClient_PlaySFX("sfx/invisibility_off.wav");
+            op.Cash.Set(op.Cash - 333);
+          }
+        }
       }
 
       if (!Controller.IsOwned)
       {
-        if (op.Cash < Controller.Cost)
+        if (op.CurrentRole < Controller.RequiredRole)
         {
-          GameManager.Instance.CallClient_ShowNotification("You don't have enough cash");
-          GameManager.Instance.CallClient_PlaySFX("sfx/error.wav");
+          op.CallClient_ShowNotification("You must reach the " + Controller.RequiredRole + " role to buy this office.");
+          op.CallClient_PlaySFX("sfx/error.wav");
           return;
         }
 
-        GameManager.Instance.CallClient_PlaySFX("sfx/rank-up.wav");
+        if (op.Cash < Controller.Cost)
+        {
+          op.CallClient_ShowNotification("You don't have enough cash");
+          op.CallClient_PlaySFX("sfx/error.wav");
+          return;
+        }
+
+        op.OfficeController?.Value?.GetComponent<OfficeController>().Reset();
+        op.CallClient_PlaySFX("sfx/rank-up.wav");
         op.Cash.Set(op.Cash - Controller.Cost);
         Controller.Owner.Set(op.Entity);
+        op.OfficeController.Set(Controller.Entity);
       }
 
       base.OnInteract(player);
@@ -58,14 +77,20 @@ public class OfficeDoor : TwoWayDoor
       if (Controller.IsOwned) {
         if (!Controller.Unlocked && !Controller.IsOwnedByMyClient)
         {
-          interactable.Text = $"{GetOfficeName} (Locked)";
+          interactable.Text = $"{GetOfficeName()} (Locked - Breach $333)";
+          return;
         }
 
         interactable.Text = $"Enter {GetOfficeName()}";
       }
       else 
       {
-        interactable.Text = $"Buy {GetOfficeName()} - ${Controller.Cost}";
+        if (op.OfficeController.Value != null)
+        {
+          interactable.Text = $"Buy {GetOfficeName()} - ${Controller.Cost} (DESTROYS OLD OFFICE)";
+        } else {
+          interactable.Text = $"Buy {GetOfficeName()} - ${Controller.Cost}";
+        }
       }
     }
     else

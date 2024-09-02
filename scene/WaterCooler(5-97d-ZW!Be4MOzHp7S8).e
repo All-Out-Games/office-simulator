@@ -15,7 +15,8 @@
   },
   "previous_sibling": "20641301987117:1717370526513028600",
   "next_sibling": "999541305879003:1709679552075307500",
-  "parent": "812070970290054:1709620732295121700"
+  "parent": "812070970290054:1709620732295121700",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
@@ -39,17 +40,25 @@
 },
 {
   "cid": 2,
-  "aoid": "1839096577790269:1709942972019542100",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
+  "aoid": "341827069275655:1725240955362288200",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
   "data": {
-    "prompt_offset": {
-      "X": 0,
-      "Y": 1
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
+    "PromptText": "Make Coffee",
+    "MinimumRoleRequired": 0,
+    "MaxRole": 0,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 30,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
+    "SpawnsDuringDay": true,
+    "SpawnsDuringNight": true,
+    "XpReward": 4,
+    "CashReward": 0,
+    "CashCost": 5
   }
 }

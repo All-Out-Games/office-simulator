@@ -1,7 +1,7 @@
 using AO;
 
 
-public class BoardMeetingEffect : MyEffect, INetworkedComponent
+public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
 {
     public override bool IsActiveEffect => true;
     public override bool BlockAbilityActivation => true;
@@ -14,20 +14,12 @@ public class BoardMeetingEffect : MyEffect, INetworkedComponent
     public Entity UI;
 
     public List<OfficePlayer> candidates = new List<OfficePlayer>();
-    public override float DefaultDuration => 10f;
+    public override float DefaultDuration => 17f;
     
     public bool HasPlayedEndSound;
 
     public override void OnEffectStart(bool isDropIn)
     {
-
-        if (!Player.IsLocal) return;
-
-        random = new Random((int)Player.Entity.NetworkId);
-
-        UI = Entity.Instantiate(Assets.GetAsset<Prefab>("BoardMeetingUI.prefab"));
-
-        Notifications.Show("A board meeting to elect a new CEO has been called...");
 
         foreach (Player player in AO.Player.AllPlayers)
         {
@@ -40,22 +32,39 @@ public class BoardMeetingEffect : MyEffect, INetworkedComponent
 
         candidates.Sort((a, b) => (int)a.Entity.NetworkId - (int)b.Entity.NetworkId);
 
+        if (!Player.IsLocal) return;
+
+        random = new Random((int)Player.Entity.NetworkId);
+
+        UI = Entity.Instantiate(Assets.GetAsset<Prefab>("BoardMeetingUI.prefab"));
+
+        Notifications.Show("A board meeting to elect a new CEO has been called...");
+
+
         foreach (var candidate in candidates)
         {
-            Notifications.Show($"{candidate.Name} is a candidate for CEO.");
+            Notifications.Show($"{candidate.Name} is a candidate for CEO. Vote now.");
         }
 
         var playerSeat = Player.AssignedMeetingSeat;
 
+        Log.Info($"Player name is {Player.Name} seat name is {playerSeat.Value.Name} at position {playerSeat.Value.Position}");
+
         Player.Teleport(playerSeat.Value.Position);
         Player.SetFacingDirection(playerSeat.Value.GetComponent<Seat>().FaceLeft ? false : true);
-
 
         var voteLeft= UI.TryGetChildByName("VoteLeft");
         var voteRight= UI.TryGetChildByName("VoteRight");
 
         var leftCandidate = candidates[0];
         var rightCandidate = candidates[1];
+
+        // Log all the debug info we can
+        Log.Info($"Left candidate: {leftCandidate.Name}");
+        Log.Info($"Right candidate: {rightCandidate.Name}");
+        Log.Info($"Left candidate votes: {leftCandidate.BoardVotes.Value}");
+        Log.Info($"Right candidate votes: {rightCandidate.BoardVotes.Value}");
+        Log.Info($"Seat position: {playerSeat.Value.Position}");
 
         if (voteLeft.Alive() && voteRight.Alive())
         {
@@ -69,50 +78,61 @@ public class BoardMeetingEffect : MyEffect, INetworkedComponent
             voteRightText.Text = rightCandidate.Name;
 
             voteLeftButton.OnClicked = () => {
-                leftCandidate.BoardVotes.Set(leftCandidate.BoardVotes.Value + 1);
+                leftCandidate.CallServer_CountVote(leftCandidate);
             };
 
             voteRightButton.OnClicked = () => {
-                rightCandidate.BoardVotes.Set(rightCandidate.BoardVotes.Value + 1);
+                rightCandidate.CallServer_CountVote(rightCandidate);
             };
         }
     }
 
+
+
     public override void OnEffectEnd(bool interrupt)
     {
         Player.Teleport(new Vector2(0, 0));
+
+        if (!candidates[0].Alive() || !candidates[1].Alive())
+        {
+            Notifications.Show("The board meeting has been cancelled due to lack of candidates.");
+            return;
+        }
+
         var leftCandidate = candidates[0];
         var rightCandidate = candidates[1];
 
         if (Player.IsLocal)
         {
             UI.Destroy();
-            if (rightCandidate.BoardVotes.Value >= leftCandidate.BoardVotes.Value)
-            {
-                Notifications.Show($"{rightCandidate.Name} has been elected as CEO!");
-            }
-            else
-            {
-                Notifications.Show($"{leftCandidate.Name} has been elected as CEO!");
-            }
         }
 
         if (Network.IsServer)
         {
-            leftCandidate.BoardVotes.Set(0);
-            rightCandidate.BoardVotes.Set(0);
+            // Log the votes and player names
+            Log.Info($"Left candidate: {leftCandidate.Name}");
+            Log.Info($"Right candidate: {rightCandidate.Name}");
+            Log.Info($"Left candidate votes: {leftCandidate.BoardVotes.Value}");
+            Log.Info($"Right candidate votes: {rightCandidate.BoardVotes.Value}");
 
+            // Right candidate is the newcomer, the old candidate will lose their stuff if this person wins
             if (rightCandidate.BoardVotes.Value >= leftCandidate.BoardVotes.Value)
             {
                 rightCandidate.CurrentRole = Role.CEO;
                 leftCandidate.CurrentRole = Role.MANAGER;
+                leftCandidate.OfficeController?.Value?.GetComponent<OfficeController>().Reset();
                 leftCandidate.Experience.Set(0);
+                GameManager.Instance.CallClient_ShowNotification($"{rightCandidate.Name} has been elected as the new CEO.");
             }
             else
             {
+                // Incumbent keeps their role
                 leftCandidate.CurrentRole = Role.CEO;
+                GameManager.Instance.CallClient_ShowNotification($"{leftCandidate.Name} will remain as the CEO.");
             }
 
+            leftCandidate.BoardVotes.Set(0);
+            rightCandidate.BoardVotes.Set(0);
         }
     }
 
@@ -163,6 +183,7 @@ public class KillerEffect : MyEffect, INetworkedComponent
 
             Player.AddInvisibilityReason(nameof(KillerEffect));
             Player.AddFreezeReason("transforming");
+            Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(4, 4);
             Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
             Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd += OnKillerAnimationEnd;
         }
@@ -382,7 +403,9 @@ public class SpectatorEffect : MyEffect
 
         if (Network.IsServer)
         {
+            Player.CurrentRoom = Room.LOBBY;
             Player.CurrentRole = Role.JANITOR;
+            Player.OfficeController?.Value?.GetComponent<OfficeController>().Reset();
             Player.Experience.Set(0);
             Player.Cash.Set(0);
         }
@@ -395,7 +418,7 @@ public class SpectatorEffect : MyEffect
 
     public override void OnEffectEnd(bool interrupt)
     {
-        Player.Teleport(Vector2.Zero);
+        Player.Teleport(new Vector2(-64.494f, -20.005f));
         Player.RemoveEmoteBlockReason(nameof(SpectatorEffect));
         Player.SpineAnimator.DepthOffset = 0;
         Player.SpineAnimator.SpineInstance.StateMachine.SetBool("ghost_form", false);

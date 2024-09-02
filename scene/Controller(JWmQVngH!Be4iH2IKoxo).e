@@ -44,7 +44,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "RoomBounds",
   "data": {
-    "RoomName": 10
+    "RoomName": 11
   }
 },
 {

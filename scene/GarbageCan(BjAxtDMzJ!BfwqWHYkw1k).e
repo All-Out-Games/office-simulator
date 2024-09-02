@@ -5,8 +5,8 @@
   "name": "GarbageCan",
   "local_enabled": true,
   "local_position": {
-    "X": 15.2073345184326172,
-    "Y": 10.5201454162597656
+    "X": 28.8517837524414062,
+    "Y": 3.3740649223327637
   },
   "local_rotation": 0,
   "local_scale": {
@@ -78,6 +78,7 @@
   "data": {
     "PromptText": "Take Out The Trash",
     "MinimumRoleRequired": 0,
+    "MaxRole": 0,
     "ActiveTexture": "48x48/Modern_Office_Singles_48x48_168.png",
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_167.png",
     "OnCompleteSfx": "sfx/paper.wav",

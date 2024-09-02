@@ -5,8 +5,8 @@
   "name": "CafeteriaJukebox",
   "local_enabled": true,
   "local_position": {
-    "X": 46.3139533996582031,
-    "Y": 1.0975631475448608
+    "X": -69.6992797851562500,
+    "Y": -12.6796016693115234
   },
   "local_rotation": 0,
   "local_scale": {
@@ -14,7 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "487768286994318:1725081307006482000",
-  "next_sibling": "27436431303153:1725142313697929600",
+  "next_sibling": "31781697395392:1725143677047303500",
   "parent": "21457415499725:1717370782572836000",
   "spawn_as_networked_entity": true
 },

@@ -3,7 +3,7 @@
 305537709327331 1709185685514899400
 {
   "name": "Phone",
-  "local_enabled": false,
+  "local_enabled": true,
   "local_position": {
     "X": -21.0976715087890625,
     "Y": 7.9345588684082031
@@ -44,19 +44,20 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Activity",
   "data": {
-    "PromptText": "",
-    "MinimumRoleRequired": 0,
-    "ActiveTexture": "",
-    "CooldownTexture": "",
+    "PromptText": "Answer Call...",
+    "MinimumRoleRequired": 1,
+    "MaxRole": 3,
+    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_242.png",
+    "CooldownTexture": "48x48/Modern_Office_Singles_48x48_242.png",
     "OnCompleteSfx": "sfx/creepy-phone.wav",
     "OnActiveSfx": "sfx/office_phone-ring_medium-loudaif-14604.wav",
     "OnCooldownSfx": "",
-    "CooldownSeconds": 30,
-    "AvailableForSeconds": 0,
+    "CooldownSeconds": 15,
+    "AvailableForSeconds": 7,
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 0,
+    "XpReward": 8,
     "CashReward": 0,
     "CashCost": 0
   }

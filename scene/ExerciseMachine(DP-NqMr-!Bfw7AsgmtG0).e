@@ -26,14 +26,14 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "8_Gym_Singles_48x48/Gym_Singles_48x48_95.png",
-    "depth_offset": 0,
+    "depth_offset": 0.2108933925628662,
     "tint": {
       "X": 1,
       "Y": 1,
       "Z": 1,
       "W": 1
     },
-    "layer": 2,
+    "layer": 0,
     "wait_for_load": false,
     "wrap": false,
     "mask_in_shadow": false
@@ -79,12 +79,13 @@
   "data": {
     "PromptText": "Go for a Run",
     "MinimumRoleRequired": 0,
-    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_95.png",
+    "MaxRole": 3,
+    "ActiveTexture": "8_Gym_Singles_48x48/Gym_Singles_48x48_95.png",
     "CooldownTexture": "",
     "OnCompleteSfx": "sfx/gym-weight.wav",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
-    "CooldownSeconds": 120,
+    "CooldownSeconds": 45,
     "AvailableForSeconds": 0,
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,

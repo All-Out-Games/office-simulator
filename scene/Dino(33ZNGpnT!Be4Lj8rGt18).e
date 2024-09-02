@@ -14,7 +14,8 @@
     "Y": 5
   },
   "previous_sibling": "751131164269993:1709601610379849500",
-  "parent": "21105229040321:1717370672072524900"
+  "parent": "21105229040321:1717370672072524900",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
@@ -74,5 +75,29 @@
     "friction": 0.2000000029802322,
     "restitution": 0,
     "restitution_threshold": 1
+  }
+},
+{
+  "cid": 3,
+  "aoid": "347309715472905:1725242675570464400",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
+  "data": {
+    "PromptText": "Pet The Dino",
+    "MinimumRoleRequired": 0,
+    "MaxRole": 3,
+    "ActiveTexture": "Museum_Singles_48x48_354.png",
+    "CooldownTexture": "Museum_Singles_48x48_354.png",
+    "OnCompleteSfx": "sfx/clue_found2.wav",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 30,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
+    "SpawnsDuringDay": true,
+    "SpawnsDuringNight": true,
+    "XpReward": 5,
+    "CashReward": 0,
+    "CashCost": 10
   }
 }

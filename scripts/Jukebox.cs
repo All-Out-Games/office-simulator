@@ -49,11 +49,11 @@ public partial class Jukebox : Component
     {
       if (nightVersion)
       {
-        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = 0.6f, Speed=0.875f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 3f });
+        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = 0.45f, Speed=0.875f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 3f });
       }
       else
       {
-        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = 0.7f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 2.5f });
+        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = 0.5f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 2.75f });
       }
     }
   }

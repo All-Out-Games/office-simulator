@@ -21,4 +21,19 @@ public class OfficeController : Component
   {
 
   }
+
+  public void Reset()
+  {
+    Owner.Set(null);
+    Unlocked.Set(false);
+
+    var buyables = Entity.Parent.TryGetChildByName("Buyables");
+    if (buyables != null)
+    {
+      foreach (var child in buyables.Children)
+      {
+        child.GetComponent<Buyable>().Bought.Set(false);
+      }
+    }
+  }
 }

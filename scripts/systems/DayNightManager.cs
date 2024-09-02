@@ -11,9 +11,12 @@ public enum DayState
 
 public partial class DayNightManager : Component
 {
+  [Serialized]
+  public UIText ClockUIRef;
+
   public static DayNightManager Instance;
-  public float DayLength = 15;
-  public float NightLength = 6;
+  public float DayLength = 100;
+  public float NightLength = 55;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
 
@@ -51,9 +54,11 @@ public partial class DayNightManager : Component
       var op = (OfficePlayer)Network.LocalPlayer;
       if (op.CurrentRoom != Room.HR)
       {
-        var clampedAmbiant = Math.Clamp(1 - Darkness, 0f, 0.3f);
+        var clampedAmbiant = Math.Clamp(1 - Darkness, 0f, 0.75f);
         op.CameraControl.AmbientColour = new Vector3(clampedAmbiant, clampedAmbiant, clampedAmbiant);
       }
+
+      UpdateClockUI();
     }
     else if (Network.IsServer)
     {
@@ -75,6 +80,23 @@ public partial class DayNightManager : Component
     }
   }
 
+  private void UpdateClockUI()
+  {
+    if (ClockUIRef != null && (CurrentState == DayState.DAY))
+    {
+      float timeToNightfall = DayLength * (1 - Darkness);
+      ClockUIRef.Text = $"Nightfall In: {timeToNightfall:F0}s";
+    }
+    else if (CurrentState == DayState.DAWN)
+    {
+      ClockUIRef.Text = "Back to work survivors!";
+    }
+    else if (ClockUIRef != null)
+    {
+      ClockUIRef.Text = "Survive...";
+    }
+  }
+
   // Server update fns that actually progress time
   private void UpdateDay()
   {
@@ -90,7 +112,7 @@ public partial class DayNightManager : Component
       var playerRef = (OfficePlayer)Player.AllPlayers[0];
       if (playerRef.Alive())
       {
-        GameManager.Instance.CallClient_PlaySFX("sfx/pre-night.wav");
+        playerRef.CallClient_PlaySFX("sfx/pre-night.wav");
       }
     }
   }
@@ -108,7 +130,7 @@ public partial class DayNightManager : Component
     if (Time.TimeSinceStartup - transitionStartTime >= 14.5f)
     {
       // Advance to night time
-      Darkness.Set(0.986f);
+      Darkness.Set(0.993f);
       curNightfallMessageIndex = 0;
       transitionStartTime.Set(Time.TimeSinceStartup);
       CurrentState = DayState.NIGHT;

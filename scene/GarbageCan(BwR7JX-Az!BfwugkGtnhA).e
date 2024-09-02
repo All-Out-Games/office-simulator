@@ -5,8 +5,8 @@
   "name": "GarbageCan",
   "local_enabled": true,
   "local_position": {
-    "X": -5.4108376502990723,
-    "Y": 0.3654301762580872
+    "X": -8.8269243240356445,
+    "Y": 0.3479969501495361
   },
   "local_rotation": 0,
   "local_scale": {
@@ -14,6 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "484800672387346:1725080375901521700",
+  "next_sibling": "341775221914733:1725240939094914800",
   "parent": "812070970290054:1709620732295121700",
   "spawn_as_networked_entity": true,
   "linked_prefab": "GarbageCan.prefab"
@@ -24,7 +25,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_168.png",
+    "texture": "48x48/Modern_Office_Singles_48x48_169.png",
     "depth_offset": 0,
     "tint": {
       "X": 1,
@@ -77,6 +78,7 @@
   "data": {
     "PromptText": "Take Out The Trash",
     "MinimumRoleRequired": 0,
+    "MaxRole": 3,
     "ActiveTexture": "48x48/Modern_Office_Singles_48x48_168.png",
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_167.png",
     "OnCompleteSfx": "sfx/paper.wav",

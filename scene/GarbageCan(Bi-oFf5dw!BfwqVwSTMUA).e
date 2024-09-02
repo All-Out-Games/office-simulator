@@ -5,8 +5,8 @@
   "name": "GarbageCan",
   "local_enabled": true,
   "local_position": {
-    "X": -56.1085052490234375,
-    "Y": -2.7989249229431152
+    "X": -66.0804519653320312,
+    "Y": -2.6718599796295166
   },
   "local_rotation": 0,
   "local_scale": {
@@ -25,7 +25,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_168.png",
+    "texture": "48x48/Modern_Office_Singles_48x48_169.png",
     "depth_offset": 0,
     "tint": {
       "X": 1,
@@ -78,7 +78,8 @@
   "data": {
     "PromptText": "Take Out The Trash",
     "MinimumRoleRequired": 0,
-    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_168.png",
+    "MaxRole": 0,
+    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_169.png",
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_167.png",
     "OnCompleteSfx": "sfx/paper.wav",
     "OnActiveSfx": "",

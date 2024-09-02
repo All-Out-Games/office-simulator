@@ -5,7 +5,7 @@
   "name": "SmallMoney",
   "local_enabled": true,
   "local_position": {
-    "X": -48.7037277221679688,
+    "X": -48.6251373291015625,
     "Y": -4.4249625205993652
   },
   "local_rotation": 0,
@@ -14,6 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "1012479154255782:1709683611391652700",
+  "next_sibling": "299661786612351:1725227725790037300",
   "parent": "20641301987117:1717370526513028600",
   "spawn_as_networked_entity": true,
   "linked_prefab": "Modern_Office_Singles_48x48_338.png.prefab"
@@ -33,7 +34,7 @@
       "W": 1
     },
     "layer": 0,
-    "wait_for_load": false,
+    "wait_for_load": true,
     "wrap": false,
     "mask_in_shadow": false
   }

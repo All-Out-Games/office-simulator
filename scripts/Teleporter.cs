@@ -4,6 +4,7 @@ public class Teleporter : Component
 {
     [Serialized]
     public Entity Target;
+    public float LastPlayedSfxAt = 0;
 
     public override void Awake()
     {
@@ -27,10 +28,21 @@ public class Teleporter : Component
                 } else
                 {
                     op.SetLightOn(true);
-                    op.CameraControl.AmbientColour = new Vector3(0, 0, 0);
                 }
 
-                SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-hit.wav"), new SFX.PlaySoundDesc() { Volume = 0.5f } );
+
+                // Cooldown for the global sounds
+                if (Time.TimeSinceStartup - LastPlayedSfxAt > 3)
+                {
+                    LastPlayedSfxAt = Time.TimeSinceStartup;
+                    SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-hit.wav"), new SFX.PlaySoundDesc() { Volume = 0.45f } );
+                }
+                else {
+                    if (Network.LocalPlayer == p)
+                    {
+                        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-hit.wav"), new SFX.PlaySoundDesc() { Volume = 0.45f } );
+                    }
+                }
             }
 
             p.Teleport(new Vector2(Target.X, Target.Y));

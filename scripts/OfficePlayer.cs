@@ -30,26 +30,37 @@ public partial class OfficePlayer : Player
 
   public Entity UI;
 
-  public SyncVar<int> Salary = new(25);
-  public SyncVar<int> Experience = new(1000);
-  public SyncVar<int> Cash = new(125);
+  public int Salary => CurrentRole switch
+  {
+    Role.JANITOR => 100,
+    Role.EMPLOYEE => 200,
+    Role.MANAGER => 300,
+    Role.CEO => 500,
+    _ => 0
+  };
 
-  public int RequiredExperience => CurrentRole == Role.MANAGER ? 250 : 100;
+  public SyncVar<int> Experience = new(100);
+  public SyncVar<int> Cash = new(1000);
+
+  public int RequiredExperience => CurrentRole == Role.MANAGER ? 100 : 100;
 
   public Spine_Animator KillerSpineAnimator;
   public SyncVar<bool> HasGymPass = new(false);
   public SyncVar<bool> HasGivenSpeech = new(false);
 
   public SyncVar<bool> Caffeinated = new(false);
+  public SyncVar<float> CaffinatedAt = new();
 
   public SyncVar<int> BoardVotes = new(0);
   public SyncVar<bool> IsBoardElectionCandidate = new(false);
 
   public SyncVar<Entity> AssignedMeetingSeat = new();
 
+  public SyncVar<Entity> OfficeController = new();
+
   public override Vector2 CalculatePlayerVelocity(Vector2 currentVelocity, Vector2 input, float deltaTime)
   {
-      var multiplier = 1.5f;
+      var multiplier = 2f;
       if (HasEffect<KillerEffect>())
       {
         multiplier *= 0.6f;
@@ -61,6 +72,11 @@ public partial class OfficePlayer : Player
 
       Vector2 velocity = DefaultPlayerVelocityCalculation(currentVelocity, input, deltaTime, multiplier);
       return velocity;
+  }
+
+  public override void OnDestroy()
+  {
+    OfficeController.Value?.GetComponent<OfficeController>().Reset();
   }
 
   public override void Awake()
@@ -76,7 +92,23 @@ public partial class OfficePlayer : Player
     
     Experience.OnSync += (oldValue, newValue) =>
     {
-      if (IsLocal) References.Instance.ExperienceStatText.Text = "XP: " + newValue + "/100";
+      if (IsLocal) {
+        References.Instance.ExperienceStatText.Text = "XP: " + Math.Clamp(newValue, 0, 100) + "/100";
+
+        if (newValue >= 100)
+        {
+          var settings = References.Instance.ExperienceStatText.Settings;
+          settings.Color = new Vector4(0, 1, 0, 1);
+
+          References.Instance.ExperienceStatText.Settings = settings;
+        } else {
+          var settings = References.Instance.ExperienceStatText.Settings;
+          settings.Color = new Vector4(1, 1, 1, 1);
+
+          References.Instance.ExperienceStatText.Settings = settings;
+        }
+      }
+
     };
 
     Cash.OnSync += (oldValue, newValue) =>
@@ -193,23 +225,35 @@ public partial class OfficePlayer : Player
         KillerSpineAnimator.SpineInstance.SetStateMachine(killerStateMachine, killerEntity);
         KillerSpineAnimator.LocalEnabled = false;
     }
+
+    if (IsLocal)
+    {
+      lightEntity = Entity.Create();
+      lightEntity.SetParent(this.Entity, false);
+      var light = lightEntity.AddComponent<SpookyLight>();
+      light.Light.Color = new Vector4(1, 1f, 1f, 0);
+      light.Light.ShadowCaster = false;
+      light.Light.Radi = new Vector2(0, 50);
+    }
   }
 
   public void SetLightOn(bool on)
   {
+    if (!IsLocal) return;
+
     if (on)
     {
-      if (!lightEntity.Alive())
       {
-        lightEntity = Entity.Create();
-        lightEntity.SetParent(this.Entity, false);
-        lightEntity.AddComponent<SpookyLight>();
+        lightEntity.GetComponent<SpookyLight>().Light.Color = new Vector4(1, 0.6f, 0.4f, 0);
+        lightEntity.GetComponent<SpookyLight>().Light.ShadowCaster = true;
+        lightEntity.GetComponent<SpookyLight>().Light.Radi = new Vector2(0, 8.5f);
       }
     }
     else
     {
-      if (!lightEntity.Alive()) return;
-      lightEntity.Destroy();
+      lightEntity.GetComponent<SpookyLight>().Light.Color = new Vector4(1, 1f, 1f, 0);
+      lightEntity.GetComponent<SpookyLight>().Light.Radi = new Vector2(0, 50f);
+      lightEntity.GetComponent<SpookyLight>().Light.ShadowCaster = false;
     }
   }
 
@@ -217,6 +261,14 @@ public partial class OfficePlayer : Player
   {
     bool moving = Velocity.Length > 0.03f;
     KillerSpineAnimator.SpineInstance.StateMachine.SetBool("moving", moving);
+
+    if (Network.IsServer)
+    {
+      if (Time.TimeSinceStartup - CaffinatedAt >= 10f)
+      {
+        Caffeinated.Set(false);
+      }
+    }
 
     if (IsLocal)
     {
@@ -229,7 +281,14 @@ public partial class OfficePlayer : Player
 
       // Make the camera follow the player
       CameraControl.Position = Entity.Position + new Vector2(0, 0.5f);
-      CameraControl.Zoom = 1.175f;
+      if (CurrentRoom == Room.CONFERENCE || CurrentRoom == Room.CONFERENCE_SPEAKER)
+      {
+        CameraControl.Zoom = 1.8f;
+      }
+      else
+      {
+        CameraControl.Zoom = 1.25f;
+      }
 
       var roleStatTextSettings = References.Instance.RoleStatText.Settings;
       roleStatTextSettings.Color = new Vector4(1, 1, 1, 1);
@@ -248,6 +307,33 @@ public partial class OfficePlayer : Player
         }
       }
     }
+  }
+
+  [ServerRpc]
+  public void CountVote(Player candidate)
+  {
+      Log.Info("RPC CALLED");
+      var op = (OfficePlayer)candidate;
+      op.BoardVotes.Set(op.BoardVotes.Value + 1);
+      Log.Info($"Player voted for {op.Name}");
+  }
+
+  [ClientRpc]
+  public void ShowNotification(string text)
+  {
+      if (IsLocal)
+      {
+          Notifications.Show(text);
+      }
+  }
+
+  [ClientRpc]
+  public void PlaySFX(string sfxPath)
+  {
+      if (IsLocal)
+      {
+        SFX.Play(Assets.GetAsset<AudioAsset>(sfxPath), new SFX.PlaySoundDesc() { Volume = 1f });
+      }
   }
 }
 

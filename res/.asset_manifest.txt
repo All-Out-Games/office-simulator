@@ -1143,6 +1143,8 @@ Museum_Singles_48x48_354.png - .ao.ios - 6659423c87d80516fc66d18c - 119686981634
 OfficeDoor.prefab - .ao - 65e01bc6deafd97297d7ea9b - 12441619632228262593
 PlayerCollisionPrefab.prefab - .ao - 65e809fbdeafd97297d7ec9d - 2305955976933100918
 StatsUI.prefab - .ao - 66d4bad460ed1ef1ffbc5279 - 8095219913184546070
+UI_Frame_White.png - .ao - 66d4bf6b60ed1ef1ffbc5281 - 12058232831434450668
+UI_Frame_White.png - .ao.ios - 66d4bf6b60ed1ef1ffbc5282 - 13978267607221532366
 VendingMachine.prefab - .ao - 66601e27d7f18c22a1140a8f - 15420365205273916055
 animations/Impostor/imposter_monster.png - .ao - 66d407fc60ed1ef1ffbc5216 - 4178398992138590344
 animations/Impostor/imposter_monster.png - .ao.ios - 66d407fc60ed1ef1ffbc5217 - 6870594990740042450

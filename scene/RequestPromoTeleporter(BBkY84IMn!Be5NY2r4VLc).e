@@ -5,8 +5,8 @@
   "name": "RequestPromoTeleporter",
   "local_enabled": true,
   "local_position": {
-    "X": -44.8768463134765625,
-    "Y": 1.2396943569183350
+    "X": -45.2506484985351562,
+    "Y": 1.5748260021209717
   },
   "local_rotation": 0,
   "local_scale": {

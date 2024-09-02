@@ -10,12 +10,14 @@ public partial class Activity : Component
 {
   [Serialized] public string PromptText;
   [Serialized] public Role MinimumRoleRequired;
+  [Serialized] public Role MaxRole = Role.CEO;
 
   // Textures/Resources
   [Serialized] public Texture ActiveTexture;
   [Serialized] public Texture CooldownTexture;
   [Serialized] public AudioAsset OnCompleteSfx;
   [Serialized] public AudioAsset OnActiveSfx;
+  private ulong activeSfxHandle;
   [Serialized] public AudioAsset OnCooldownSfx;
 
   // Cooldown Settings
@@ -62,6 +64,11 @@ public partial class Activity : Component
       LocalEnabled = false;
     }
 
+    if (ActiveTexture == null)
+    {
+      ActiveTexture = spriteRenderer.Texture;
+    }
+
     interactable = Entity.AddComponent<Interactable>();
   }
 
@@ -83,7 +90,7 @@ public partial class Activity : Component
     if (!requirementsResult.Success)
     {
       Chat.SendMessage(op, requirementsResult.ErrorMessage);
-      GameManager.Instance.CallClient_PlaySFX("sfx/error.wav");
+      op.CallClient_PlaySFX("sfx/error.wav");
       return;
     }
 
@@ -93,7 +100,7 @@ public partial class Activity : Component
     CurrentState = ActivityState.COOLDOWN;
     if (OnCompleteSfx != null)
     {
-      GameManager.Instance.CallClient_PlaySFX(OnCompleteSfx.Name);
+      op.CallClient_PlaySFX(OnCompleteSfx.Name);
     }
   }
 
@@ -116,7 +123,7 @@ public partial class Activity : Component
     switch (CurrentState)
     {
       case ActivityState.ACTIVE:
-        if (SpawnsDuringNight && DayNightManager.Instance.CurrentState != DayState.NIGHT)
+        if (SpawnsDuringNight && !SpawnsDuringDay && DayNightManager.Instance.CurrentState != DayState.NIGHT)
         {
           CurrentState = ActivityState.COOLDOWN;
           break;
@@ -149,6 +156,11 @@ public partial class Activity : Component
       case ActivityState.ACTIVE:
         spriteRenderer.Texture = ActiveTexture;
 
+        if (activeSfxHandle == 0 && OnActiveSfx != null)
+        {
+          activeSfxHandle = SFX.Play(OnActiveSfx, new() { Volume=0.5f, Positional=true, Position = Entity.Position });
+        }
+
         // Makes the sprite flash if they meet all the requirements to bring attention to the activity
         if (!Entity.GetComponent<SpriteFlasher>().Alive() && CheckAllRequirements(Network.LocalPlayer).Success)
         {
@@ -156,6 +168,12 @@ public partial class Activity : Component
         }
         break;
       case ActivityState.COOLDOWN:
+        if (activeSfxHandle != 0)
+        {
+          SFX.Stop(activeSfxHandle);
+          activeSfxHandle = 0;
+        }
+
         spriteRenderer.Texture = HideWhenOnCooldown ? null : CooldownTexture;
 
         // Cleanup flasher if it exists
@@ -187,6 +205,7 @@ public partial class Activity : Component
     var op = (OfficePlayer)p;
     if (CurrentState == ActivityState.COOLDOWN) return false;
     if (op.CurrentRole < MinimumRoleRequired) return false;
+    if (op.CurrentRole > MaxRole) return false;
 
     return true;
   }
@@ -204,6 +223,11 @@ public partial class Activity : Component
     if (op.CurrentRole < MinimumRoleRequired)
     {
       return new RequirementsResult(false, "Insufficient role");
+    }
+
+    if (op.CurrentRole > MaxRole)
+    {
+      return new RequirementsResult(false, "Too high role");
     }
 
     if (op.Cash < CashCost)
