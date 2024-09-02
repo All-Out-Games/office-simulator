@@ -51,9 +51,6 @@ public partial class OfficePlayer : Player
   public SyncVar<bool> Caffeinated = new(false);
   public SyncVar<float> CaffinatedAt = new();
 
-  public SyncVar<int> BoardVotes = new(0);
-  public SyncVar<bool> IsBoardElectionCandidate = new(false);
-
   public SyncVar<Entity> AssignedMeetingSeat = new();
 
   public SyncVar<Entity> OfficeController = new();
@@ -319,7 +316,7 @@ public partial class OfficePlayer : Player
 
     if (Network.IsServer)
     {
-      if (Time.TimeSinceStartup - CaffinatedAt >= 10f)
+      if (Time.TimeSinceStartup - CaffinatedAt >= 60f)
       {
         Caffeinated.Set(false);
       }
@@ -394,14 +391,6 @@ public partial class OfficePlayer : Player
     else {
       UI.Text(rect, CurrentRole.ToString(), ts);
     }
-  }
-
-  [ServerRpc]
-  public void CountVote(Player candidate)
-  {
-      var op = (OfficePlayer)candidate;
-      op.BoardVotes.Set(op.BoardVotes.Value + 1);
-      Log.Info($"Player voted for {op.Name}");
   }
 
   [ClientRpc]

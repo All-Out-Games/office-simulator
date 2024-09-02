@@ -44,7 +44,8 @@ public class OfficeSwitch : Component
         // Kick all non owners out of the office when it gets locked
         foreach (OfficePlayer player in inOfficePlayers)
         {
-          if (Controller.Owner.Value == player.Entity) continue;
+          if (Controller.Owner.Value == player.Entity || player.CurrentRole != Role.JANITOR) continue;
+
           player.CallClient_ShowNotification("This office has been locked");
           player.CallClient_PlaySFX("sfx/warp.wav");
           player.Teleport(Controller.Entity.Parent.TryGetChildByName("Door").GetComponent<OfficeDoor>().Outside.Position);

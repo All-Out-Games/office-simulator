@@ -5,8 +5,8 @@
   "name": "Plant",
   "local_enabled": true,
   "local_position": {
-    "X": -25.2768497467041016,
-    "Y": 9.7197732925415039
+    "X": -15.3489818572998047,
+    "Y": 7.5949444770812988
   },
   "local_rotation": 0,
   "local_scale": {

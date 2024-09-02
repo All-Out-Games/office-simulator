@@ -1,11 +1,11 @@
 13
-562640715777
-338492336621277 1725239909072929000
+558345748481
+338939777890230 1725240049459906600
 {
-  "name": "Clothing_Store_Singles_48x48_469.png",
+  "name": "Tutorial Guy",
   "local_enabled": true,
   "local_position": {
-    "X": -56.0493278503417969,
+    "X": -52.3499946594238281,
     "Y": -2.6874818801879883
   },
   "local_rotation": 0,
@@ -13,13 +13,12 @@
     "X": 4,
     "Y": 4
   },
-  "previous_sibling": "338140736455564:1725239798756585400",
-  "next_sibling": "338939777890230:1725240049459906600",
+  "previous_sibling": "338492336621277:1725239909072929000",
   "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
-  "aoid": "338492336757308:1725239909072970900",
+  "aoid": "338939778043263:1725240049459953800",
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
@@ -39,11 +38,11 @@
 },
 {
   "cid": 2,
-  "aoid": "338492336850438:1725239909073000000",
+  "aoid": "338939778150084:1725240049459987400",
   "component_type": "Mono_Component",
   "mono_component_type": "BillboardSign",
   "data": {
-    "Message": "Convince others to vote you as CEO",
+    "Message": "Good luck... you'll need it at night...",
     "IsIntroMessage": false,
     "HalfWidth": 0.5000000000000000
   }

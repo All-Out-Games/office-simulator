@@ -1,11 +1,11 @@
 13
-558345748481
-338939777890230 1725240049459906600
+571230650369
+337893920174979 1725239721316720500
 {
-  "name": "Clothing_Store_Singles_48x48_469.png",
+  "name": "Tutorial Guy",
   "local_enabled": true,
   "local_position": {
-    "X": -52.3499946594238281,
+    "X": -63.9731216430664062,
     "Y": -2.6874818801879883
   },
   "local_rotation": 0,
@@ -13,13 +13,13 @@
     "X": 4,
     "Y": 4
   },
-  "previous_sibling": "338492336621277:1725239909072929000",
-  "next_sibling": "359997444260250:1725246656410010600",
+  "previous_sibling": "311528489341575:1725231449028474500",
+  "next_sibling": "338140736455564:1725239798756585400",
   "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
-  "aoid": "338939778043263:1725240049459953800",
+  "aoid": "337893920348856:1725239721316774000",
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
@@ -39,11 +39,11 @@
 },
 {
   "cid": 2,
-  "aoid": "338939778150084:1725240049459987400",
+  "aoid": "337928017089614:1725239732014801100",
   "component_type": "Mono_Component",
   "mono_component_type": "BillboardSign",
   "data": {
-    "Message": "Good luck... you'll need it at night...",
+    "Message": "Find and complete tasks to earn XP",
     "IsIntroMessage": false,
     "HalfWidth": 0.5000000000000000
   }

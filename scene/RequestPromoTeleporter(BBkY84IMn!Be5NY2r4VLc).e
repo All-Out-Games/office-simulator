@@ -5,8 +5,8 @@
   "name": "RequestPromoTeleporter",
   "local_enabled": true,
   "local_position": {
-    "X": -45.0274353027343750,
-    "Y": 1.6466391086578369
+    "X": -45.2567214965820312,
+    "Y": 2.0836534500122070
   },
   "local_rotation": 0,
   "local_scale": {
@@ -69,5 +69,26 @@
   "mono_component_type": "SpriteFlasher",
   "data": {
 
+  }
+},
+{
+  "cid": 5,
+  "aoid": "556674514228786:1725308369118306300",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Box_Collider",
+  "data": {
+    "size": {
+      "X": 0.1535682678222656,
+      "Y": 0.2678102552890778
+    },
+    "offset": {
+      "X": -0.0025963820517063,
+      "Y": 0.0566019155085087
+    },
+    "is_trigger": false,
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 }

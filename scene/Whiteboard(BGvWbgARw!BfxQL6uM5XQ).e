@@ -5,8 +5,8 @@
   "name": "Whiteboard",
   "local_enabled": true,
   "local_position": {
-    "X": -26.9414367675781250,
-    "Y": 10.1311368942260742
+    "X": -24.0002899169921875,
+    "Y": 10.2511825561523438
   },
   "local_rotation": 0,
   "local_scale": {

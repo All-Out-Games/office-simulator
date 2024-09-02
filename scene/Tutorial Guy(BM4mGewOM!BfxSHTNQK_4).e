@@ -2,7 +2,7 @@
 566935683073
 338140736455564 1725239798756585400
 {
-  "name": "Clothing_Store_Singles_48x48_469.png",
+  "name": "Tutorial Guy",
   "local_enabled": true,
   "local_position": {
     "X": -59.9896469116210938,

@@ -10,6 +10,12 @@ public partial class PromoNPC : Component
     public Interactable interactable;
     public static PromoNPC Instance;
 
+    public SyncVar<Entity> Candidate1 = new();
+    public SyncVar<Entity> Candidate2 = new();
+    public SyncVar<int> Candidate1Votes = new();
+    public SyncVar<int> Candidate2Votes = new();
+    public SyncVar<float> BoardMeetingStartTime = new();
+
     public override void Awake()
     {
         Instance = this;
@@ -71,14 +77,8 @@ public partial class PromoNPC : Component
                     var CEOPlayer = CEOPlayers.Length > 0 ? (OfficePlayer)CEOPlayers[0] : null;
                     if (CEOPlayer.Alive())
                     {
-                        foreach (Player player in Player.AllPlayers)
-                        {
-                            var op2 = (OfficePlayer)player;
-                            op2.IsBoardElectionCandidate.Set(false);
-                        }
-
-                        CEOPlayer.IsBoardElectionCandidate.Set(true);
-                        op.IsBoardElectionCandidate.Set(true);
+                        Candidate1.Set(CEOPlayer.Entity);
+                        Candidate2.Set(op.Entity);
 
                         var seats = new List<Seat>();
                         foreach (var seat in Scene.Components<Seat>())
@@ -101,6 +101,7 @@ public partial class PromoNPC : Component
 
                         CallClient_StartBoardMeeting();
                     } else {
+                        GameManager.Instance.CallClient_ShowNotification(op.Name + " is the first to reach CEO!");
                         op.CurrentRole = Role.CEO;
                         op.Experience.Set(0);
                         op.CallClient_PlaySFX("sfx/rank-up.wav");
@@ -116,15 +117,42 @@ public partial class PromoNPC : Component
         };
     }
 
+    [ServerRpc]
+    public void CountVote(int cadidate)
+    {
+        if (!Candidate1.Value.Alive() || !Candidate2.Value.Alive())
+        {
+            Log.Error("Candidates are not alive");
+            return;
+        }
+
+        if (cadidate == 1)
+        {
+            Candidate1Votes.Set(Candidate1Votes + 1);
+            Log.Info("Candidate 1 votes: " + Candidate1Votes);
+        } else if (cadidate == 2) {
+            Candidate2Votes.Set(Candidate2Votes + 1);
+            Log.Info("Candidate 2 votes: " + Candidate2Votes);
+        } else {
+            Log.Error("Invalid candidate vote");
+        }
+    }
+
     [ClientRpc]
     public void StartBoardMeeting()
     {
         if (Network.IsClient) {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/clue_found2.wav"), new());
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/suspense.wav"), new());
         }
 
         if (Network.IsServer) {
+            Candidate1Votes.Set(0);
+            Candidate2Votes.Set(0);
+
             BoardMeetingActive.Set(true);
+            BoardMeetingStartTime.Set(Time.TimeSinceStartup);
+
         }
 
         foreach (Player player in Player.AllPlayers)
@@ -135,6 +163,53 @@ public partial class PromoNPC : Component
 
     public override void Update()
     {
+        if (Network.IsServer)
+        {
+            if (BoardMeetingActive && Time.TimeSinceStartup - BoardMeetingStartTime >= 17f)
+            {
+                BoardMeetingActive.Set(false);
+
+                foreach (Player player in Player.AllPlayers)
+                {
+                    player.RemoveEffect<BoardMeetingEffect>(false);
+                }
+
+                if (Candidate1.Value == null || Candidate2.Value == null)
+                {
+                    Log.Error("Candidate was null");
+                    GameManager.Instance.CallClient_ShowNotification("The board meeting has been cancelled due to a candidate being unavailable.");
+                    return;
+                }
+
+                var candidate1 = Candidate1.Value.GetComponent<OfficePlayer>();
+                var candidate2 = Candidate2.Value.GetComponent<OfficePlayer>();
+
+                if (!candidate1.Alive() || !candidate2.Alive())
+                {
+                    Log.Error("Candidate was not alive");
+                    GameManager.Instance.CallClient_ShowNotification("The board meeting has been cancelled due to a candidate being unavailable.");
+                    return;
+                }
+
+                // Right candidate is the newcomer, the old candidate will lose their stuff if this person wins
+                if (Candidate2Votes.Value >= Candidate1Votes.Value)
+                {
+                    candidate2.CurrentRole = Role.CEO;
+                    candidate1.CurrentRole = Role.MANAGER;
+                    candidate1.OfficeController?.Value?.GetComponent<OfficeController>().Reset();
+                    candidate1.Experience.Set(0);
+                    GameManager.Instance.CallClient_ShowNotification($"{candidate2.Name} has been elected as the new CEO.");
+                }
+                else
+                {
+                    // Incumbent keeps their role
+                    candidate1.CurrentRole = Role.CEO;
+                    GameManager.Instance.CallClient_ShowNotification($"{candidate1.Name} will remain as the CEO.");
+                }
+            }
+        }
+
+
         if (Network.IsServer) return;
         var interactible = Entity.GetComponent<Interactable>();
         var workerPlayer = (OfficePlayer)Network.LocalPlayer;

@@ -46,6 +46,15 @@ public partial class GameManager : Component
         scores[i] = op.CurrentRoom.ToString();;
       }
     });
+
+      Leaderboard.RegisterSortCallback((Player[] players) =>
+      {
+          Array.Sort(players, (a, b) =>
+          {
+              return ((OfficePlayer)b).CurrentRole.CompareTo(((OfficePlayer)a).CurrentRole);
+          });
+      });
+
   }
 
   [ClientRpc]

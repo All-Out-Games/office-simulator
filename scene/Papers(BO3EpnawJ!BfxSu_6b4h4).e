@@ -5,8 +5,8 @@
   "name": "Papers",
   "local_enabled": true,
   "local_position": {
-    "X": -20.7671356201171875,
-    "Y": 8.4190158843994141
+    "X": -20.3473777770996094,
+    "Y": 7.7458209991455078
   },
   "local_rotation": 0,
   "local_scale": {

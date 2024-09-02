@@ -3,10 +3,12 @@ using AO;
 public class OfficeController : Component
 {
   [Serialized] public Role RequiredRole;
+  [Serialized] public int BreachCost;
   [Serialized] public int Cost;
   public SyncVar<bool> Unlocked = new(false);
 
   public SyncVar<Entity> Owner = new();
+  
   
 
   public bool IsOwned => Owner.Value != null && Owner.Value.Alive();
@@ -26,6 +28,16 @@ public class OfficeController : Component
   {
     Owner.Set(null);
     Unlocked.Set(false);
+
+    var room = Entity.Parent.TryGetChildByName("Door").GetComponent<OfficeDoor>().RoomName;
+    var playersInOffice = RoomBounds.GetPlayersInRoom(room);
+    foreach (var player in playersInOffice)
+    {
+      var op = (OfficePlayer)player;
+      op.Teleport(Entity.Parent.TryGetChildByName("Door").GetComponent<OfficeDoor>().Outside.Position);
+      op.CurrentRoom = Room.HALLS;
+      op.CallClient_ShowNotification("The office has been reset...");
+    }
 
     var buyables = Entity.Parent.TryGetChildByName("Buyables");
     if (buyables != null)

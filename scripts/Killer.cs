@@ -13,60 +13,28 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
 
     public Entity UI;
 
-    public List<OfficePlayer> candidates = new List<OfficePlayer>();
     public override float DefaultDuration => 17f;
     
     public bool HasPlayedEndSound;
-    public SyncVar<bool> Done = new();
-    public bool Done2 = false;
 
     public override void OnEffectStart(bool isDropIn)
     {
-        if (Network.IsServer)
-        {
-            Done2 = false;
-            Done.Set(false);
-        }
-
-        foreach (Player player in AO.Player.AllPlayers)
-        {
-            var op = (OfficePlayer)player;
-            if (op.IsBoardElectionCandidate)
-            {
-                candidates.Add(op);
-            }
-        }
-
-        candidates.Sort((a, b) => (int)a.Entity.NetworkId - (int)b.Entity.NetworkId);
 
         var playerSeat = Player.AssignedMeetingSeat;
         Player.Teleport(playerSeat.Value.Position);
-        Log.Info($"Player name is {Player.Name} seat name is {playerSeat.Value.Name} at position {playerSeat.Value.Position}");
+        Player.SetFacingDirection(playerSeat.Value.GetComponent<Seat>().FaceLeft ? false : true);
 
         if (!Player.IsLocal) return;
-
-        random = new Random((int)Player.Entity.NetworkId);
 
         UI = Entity.Instantiate(Assets.GetAsset<Prefab>("BoardMeetingUI.prefab"));
 
         Notifications.Show("A board meeting to elect a new CEO has been called...");
 
-        Log.Info($"Player name is {Player.Name} seat name is {playerSeat.Value.Name} at position {playerSeat.Value.Position}");
-
-        Player.SetFacingDirection(playerSeat.Value.GetComponent<Seat>().FaceLeft ? false : true);
-
         var voteLeft= UI.TryGetChildByName("VoteLeft");
         var voteRight= UI.TryGetChildByName("VoteRight");
 
-        var leftCandidate = candidates[0];
-        var rightCandidate = candidates[1];
-
-        // Log all the debug info we can
-        Log.Info($"Left candidate: {leftCandidate.Name}");
-        Log.Info($"Right candidate: {rightCandidate.Name}");
-        Log.Info($"Left candidate votes: {leftCandidate.BoardVotes.Value}");
-        Log.Info($"Right candidate votes: {rightCandidate.BoardVotes.Value}");
-        Log.Info($"Seat position: {playerSeat.Value.Position}");
+        var leftCandidate = PromoNPC.Instance.Candidate1.Value.GetComponent<OfficePlayer>();
+        var rightCandidate = PromoNPC.Instance.Candidate2.Value.GetComponent<OfficePlayer>();
 
         if (voteLeft.Alive() && voteRight.Alive())
         {
@@ -80,11 +48,11 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
             voteRightText.Text = rightCandidate.Name;
 
             voteLeftButton.OnClicked = () => {
-                leftCandidate.CallServer_CountVote(leftCandidate);
+                PromoNPC.Instance.CallServer_CountVote(1);
             };
 
             voteRightButton.OnClicked = () => {
-                rightCandidate.CallServer_CountVote(rightCandidate);
+                PromoNPC.Instance.CallServer_CountVote(2);
             };
         }
     }
@@ -95,49 +63,9 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
     {
         Player.Teleport(new Vector2(0, 0));
 
-        if (!candidates[0].Alive() || !candidates[1].Alive())
-        {
-            Notifications.Show("The board meeting has been cancelled due to lack of candidates.");
-            return;
-        }
-
-        var leftCandidate = candidates[0];
-        var rightCandidate = candidates[1];
-
         if (Player.IsLocal)
         {
             UI.Destroy();
-        }
-
-        if (Network.IsServer && !Done && !Done2)
-        {
-            Done.Set(true);
-            Done2 = true;
-
-            // Log the votes and player names
-            Log.Info($"Left candidate: {leftCandidate.Name}");
-            Log.Info($"Right candidate: {rightCandidate.Name}");
-            Log.Info($"Left candidate votes: {leftCandidate.BoardVotes.Value}");
-            Log.Info($"Right candidate votes: {rightCandidate.BoardVotes.Value}");
-
-            // Right candidate is the newcomer, the old candidate will lose their stuff if this person wins
-            if (rightCandidate.BoardVotes.Value >= leftCandidate.BoardVotes.Value)
-            {
-                rightCandidate.CurrentRole = Role.CEO;
-                leftCandidate.CurrentRole = Role.MANAGER;
-                leftCandidate.OfficeController?.Value?.GetComponent<OfficeController>().Reset();
-                leftCandidate.Experience.Set(0);
-                GameManager.Instance.CallClient_ShowNotification($"{rightCandidate.Name} has been elected as the new CEO.");
-            }
-            else
-            {
-                // Incumbent keeps their role
-                leftCandidate.CurrentRole = Role.CEO;
-                GameManager.Instance.CallClient_ShowNotification($"{leftCandidate.Name} will remain as the CEO.");
-            }
-
-            leftCandidate.BoardVotes.Set(0);
-            rightCandidate.BoardVotes.Set(0);
         }
     }
 

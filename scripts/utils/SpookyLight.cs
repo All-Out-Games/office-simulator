@@ -13,6 +13,7 @@ public class SpookyLight : Component
     Light.Intensity = 1f;
     Light.Radi = new Vector2(0, 8.5f);
     Light.ShadowCaster = true;
+    Light.Softness = 0.35f;
     random = new Random();
   }
 

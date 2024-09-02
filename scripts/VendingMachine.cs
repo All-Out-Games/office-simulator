@@ -40,6 +40,7 @@ public class VendingMachine : Component
                 {
                     InStock.Set(false);
                     op.Cash.Set(op.Cash - Cost);
+                    op.CallClient_ShowNotification("Caffiene fills you... (+25% movement speed)");
                     op.CallClient_PlaySFX("sfx/vending.wav");
                     op.Caffeinated.Set(true);
                     op.CaffinatedAt.Set(Time.TimeSinceStartup);

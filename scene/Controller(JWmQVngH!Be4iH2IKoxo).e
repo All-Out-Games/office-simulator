@@ -54,6 +54,7 @@
   "mono_component_type": "OfficeController",
   "data": {
     "RequiredRole": 1,
+    "BreachCost": 600,
     "Cost": 150
   }
 }

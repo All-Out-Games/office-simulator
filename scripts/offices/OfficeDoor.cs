@@ -18,7 +18,7 @@ public class OfficeDoor : TwoWayDoor
       {
         if (op.CurrentRoom != RoomName)
         {
-          if (op.Cash < 600)
+          if (op.Cash < Controller.BreachCost)
           {
             op.CallClient_ShowNotification("This office is locked... not enough $ to breach");
             op.CallClient_PlaySFX("sfx/error.wav");
@@ -26,7 +26,10 @@ public class OfficeDoor : TwoWayDoor
           } else {
             // Breach for money
             op.CallClient_PlaySFX("sfx/invisibility_off.wav");
-            op.Cash.Set(op.Cash - 600);
+            // TODO: Positional
+            GameManager.Instance.CallClient_PlaySFX("sfx/ImpactDoorBreak_S08IM.288.wav");
+            Controller.Owner.Value.GetComponent<OfficePlayer>().CallClient_ShowNotification("Your office was breached by " + op.Name + "!");
+            op.Cash.Set(op.Cash - Controller.BreachCost);
           }
         }
       }
@@ -77,7 +80,7 @@ public class OfficeDoor : TwoWayDoor
       if (Controller.IsOwned) {
         if (!Controller.Unlocked && !Controller.IsOwnedByMyClient)
         {
-          interactable.Text = $"{GetOfficeName()} (Locked - Breach $600)";
+          interactable.Text = $"{GetOfficeName()} (Locked - Breach (${Controller.BreachCost})";
           return;
         }
 

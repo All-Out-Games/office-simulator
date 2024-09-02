@@ -1,30 +1,30 @@
 13
-1352914698241
-346801460097473 1725242516102751100
+1151051235329
+4456841323796 1725310086620053300
 {
-  "name": "Papers",
+  "name": "Plant",
   "local_enabled": true,
   "local_position": {
-    "X": -20.3874683380126953,
-    "Y": 6.8888893127441406
+    "X": -15.3970088958740234,
+    "Y": 4.4737257957458496
   },
   "local_rotation": 0,
   "local_scale": {
     "X": 4,
     "Y": 4
   },
-  "previous_sibling": "346799441714442:1725242515469473600",
-  "next_sibling": "346803032768902:1725242516596184800",
-  "parent": "345686839268872:1725242166384786900",
+  "previous_sibling": "4453096924830:1725310085445228800",
+  "next_sibling": "4460903954787:1725310087894724500",
+  "parent": "311117154785051:1725231319970161400",
   "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
-  "aoid": "346801460211716:1725242516102786300",
+  "aoid": "4456841437042:1725310086620088200",
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_154.png",
+    "texture": "48x48/Modern_Office_Singles_48x48_98.png",
     "depth_offset": 0,
     "tint": {
       "X": 1,
@@ -40,10 +40,10 @@
 },
 {
   "cid": 2,
-  "aoid": "346801460302487:1725242516102814800",
+  "aoid": "4456841527138:1725310086620116400",
   "component_type": "Mono_Component",
   "mono_component_type": "Buyable",
   "data": {
-    "Cost": 10
+    "Cost": 75
   }
 }

@@ -5,8 +5,8 @@
   "name": "Phone",
   "local_enabled": true,
   "local_position": {
-    "X": -18.1570854187011719,
-    "Y": -3.0748827457427979
+    "X": -18.0858039855957031,
+    "Y": -3.0511221885681152
   },
   "local_rotation": 0,
   "local_scale": {

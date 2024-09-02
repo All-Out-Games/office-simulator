@@ -14,7 +14,8 @@
     "Y": 1.1224489212036133
   },
   "previous_sibling": "268766203806351:1725218032143531200",
-  "next_sibling": "271208273345364:1725218798355290400"
+  "next_sibling": "271208273345364:1725218798355290400",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
@@ -85,5 +86,29 @@
     "friction": 0.2000000029802322,
     "restitution": 0,
     "restitution_threshold": 1
+  }
+},
+{
+  "cid": 4,
+  "aoid": "535728824055561:1725301797301304500",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
+  "data": {
+    "PromptText": "Greet New Employee",
+    "MinimumRoleRequired": 1,
+    "MaxRole": 3,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 45,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
+    "SpawnsDuringDay": true,
+    "SpawnsDuringNight": false,
+    "XpReward": 10,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

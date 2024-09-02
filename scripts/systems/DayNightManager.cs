@@ -15,7 +15,7 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 100;
+  public float DayLength = 5;
   public float NightLength = 50;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
@@ -37,6 +37,14 @@ public partial class DayNightManager : Component
         "Better get back to your office!",
         "[WARNING] Return to your office immediately or face... consequences.",
         "... your choice :)"
+  };
+
+  private readonly string[] janitorNightfallMessages = new string[]
+  {
+        "It's getting dark...",
+        "You feel... strange...",
+        "Get ready to hunt the employees...",
+        "You are a killer now..."
   };
 
   public override void Awake()
@@ -122,7 +130,15 @@ public partial class DayNightManager : Component
     float interval = 15f / nightfallMessages.Length;
     if (Time.TimeSinceStartup - transitionStartTime >= interval * curNightfallMessageIndex && curNightfallMessageIndex < nightfallMessages.Length)
     {
-      GameManager.Instance.CallClient_ShowNotification(nightfallMessages[curNightfallMessageIndex]);
+      foreach (Player player in Player.AllPlayers)
+      {
+        var op = (OfficePlayer)player;
+        if (op.CurrentRole == Role.JANITOR) {
+          GameManager.Instance.CallClient_ShowNotification(janitorNightfallMessages[curNightfallMessageIndex]);
+        } else {
+          GameManager.Instance.CallClient_ShowNotification(nightfallMessages[curNightfallMessageIndex]);
+        }
+      }
 
       curNightfallMessageIndex++;
     }
