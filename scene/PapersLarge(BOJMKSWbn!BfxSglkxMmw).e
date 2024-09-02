@@ -5,7 +5,7 @@
   "name": "PapersLarge",
   "local_enabled": true,
   "local_position": {
-    "X": -4.8147954940795898,
+    "X": -5.7265872955322266,
     "Y": 7.4859118461608887
   },
   "local_rotation": 0,
@@ -52,11 +52,11 @@
     "OnCompleteSfx": "",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
-    "CooldownSeconds": 60,
+    "CooldownSeconds": 45,
     "AvailableForSeconds": 0,
     "HideWhenOnCooldown": true,
-    "SpawnsDuringDay": false,
-    "SpawnsDuringNight": false,
+    "SpawnsDuringDay": true,
+    "SpawnsDuringNight": true,
     "XpReward": 5,
     "CashReward": 0,
     "CashCost": 0

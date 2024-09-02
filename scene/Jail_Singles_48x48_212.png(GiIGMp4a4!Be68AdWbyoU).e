@@ -39,18 +39,26 @@
   }
 },
 {
-  "cid": 3,
-  "aoid": "1838939852550112:1709942922846192800",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
+  "cid": 2,
+  "aoid": "375846613820697:1725251629167704700",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Activity",
   "data": {
-    "prompt_offset": {
-      "X": 0,
-      "Y": 1
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
+    "PromptText": "Refill Food",
+    "MinimumRoleRequired": 0,
+    "MaxRole": 0,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
+    "CooldownSeconds": 25,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
+    "SpawnsDuringDay": true,
+    "SpawnsDuringNight": true,
+    "XpReward": 10,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

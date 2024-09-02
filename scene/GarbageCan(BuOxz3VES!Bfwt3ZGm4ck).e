@@ -14,7 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "438017181241952:1725065697330866500",
-  "next_sibling": "493812948398131:1725083205212993600",
+  "next_sibling": "341775221914733:1725240939094914800",
   "parent": "812070970290054:1709620732295121700",
   "spawn_as_networked_entity": true,
   "linked_prefab": "GarbageCan.prefab"
@@ -89,7 +89,7 @@
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 2,
+    "XpReward": 8,
     "CashReward": 0,
     "CashCost": 0
   }

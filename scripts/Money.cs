@@ -16,8 +16,8 @@ public class Money : Component
             {
                 // 5 pieces of cash per salary
                 op.Cash.Set(op.Cash + op.Salary / 7);
+                Chat.SendMessage(op, "Thank you for your hard work!");
             }
-            Chat.SendMessage(op, "Thank you for your hard work!");
             if (Network.LocalPlayer == p)
             {
                 SFX.Play(Assets.GetAsset<AudioAsset>("sfx/money.wav"), new SFX.PlaySoundDesc());

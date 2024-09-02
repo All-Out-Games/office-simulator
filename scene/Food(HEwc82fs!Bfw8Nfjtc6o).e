@@ -45,7 +45,7 @@
   "data": {
     "PromptText": "Nom Nom",
     "MinimumRoleRequired": 1,
-    "MaxRole": 0,
+    "MaxRole": 3,
     "ActiveTexture": "Kitchen_Singles_48x48_387.png",
     "CooldownTexture": "",
     "OnCompleteSfx": "sfx/character_eating_loop_end_swallow_short.wav",
@@ -56,7 +56,7 @@
     "HideWhenOnCooldown": true,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": false,
-    "XpReward": 1,
+    "XpReward": 7,
     "CashReward": 0,
     "CashCost": 0
   }

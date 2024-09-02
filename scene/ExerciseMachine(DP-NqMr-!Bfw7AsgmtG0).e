@@ -90,8 +90,8 @@
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": false,
-    "XpReward": 6,
+    "XpReward": 15,
     "CashReward": 0,
-    "CashCost": 5
+    "CashCost": 0
   }
 }

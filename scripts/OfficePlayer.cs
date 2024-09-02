@@ -28,19 +28,19 @@ public partial class OfficePlayer : Player
     set => currentRoom.Set((int)value);
   }
 
-  public Entity UI;
+  public Entity StatsUI;
 
   public int Salary => CurrentRole switch
   {
-    Role.JANITOR => 100,
+    Role.JANITOR => 60,
     Role.EMPLOYEE => 200,
     Role.MANAGER => 300,
     Role.CEO => 500,
     _ => 0
   };
 
-  public SyncVar<int> Experience = new(100);
-  public SyncVar<int> Cash = new(1000);
+  public SyncVar<int> Experience = new(0);
+  public SyncVar<int> Cash = new(0);
 
   public int RequiredExperience => CurrentRole == Role.MANAGER ? 100 : 100;
 
@@ -60,7 +60,7 @@ public partial class OfficePlayer : Player
 
   public override Vector2 CalculatePlayerVelocity(Vector2 currentVelocity, Vector2 input, float deltaTime)
   {
-      var multiplier = 2f;
+      var multiplier = 1.25f;
       if (HasEffect<KillerEffect>())
       {
         multiplier *= 0.6f;
@@ -226,6 +226,11 @@ public partial class OfficePlayer : Player
         KillerSpineAnimator.LocalEnabled = false;
     }
 
+      var collisionEntity = Assets.GetAsset<Prefab>("FatPlayerCollision.prefab").Instantiate();
+      collisionEntity.GetComponent<PlayerCollisionChild>().Player = this;
+      collisionEntity.LocalScale = new Vector2(1.1f, 1.1f);
+      collisionEntity.SetParent(Entity, false);
+
     if (IsLocal)
     {
       lightEntity = Entity.Create();
@@ -257,10 +262,60 @@ public partial class OfficePlayer : Player
     }
   }
 
+  public UI.TextSettings GetTextSettings(float size, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
+  {
+      if (font == null)
+      {
+          font = UI.Fonts.BarlowBold;
+      }
+      var ts = new UI.TextSettings()
+      {
+          Font = font,
+          Size = size,
+          Color = Vector4.White,
+          DropShadowColor = new Vector4(0f,0f,0.02f,0.5f),
+          DropShadowOffset = new Vector2(0f,-3f),
+          HorizontalAlignment = halign,
+          VerticalAlignment = UI.VerticalAlignment.Center,
+          WordWrap = false,
+          WordWrapOffset = 0,
+          Outline = true,
+          OutlineThickness = 3,
+          Offset = new Vector2(0, offset),
+      };
+      return ts;
+  }
+
+  public UI.TextSettings GetRedTextSettings(float size, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
+  {
+      if (font == null)
+      {
+          font = UI.Fonts.BarlowBold;
+      }
+      var ts = new UI.TextSettings()
+      {
+          Font = font,
+          Size = size,
+          Color = Vector4.Red,
+          DropShadowColor = new Vector4(0f,0f,0.02f,0.5f),
+          DropShadowOffset = new Vector2(0f,-3f),
+          HorizontalAlignment = halign,
+          VerticalAlignment = UI.VerticalAlignment.Center,
+          WordWrap = false,
+          WordWrapOffset = 0,
+          Outline = true,
+          OutlineThickness = 3,
+          Offset = new Vector2(0, offset),
+      };
+      return ts;
+  }
+
   public override void Update()
   {
     bool moving = Velocity.Length > 0.03f;
     KillerSpineAnimator.SpineInstance.StateMachine.SetBool("moving", moving);
+
+
 
     if (Network.IsServer)
     {
@@ -275,12 +330,19 @@ public partial class OfficePlayer : Player
       if (HasEffect<KillerEffect>())
       {
         DrawDefaultAbilityUI(new AbilityDrawOptions() {
+          AbilityElementSize = 125,
           Abilities = new Ability[] { GetAbility<KillAbility>() }
         });
       }
 
-      // Make the camera follow the player
-      CameraControl.Position = Entity.Position + new Vector2(0, 0.5f);
+      if (CurrentRole == Role.CEO)
+      {
+        DrawDefaultAbilityUI(new AbilityDrawOptions() {
+          AbilityElementSize = 125,
+          Abilities = new Ability[] { GetAbility<Revolver>() }
+        });
+      }
+
       if (CurrentRoom == Room.CONFERENCE || CurrentRoom == Room.CONFERENCE_SPEAKER)
       {
         CameraControl.Zoom = 1.8f;
@@ -288,6 +350,16 @@ public partial class OfficePlayer : Player
       else
       {
         CameraControl.Zoom = 1.25f;
+      }
+
+      // Make the camera follow the player
+      if (HasEffect<BoardMeetingEffect>())
+      {
+        CameraControl.Position = new Vector2(9.575f, -50.249f);
+        CameraControl.Zoom = 1.4f;
+      }
+      else {
+        CameraControl.Position = Entity.Position + new Vector2(0, 0.5f);
       }
 
       var roleStatTextSettings = References.Instance.RoleStatText.Settings;
@@ -307,12 +379,26 @@ public partial class OfficePlayer : Player
         }
       }
     }
+
+    using var _1 = UI.PUSH_CONTEXT(UI.Context.WORLD);
+    using var _2 = IM.PUSH_Z(5000);
+    using var _3 = UI.PUSH_PLAYER_MATERIAL(this);
+    var rect = new Rect(Entity.Position, Entity.Position).Grow(0.125f);
+
+    var ts = GetTextSettings(0.225f);
+    if (DayNightManager.Instance.CurrentState == DayState.NIGHT && CurrentRole == Role.JANITOR)
+    {
+      ts = GetRedTextSettings(0.225f);
+      UI.Text(rect, "JANITOR", ts);
+    }
+    else {
+      UI.Text(rect, CurrentRole.ToString(), ts);
+    }
   }
 
   [ServerRpc]
   public void CountVote(Player candidate)
   {
-      Log.Info("RPC CALLED");
       var op = (OfficePlayer)candidate;
       op.BoardVotes.Set(op.BoardVotes.Value + 1);
       Log.Info($"Player voted for {op.Name}");

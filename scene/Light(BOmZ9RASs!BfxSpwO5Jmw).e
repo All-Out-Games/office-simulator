@@ -5,8 +5,8 @@
   "name": "Light",
   "local_enabled": true,
   "local_position": {
-    "X": -24.8527317047119141,
-    "Y": 6.2575387954711914
+    "X": -24.9954948425292969,
+    "Y": 6.3247194290161133
   },
   "local_rotation": 0,
   "local_scale": {

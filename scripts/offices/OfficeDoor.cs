@@ -18,7 +18,7 @@ public class OfficeDoor : TwoWayDoor
       {
         if (op.CurrentRoom != RoomName)
         {
-          if (op.Cash < 333)
+          if (op.Cash < 600)
           {
             op.CallClient_ShowNotification("This office is locked... not enough $ to breach");
             op.CallClient_PlaySFX("sfx/error.wav");
@@ -26,7 +26,7 @@ public class OfficeDoor : TwoWayDoor
           } else {
             // Breach for money
             op.CallClient_PlaySFX("sfx/invisibility_off.wav");
-            op.Cash.Set(op.Cash - 333);
+            op.Cash.Set(op.Cash - 600);
           }
         }
       }
@@ -77,7 +77,7 @@ public class OfficeDoor : TwoWayDoor
       if (Controller.IsOwned) {
         if (!Controller.Unlocked && !Controller.IsOwnedByMyClient)
         {
-          interactable.Text = $"{GetOfficeName()} (Locked - Breach $333)";
+          interactable.Text = $"{GetOfficeName()} (Locked - Breach $600)";
           return;
         }
 

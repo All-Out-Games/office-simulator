@@ -52,12 +52,12 @@
     "OnCompleteSfx": "",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
-    "CooldownSeconds": 60,
+    "CooldownSeconds": 30,
     "AvailableForSeconds": 0,
     "HideWhenOnCooldown": true,
     "SpawnsDuringDay": false,
     "SpawnsDuringNight": false,
-    "XpReward": 5,
+    "XpReward": 8,
     "CashReward": 0,
     "CashCost": 0
   }

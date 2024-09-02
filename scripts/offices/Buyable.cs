@@ -23,10 +23,6 @@ public class Buyable : Component
     interactable.CanUseCallback = (Player p) =>
     {
       if (!Controller.IsOwned || Bought) return false;
-      Log.Info(Controller.Entity.Name);
-
-      Log.Info(Controller.Owner.Value.Name);
-      Log.Info(p.Entity.Name);
       return Controller.Owner.Value == p.Entity;
     };
 

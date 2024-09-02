@@ -89,7 +89,7 @@ public partial class Activity : Component
     var requirementsResult = CheckAllRequirements(op);
     if (!requirementsResult.Success)
     {
-      Chat.SendMessage(op, requirementsResult.ErrorMessage);
+      op.CallClient_ShowNotification(requirementsResult.ErrorMessage);
       op.CallClient_PlaySFX("sfx/error.wav");
       return;
     }

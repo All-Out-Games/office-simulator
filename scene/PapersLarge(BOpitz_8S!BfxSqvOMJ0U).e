@@ -52,7 +52,7 @@
     "OnCompleteSfx": "",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
-    "CooldownSeconds": 60,
+    "CooldownSeconds": 30,
     "AvailableForSeconds": 0,
     "HideWhenOnCooldown": true,
     "SpawnsDuringDay": false,

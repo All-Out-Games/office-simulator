@@ -5,8 +5,8 @@
   "name": "Outside",
   "local_enabled": true,
   "local_position": {
-    "X": -5.6979217529296875,
-    "Y": 1.9489679336547852
+    "X": -5.6800937652587891,
+    "Y": 1.5924234390258789
   },
   "local_rotation": 0,
   "local_scale": {

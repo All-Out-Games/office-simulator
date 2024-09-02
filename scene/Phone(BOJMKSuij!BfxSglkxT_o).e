@@ -5,7 +5,7 @@
   "name": "Phone",
   "local_enabled": true,
   "local_position": {
-    "X": -3.6596140861511230,
+    "X": -4.0659556388854980,
     "Y": 7.9345588684082031
   },
   "local_rotation": 0,

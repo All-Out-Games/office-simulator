@@ -59,6 +59,6 @@
     "SpawnsDuringNight": true,
     "XpReward": 50,
     "CashReward": 0,
-    "CashCost": 100
+    "CashCost": 250
   }
 }

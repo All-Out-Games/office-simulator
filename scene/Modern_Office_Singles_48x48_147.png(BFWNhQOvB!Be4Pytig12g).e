@@ -47,8 +47,8 @@
     "PromptText": "Buy Ink",
     "MinimumRoleRequired": 2,
     "MaxRole": 3,
-    "ActiveTexture": "",
-    "CooldownTexture": "",
+    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_147.png",
+    "CooldownTexture": "48x48/Modern_Office_Singles_48x48_147.png",
     "OnCompleteSfx": "",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
@@ -57,7 +57,7 @@
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": false,
     "SpawnsDuringNight": false,
-    "XpReward": 4,
+    "XpReward": 15,
     "CashReward": 0,
     "CashCost": 25
   }

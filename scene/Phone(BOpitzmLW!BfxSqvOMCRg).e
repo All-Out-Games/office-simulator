@@ -53,11 +53,11 @@
     "OnActiveSfx": "sfx/office_phone-ring_medium-loudaif-14604.wav",
     "OnCooldownSfx": "",
     "CooldownSeconds": 15,
-    "AvailableForSeconds": 7,
+    "AvailableForSeconds": 8,
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 11,
+    "XpReward": 15,
     "CashReward": 0,
     "CashCost": 0
   }

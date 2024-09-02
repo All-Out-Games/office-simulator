@@ -17,9 +17,16 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
     public override float DefaultDuration => 17f;
     
     public bool HasPlayedEndSound;
+    public SyncVar<bool> Done = new();
+    public bool Done2 = false;
 
     public override void OnEffectStart(bool isDropIn)
     {
+        if (Network.IsServer)
+        {
+            Done2 = false;
+            Done.Set(false);
+        }
 
         foreach (Player player in AO.Player.AllPlayers)
         {
@@ -32,6 +39,10 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
 
         candidates.Sort((a, b) => (int)a.Entity.NetworkId - (int)b.Entity.NetworkId);
 
+        var playerSeat = Player.AssignedMeetingSeat;
+        Player.Teleport(playerSeat.Value.Position);
+        Log.Info($"Player name is {Player.Name} seat name is {playerSeat.Value.Name} at position {playerSeat.Value.Position}");
+
         if (!Player.IsLocal) return;
 
         random = new Random((int)Player.Entity.NetworkId);
@@ -40,17 +51,8 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
 
         Notifications.Show("A board meeting to elect a new CEO has been called...");
 
-
-        foreach (var candidate in candidates)
-        {
-            Notifications.Show($"{candidate.Name} is a candidate for CEO. Vote now.");
-        }
-
-        var playerSeat = Player.AssignedMeetingSeat;
-
         Log.Info($"Player name is {Player.Name} seat name is {playerSeat.Value.Name} at position {playerSeat.Value.Position}");
 
-        Player.Teleport(playerSeat.Value.Position);
         Player.SetFacingDirection(playerSeat.Value.GetComponent<Seat>().FaceLeft ? false : true);
 
         var voteLeft= UI.TryGetChildByName("VoteLeft");
@@ -107,8 +109,11 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
             UI.Destroy();
         }
 
-        if (Network.IsServer)
+        if (Network.IsServer && !Done && !Done2)
         {
+            Done.Set(true);
+            Done2 = true;
+
             // Log the votes and player names
             Log.Info($"Left candidate: {leftCandidate.Name}");
             Log.Info($"Right candidate: {rightCandidate.Name}");
@@ -178,7 +183,7 @@ public class KillerEffect : MyEffect, INetworkedComponent
 
             if (!Player.IsLocal)
             {
-                sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=1.5f, Position = Player.Entity.Position, Positional=true} );
+                sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.75f, Position = Player.Entity.Position, Positional=true} );
             }
 
             Player.AddInvisibilityReason(nameof(KillerEffect));
@@ -294,6 +299,10 @@ public partial class KillAbility : MyAbility
 
         if (Network.IsServer)
         {
+            Player.CallClient_ShowNotification("Kill (+20% EXP +$10)");
+            Player.Experience.Set(Player.Experience + 20);
+            Player.Cash.Set(Player.Cash + 10);
+
             CallClient_KillPlayer(targetPlayers[0], Player);
         }
 

@@ -46,7 +46,7 @@
   "data": {
     "PromptText": "Answer Customer Service Call",
     "MinimumRoleRequired": 1,
-    "MaxRole": 0,
+    "MaxRole": 3,
     "ActiveTexture": "48x48/Modern_Office_Singles_48x48_242.png",
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_242.png",
     "OnCompleteSfx": "sfx/phone-answer.wav",

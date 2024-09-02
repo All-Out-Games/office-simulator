@@ -7,13 +7,19 @@ public class OfficeSwitch : Component
 
   public override void Awake()
   {
-    Controller = Entity.Parent.TryGetChildByName("Controller").GetComponent<OfficeController>();
+    Controller = Entity.Parent.TryGetChildByName("Controller")?.GetComponent<OfficeController>();
+
+    // Log null
+    if (!Controller.Alive())
+    {
+      Log.Error("OfficeSwitch " + Entity.Name + " doesn't have a parent office controller");
+    }
 
     interactable = AddComponent<Interactable>();
     interactable.CanUseCallback = (Player p) => {
       var op = (OfficePlayer)p;
 
-      if (Controller.Owner != op.Entity) {
+      if (Controller.IsOwned && Controller.Owner != op.Entity) {
         return false;
       }
 
@@ -23,6 +29,12 @@ public class OfficeSwitch : Component
     interactable.OnInteract = (Player p) => {
       if (!Network.IsServer) return;
       var op = (OfficePlayer)p;
+
+      if (Controller.Owner != op.Entity) {
+        op.CallClient_ShowNotification("You must own this office to lock/unlock it");
+        op.CallClient_PlaySFX("sfx/error.wav");
+        return;
+      }
 
       var newUnlocked = !Controller.Unlocked;
 

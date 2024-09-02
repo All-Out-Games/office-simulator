@@ -88,7 +88,7 @@
     "MaxRole": 3,
     "ActiveTexture": "Museum_Singles_48x48_354.png",
     "CooldownTexture": "Museum_Singles_48x48_354.png",
-    "OnCompleteSfx": "sfx/clue_found2.wav",
+    "OnCompleteSfx": "sfx/gym-weight.wav",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
     "CooldownSeconds": 30,
@@ -96,7 +96,7 @@
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 5,
+    "XpReward": 12,
     "CashReward": 0,
     "CashCost": 10
   }

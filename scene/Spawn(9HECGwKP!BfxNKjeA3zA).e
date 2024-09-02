@@ -17,8 +17,8 @@
   "next_sibling": "270644201590733:1725218621374903700"
 },
 {
-  "cid": 1,
-  "aoid": "268780571270076:1725218036651396400",
+  "cid": 2,
+  "aoid": "358725931046325:1725246257466261600",
   "component_type": "Internal_Component",
   "internal_component_type": "Spawn_Point",
   "data": {

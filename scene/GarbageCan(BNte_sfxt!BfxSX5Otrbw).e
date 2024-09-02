@@ -13,7 +13,7 @@
     "X": 4,
     "Y": 4
   },
-  "previous_sibling": "493812948398131:1725083205212993600",
+  "previous_sibling": "484800672387346:1725080375901521700",
   "next_sibling": "341797826955384:1725240946187361400",
   "parent": "812070970290054:1709620732295121700",
   "spawn_as_networked_entity": true,
@@ -89,7 +89,7 @@
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 2,
+    "XpReward": 8,
     "CashReward": 0,
     "CashCost": 0
   }

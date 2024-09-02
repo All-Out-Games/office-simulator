@@ -5,8 +5,8 @@
   "name": "Inside",
   "local_enabled": true,
   "local_position": {
-    "X": -26.8151741027832031,
-    "Y": -5.6576342582702637
+    "X": -26.2717723846435547,
+    "Y": -4.1783728599548340
   },
   "local_rotation": 0,
   "local_scale": {

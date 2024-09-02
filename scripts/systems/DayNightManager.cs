@@ -16,7 +16,7 @@ public partial class DayNightManager : Component
 
   public static DayNightManager Instance;
   public float DayLength = 100;
-  public float NightLength = 55;
+  public float NightLength = 50;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
 
@@ -54,7 +54,7 @@ public partial class DayNightManager : Component
       var op = (OfficePlayer)Network.LocalPlayer;
       if (op.CurrentRoom != Room.HR)
       {
-        var clampedAmbiant = Math.Clamp(1 - Darkness, 0f, 0.75f);
+        var clampedAmbiant = Math.Clamp(1 - Darkness, 0f, 0.2f);
         op.CameraControl.AmbientColour = new Vector3(clampedAmbiant, clampedAmbiant, clampedAmbiant);
       }
 

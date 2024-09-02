@@ -5,13 +5,13 @@
   "name": "RequestPromoTeleporter",
   "local_enabled": true,
   "local_position": {
-    "X": -45.2506484985351562,
-    "Y": 1.5748260021209717
+    "X": -45.0274353027343750,
+    "Y": 1.6466391086578369
   },
   "local_rotation": 0,
   "local_scale": {
-    "X": 6,
-    "Y": 6
+    "X": 8,
+    "Y": 8
   },
   "previous_sibling": "287660153059416:1709456192270255000",
   "parent": "21563711469729:1717370815923742600",
@@ -60,5 +60,14 @@
   "mono_component_type": "Teleporter",
   "data": {
     "Target": "287660153059416:1709456192270255000"
+  }
+},
+{
+  "cid": 4,
+  "aoid": "381271494237656:1725253331251573500",
+  "component_type": "Mono_Component",
+  "mono_component_type": "SpriteFlasher",
+  "data": {
+
   }
 }

@@ -5,7 +5,7 @@
   "name": "CSPhone",
   "local_enabled": true,
   "local_position": {
-    "X": 4.1470222473144531,
+    "X": 4.1848478317260742,
     "Y": 7.7384243011474609
   },
   "local_rotation": 0,
@@ -46,7 +46,7 @@
   "data": {
     "PromptText": "Answer Customer Service Call",
     "MinimumRoleRequired": 1,
-    "MaxRole": 0,
+    "MaxRole": 3,
     "ActiveTexture": "48x48/Modern_Office_Singles_48x48_242.png",
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_242.png",
     "OnCompleteSfx": "sfx/phone-answer.wav",

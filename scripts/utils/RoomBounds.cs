@@ -37,12 +37,14 @@ public class RoomBounds : Component
         Entity.GetComponent<Box_Collider>().OnCollisionEnter = (Entity other) =>
         {
             var op = other.GetComponent<OfficePlayer>();
+            if (!op.Alive()) return;
             op.CurrentRoom = RoomName;
         };
 
         Entity.GetComponent<Box_Collider>().OnCollisionExit = (Entity other) =>
         {
             var player = other.GetComponent<OfficePlayer>();
+            if (!player.Alive()) return;
             player.CurrentRoom = Room.HALLS;
         };
     }

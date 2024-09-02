@@ -47,8 +47,8 @@
     "PromptText": "Fix Jam",
     "MinimumRoleRequired": 1,
     "MaxRole": 3,
-    "ActiveTexture": "",
-    "CooldownTexture": "",
+    "ActiveTexture": "48x48/Modern_Office_Singles_48x48_147.png",
+    "CooldownTexture": "48x48/Modern_Office_Singles_48x48_147.png",
     "OnCompleteSfx": "",
     "OnActiveSfx": "",
     "OnCooldownSfx": "",
@@ -57,7 +57,7 @@
     "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 3,
+    "XpReward": 10,
     "CashReward": 0,
     "CashCost": 0
   }
