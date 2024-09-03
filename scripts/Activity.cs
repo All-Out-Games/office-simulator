@@ -70,6 +70,11 @@ public partial class Activity : Component
     }
 
     interactable = Entity.AddComponent<Interactable>();
+
+    if (Network.IsClient)
+    {
+      Entity.AddComponent<SpriteFlasher>();
+    }
   }
 
   public override void Start()
@@ -162,9 +167,9 @@ public partial class Activity : Component
         }
 
         // Makes the sprite flash if they meet all the requirements to bring attention to the activity
-        if (!Entity.GetComponent<SpriteFlasher>().Alive() && CheckAllRequirements(Network.LocalPlayer).Success)
+        if (CheckAllRequirements(Network.LocalPlayer).Success)
         {
-          Entity.AddComponent<SpriteFlasher>();
+          Entity.GetComponent<SpriteFlasher>().Flash = true;
         }
         break;
       case ActivityState.COOLDOWN:
@@ -178,11 +183,11 @@ public partial class Activity : Component
 
         break;
     }
-    
+
     // Cleanup flasher if it exists
-    if (Entity.GetComponent<SpriteFlasher>().Alive() && CurrentState == ActivityState.COOLDOWN || !CheckAllRequirements(Network.LocalPlayer).Success)
+    if (Entity.GetComponent<SpriteFlasher>().Flash && (CurrentState == ActivityState.COOLDOWN || !CheckAllRequirements(Network.LocalPlayer).Success))
     {
-      Entity.RemoveComponent<SpriteFlasher>();
+      Entity.GetComponent<SpriteFlasher>().Flash = false;
     }
   }
 

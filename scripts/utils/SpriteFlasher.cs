@@ -3,6 +3,7 @@ using AO;
 // Can be added to an entity for visual emphasis (e.g. can be interacted with)
 public class SpriteFlasher : Component
 {
+  public bool Flash = false;
   private Sprite_Renderer spriteRenderer;
   private float curTintOffset;
   public float FlashDepth = 0.625f;
@@ -21,6 +22,12 @@ public class SpriteFlasher : Component
 
   public override void Update()
   {
+    if (!Flash)
+    {
+      Entity.GetComponent<Sprite_Renderer>().Tint = new Vector4(1f, 1f, 1f, 1f);
+      return;
+    }
+    
     curTintOffset += Time.DeltaTime * FlashSpeed;
     float tintValue = MathF.Sin(curTintOffset) * FlashDepth + 0.8f;
     Entity.GetComponent<Sprite_Renderer>().Tint = new Vector4(tintValue, tintValue, tintValue, 1f);
