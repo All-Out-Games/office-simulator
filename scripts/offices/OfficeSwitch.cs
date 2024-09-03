@@ -51,6 +51,10 @@ public class OfficeSwitch : Component
           player.Teleport(Controller.Entity.Parent.TryGetChildByName("Door").GetComponent<OfficeDoor>().Outside.Position);
           player.CurrentRoom = Room.HALLS;
         }
+
+        op.CallClient_PlaySFX("sfx/progress_check_on.wav");
+      } else {
+        op.CallClient_PlaySFX("sfx/progress_check_off.wav");
       }
 
       Controller.Unlocked.Set(!Controller.Unlocked);

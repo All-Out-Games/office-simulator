@@ -50,9 +50,9 @@
     },
     "insets": {
       "X": -145.5000000000000000,
-      "Y": -506.5000000000000000,
+      "Y": -549,
       "Z": -145.5000000000000000,
-      "W": -506.5000000000000000
+      "W": -549
     },
     "offset": {
       "X": 0,
@@ -70,5 +70,54 @@
     "height": 2,
     "padding": 0,
     "size_source": 0
+  }
+},
+{
+  "cid": 4,
+  "aoid": "51899745997299:1725324972074335300",
+  "component_type": "Internal_Component",
+  "internal_component_type": "UIText",
+  "data": {
+    "text": "< Spam Click to Vote >",
+    "settings": {
+      "font_id": "",
+      "size": 30,
+      "color": {
+        "X": 1,
+        "Y": 1,
+        "Z": 1,
+        "W": 1
+      },
+      "valign": 1,
+      "halign": 1,
+      "word_wrap": false,
+      "word_wrap_start_offset": 0,
+      "offset": {
+        "X": 0,
+        "Y": 0
+      },
+      "do_drop_shadow": true,
+      "drop_shadow_offset": {
+        "X": 1,
+        "Y": -1
+      },
+      "drop_shadow_color": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0,
+        "W": 1
+      },
+      "do_outline": true,
+      "outline_thickness": 2,
+      "outline_color": {
+        "X": 0,
+        "Y": 0,
+        "Z": 0,
+        "W": 1
+      },
+      "spacing_multiplier": 1,
+      "line_height_multiplier": 1
+    },
+    "push_text_rect": true
   }
 }

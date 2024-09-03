@@ -14,7 +14,7 @@ public class SpeechPodium : Activity
 
       if (confPlayers.Count < 2)
       {
-        GameManager.Instance.CallClient_ShowNotification(op.Name + " tried to give a speech to become CEO, but there must be at least 2 players in the audience!");
+        GameManager.Instance.CallClient_ShowNotification("Head to the conference room to listen to " + op.Name + "'s speech!");
         op.CallClient_ShowNotification("There must be at least 2 players in the audience!");
         return;
       }

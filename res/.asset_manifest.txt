@@ -1126,7 +1126,7 @@ Ability_Icons/transform_evil.png - .ao - 66d5247f60ed1ef1ffbc52b9 - 135466654017
 Ability_Icons/transform_evil.png - .ao.ios - 66d5247f60ed1ef1ffbc52ba - 15858314894028816559
 Ability_Icons/transform_good.png - .ao - 66d5247f60ed1ef1ffbc52be - 17661359808831440669
 Ability_Icons/transform_good.png - .ao.ios - 66d5247f60ed1ef1ffbc52c0 - 17741776641283987419
-BoardMeetingUI.prefab - .ao - 66d3ef2c60ed1ef1ffbc5213 - 12510240017489946310
+BoardMeetingUI.prefab - .ao - 66d65f1e60ed1ef1ffbc5326 - 13840481896847542035
 Bullet.prefab - .ao - 66d5247f60ed1ef1ffbc52bf - 13724810000407936624
 Clothing_Store_Singles_48x48_469.png - .ao - 6659423687d80516fc66d13e - 11595812907148789776
 Clothing_Store_Singles_48x48_469.png - .ao.ios - 6659423687d80516fc66d140 - 3002034772166738933
@@ -1267,6 +1267,8 @@ sfx/office_phone-ring_medium-loudaif-14604.wav - .ao - 6659424287d80516fc66d1c0 
 sfx/paper.wav - .ao - 6659424287d80516fc66d1c2 - 12514807459558289232
 sfx/phone-answer.wav - .ao - 6659424387d80516fc66d1c3 - 11468928971700790009
 sfx/pre-night.wav - .ao - 66d4bad560ed1ef1ffbc527d - 16352691602718053663
+sfx/progress_check_off.wav - .ao - 66d668a760ed1ef1ffbc532b - 13343729627243592293
+sfx/progress_check_on.wav - .ao - 66d668a760ed1ef1ffbc532a - 310698306925759410
 sfx/rank-up.wav - .ao - 6659424387d80516fc66d1c6 - 388421508148114631
 sfx/server-boot.wav - .ao - 66d38a5c60ed1ef1ffbc51fc - 14043437265152486794
 sfx/server-room.wav - .ao - 6659424387d80516fc66d1c7 - 11111768904133896247

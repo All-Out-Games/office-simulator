@@ -3,10 +3,13 @@ using AO;
 public class OfficeDoor : TwoWayDoor
 {
   OfficeController Controller;
+  private Sprite_Renderer spriteRenderer;
 
   public override void Start()
   {
     base.Start();
+    spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
+
     Controller = Entity.Parent.TryGetChildByName("Controller").GetComponent<OfficeController>();
     
     interactable.OnInteract = (Player player) =>
@@ -120,6 +123,13 @@ public class OfficeDoor : TwoWayDoor
   {
     if (Network.IsServer) return;
 
+    if (Controller.Unlocked)
+    {
+      spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 0.7f);
+    }
+    else {
+      spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 1f);
+    }
 
     var op = (OfficePlayer)Network.LocalPlayer;
     if (!op.Alive()) return;

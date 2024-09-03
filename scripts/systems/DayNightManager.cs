@@ -15,8 +15,8 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 110;
-  public float NightLength = 45;
+  public float DayLength = 125;
+  public float NightLength = 40;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
 
@@ -117,10 +117,14 @@ public partial class DayNightManager : Component
       CurrentState = DayState.DUSK;
       CallClient_StartClientDusk();
 
-      var playerRef = (OfficePlayer)Player.AllPlayers[0];
-      if (playerRef.Alive())
+      foreach (Player player in Player.AllPlayers)
       {
-        playerRef.CallClient_PlaySFX("sfx/pre-night.wav");
+        var op = (OfficePlayer)player;
+
+        if (op.Alive())
+        {
+          op.CallClient_PlaySFX("sfx/pre-night.wav");
+        }
       }
     }
   }

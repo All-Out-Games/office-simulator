@@ -120,7 +120,7 @@
       "word_wrap": false,
       "word_wrap_start_offset": 0,
       "offset": {
-        "X": 65,
+        "X": 71,
         "Y": -65
       },
       "do_drop_shadow": false,

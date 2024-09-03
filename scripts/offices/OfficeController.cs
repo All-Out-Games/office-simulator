@@ -26,15 +26,20 @@ public class OfficeController : Component
 
   public void Reset()
   {
-    Owner.Set(null);
-    Unlocked.Set(false);
-
     var room = Entity.Parent.TryGetChildByName("Door").GetComponent<OfficeDoor>().RoomName;
     var playersInOffice = RoomBounds.GetPlayersInRoom(room);
+
     foreach (var player in playersInOffice)
     {
       var op = (OfficePlayer)player;
       op.Teleport(Entity.Parent.TryGetChildByName("Door").GetComponent<OfficeDoor>().Outside.Position);
+    }
+
+
+    if (!Network.IsServer) return;
+    foreach (var player in playersInOffice)
+    {
+      var op = (OfficePlayer)player;
       op.CurrentRoom = Room.HALLS;
       op.CallClient_ShowNotification("The office has been reset...");
     }
@@ -47,5 +52,8 @@ public class OfficeController : Component
         child.GetComponent<Buyable>().Bought.Set(false);
       }
     }
+
+    Owner.Set(null);
+    Unlocked.Set(false);
   }
 }

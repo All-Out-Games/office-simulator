@@ -1,1 +1,18 @@
-{ "project_id": "6552ad2c01248304d3c9538e", "local_project_id": "6552ad2c01248304d3c9538e" }
+{
+    "project_id": "6552ad2c01248304d3c9538e",
+    "projects":
+    [
+        {
+            "name": "5N",
+            "id": "6552ad2c01248304d3c9538e"
+        },
+        {
+            "name": "5N (staging)",
+            "id": "66d61566333ec9cfa7282c97"
+        },
+        {
+            "name": "Matt Protocol Test",
+            "id": "65cecf4d5bd2a28675a271d9"
+        },
+    ]
+}

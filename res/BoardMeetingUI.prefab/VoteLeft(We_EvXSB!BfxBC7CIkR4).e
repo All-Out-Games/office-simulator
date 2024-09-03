@@ -71,7 +71,7 @@
       },
       "nine_slice_data": {
         "slice": {
-          "X": -125,
+          "X": -82,
           "Y": 66,
           "Z": -146,
           "W": -14
@@ -120,8 +120,8 @@
       "word_wrap": false,
       "word_wrap_start_offset": 0,
       "offset": {
-        "X": -1,
-        "Y": -78
+        "X": -55,
+        "Y": -74
       },
       "do_drop_shadow": false,
       "drop_shadow_offset": {

@@ -90,10 +90,19 @@ public partial class PromoNPC : Component
                             }
                         }
 
+                        var backupSeat = seats.GetRandom();
+
                         foreach (Player player in Player.AllPlayers)
                         {
                             var op2 = (OfficePlayer)player;
-                            op2.AssignedMeetingSeat.Set(seats.Pop().Entity);
+                            Seat seat = backupSeat;
+
+                            if (seats.Count > 0)
+                            {
+                                seat = seats.Pop();
+                            }
+
+                            op2.AssignedMeetingSeat.Set(seat.Entity);
                         }
 
                         CEOPlayer.AssignedMeetingSeat.Set(candidateSeat1.Entity);
