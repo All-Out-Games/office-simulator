@@ -63,14 +63,6 @@ public class OfficeDoor : TwoWayDoor
       base.OnInteract(player);
     };
   }
-
-  private string GetOfficeName()
-  {
-    if (Controller.IsOwnedByMyClient) return "Your Office";
-    if (Controller.IsOwned) return Controller.Owner.Value.Name + "'s Office";
-    return Controller.Entity.Parent.Name;
-  }
-
   public UI.TextSettings GetTextSettings(float size, float offset = 0f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
   {
       if (font == null)
@@ -146,31 +138,30 @@ public class OfficeDoor : TwoWayDoor
       UI.Text(rect, overlayText, ts);
     }
 
-
     if (op.CurrentRoom != RoomName)
     {
       if (Controller.IsOwned) {
         if (!Controller.Unlocked && !Controller.IsOwnedByMyClient)
         {
-          interactable.Text = $"{GetOfficeName()} (Locked - Breach (${Controller.BreachCost})";
+          interactable.Text = $"(Locked - Breach (${Controller.BreachCost}))";
           return;
         }
 
-        interactable.Text = $"Enter {GetOfficeName()}";
+        interactable.Text = $"Enter Office";
       }
       else 
       {
         if (op.OfficeController.Value != null)
         {
-          interactable.Text = $"Buy {GetOfficeName()} - ${Controller.Cost} (DESTROYS OLD OFFICE)";
+          interactable.Text = $"Buy Office - ${Controller.Cost} (DESTROYS OLD OFFICE)";
         } else {
-          interactable.Text = $"Buy {GetOfficeName()} - ${Controller.Cost}";
+          interactable.Text = $"Buy Office - ${Controller.Cost}";
         }
       }
     }
     else
     {
-      interactable.Text = $"Leave {GetOfficeName()}";
+      interactable.Text = $"Leave Office";
     }
   }
 }

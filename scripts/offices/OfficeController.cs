@@ -29,6 +29,7 @@ public class OfficeController : Component
     var room = Entity.Parent.TryGetChildByName("Door").GetComponent<OfficeDoor>().RoomName;
     var playersInOffice = RoomBounds.GetPlayersInRoom(room);
 
+
     foreach (var player in playersInOffice)
     {
       var op = (OfficePlayer)player;
@@ -37,6 +38,13 @@ public class OfficeController : Component
 
 
     if (!Network.IsServer) return;
+    if (Owner.Value.Alive())
+    {
+      var op = Owner.Value.GetComponent<OfficePlayer>();
+      op.OfficeController.Set(null);
+    }
+
+
     foreach (var player in playersInOffice)
     {
       var op = (OfficePlayer)player;

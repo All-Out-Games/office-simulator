@@ -73,6 +73,15 @@ public partial class PromoNPC : Component
                         break;
                     }
 
+                    if (Time.TimeSinceStartup - op.LastRequestedCEOPromoAt < 300f)
+                    {
+                        op.CallClient_ShowNotification("You must wait 5 minutes before requesting another promotion...");
+                        op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+                        break;
+                    }
+
+                    op.LastRequestedCEOPromoAt.Set(Time.TimeSinceStartup);
+
                     var CEOPlayers = GameManager.Instance.GetPlayersByRole(Role.CEO);
                     var CEOPlayer = CEOPlayers.Length > 0 ? (OfficePlayer)CEOPlayers[0] : null;
                     if (CEOPlayer.Alive())

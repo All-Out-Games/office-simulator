@@ -10,6 +10,7 @@ public enum Role
 
 public partial class OfficePlayer : Player
 {
+  public SyncVar<float> LastRequestedCEOPromoAt = new(0);
   public SyncVar<bool> IsDead = new(false);
   private Entity lightEntity;
 
@@ -42,7 +43,9 @@ public partial class OfficePlayer : Player
 
   public int Salary => GameManager.Instance.ReducedPay ? InternalSalary / 2 : InternalSalary;
 
+  // EXPERIENCE //
   public SyncVar<int> Experience = new(0);
+  // EXPERIENCE //
   public SyncVar<int> Cash = new(0);
 
   public int RequiredExperience => CurrentRole == Role.MANAGER ? 100 : 100;

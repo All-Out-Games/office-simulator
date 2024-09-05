@@ -24,7 +24,10 @@ public class Teleporter : Component
             {
                 if (op.CurrentRoom == Room.HR)
                 {
-                    op.SetLightOn(false);
+                    if (DayNightManager.Instance.CurrentState != DayState.NIGHT)
+                    {
+                        op.SetLightOn(false);
+                    }
                 } else
                 {
                     op.SetLightOn(true);
