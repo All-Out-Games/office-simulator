@@ -1,26 +1,25 @@
 13
-1825361100801
-420844135225849 1725608471970694600
+2070174236673
+434329857892878 1725612703187530200
 {
-  "name": "Flood Office",
+  "name": "Theft",
   "local_enabled": true,
   "local_position": {
-    "X": -62.2978668212890625,
-    "Y": -13.1285448074340820
+    "X": -62.2267990112304688,
+    "Y": -9.7171678543090820
   },
   "local_rotation": 0,
   "local_scale": {
     "X": -4,
     "Y": 4
   },
-  "previous_sibling": "398370729597700:1725601420820778900",
-  "next_sibling": "434290121069129:1725612690719891600",
+  "previous_sibling": "434290121069129:1725612690719891600",
   "parent": "325826132243319:1725578656038314000",
   "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
-  "aoid": "420844135347936:1725608471970732400",
+  "aoid": "434329858018029:1725612703187569000",
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
@@ -40,11 +39,11 @@
 },
 {
   "cid": 2,
-  "aoid": "420844135468761:1725608471970770300",
+  "aoid": "434329858105378:1725612703187596400",
   "component_type": "Mono_Component",
   "mono_component_type": "EventSwitch",
   "data": {
-    "EventName": "Flood Office",
-    "Event": "426849034229555:1725610356039527200"
+    "EventName": "Steal Cash",
+    "Event": "436075283614241:1725613250824084800"
   }
 }

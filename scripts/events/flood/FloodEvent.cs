@@ -39,7 +39,6 @@ public partial class FloodEvent : Event
       if (!IsActive) return;
   
       var Progression = (Time.TimeSinceStartup - startTime) / Duration;
-      Log.Info(Progression.ToString());
 
       // buckets slightly reduce the tinting 
       int totalBuckets = buckets.Count;
@@ -48,15 +47,15 @@ public partial class FloodEvent : Event
   
       floodWater.Tint = new Vector4(0, 0.25f, 1, 0.1f + (0.9f * Progression) * (1 - fixedPercentage));
   
-      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Flooding (Time Remaining: {TimeRemaining:F0}";
+      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Flooding (Time Remaining: {TimeRemaining:F0})";
       References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Buckets to Mop: " + GetUnfixedMopCount() + " / " + totalBuckets;
   
-      if (IsCompleted() && IsActive)
+      if (IsCompleted() && IsActive && Network.IsServer)
       {
           CallClient_ReceiveServerStopEvent(false);
       }
   
-      if (TimeRemaining <= 0)
+      if (TimeRemaining <= 0 && Network.IsServer)
       {
           CallClient_ReceiveServerStopEvent(true);
       }

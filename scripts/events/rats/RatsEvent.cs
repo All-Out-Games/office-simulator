@@ -37,15 +37,15 @@ public partial class RatsEvent : Event
     
     if (!IsActive) return;
 
-    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Rat Infestation (Time Remaining: {TimeRemaining:F0}";
+    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Rat Infestation (Time Remaining: {TimeRemaining:F0})";
     References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Rats Left: " + GetAliveRatCount() + " / " + rats.Count;
 
-    if (IsCompleted() && IsActive)
+    if (IsCompleted() && IsActive && Network.IsServer)
     {
       CallClient_ReceiveServerStopEvent(false);
     }
 
-    if (TimeRemaining <= 0)
+    if (TimeRemaining <= 0 && Network.IsServer)
     {
       CallClient_ReceiveServerStopEvent(true);
 

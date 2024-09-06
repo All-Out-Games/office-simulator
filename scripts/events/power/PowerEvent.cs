@@ -43,15 +43,15 @@ public partial class PowerEvent : Event
       op.CameraControl.AmbientColour = new Vector3(0f, 0f, 0f);
     }
 
-    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Power Outage (Time Remaining: {TimeRemaining:F0}";
+    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Power Outage (Time Remaining: {TimeRemaining:F0})";
     References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Breakers to restore: " + GetUnfixedSwitchCount() + " / " + switches.Count;
 
-    if (IsCompleted() && IsActive)
+    if (IsCompleted() && IsActive && Network.IsServer)
     {
       CallClient_ReceiveServerStopEvent(false);
     }
 
-    if (TimeRemaining <= 0)
+    if (TimeRemaining <= 0 && Network.IsServer)
     {
       CallClient_ReceiveServerStopEvent(true);
     }
