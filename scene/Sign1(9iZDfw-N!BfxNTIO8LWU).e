@@ -24,17 +24,11 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "8_Gym_Singles_48x48/Gym_Singles_48x48_1.png",
-    "depth_offset": 0,
     "tint": {
       "X": 1,
       "Y": 1,
-      "Z": 1,
-      "W": 0
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+      "Z": 1
+    }
   }
 },
 {
@@ -54,7 +48,6 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
-    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -81,11 +74,7 @@
         "X": 0.2811126708984375,
         "Y": -0.8100318908691406
       }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    ]
   }
 },
 {
@@ -97,18 +86,8 @@
     "PromptText": "Greet New Employee",
     "MinimumRoleRequired": 1,
     "MaxRole": 3,
-    "ActiveTexture": "",
-    "CooldownTexture": "",
-    "OnCompleteSfx": "",
-    "OnActiveSfx": "",
-    "OnCooldownSfx": "",
     "CooldownSeconds": 45,
-    "AvailableForSeconds": 0,
-    "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
-    "SpawnsDuringNight": false,
-    "XpReward": 10,
-    "CashReward": 0,
-    "CashCost": 0
+    "XpReward": 10
   }
 }

@@ -23,18 +23,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "overseer/statue.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "texture": "overseer/statue.png"
   }
 },
 {
@@ -52,30 +41,26 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
-    "is_trigger": false,
+    "is_trigger": true,
     "is_loop": true,
     "points": [
       {
-        "X": -0.0639362409710884,
-        "Y": -0.0639352872967720
+        "X": -0.1496186256408691,
+        "Y": -0.2370138168334961
       },
       {
-        "X": -0.0246353168040514,
-        "Y": 0.1818366199731827
+        "X": -0.0983223915100098,
+        "Y": 0.2143955230712891
       },
       {
-        "X": 0.0639352872967720,
-        "Y": 0.1979146152734756
+        "X": 0.0930676460266113,
+        "Y": 0.1927728652954102
       },
       {
-        "X": 0.0943040922284126,
-        "Y": -0.0800128057599068
+        "X": 0.1217222213745117,
+        "Y": -0.2359552383422852
       }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    ]
   }
 },
 {

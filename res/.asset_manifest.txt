@@ -1176,7 +1176,7 @@ Museum_Singles_48x48_354.png - .ao - 6659423c87d80516fc66d18a - 1041893035935519
 Museum_Singles_48x48_354.png - .ao.ios - 6659423c87d80516fc66d18c - 11968698163458352684
 OfficeDoor.prefab - .ao - 65e01bc6deafd97297d7ea9b - 12441619632228262593
 PlayerCollisionPrefab.prefab - .ao - 65e809fbdeafd97297d7ec9d - 2305955976933100918
-PlayerEquip.prefab - .ao - 66d5256260ed1ef1ffbc52d0 - 1576258487909622909
+PlayerEquip.prefab - .ao - 66db4a4460ed1ef1ffbc5571 - 9288931533564850037
 StatsUI.prefab - .ao - 66d4bad460ed1ef1ffbc5279 - 8095219913184546070
 UI_Frame_White.png - .ao - 66d4bf6b60ed1ef1ffbc5281 - 12058232831434450668
 UI_Frame_White.png - .ao.ios - 66d4bf6b60ed1ef1ffbc5282 - 13978267607221532366

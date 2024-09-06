@@ -24,17 +24,12 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "overseer/statue.png",
-    "depth_offset": 0,
     "tint": {
       "X": 1,
       "Y": 0.3960784375667572,
       "Z": 0.4117647111415863,
       "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    }
   }
 },
 {
@@ -45,5 +40,33 @@
   "data": {
     "fighter1Seat": "326709895222264:1725578933323623900",
     "fighter2Seat": "326756611462891:1725578947981091500"
+  }
+},
+{
+  "cid": 2,
+  "aoid": "541375263656339:1725646289249933700",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Edge_Collider",
+  "data": {
+    "is_trigger": true,
+    "is_loop": true,
+    "points": [
+      {
+        "X": -0.1367440223693848,
+        "Y": -0.2473335266113281
+      },
+      {
+        "X": -0.0674200057983398,
+        "Y": 0.2027683258056641
+      },
+      {
+        "X": 0.0954802036285400,
+        "Y": 0.1862621307373047
+      },
+      {
+        "X": 0.1301419734954834,
+        "Y": -0.2456827163696289
+      }
+    ]
   }
 }

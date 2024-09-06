@@ -15,7 +15,8 @@
   },
   "previous_sibling": "432630936578732:1725612170141979000",
   "next_sibling": "432630936516411:1725612170141959400",
-  "parent": "432630936393506:1725612170141921300"
+  "parent": "432630936393506:1725612170141921300",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
@@ -23,17 +24,15 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "anomalies/fire/Switch.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "texture": "anomalies/fire/Switch.png"
+  }
+},
+{
+  "cid": 2,
+  "aoid": "535215411260316:1725644356563654300",
+  "component_type": "Mono_Component",
+  "mono_component_type": "FireSwitch",
+  "data": {
+
   }
 }

@@ -5,7 +5,7 @@ public class EventController : Component
   public EventController Instance;
   public UICanvas EventUI;
   public SyncVar<float> EventCooldownTrackerTime = new();
-  public float MinTimeBetweenEvents = 2f;
+  public float MinTimeBetweenEvents = 50f;
 
   public override void Awake()
   {

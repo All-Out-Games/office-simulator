@@ -25,17 +25,7 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "8_Gym_Singles_48x48/Gym_Singles_48x48_97.png",
-    "depth_offset": 0.1988918781280518,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "depth_offset": 0.1988918781280518
   }
 },
 {
@@ -44,7 +34,6 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
-    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -63,11 +52,7 @@
         "X": 0.1218376159667969,
         "Y": -0.2117776870727539
       }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    ]
   }
 },
 {
@@ -77,20 +62,11 @@
   "mono_component_type": "Activity",
   "data": {
     "PromptText": "Workout Arms",
-    "MinimumRoleRequired": 0,
     "MaxRole": 3,
     "ActiveTexture": "8_Gym_Singles_48x48/Gym_Singles_48x48_97.png",
-    "CooldownTexture": "",
     "OnCompleteSfx": "sfx/gym-weight.wav",
-    "OnActiveSfx": "",
-    "OnCooldownSfx": "",
     "CooldownSeconds": 15,
-    "AvailableForSeconds": 0,
-    "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
-    "SpawnsDuringNight": false,
-    "XpReward": 15,
-    "CashReward": 0,
-    "CashCost": 0
+    "XpReward": 15
   }
 }

@@ -5,8 +5,8 @@
   "name": "Theft",
   "local_enabled": true,
   "local_position": {
-    "X": -62.2267990112304688,
-    "Y": -9.7171678543090820
+    "X": -2.1640727519989014,
+    "Y": -28.7813987731933594
   },
   "local_rotation": 0,
   "local_scale": {
@@ -23,18 +23,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_117.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "texture": "48x48/Modern_Office_Singles_48x48_117.png"
   }
 },
 {

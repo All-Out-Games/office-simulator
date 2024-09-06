@@ -31,11 +31,7 @@
       "X": 2.3644638061523438,
       "Y": -0.2554650306701660
     },
-    "is_trigger": true,
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    "is_trigger": true
   }
 },
 {
@@ -44,6 +40,6 @@
   "component_type": "Mono_Component",
   "mono_component_type": "RoomBounds",
   "data": {
-    "RoomName": 0
+
   }
 }

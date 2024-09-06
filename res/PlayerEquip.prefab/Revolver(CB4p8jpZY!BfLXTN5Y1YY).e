@@ -1,4 +1,5 @@
-12
+13
+257698037761
 571241330021976 1714566558805874200
 {
   "name": "Revolver",
@@ -21,7 +22,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "revolver.png",
+    "texture": "Ability_Icons/revolver_icon.png",
     "depth_offset": 0,
     "tint": {
       "X": 1,

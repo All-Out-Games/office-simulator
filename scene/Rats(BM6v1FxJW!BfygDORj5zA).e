@@ -5,8 +5,7 @@
   "name": "Rats",
   "local_enabled": true,
   "local_position": {
-    "X": 0,
-    "Y": 0
+
   },
   "local_rotation": 0,
   "local_scale": {
@@ -23,6 +22,6 @@
   "component_type": "Mono_Component",
   "mono_component_type": "RatsEvent",
   "data": {
-    "Duration": 10
+    "Duration": 45
   }
 }

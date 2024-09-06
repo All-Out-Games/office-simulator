@@ -86,6 +86,22 @@ public partial class RatsEvent : Event
     {
       if (!Network.IsServer) return;
       GameManager.Instance.CallClient_ShowNotification("You failed to terminate the rats...");
+
+      foreach (var player in Player.AllPlayers)
+      {
+        player.Entity.GetComponent<OfficePlayer>().LoseEvent();
+      }
+    }
+
+    if (!failed)
+    {
+      if (!Network.IsServer) return;
+      GameManager.Instance.CallClient_ShowNotification("The rats have been terminated");
+
+      foreach (var player in Player.AllPlayers)
+      {
+        player.Entity.GetComponent<OfficePlayer>().WinEvent();
+      }
     }
   }
 }

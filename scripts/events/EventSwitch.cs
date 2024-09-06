@@ -15,6 +15,15 @@ public class EventSwitch : Component
     interactable.Text = EventName;
     interactable.OnInteract = (Player p) =>
     {
+      var op = (OfficePlayer)p;
+
+      if (DayNightManager.Instance.CurrentState == DayState.NIGHT || DayNightManager.Instance.CurrentState == DayState.DUSK)
+      {
+        op.CallClient_ShowNotification("You must wait till night has passed...");
+        op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+        return;
+      }
+
       if (eventController.GetCooldownTimeRemaining() > 0)
       {
         SFX.Play(Assets.GetAsset<AudioAsset>("sfx/error.wav"), new() { Volume = 0.5f });

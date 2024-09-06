@@ -45,7 +45,10 @@ public partial class MurderProjectile : Component
         AlreadyHitSomething = true;
         if (predicted == false)
         {
-            CallClient_KillPlayer(player, (OfficePlayer)projectile.Owner);
+            if (Network.IsServer)
+            {
+                CallClient_KillPlayer(player, (OfficePlayer)projectile.Owner);
+            }
         }
 
         Entity.Destroy();
@@ -54,6 +57,11 @@ public partial class MurderProjectile : Component
     [ClientRpc]
     public static void KillPlayer(OfficePlayer player, OfficePlayer killer)
     {
+        if (Network.IsServer)
+        {
+            player.WasKilledInOverseerBattle.Set(true);
+        }
+        
         player.AddEffect<KillEffect>(preInit: effect =>
         {
 

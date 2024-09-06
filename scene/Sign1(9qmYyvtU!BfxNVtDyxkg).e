@@ -5,13 +5,13 @@
   "name": "Sign1",
   "local_enabled": true,
   "local_position": {
-    "X": -61.3999748229980469,
-    "Y": -8.8910312652587891
+    "X": -61.5000190734863281,
+    "Y": -8.8728408813476562
   },
   "local_rotation": 0,
   "local_scale": {
-    "X": 1,
-    "Y": 1.1224489212036133
+    "X": 5,
+    "Y": 4
   },
   "previous_sibling": "270644201590733:1725218621374903700",
   "next_sibling": "279245964700497:1725221320221902200"
@@ -22,18 +22,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "8_Gym_Singles_48x48/Gym_Singles_48x48_1.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 0
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "texture": "overseer/statue.png"
   }
 },
 {
@@ -42,8 +31,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "BillboardSign",
   "data": {
-    "Message": "Hey... be careful at night kid. Good luck.",
-    "IsIntroMessage": false,
+    "Message": "Keep my janitors safe.....",
     "HalfWidth": 2
   }
 },
@@ -53,37 +41,32 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
-    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
-        "X": -0.4090499877929688,
-        "Y": -0.8046045303344727
+        "X": -0.1671314239501953,
+        "Y": -0.2657444477081299
       },
       {
-        "X": -0.4902572631835938,
-        "Y": -0.2258253097534180
+        "X": -0.1282892227172852,
+        "Y": -0.0075528621673584
       },
       {
-        "X": -0.3359375000000000,
-        "Y": 0.3486804962158203
+        "X": -0.0940189361572266,
+        "Y": 0.2122602462768555
       },
       {
-        "X": 0.2811126708984375,
-        "Y": 0.3703918457031250
+        "X": 0.0246429443359375,
+        "Y": 0.2430660724639893
       },
       {
-        "X": 0.3392333984375000,
-        "Y": -0.4016342163085938
+        "X": 0.1155042648315430,
+        "Y": -0.1447093486785889
       },
       {
-        "X": 0.2811126708984375,
-        "Y": -0.8100318908691406
+        "X": 0.1246843338012695,
+        "Y": -0.2507088184356689
       }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    ]
   }
 }

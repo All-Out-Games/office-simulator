@@ -5,7 +5,6 @@
   "name": "Inside",
   "local_enabled": true,
   "local_position": {
-    "X": 0,
     "Y": 1
   },
   "local_rotation": 0,

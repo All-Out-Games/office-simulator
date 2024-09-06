@@ -39,7 +39,7 @@ public class OfficeDoor : TwoWayDoor
 
       if (!Controller.IsOwned)
       {
-        if (op.CurrentRole < Controller.RequiredRole)
+        if ((op.CurrentRole < Controller.RequiredRole) || (op.CurrentRole == Role.OVERSEER && Controller.RequiredRole == Role.CEO))
         {
           op.CallClient_ShowNotification("You must reach the " + Controller.RequiredRole + " role to buy this office.");
           op.CallClient_PlaySFX("sfx/error.wav");

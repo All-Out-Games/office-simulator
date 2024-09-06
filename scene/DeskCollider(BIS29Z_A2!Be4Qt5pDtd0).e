@@ -23,18 +23,12 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "",
     "depth_offset": -0.8213730454444885,
     "tint": {
       "X": 0.8627451062202454,
       "Y": 0.5921568870544434,
-      "Z": 0.5921568870544434,
-      "W": 0
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+      "Z": 0.5921568870544434
+    }
   }
 },
 {
@@ -43,8 +37,6 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
-    "is_trigger": false,
-    "is_loop": false,
     "points": [
       {
         "X": -0.1974010467529297,
@@ -70,10 +62,6 @@
         "X": -0.2158374786376953,
         "Y": -1.4676704406738281
       }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    ]
   }
 }

@@ -57,11 +57,10 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
         }
     }
 
-
-
     public override void OnEffectEnd(bool interrupt)
     {
         Player.Teleport(new Vector2(0, 0));
+        Player.SetLightOn(false);
 
         if (Player.IsLocal)
         {
@@ -75,6 +74,78 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
         {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/levelup.wav"), new SFX.PlaySoundDesc() {Volume=1f});
         }
+    }
+}
+
+public class OverseerEffect : MyEffect, INetworkedComponent
+{
+    public override bool IsActiveEffect => false;
+    public override bool BlockAbilityActivation => !DoneAnim;
+
+    public bool DoneAnim = false;
+    public ulong sfxHandle;
+    
+    public void OnKillerAnimationEnd(string animationName)
+    {
+        if (animationName == "teleport_appear")
+        {
+            Player.RemoveFreezeReason("transforming");
+            DoneAnim = true;
+        }
+    }
+    public void OnKillerAnimationEvent(string eventName)
+    {
+        if (eventName == "footstep")
+        {
+            Player.PlayRandomFootstep();
+        }
+    }
+
+    public override void OnEffectStart(bool isDropIn)
+    {
+        if (!isDropIn)
+        {
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume=0.75f, Positional = true, Position = Player.Entity.Position});
+
+            if (!Player.IsLocal)
+            {
+                sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.2f, Position = Player.Entity.Position, Positional=true} );
+            }
+
+            Player.AddInvisibilityReason(nameof(OverseerEffect));
+            Player.AddFreezeReason("transforming");
+            Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(6, 6);
+            Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
+            Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd += OnKillerAnimationEnd;
+        }
+        else
+        {
+            Player.RemoveFreezeReason("transforming");
+            DoneAnim = true;
+        }
+
+        Player.KillerSpineAnimator.LocalEnabled = true;
+        Player.KillerSpineAnimator.SpineInstance.OnEvent += OnKillerAnimationEvent;
+    }
+
+    public override void OnEffectEnd(bool interrupt)
+    {
+        SFX.Stop(sfxHandle);
+        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_off.wav"), new() { Volume=0.75f, Positional = true, Position = Player.Entity.Position});
+        Player.KillerSpineAnimator.LocalEnabled = false;
+        Player.RemoveInvisibilityReason(nameof(OverseerEffect));
+        Player.RemoveFreezeReason("transforming");
+        if (!interrupt)
+        {
+            Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_back_end");
+            Player.AddEffect<WaitForAnimEffect>();
+        }
+        Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd -= OnKillerAnimationEnd;
+        Player.KillerSpineAnimator.SpineInstance.OnEvent -= OnKillerAnimationEvent;
+    }
+
+    public override void OnEffectUpdate()
+    {
     }
 }
 

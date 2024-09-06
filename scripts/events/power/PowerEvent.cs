@@ -99,12 +99,23 @@ public partial class PowerEvent : Event
     if (failed && Network.IsServer)
     {
       GameManager.Instance.CallClient_ShowNotification("Power Outage anomaly failed");
+      foreach (var player in Player.AllPlayers)
+      {
+        player.Entity.GetComponent<OfficePlayer>().LoseEvent();
+      }
     }
 
     if (!failed && Network.IsServer)
     {
       GameManager.Instance.CallClient_PlaySFX("anomalies/power/power-on.wav");
+      GameManager.Instance.CallClient_ShowNotification("Power has been restored");
+
+      foreach (var player in Player.AllPlayers)
+      {
+        player.Entity.GetComponent<OfficePlayer>().WinEvent();
+      }
     }
+    
 
     foreach (Player player in Player.AllPlayers)
     {

@@ -25,17 +25,7 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "48x48/Modern_Office_Singles_48x48_338.png",
-    "depth_offset": 0.0105752944946289,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "depth_offset": 0.0105752944946289
   }
 },
 {
@@ -45,13 +35,8 @@
   "internal_component_type": "Interactable",
   "data": {
     "prompt_offset": {
-      "X": -0.5000000000000000,
-      "Y": 0
-    },
-    "text": "",
-    "hold_text": "",
-    "radius": 2,
-    "required_hold_time": 0.6000000238418579
+      "X": -0.5000000000000000
+    }
   }
 },
 {

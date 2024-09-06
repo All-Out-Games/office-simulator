@@ -11,8 +11,6 @@ public partial class OverseerPromoNPC : Component
 
     public SyncVar<Entity> Fighter1 = new();
     public SyncVar<Entity> Fighter2 = new();
-    public SyncVar<bool> Fighter1Died = new();
-    public SyncVar<bool> Fighter2Died = new();
     public SyncVar<float> BattleStartTime = new();
     private Sprite_Renderer spriteRenderer;
 
@@ -25,13 +23,20 @@ public partial class OverseerPromoNPC : Component
         interactable.CanUseCallback = (Player p) =>
         {
             var op = (OfficePlayer)p;
-            return op.CurrentRole != Role.JANITOR && op.CurrentRole != Role.OVERSEER;
+            return op.CurrentRole != Role.JANITOR;
         };
 
         interactable.OnInteract = (Player p) =>
         {
             if (!Network.IsServer) return;
             var op = (OfficePlayer)p;
+
+            if (op.CurrentRole == Role.OVERSEER)
+            {
+                op.CallClient_ShowNotification("Nice to see you again... overseer.");
+                op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+                return;
+            }
 
             if (op.CurrentRole <= Role.EMPLOYEE)
             {
@@ -80,19 +85,23 @@ public partial class OverseerPromoNPC : Component
             var OverseerPlayers = GameManager.Instance.GetPlayersByRole(Role.OVERSEER);
             var OverseerPlayer = OverseerPlayers.Length > 0 ? (OfficePlayer)OverseerPlayers[0] : null;
 
+            // If there isn't a current overseer they get set to it immediately
             if (!OverseerPlayer.Alive())
             {
                 op.CurrentRole = Role.OVERSEER;
                 op.Experience.Set(0);
             }
 
+            // Fight to the death
             if (OverseerPlayer.Alive())
             {
                 Fighter1.Set(OverseerPlayer.Entity);
                 Fighter2.Set(op.Entity);
 
                 OverseerPlayer.AssignedMeetingSeat.Set(fighter1Seat.Entity);
+                OverseerPlayer.WasKilledInOverseerBattle.Set(false);
                 op.AssignedMeetingSeat.Set(fighter2Seat.Entity);
+                op.WasKilledInOverseerBattle.Set(false);
 
                 CallClient_StartBattle();
             }
@@ -104,6 +113,9 @@ public partial class OverseerPromoNPC : Component
     [ClientRpc]
     public void StartBattle()
     {
+        var fighter1 = (OfficePlayer)Fighter1.Value.GetComponent<Player>();
+        var fighter2 = (OfficePlayer)Fighter2.Value.GetComponent<Player>();
+
         if (Network.IsClient) {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/clue_found2.wav"), new());
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/suspense.wav"), new());
@@ -112,56 +124,83 @@ public partial class OverseerPromoNPC : Component
         if (Network.IsServer) {
             BattleActive.Set(true);
             BattleStartTime.Set(Time.TimeSinceStartup);
+            fighter1.CallClient_ShowNotification("A challenger has appeared... fight for your life.");
+            fighter2.CallClient_ShowNotification("Eliminate the overseer to take their role...");
         }
+        
+        fighter1.SetLightOn(true);
+        fighter2.SetLightOn(true);
 
-        foreach (Player player in Player.AllPlayers)
-        {
-            player.AddEffect<BoardMeetingEffect>();
-        }
+        fighter1.Teleport(Fighter1.Value.GetComponent<OfficePlayer>().AssignedMeetingSeat.Value.GetComponent<Seat>().Position);
+        fighter2.Teleport(Fighter2.Value.GetComponent<OfficePlayer>().AssignedMeetingSeat.Value.GetComponent<Seat>().Position);
+    }
+
+    [ClientRpc]
+    public void TurnOffFighterLights(Entity fighter1, Entity fighter2)
+    {
+        var fighter1Op = fighter1.GetComponent<OfficePlayer>();
+        var fighter2Op = fighter2.GetComponent<OfficePlayer>();
+
+        if (fighter1Op == null || fighter2Op == null) return;
+
+        fighter1Op.SetLightOn(false);
+        fighter2Op.SetLightOn(false);
     }
 
     public override void Update()
     {
         if (Network.IsServer)
         {
-            if (BattleActive && (Time.TimeSinceStartup - BattleStartTime >= 17f || Fighter1Died || Fighter2Died))
+            OfficePlayer fighter1 = null;
+            OfficePlayer fighter2 = null;
+
+            if (Fighter1.Value != null && Fighter2.Value != null && Fighter1.Value.Alive() && Fighter2.Value.Alive())
+            {
+                fighter1 = Fighter1?.Value?.GetComponent<OfficePlayer>();
+                fighter2 = Fighter2?.Value?.GetComponent<OfficePlayer>();
+            }
+
+            if (BattleActive && (fighter1 == null || fighter2 == null))
             {
                 BattleActive.Set(false);
-                Fighter1Died.Set(false);
-                Fighter2Died.Set(false);
+                GameManager.Instance.CallClient_ShowNotification("The trial has been cancelled due to a candidate being unavailable.");
+                Fighter1.Set(null);
+                Fighter2.Set(null);
+                return;
+            }
+
+            if (BattleActive && (Time.TimeSinceStartup - BattleStartTime >= 17f || fighter1?.WasKilledInOverseerBattle || fighter2?.WasKilledInOverseerBattle))
+            {
+                BattleActive.Set(false);
+                // so the guns reset
+                Fighter1.Set(null);
+                Fighter2.Set(null);
 
                 foreach (Player player in Player.AllPlayers)
                 {
                     player.Teleport(Vector2.Zero);
                 }
 
-                if (!Fighter1.Value.Alive() || !Fighter2.Value.Alive())
-                {
-                    Log.Error("Fighter was null");
-                    GameManager.Instance.CallClient_ShowNotification("The trial has been cancelled due to a candidate being unavailable.");
-                    return;
-                }
+                CallClient_TurnOffFighterLights(fighter1.Entity, fighter2.Entity);
 
-                var fighter1 = (OfficePlayer)Fighter1.Value.GetComponent<Player>();
-                var fighter2 = (OfficePlayer)Fighter2.Value.GetComponent<Player>();
-
-                if (Fighter1Died && Fighter2Died)
+                if ((fighter1.WasKilledInOverseerBattle && fighter2.WasKilledInOverseerBattle) || (!fighter1.WasKilledInOverseerBattle && !fighter2.WasKilledInOverseerBattle))
                 {
                     GameManager.Instance.CallClient_ShowNotification("The trial has ended in a draw.");
                     return;
                 }
 
-                if (Fighter1Died)
+                if (fighter1.WasKilledInOverseerBattle)
                 {
+                    fighter1.CallClient_ShowNotification("The trial has ended... you have been eliminated.");
                     fighter2.CallClient_ShowNotification("Welcome... overseer.");
                     fighter2.CurrentRole = Role.OVERSEER;
                     fighter2.Experience.Set(0);
                     return;
                 }
 
-                if (Fighter2Died)
+                if (fighter2.WasKilledInOverseerBattle)
                 {
-                    fighter1.CallClient_ShowNotification("Welcome... overseer.");
+                    fighter1.CallClient_ShowNotification("You keep your throne... for now.");
                     fighter1.CurrentRole = Role.OVERSEER;
                     fighter1.Experience.Set(0);
                     return;
@@ -180,6 +219,12 @@ public partial class OverseerPromoNPC : Component
         }
 
         var interactible = Entity.GetComponent<Interactable>();
+        if (op.CurrentRole == Role.OVERSEER)
+        {
+            interactible.Text = "Keep my janitors safe.";
+            return;
+        }
+
         interactible.Text = "Commence the Overseer's Trial ($1,000)";
     }
 }

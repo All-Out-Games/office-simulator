@@ -131,6 +131,10 @@ public partial class PromoNPC : Component
                     op.CallClient_PlaySFX("sfx/clue_found2.wav");
                     op.CallClient_PlaySFX("sfx/creepy-phone.wav");
                     break;
+                case Role.OVERSEER:
+                    op.CallClient_ShowNotification("You've betrayed us...");
+                    op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+                    break;
             }
         };
     }

@@ -5,8 +5,8 @@
   "name": "Flood Office",
   "local_enabled": true,
   "local_position": {
-    "X": -62.2978668212890625,
-    "Y": -13.1285448074340820
+    "X": -2.1612658500671387,
+    "Y": -34.5013732910156250
   },
   "local_rotation": 0,
   "local_scale": {
@@ -24,18 +24,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_117.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "texture": "48x48/Modern_Office_Singles_48x48_117.png"
   }
 },
 {

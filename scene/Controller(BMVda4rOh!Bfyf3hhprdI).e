@@ -31,11 +31,7 @@
       "X": -0.0367298126220703,
       "Y": 0.1145874261856079
     },
-    "is_trigger": true,
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    "is_trigger": true
   }
 },
 {
@@ -53,7 +49,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "OfficeController",
   "data": {
-    "RequiredRole": 1,
+    "RequiredRole": 4,
     "BreachCost": 600,
     "Cost": 225
   }

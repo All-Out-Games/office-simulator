@@ -5,7 +5,6 @@
   "name": "MapBackground",
   "local_enabled": true,
   "local_position": {
-    "X": 0,
     "Y": -0.8445440530776978
   },
   "local_rotation": 0,
@@ -25,15 +24,7 @@
   "data": {
     "texture": "map2.png",
     "depth_offset": 0.1266444921493530,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
     "layer": -1,
-    "wait_for_load": true,
-    "wrap": false,
-    "mask_in_shadow": false
+    "wait_for_load": true
   }
 }

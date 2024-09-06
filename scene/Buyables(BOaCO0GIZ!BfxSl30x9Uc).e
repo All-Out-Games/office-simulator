@@ -5,8 +5,7 @@
   "name": "Buyables",
   "local_enabled": true,
   "local_position": {
-    "X": 17.9163169860839844,
-    "Y": 0
+    "X": 17.9163169860839844
   },
   "local_rotation": 0,
   "local_scale": {

@@ -95,6 +95,19 @@ public partial class FloodEvent : Event
     if (failed && Network.IsServer)
     {
       GameManager.Instance.CallClient_ShowNotification("The flooding couldn't be stopped...");
+      foreach (var player in Player.AllPlayers)
+      {
+        player.Entity.GetComponent<OfficePlayer>().LoseEvent();
+      }
+    }
+
+    if (!failed)
+    {
+      GameManager.Instance.CallClient_ShowNotification("The flooding has been stopped!");
+      foreach (var player in Player.AllPlayers)
+      {
+        player.Entity.GetComponent<OfficePlayer>().WinEvent();
+      }
     }
 
     foreach (var bucket in buckets)

@@ -7,7 +7,7 @@ public partial class Revolver : MyAbility
     public override Type Effect => typeof(ShootGunEffect);
     public override Type TargettingEffect => typeof(AimingRevolver);
     public override float MaxDistance => 10f;
-    public override float Cooldown => DayNightManager.Instance.CurrentState == DayState.NIGHT ? 10f : 60f;
+    public override float Cooldown => Player.IsInOverseerBattle() ? 1f : DayNightManager.Instance.CurrentState == DayState.NIGHT ? 10f : 60f;
 
     public override bool CanBeginTargeting()
     {
@@ -16,8 +16,8 @@ public partial class Revolver : MyAbility
 
     public override bool CanUse()
     {
-        if (Player.CurrentRole != Role.CEO) return false;
-        return true;
+        if (Player.CurrentRole == Role.CEO || Player.IsInOverseerBattle()) return true;
+        return false;
     }
 
     public override bool CanTarget(Player p)

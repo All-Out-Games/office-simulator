@@ -11,6 +11,7 @@ public enum Role
 
 public partial class OfficePlayer : Player
 {
+  public SyncVar<bool> WasKilledInOverseerBattle = new(false);
   public SyncVar<float> LastRequestedCEOPromoAt = new(0);
   public SyncVar<float> LastRequestedOverseerPromoAt = new(0);
   public SyncVar<bool> IsDead = new(false);
@@ -71,6 +72,10 @@ public partial class OfficePlayer : Player
       if (HasEffect<KillerEffect>())
       {
         multiplier *= 0.6f;
+      }
+      if (HasEffect<OverseerEffect>())
+      {
+        multiplier *= 0.75f;
       }
       if (Caffeinated)
       {
@@ -347,20 +352,71 @@ public partial class OfficePlayer : Player
       return ts;
   }
 
+  public UI.TextSettings GetPurpleTextSettings(float size, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
+  {
+      if (font == null)
+      {
+          font = UI.Fonts.BarlowBold;
+      }
+      var ts = new UI.TextSettings()
+      {
+          Font = font,
+          Size = size,
+          Color = new Vector4(0.6f,0.2f,1f,1f),
+          DropShadowColor = new Vector4(0f,0f,0.02f,0.5f),
+          DropShadowOffset = new Vector2(0f,-3f),
+          HorizontalAlignment = halign,
+          VerticalAlignment = UI.VerticalAlignment.Center,
+          WordWrap = false,
+          WordWrapOffset = 0,
+          Outline = true,
+          OutlineThickness = 3,
+          Offset = new Vector2(0, offset),
+      };
+      return ts;
+  }
+
+  public void LoseEvent()
+  {
+    if (!Network.IsServer) return;
+    CallClient_ShowNotification("Damages have been deducted from your account.");
+    Cash.Set(Math.Max(Cash.Value - 500, 0));
+  }
+
+  public void WinEvent()
+  {
+    if (!Network.IsServer) return;
+    CallClient_ShowNotification("The overseer has rewarded you... (+$250, +25XP)");
+    Cash.Set(Cash.Value + 250);
+    Experience.Set(Experience + 25);
+  }
+
+  public bool IsInOverseerBattle()
+  {
+    return OverseerPromoNPC.Instance.Fighter1?.Value == this.Entity || OverseerPromoNPC.Instance.Fighter2?.Value == this.Entity;
+  }
 
   public override void Update()
   {
     bool moving = Velocity.Length > 0.03f;
     KillerSpineAnimator.SpineInstance.StateMachine.SetBool("moving", moving);
 
-
-
     if (Network.IsServer)
     {
-      if (Time.TimeSinceStartup - CaffinatedAt >= 60f)
+      if (Time.TimeSinceStartup - CaffinatedAt >= 90f)
       {
         Caffeinated.Set(false);
       }
+    }
+
+    if (CurrentRole == Role.OVERSEER && !HasEffect<OverseerEffect>())
+    {
+      AddEffect<OverseerEffect>();
+    }
+
+    if (CurrentRole != Role.OVERSEER && HasEffect<OverseerEffect>())
+    {
+      RemoveEffect<OverseerEffect>(false);
     }
 
     if (IsLocal)
@@ -381,12 +437,12 @@ public partial class OfficePlayer : Player
         });
       }
 
-      if ((OverseerPromoNPC.Instance.Fighter1?.Value == this.Entity || OverseerPromoNPC.Instance.Fighter2?.Value == this.Entity) && OverseerPromoNPC.Instance.BattleStartTime - Time.TimeSinceStartup >= 3)
+      if (IsInOverseerBattle())
       {
-        DrawDefaultAbilityUI(new AbilityDrawOptions() {
-          AbilityElementSize = 125,
-          Abilities = new Ability[] { GetAbility<Revolver>() }
-        });
+          DrawDefaultAbilityUI(new AbilityDrawOptions() {
+              AbilityElementSize = 125,
+              Abilities = new Ability[] { GetAbility<Revolver>() }
+          });
       }
 
       if (CurrentRoom == Room.CONFERENCE || CurrentRoom == Room.CONFERENCE_SPEAKER)
@@ -425,9 +481,12 @@ public partial class OfficePlayer : Player
         }
       }
     }
+  }
 
+  public override void LateUpdate()
+  {
     using var _1 = UI.PUSH_CONTEXT(UI.Context.WORLD);
-    using var _2 = IM.PUSH_Z(5000);
+    using var _2 = IM.PUSH_Z(GetZOffset() - 0.001f);
     using var _3 = UI.PUSH_PLAYER_MATERIAL(this);
     var rect = new Rect(Entity.Position, Entity.Position).Grow(0.125f);
 
@@ -436,6 +495,11 @@ public partial class OfficePlayer : Player
     {
       ts = GetRedTextSettings(0.225f);
       UI.Text(rect, "JANITOR", ts);
+    }
+    else if (CurrentRole == Role.OVERSEER)
+    {
+      ts = GetPurpleTextSettings(0.40f);
+      UI.Text(rect, "OVERSEER", ts);
     }
     else if (CurrentRole == Role.CEO)
     {
@@ -459,9 +523,11 @@ public partial class OfficePlayer : Player
   [ClientRpc]
   public void PlaySFX(string sfxPath)
   {
+    float volume = 1f;
+    if (sfxPath == References.Instance.ErrorSfx.Name) volume = 0.6f;
       if (IsLocal)
       {
-        SFX.Play(Assets.GetAsset<AudioAsset>(sfxPath), new SFX.PlaySoundDesc() { Volume = 1f });
+        SFX.Play(Assets.GetAsset<AudioAsset>(sfxPath), new SFX.PlaySoundDesc() { Volume = volume });
       }
   }
 }
