@@ -23,6 +23,6 @@
   "component_type": "Mono_Component",
   "mono_component_type": "RatsEvent",
   "data": {
-    "Duration": 0
+    "Duration": 10
   }
 }

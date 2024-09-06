@@ -61,4 +61,36 @@
     "CashReward": 0,
     "CashCost": 5
   }
+},
+{
+  "cid": 3,
+  "aoid": "416859450239991:1725607221754698400",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Edge_Collider",
+  "data": {
+    "is_trigger": true,
+    "is_loop": true,
+    "points": [
+      {
+        "X": -0.1464767605066299,
+        "Y": -0.1727376133203506
+      },
+      {
+        "X": -0.1033315733075142,
+        "Y": 0.2046299129724503
+      },
+      {
+        "X": 0.1408481746912003,
+        "Y": 0.1183400228619576
+      },
+      {
+        "X": 0.1483526378870010,
+        "Y": -0.1689858585596085
+      }
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
+  }
 }

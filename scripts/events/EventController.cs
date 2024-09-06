@@ -2,14 +2,15 @@ using AO;
 
 public class EventController : Component
 {
+  public EventController Instance;
   public UICanvas EventUI;
   public SyncVar<float> EventCooldownTrackerTime = new();
-  public float MinTimeBetweenEvents = 10f;
-  public EventController Instance;
+  public float MinTimeBetweenEvents = 2f;
 
   public override void Awake()
   {
     Instance = this;
+    References.Instance.EventUI.Tint = new Vector4(0, 0, 0, 0);
   }
 
   public float GetCooldownTimeRemaining()
@@ -25,14 +26,11 @@ public class EventController : Component
       return;
 
     }
-    References.Instance.EventUI.Tint = new Vector4(1, 1, 1, 1);
     eventToStart.StartEvent();
-    EventCooldownTrackerTime.Set(Time.TimeSinceStartup);
-  }
 
-  public void StopEvent(Event eventToStop)
-  {
-    References.Instance.EventUI.Tint = new Vector4(0, 0, 0, 0);
-    eventToStop.StopEvent();
+    if (Network.IsServer)
+    {
+      EventCooldownTrackerTime.Set(Time.TimeSinceStartup);
+    }
   }
 }

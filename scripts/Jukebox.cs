@@ -6,6 +6,7 @@ public partial class Jukebox : Component
   [Serialized] public float Volume;
   public ulong sfxHandle;
   private bool manuallyStopped = false;
+  private SyncVar<bool> isPlaying = new();
   private bool nightVersion = false;
 
   private Interactable interactable;
@@ -27,7 +28,10 @@ public partial class Jukebox : Component
       }
     };
 
-    SafePlay();
+    if (isPlaying)
+    {
+      SafePlay();
+    }
   }
 
   public override void Update()
@@ -46,8 +50,13 @@ public partial class Jukebox : Component
   // Plays unless the user has manually muted the jukebox
   public void SafePlay()
   {
-    if (!manuallyStopped)
+    if (!manuallyStopped || !isPlaying)
     {
+      if (Network.IsServer)
+      {
+        isPlaying.Set(true);
+      }
+
       if (nightVersion)
       {
         sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = Volume, Speed=0.875f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 3f });
@@ -61,6 +70,11 @@ public partial class Jukebox : Component
 
   public void Stop()
   {
+    if (Network.IsServer)
+    {
+      isPlaying.Set(false);
+    }
+
     SFX.Stop(sfxHandle);
   }
 }

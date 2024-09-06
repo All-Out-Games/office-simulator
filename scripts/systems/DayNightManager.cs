@@ -29,6 +29,7 @@ public partial class DayNightManager : Component
 
   private ulong nightSfxHandle1;
   private ulong nightSfxHandle2;
+  public SyncVar<bool> Paused = new(false);
 
   private int curNightfallMessageIndex = 0;
   private readonly string[] nightfallMessages = new string[]
@@ -56,6 +57,7 @@ public partial class DayNightManager : Component
   {
     // Don't progress time during board meetings
     if (PromoNPC.Instance.BoardMeetingActive) return;
+    if (Paused) return;
 
     if (Network.IsClient)
     {

@@ -1247,7 +1247,9 @@ anomalies/flood/mop.png - .ao.ios - 66da208560ed1ef1ffbc5532 - 12272466265926492
 anomalies/flood/mop.wav - .ao - 66da208560ed1ef1ffbc5536 - 10417882227492899882
 anomalies/power/PowerPlantSwitch.png - .ao - 66da208560ed1ef1ffbc5535 - 4709873572426849319
 anomalies/power/PowerPlantSwitch.png - .ao.ios - 66da208660ed1ef1ffbc5538 - 9466338963409336950
-anomalies/power/breaker.wav - .ao - 66da208760ed1ef1ffbc553b - 7744958772315994401
+anomalies/power/breaker-switched.wav - .ao - 66da9f8660ed1ef1ffbc5566 - 6816643929844304491
+anomalies/power/breaker.wav - .ao - 66da9f8660ed1ef1ffbc5568 - 5940930527479505065
+anomalies/power/power-on.wav - .ao - 66da9f8660ed1ef1ffbc5567 - 8315207559008388727
 anomalies/power/power-out.wav - .ao - 66da208760ed1ef1ffbc553c - 4554023656241267251
 anomalies/rats/rat-die.wav - .ao - 66da208760ed1ef1ffbc553e - 11599888971439545232
 anomalies/rats/rat.png - .ao - 66da208860ed1ef1ffbc5540 - 12102280854569751549
@@ -1263,6 +1265,8 @@ cat_Version/playercharacter.png - .ao.ios - 6659423d87d80516fc66d193 - 306419592
 cat_Version/playercharacter.spine - .ao - 65e54569deafd97297d7eafa - 1424338330783366562
 chair.png - .ao - 66da8a2e60ed1ef1ffbc5562 - 4122150875307729100
 chair.png - .ao.ios - 66da8a2e60ed1ef1ffbc5563 - 1891352114317536267
+inverse.png - .ao - 66dab81360ed1ef1ffbc556d - 11670312724608672499
+inverse.png - .ao.ios - 66dab81360ed1ef1ffbc556c - 7853420126864331386
 map2.png - .ao - 66da3a6760ed1ef1ffbc554f - 848882662499291031
 map2.png - .ao.ios - 66da3a6760ed1ef1ffbc5550 - 6865618089992020432
 overseer/ochair.png - .ao - 66da3a6760ed1ef1ffbc554e - 16742349607886932122

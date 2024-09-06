@@ -5,13 +5,13 @@
   "name": "Rebirth Guy",
   "local_enabled": true,
   "local_position": {
-    "X": -29.6397399902343750,
-    "Y": -28.5762424468994141
+    "X": -30.1644706726074219,
+    "Y": -27.7016963958740234
   },
   "local_rotation": 0,
   "local_scale": {
-    "X": 6,
-    "Y": 6
+    "X": 5,
+    "Y": 5
   },
   "previous_sibling": "279245964700497:1725221320221902200",
   "next_sibling": "337893920174979:1725239721316720500",
@@ -23,7 +23,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Clothing_Store_Singles_48x48_469.png",
+    "texture": "overseer/statue.png",
     "depth_offset": 0,
     "tint": {
       "X": 1,
@@ -76,5 +76,14 @@
     "friction": 0.2000000029802322,
     "restitution": 0,
     "restitution_threshold": 1
+  }
+},
+{
+  "cid": 4,
+  "aoid": "397938704829047:1725601285270722000",
+  "component_type": "Mono_Component",
+  "mono_component_type": "SpriteFlasher",
+  "data": {
+
   }
 }

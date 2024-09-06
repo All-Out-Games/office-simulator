@@ -1,6 +1,6 @@
 using AO;
 
-public class RatsEvent : Event
+public partial class RatsEvent : Event
 {
   private List<MovingRat> rats = new List<MovingRat>();
 
@@ -16,29 +16,76 @@ public class RatsEvent : Event
     {
       rats.Add(rat.GetComponent<MovingRat>());
     }
+  }
 
-    StartEvent();
+  private int GetAliveRatCount()
+  {
+    int count = 0;
+    foreach (var rat in rats)
+    {
+      if (!rat.Squashed)
+      {
+        count++;
+      }
+    }
+    return count;
   }
 
   public override void Update()
   {
-    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = "Rat Infestation";
-    References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Rats: " + rats.Count;
+    base.Update();
+    
+    if (!IsActive) return;
+
+    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Rat Infestation (Time Remaining: {TimeRemaining:F0}";
+    References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Rats Left: " + GetAliveRatCount() + " / " + rats.Count;
+
+    if (IsCompleted() && IsActive)
+    {
+      CallClient_ReceiveServerStopEvent(false);
+    }
+
+    if (TimeRemaining <= 0)
+    {
+      CallClient_ReceiveServerStopEvent(true);
+
+    }
+  }
+
+  [ClientRpc]
+  public void ReceiveServerStopEvent(bool failed)
+  {
+    StopEvent(failed);
+  }
+
+  public override bool IsCompleted()
+  {
+    return GetAliveRatCount() == 0;
   }
 
   public override void StartEvent()
   {
+    base.StartEvent();
+
     foreach (var rat in rats)
     {
       rat.StartEvent();
     }
   }
 
-  public override void StopEvent()
+  public override void StopEvent(bool failed)
   {
+    base.StopEvent(failed);
+
     foreach (var rat in rats)
     {
       rat.StopEvent();
+    }
+
+    if (failed)
+    {
+      if (!Network.IsServer) return;
+      GameManager.Instance.CallClient_ShowNotification("You failed to terminate the rats...");
     }
   }
 }

@@ -5,8 +5,8 @@
   "name": "OverseerJukebox",
   "local_enabled": true,
   "local_position": {
-    "X": -13.0207014083862305,
-    "Y": -21.5858478546142578
+    "X": -11.8110256195068359,
+    "Y": -29.4971370697021484
   },
   "local_rotation": 0,
   "local_scale": {

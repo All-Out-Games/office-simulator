@@ -3,7 +3,7 @@ using AO;
 // Can be added to an entity for visual emphasis (e.g. can be interacted with)
 public class SpriteFlasher : Component
 {
-  public bool Flash = false;
+  public bool Flash = true;
   private Sprite_Renderer spriteRenderer;
   private float curTintOffset;
   public float FlashDepth = 0.625f;
