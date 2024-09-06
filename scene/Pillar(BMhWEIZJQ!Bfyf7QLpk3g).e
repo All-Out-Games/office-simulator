@@ -1,29 +1,30 @@
 13
-1103806595073
-28960024675894 1725317774619303200
+1455993913346
+336542969205328 1725582018502610400
 {
-  "name": "Switch",
+  "name": "Pillar",
   "local_enabled": true,
   "local_position": {
-    "X": -8.2003250122070312,
-    "Y": 9.4835472106933594
+    "X": -17.9949684143066406,
+    "Y": -0.5886383056640625
   },
   "local_rotation": 0,
   "local_scale": {
-    "X": 4,
-    "Y": 4
+    "X": 5,
+    "Y": 5
   },
-  "previous_sibling": "311117154785051:1725231319970161400",
-  "parent": "311117154685767:1725231319970130900",
+  "previous_sibling": "336504736148520:1725582006506786500",
+  "next_sibling": "336589173390108:1725582032999417800",
+  "parent": "335726233071552:1725581762247326700",
   "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
-  "aoid": "28960024801819:1725317774619342000",
+  "aoid": "336542969334227:1725582018502650300",
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_117.png",
+    "texture": "overseer/pillar.png",
     "depth_offset": 0,
     "tint": {
       "X": 1,
@@ -39,10 +40,10 @@
 },
 {
   "cid": 2,
-  "aoid": "28978245920612:1725317780336312000",
+  "aoid": "336542969421825:1725582018502677700",
   "component_type": "Mono_Component",
-  "mono_component_type": "PayController",
+  "mono_component_type": "Buyable",
   "data": {
-
+    "Cost": 200
   }
 }

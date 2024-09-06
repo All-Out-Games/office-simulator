@@ -44,6 +44,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Jukebox",
   "data": {
-    "Sfx": "sfx/bg1.wav"
+    "Sfx": "sfx/bg1.wav",
+    "Volume": 0.4499999880790710
   }
 }

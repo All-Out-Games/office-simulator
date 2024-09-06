@@ -1,25 +1,25 @@
 13
-395136991233
-1004144423296026 1709680996327027700
+1507533520897
+323223823206693 1725577839550085700
 {
-  "name": "ServerJuekbox",
+  "name": "OverseerJukebox",
   "local_enabled": true,
   "local_position": {
-    "X": -38.0343780517578125,
-    "Y": -21.8813056945800781
+    "X": -13.0207014083862305,
+    "Y": -21.5858478546142578
   },
   "local_rotation": 0,
   "local_scale": {
     "X": 4,
     "Y": 4
   },
-  "next_sibling": "1011387789859821:1709683268970471200",
+  "previous_sibling": "135238911909686:1725176137275430500",
   "parent": "21457415499725:1717370782572836000",
   "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
-  "aoid": "1004144423423976:1709680996327067000",
+  "aoid": "323223823379496:1725577839550139500",
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
@@ -31,9 +31,19 @@
       "Z": 1,
       "W": 1
     },
-    "layer": -2,
+    "layer": 0,
     "wait_for_load": false,
     "wrap": false,
     "mask_in_shadow": false
+  }
+},
+{
+  "cid": 2,
+  "aoid": "323223823555050:1725577839550194500",
+  "component_type": "Mono_Component",
+  "mono_component_type": "Jukebox",
+  "data": {
+    "Sfx": "overseer/otheme.wav",
+    "Volume": 0.8000000119209290
   }
 }

@@ -2,7 +2,7 @@ using AO;
 
 public class References : Component
 {
-
+    [Serialized] public UICanvas EventUI;
   [Serialized] public AudioAsset ErrorSfx;
   [Serialized] public AudioAsset ClickSfx;
   [Serialized] public UIText MoneyStatText;

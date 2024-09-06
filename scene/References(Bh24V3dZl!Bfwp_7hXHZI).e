@@ -22,6 +22,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "References",
   "data": {
+    "EventUI": "391651203774153:1725599312534000200",
     "ErrorSfx": "sfx/error.wav",
     "ClickSfx": "sfx/notification.wav",
     "MoneyStatText": "430070096685611:1725063203890567000",

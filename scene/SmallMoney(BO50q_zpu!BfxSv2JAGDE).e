@@ -14,6 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "342599727807482:1725241197787838800",
+  "next_sibling": "337075406989584:1725582185557782200",
   "parent": "20641301987117:1717370526513028600",
   "spawn_as_networked_entity": true,
   "linked_prefab": "Modern_Office_Singles_48x48_338.png.prefab"

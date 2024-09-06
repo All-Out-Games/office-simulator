@@ -1,4 +1,5 @@
 using AO;
+    // DO NOT CHANGE ORDER OR ADD TO FRONT
     public enum Room
     {
         LOBBY,
@@ -22,7 +23,8 @@ using AO;
         OFFICE7,
         OFFICE8,
         OFFICE_MANAGER,
-        OFFICE_CEO
+        OFFICE_CEO,
+        OFFICE_OVERSEER,
     }
 
 public class RoomBounds : Component

@@ -5,12 +5,14 @@ public enum Role
   JANITOR,
   EMPLOYEE,
   MANAGER,
-  CEO
+  CEO,
+  OVERSEER
 }
 
 public partial class OfficePlayer : Player
 {
   public SyncVar<float> LastRequestedCEOPromoAt = new(0);
+  public SyncVar<float> LastRequestedOverseerPromoAt = new(0);
   public SyncVar<bool> IsDead = new(false);
   private Entity lightEntity;
 
@@ -371,6 +373,14 @@ public partial class OfficePlayer : Player
       }
 
       if (CurrentRole == Role.CEO)
+      {
+        DrawDefaultAbilityUI(new AbilityDrawOptions() {
+          AbilityElementSize = 125,
+          Abilities = new Ability[] { GetAbility<Revolver>() }
+        });
+      }
+
+      if ((OverseerPromoNPC.Instance.Fighter1?.Value == this.Entity || OverseerPromoNPC.Instance.Fighter2?.Value == this.Entity) && OverseerPromoNPC.Instance.BattleStartTime - Time.TimeSinceStartup >= 3)
       {
         DrawDefaultAbilityUI(new AbilityDrawOptions() {
           AbilityElementSize = 125,

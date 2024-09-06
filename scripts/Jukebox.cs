@@ -3,6 +3,7 @@ using AO;
 public partial class Jukebox : Component
 {
   [Serialized] public AudioAsset Sfx;
+  [Serialized] public float Volume;
   public ulong sfxHandle;
   private bool manuallyStopped = false;
   private bool nightVersion = false;
@@ -49,11 +50,11 @@ public partial class Jukebox : Component
     {
       if (nightVersion)
       {
-        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = 0.45f, Speed=0.875f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 3f });
+        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = Volume, Speed=0.875f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 3f });
       }
       else
       {
-        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = 0.5f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 2.75f });
+        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = Volume, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 2.75f });
       }
     }
   }

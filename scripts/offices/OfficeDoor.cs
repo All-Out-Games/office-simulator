@@ -153,9 +153,9 @@ public class OfficeDoor : TwoWayDoor
       {
         if (op.OfficeController.Value != null)
         {
-          interactable.Text = $"Buy Office - ${Controller.Cost} (DESTROYS OLD OFFICE)";
+          interactable.Text = $"Buy {Entity.Parent.Name} - ${Controller.Cost} (DESTROYS OLD OFFICE)";
         } else {
-          interactable.Text = $"Buy Office - ${Controller.Cost}";
+          interactable.Text = $"Buy {Entity.Parent.Name} - ${Controller.Cost}";
         }
       }
     }

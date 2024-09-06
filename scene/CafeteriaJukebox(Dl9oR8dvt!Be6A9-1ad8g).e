@@ -13,7 +13,6 @@
     "X": 4,
     "Y": 4
   },
-  "previous_sibling": "1004144423296026:1709680996327027700",
   "next_sibling": "487768286994318:1725081307006482000",
   "parent": "21457415499725:1717370782572836000",
   "spawn_as_networked_entity": true
@@ -44,6 +43,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Jukebox",
   "data": {
-    "Sfx": "sfx/bgm2.wav"
+    "Sfx": "sfx/bgm2.wav",
+    "Volume": 0.4499999880790710
   }
 }

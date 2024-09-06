@@ -14,6 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "31781697395392:1725143677047303500",
+  "next_sibling": "323223823206693:1725577839550085700",
   "parent": "21457415499725:1717370782572836000",
   "spawn_as_networked_entity": true
 },
@@ -43,6 +44,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Jukebox",
   "data": {
-    "Sfx": "sfx/flickering_loop.wav"
+    "Sfx": "sfx/flickering_loop.wav",
+    "Volume": 0.4499999880790710
   }
 }
