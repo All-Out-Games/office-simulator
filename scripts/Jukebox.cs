@@ -6,12 +6,12 @@ public partial class Jukebox : Component
   [Serialized] public float Volume;
   public ulong sfxHandle;
   private bool manuallyStopped = false;
-  private SyncVar<bool> isPlaying = new();
+  private SyncVar<bool> isPlaying = new(true);
   private bool nightVersion = false;
 
   private Interactable interactable;
 
-  public override void Awake()
+  public override void Start()
   {
     interactable = AddComponent<Interactable>();
     interactable.RequiredHoldTime = 0.4f;

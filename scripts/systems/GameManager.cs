@@ -85,6 +85,18 @@ public partial class GameManager : Component
                 player.MoveSpeedModifier.Set(amount);
                 break;
             }
+            case "experience":
+            {
+                if (parts.Length < 2)
+                {
+                    Chat.SendMessage(p, "Usage: /experience <amount>");
+                    return;
+                }
+
+                var amount = int.Parse(parts[1]);
+                player.Experience.Set(player.Experience + amount);
+                break;
+            }
         }
     }
 

@@ -14,7 +14,8 @@
     "Y": 4
   },
   "previous_sibling": "325826132243319:1725578656038314000",
-  "next_sibling": "326709895032789:1725578933323564900"
+  "next_sibling": "326709895032789:1725578933323564900",
+  "spawn_as_networked_entity": true
 },
 {
   "cid": 1,
@@ -42,7 +43,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "OverseerPromoNPC",
   "data": {
-    "fighter1Seat": "0:0",
-    "fighter2Seat": "0:0"
+    "fighter1Seat": "326709895222264:1725578933323623900",
+    "fighter2Seat": "326756611462891:1725578947981091500"
   }
 }

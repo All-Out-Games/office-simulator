@@ -61,52 +61,43 @@ public partial class OverseerPromoNPC : Component
                 return;
             }
 
-            if (Time.TimeSinceStartup - op.LastRequestedCEOPromoAt < 120f)
+            // if (Time.TimeSinceStartup - op.LastRequestedOverseerPromoAt < 120f)
+            // {
+            //     op.CallClient_ShowNotification("You must wait 2 minutes before requesting another promotion...");
+            //     op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+            //     return;
+            // }
+
+            if (op.Cash < 1000)
             {
-                op.CallClient_ShowNotification("You must wait 2 minutes before requesting another promotion...");
+                op.CallClient_ShowNotification("You do not have enough cash to request a promotion...");
                 op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
                 return;
             }
 
-            op.LastRequestedCEOPromoAt.Set(Time.TimeSinceStartup);
+            op.LastRequestedOverseerPromoAt.Set(Time.TimeSinceStartup);
 
             var OverseerPlayers = GameManager.Instance.GetPlayersByRole(Role.OVERSEER);
             var OverseerPlayer = OverseerPlayers.Length > 0 ? (OfficePlayer)OverseerPlayers[0] : null;
+
+            if (!OverseerPlayer.Alive())
+            {
+                op.CurrentRole = Role.OVERSEER;
+                op.Experience.Set(0);
+            }
+
             if (OverseerPlayer.Alive())
             {
                 Fighter1.Set(OverseerPlayer.Entity);
                 Fighter2.Set(op.Entity);
-
-                var seats = new List<Seat>();
-                foreach (var seat in Scene.Components<Seat>())
-                {
-                    if (seat.Type == "Board")
-                    {
-                        seats.Add(seat);
-                        Log.Info("Seat info " + seat.Entity.Name);
-                    }
-                }
-
-                var backupSeat = seats.GetRandom();
-
-                foreach (Player player in Player.AllPlayers)
-                {
-                    var op2 = (OfficePlayer)player;
-                    Seat seat = backupSeat;
-
-                    if (seats.Count > 0)
-                    {
-                        seat = seats.Pop();
-                    }
-
-                    op2.AssignedMeetingSeat.Set(seat.Entity);
-                }
 
                 OverseerPlayer.AssignedMeetingSeat.Set(fighter1Seat.Entity);
                 op.AssignedMeetingSeat.Set(fighter2Seat.Entity);
 
                 CallClient_StartBattle();
             }
+
+            op.Cash.Set(op.Cash - 1000);
         };
     }
 
@@ -189,23 +180,6 @@ public partial class OverseerPromoNPC : Component
         }
 
         var interactible = Entity.GetComponent<Interactable>();
-        if (!op.Alive()) return;
-        if (op.CurrentRole == Role.JANITOR)
-        {
-            interactible.Text = "Request Promotion to Employee... (100XP)";
-            return;
-        } else if (op.CurrentRole == Role.EMPLOYEE)
-        {
-            interactible.Text = "Request Promotion to Manager... (100XP)";
-            return;
-        } else if (op.CurrentRole == Role.MANAGER)
-        {
-            interactible.Text = "Request Promotion to CEO... (100XP) (Requires Conference Speech Given)";
-            return;
-        } else if (op.CurrentRole == Role.CEO)
-        {
-            interactible.Text = "Request Promotion... (100XP)";
-            return;
-        }
+        interactible.Text = "Commence the Overseer's Trial ($1,000)";
     }
 }

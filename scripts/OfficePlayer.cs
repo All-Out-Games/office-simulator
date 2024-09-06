@@ -40,6 +40,7 @@ public partial class OfficePlayer : Player
     Role.EMPLOYEE => 200,
     Role.MANAGER => 300,
     Role.CEO => 500,
+    Role.OVERSEER => 300,
     _ => 0
   };
 
