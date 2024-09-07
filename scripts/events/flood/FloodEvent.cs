@@ -37,17 +37,18 @@ public partial class FloodEvent : Event
   public override void Update()
   {
       if (!IsActive) return;
+      base.Tick();
   
-      var Progression = (Time.TimeSinceStartup - startTime) / Duration;
+      var progression = (Duration - TimeRemaining) / (Duration + TimeRemaining);
 
       // buckets slightly reduce the tinting 
       int totalBuckets = buckets.Count;
       int fixedBuckets = totalBuckets - GetUnfixedMopCount();
       float fixedPercentage = fixedBuckets / (float)totalBuckets;
   
-      floodWater.Tint = new Vector4(0, 0.25f, 1, 0.1f + (0.9f * Progression) * (1 - fixedPercentage));
+      floodWater.Tint = new Vector4(0, 0.25f, 1, 0.1f + (0.9f * progression) * (1 - fixedPercentage));
   
-      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Flooding (Time Remaining: {TimeRemaining:F0})";
+      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Flooding (Time Remaining: {TimeRemaining.Value:F0})";
       References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Buckets to Mop: " + GetUnfixedMopCount() + " / " + totalBuckets;
   
       if (IsCompleted() && IsActive && Network.IsServer)

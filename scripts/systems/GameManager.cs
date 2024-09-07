@@ -16,6 +16,7 @@ public partial class GameManager : Component
 {
   public static GameManager Instance;
   public SyncVar<bool> ReducedPay = new(false);
+  public SyncVar<bool> FastJanitors = new(false);
 
   public override void Awake()
   {

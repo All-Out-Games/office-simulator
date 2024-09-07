@@ -24,7 +24,16 @@
   "data": {
     "texture": "base.png",
     "depth_offset": 1.4652481079101562,
-    "layer": -1
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": -1,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -33,6 +42,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -59,6 +69,10 @@
         "X": -0.0591878890991211,
         "Y": -1.3230438232421875
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 }

@@ -6,7 +6,7 @@ public partial class Revolver : MyAbility
     public override Texture Icon => Assets.GetAsset<Texture>("Ability_Icons/revolver_icon.png");
     public override Type Effect => typeof(ShootGunEffect);
     public override Type TargettingEffect => typeof(AimingRevolver);
-    public override float MaxDistance => 10f;
+    public override float MaxDistance => 8f;
     public override float Cooldown => Player.IsInOverseerBattle() ? 1f : DayNightManager.Instance.CurrentState == DayState.NIGHT ? 10f : 60f;
 
     public override bool CanBeginTargeting()

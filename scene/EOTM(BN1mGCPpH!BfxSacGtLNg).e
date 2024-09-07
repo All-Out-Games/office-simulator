@@ -24,7 +24,18 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Clothing_Store_Singles_48x48_469.png"
+    "texture": "Clothing_Store_Singles_48x48_469.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -36,9 +47,18 @@
     "PromptText": "Nominate Employee of The Month",
     "MinimumRoleRequired": 2,
     "MaxRole": 3,
+    "ActiveTexture": "",
+    "CooldownTexture": "",
+    "OnCompleteSfx": "",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
     "CooldownSeconds": 45,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 7
+    "XpReward": 7,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

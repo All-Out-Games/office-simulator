@@ -107,14 +107,8 @@ public class OverseerEffect : MyEffect, INetworkedComponent
         {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume=0.75f, Positional = true, Position = Player.Entity.Position});
 
-            if (!Player.IsLocal)
-            {
-                sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.2f, Position = Player.Entity.Position, Positional=true} );
-            }
 
-            Player.AddInvisibilityReason(nameof(OverseerEffect));
             Player.AddFreezeReason("transforming");
-            Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(6, 6);
             Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
             Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd += OnKillerAnimationEnd;
         }
@@ -124,6 +118,12 @@ public class OverseerEffect : MyEffect, INetworkedComponent
             DoneAnim = true;
         }
 
+        Player.AddInvisibilityReason(nameof(OverseerEffect));
+        if (!Player.IsLocal)
+        {
+            // sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.2f, Position = Player.Entity.Position, Positional=true} );
+        }
+        Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(6, 6);
         Player.KillerSpineAnimator.LocalEnabled = true;
         Player.KillerSpineAnimator.SpineInstance.OnEvent += OnKillerAnimationEvent;
     }
@@ -180,14 +180,7 @@ public class KillerEffect : MyEffect, INetworkedComponent
         {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume=0.75f, Positional = true, Position = Player.Entity.Position});
 
-            if (!Player.IsLocal)
-            {
-                sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.4f, Position = Player.Entity.Position, Positional=true} );
-            }
-
-            Player.AddInvisibilityReason(nameof(KillerEffect));
             Player.AddFreezeReason("transforming");
-            Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(4, 4);
             Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
             Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd += OnKillerAnimationEnd;
         }
@@ -197,6 +190,12 @@ public class KillerEffect : MyEffect, INetworkedComponent
             DoneAnim = true;
         }
 
+        Player.AddInvisibilityReason(nameof(KillerEffect));
+        Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(4, 4);
+        if (!Player.IsLocal)
+        {
+            sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.4f, Position = Player.Entity.Position, Positional=true} );
+        }
         Player.KillerSpineAnimator.LocalEnabled = true;
         Player.KillerSpineAnimator.SpineInstance.OnEvent += OnKillerAnimationEvent;
     }
@@ -289,7 +288,7 @@ public partial class KillAbility : MyAbility
     public override bool CanTarget(Player p)
     {
         var op = (OfficePlayer)p;
-        return op.CurrentRole != Role.JANITOR;
+        return op.CurrentRole != Role.JANITOR && op.CurrentRole != Role.OVERSEER;
     }
 
     public override bool OnTryActivate(List<Player> targetPlayers, Vector2 positionOrDirection, float magnitude)
@@ -335,12 +334,6 @@ public class KillEffect : MyEffect
         SFX.Play(Assets.GetAsset<AudioAsset>("sfx/disguise_activate.wav"), new() {Positional = true, Position = Player.Entity.Position});
 
         Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("teleport_away");
-
-        if (Network.IsServer)
-        {
-            Player.IsDead.Set(true);
-        }
-
         JumpSpineInstance = SpineInstance.Make();
         JumpSpineInstance.SetSkeleton(Assets.GetAsset<SpineSkeletonAsset>("animations/Jump/jumpscare_asset.spine"));
         JumpSpineInstance.SetAnimation("appear", false);

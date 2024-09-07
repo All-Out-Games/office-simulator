@@ -5,7 +5,7 @@ public partial class MurderProjectile : Component
     [Serialized] public bool IsBullet;
 
     public float Lifetime;
-    public const float MaxLife = 1f;
+    public const float MaxLife = 0.7f;
     public bool AlreadyHitSomething;
 
     public override void Start()
@@ -35,7 +35,6 @@ public partial class MurderProjectile : Component
         }
 
         if (player == null) return;
-        if (player.IsDead) return;
         if (player.HasEffect<SpectatorEffect>()) return;
 
         var projectile = Entity.GetComponent<Projectile>();

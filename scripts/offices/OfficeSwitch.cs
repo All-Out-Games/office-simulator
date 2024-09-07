@@ -19,6 +19,11 @@ public class OfficeSwitch : Component
     interactable.CanUseCallback = (Player p) => {
       var op = (OfficePlayer)p;
 
+      if (!Controller.IsOwned)
+      {
+        return false;
+      }
+
       if (Controller.IsOwned && Controller.Owner != op.Entity) {
         return false;
       }

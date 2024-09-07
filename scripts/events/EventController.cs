@@ -4,8 +4,8 @@ public class EventController : Component
 {
   public EventController Instance;
   public UICanvas EventUI;
-  public SyncVar<float> EventCooldownTrackerTime = new();
-  public float MinTimeBetweenEvents = 50f;
+  public SyncVar<float> CooldownTimeRemaining = new();
+  public float MinTimeBetweenEvents = 120f;
 
   public override void Awake()
   {
@@ -15,12 +15,12 @@ public class EventController : Component
 
   public float GetCooldownTimeRemaining()
   {
-    return MinTimeBetweenEvents - (Time.TimeSinceStartup - EventCooldownTrackerTime);
+    return CooldownTimeRemaining.Value;
   }
 
   public void StartEvent(Event eventToStart)
   {
-    if (Time.TimeSinceStartup - EventCooldownTrackerTime < MinTimeBetweenEvents)
+    if (CooldownTimeRemaining >= 0f)
     {
       Log.Info("Tried to start event " + eventToStart.Entity.Name + " before cooldown");
       return;
@@ -30,7 +30,15 @@ public class EventController : Component
 
     if (Network.IsServer)
     {
-      EventCooldownTrackerTime.Set(Time.TimeSinceStartup);
+      CooldownTimeRemaining.Set(MinTimeBetweenEvents);
     }
+  }
+
+  public override void Update()
+  {
+    if (CooldownTimeRemaining >= 0f)
+    {
+      CooldownTimeRemaining.Set(CooldownTimeRemaining - Time.DeltaTime);
+    } 
   }
 }

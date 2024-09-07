@@ -5,7 +5,7 @@ public partial class Jukebox : Component
   [Serialized] public AudioAsset Sfx;
   [Serialized] public float Volume;
   public ulong sfxHandle;
-  private bool manuallyStopped = false;
+  private SyncVar<bool> manuallyStopped = new(false);
   private SyncVar<bool> isPlaying = new(true);
   private bool nightVersion = false;
 
@@ -17,8 +17,14 @@ public partial class Jukebox : Component
     interactable.RequiredHoldTime = 0.4f;
     interactable.PromptOffset = new Vector2(-0.6f, -0.5f);
     interactable.OnInteract += (Player p) => {
-      manuallyStopped = !manuallyStopped;
-      if (manuallyStopped)
+      if (Network.IsServer)
+      {
+        manuallyStopped.Set(!manuallyStopped);
+      }
+
+      var newManuallyStopped = !manuallyStopped;
+      
+      if (newManuallyStopped)
       {
         Stop();
       }
@@ -28,10 +34,8 @@ public partial class Jukebox : Component
       }
     };
 
-    if (isPlaying)
-    {
-      SafePlay();
-    }
+
+    SafePlay();
   }
 
   public override void Update()
@@ -47,25 +51,45 @@ public partial class Jukebox : Component
     SafePlay();
   }
 
+  [ClientRpc]
+  public void ActuallyPlay()
+  {
+    if (Network.IsServer) return;
+
+    if (nightVersion)
+    {
+      sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = Volume, Speed=0.875f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 3f });
+    }
+    else
+    {
+      sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = Volume, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 2.75f });
+    }
+  }
+
   // Plays unless the user has manually muted the jukebox
   public void SafePlay()
   {
-    if (!manuallyStopped || !isPlaying)
+    if (!manuallyStopped && !isPlaying)
     {
       if (Network.IsServer)
       {
         isPlaying.Set(true);
+        CallClient_ActuallyPlay();
       }
 
-      if (nightVersion)
-      {
-        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = Volume, Speed=0.875f, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 3f });
-      }
-      else
-      {
-        sfxHandle = SFX.Play(Sfx, new SFX.PlaySoundDesc() { Volume = Volume, Loop = true, Position = Entity.Position, Positional = true, RangeMultiplier = 2.75f });
-      }
+
+    } else {
+      Log.Info("Jukebox is muted");
     }
+  }
+
+
+  [ClientRpc]
+  public void ActuallyStop()
+  {
+    if (Network.IsServer) return;
+
+    SFX.Stop(sfxHandle);
   }
 
   public void Stop()
@@ -73,8 +97,7 @@ public partial class Jukebox : Component
     if (Network.IsServer)
     {
       isPlaying.Set(false);
+      CallClient_ActuallyStop();
     }
-
-    SFX.Stop(sfxHandle);
   }
 }

@@ -23,7 +23,18 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Kitchen_Singles_48x48_216.png"
+    "texture": "Kitchen_Singles_48x48_216.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -33,11 +44,20 @@
   "mono_component_type": "Activity",
   "data": {
     "PromptText": "Eat Brains",
+    "MinimumRoleRequired": 0,
+    "MaxRole": 0,
     "ActiveTexture": "Kitchen_Singles_48x48_216.png",
+    "CooldownTexture": "",
     "OnCompleteSfx": "sfx/character_eating_loop_end_swallow_short.wav",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
     "CooldownSeconds": 5,
+    "AvailableForSeconds": 0,
     "HideWhenOnCooldown": true,
+    "SpawnsDuringDay": false,
     "SpawnsDuringNight": true,
-    "XpReward": 10
+    "XpReward": 10,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

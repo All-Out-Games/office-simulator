@@ -23,7 +23,18 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Clothing_Store_Singles_48x48_469.png"
+    "texture": "Clothing_Store_Singles_48x48_469.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -33,6 +44,7 @@
   "mono_component_type": "BillboardSign",
   "data": {
     "Message": "Buy and upgrade your own personal office",
+    "IsIntroMessage": false,
     "HalfWidth": 0.5000000000000000
   }
 }

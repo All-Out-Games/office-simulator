@@ -40,17 +40,17 @@ public partial class FireEvent : Event
   public override void Update()
   {
       if (!IsActive) return;
+      base.Tick();
   
-      var Progression = (Time.TimeSinceStartup - startTime) / Duration;
+      var progression = (Duration - TimeRemaining) / (Duration + TimeRemaining);
 
-      // buckets slightly reduce the tinting 
       int totalFires = switches.Count;
       int fixedBuckets = totalFires - GetUnfixedCount();
       float fixedPercentage = fixedBuckets / (float)totalFires;
   
-      fireOverlay.Tint = new Vector4(1, 0.25f, 0.25f, 0.1f + (0.9f * Progression) * (1 - fixedPercentage));
+      fireOverlay.Tint = new Vector4(1, 0.25f, 0.25f, 0.1f + (0.9f * progression) * (1 - fixedPercentage));
   
-      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Fires are enveloping the office (Time Remaining: {TimeRemaining:F0})";
+      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Fires are enveloping the office (Time Remaining: {TimeRemaining.Value:F0})";
       References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Extinguish: " + GetUnfixedCount() + " / " + totalFires;
   
       if (IsCompleted() && IsActive && Network.IsServer)

@@ -25,7 +25,18 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Grocery/Conference_Hall_Singles_48x48_59.png"
+    "texture": "Grocery/Conference_Hall_Singles_48x48_59.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -34,6 +45,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Polygon_Collider",
   "data": {
+    "is_trigger": false,
     "points": [
       {
         "X": -0.1634704023599625,
@@ -51,7 +63,11 @@
         "X": -0.0365302599966526,
         "Y": -0.1626369953155518
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {
@@ -61,13 +77,20 @@
   "mono_component_type": "Activity",
   "data": {
     "PromptText": "Refill Fire Extinguisher",
+    "MinimumRoleRequired": 0,
     "MaxRole": 1,
     "ActiveTexture": "Grocery/Conference_Hall_Singles_48x48_59.png",
     "CooldownTexture": "Grocery/Conference_Hall_Singles_48x48_59.png",
     "OnCompleteSfx": "sfx/paper.wav",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
     "CooldownSeconds": 20,
+    "AvailableForSeconds": 0,
+    "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 5
+    "XpReward": 5,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

@@ -24,7 +24,17 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "48x48/Modern_Office_Singles_48x48_90.png",
-    "layer": -3
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": -3,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -43,6 +53,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -61,6 +72,10 @@
         "X": 0.4391651451587677,
         "Y": -0.5828896164894104
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 }

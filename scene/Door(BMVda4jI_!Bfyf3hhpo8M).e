@@ -25,12 +25,17 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "Condominium_Singles_48x48_82.png",
+    "depth_offset": 0,
     "tint": {
       "X": 0.6000000238418579,
       "Y": 0.7098039388656616,
       "Z": 0.7019608020782471,
       "W": 1
-    }
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -39,6 +44,8 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
+    "is_loop": false,
     "points": [
       {
         "X": 0.1882953643798828,
@@ -76,7 +83,11 @@
         "X": 0.1883466243743896,
         "Y": -0.1419104337692261
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {

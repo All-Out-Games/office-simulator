@@ -31,7 +31,11 @@
       "X": -1.9532517194747925,
       "Y": 2.9966702461242676
     },
-    "is_trigger": true
+    "is_trigger": true,
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {

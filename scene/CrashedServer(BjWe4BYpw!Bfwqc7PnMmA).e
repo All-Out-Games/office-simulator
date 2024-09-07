@@ -24,7 +24,18 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Destroyed Computer - light.png"
+    "texture": "Destroyed Computer - light.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -37,11 +48,17 @@
     "MinimumRoleRequired": 1,
     "MaxRole": 2,
     "ActiveTexture": "Destroyed Computer - light.png",
+    "CooldownTexture": "",
     "OnCompleteSfx": "sfx/server-boot.wav",
+    "OnActiveSfx": "",
+    "OnCooldownSfx": "",
     "CooldownSeconds": 15,
     "AvailableForSeconds": 25,
     "HideWhenOnCooldown": true,
+    "SpawnsDuringDay": false,
     "SpawnsDuringNight": true,
-    "XpReward": 10
+    "XpReward": 10,
+    "CashReward": 0,
+    "CashCost": 0
   }
 }

@@ -5,8 +5,8 @@
   "name": "Sign1",
   "local_enabled": true,
   "local_position": {
-    "X": -61.5000190734863281,
-    "Y": -8.8728408813476562
+    "X": -63.6752319335937500,
+    "Y": -9.9056749343872070
   },
   "local_rotation": 0,
   "local_scale": {
@@ -22,7 +22,18 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "overseer/statue.png"
+    "texture": "overseer/statue.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": true,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
@@ -32,6 +43,7 @@
   "mono_component_type": "BillboardSign",
   "data": {
     "Message": "Keep my janitors safe.....",
+    "IsIntroMessage": false,
     "HalfWidth": 2
   }
 },
@@ -41,6 +53,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -48,16 +61,16 @@
         "Y": -0.2657444477081299
       },
       {
-        "X": -0.1282892227172852,
-        "Y": -0.0075528621673584
+        "X": -0.1217527464032173,
+        "Y": -0.0320646800100803
       },
       {
-        "X": -0.0940189361572266,
-        "Y": 0.2122602462768555
+        "X": -0.0270204562693834,
+        "Y": 0.0161635894328356
       },
       {
-        "X": 0.0246429443359375,
-        "Y": 0.2430660724639893
+        "X": 0.1058731153607368,
+        "Y": -0.0314662493765354
       },
       {
         "X": 0.1155042648315430,
@@ -67,6 +80,10 @@
         "X": 0.1246843338012695,
         "Y": -0.2507088184356689
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 }

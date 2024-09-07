@@ -42,6 +42,10 @@
         "X": 0.3094367980957031,
         "Y": -0.4802207946777344
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 }

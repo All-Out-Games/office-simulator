@@ -2,7 +2,7 @@ using AO;
 
 public class FireSwitch : Component
 {
-  private bool eventActive = false;
+  private SyncVar<bool> eventActive = new(false);
   public SyncVar<bool> Fixed = new(false);
   private Interactable interactable;
   private Sprite_Renderer spriteRenderer;
@@ -59,7 +59,12 @@ public class FireSwitch : Component
 
   public void StartEvent()
   {
-    eventActive = true;
+    if (Network.IsServer)
+    {
+      eventActive.Set(true);
+    }
+
+
     sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/fire/fire.wav"), new SFX.PlaySoundDesc() { Volume=0.4f, Loop = true, Positional=true, Position=Entity.Position });
 
     if (Network.IsServer)
@@ -70,7 +75,10 @@ public class FireSwitch : Component
 
   public void StopEvent()
   {
-    eventActive = false;
+    if (Network.IsServer)
+    {
+      eventActive.Set(false);
+    }
 
     spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
     Fix(null);

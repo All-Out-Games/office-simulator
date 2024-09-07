@@ -25,12 +25,17 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "anomalies/rats/rat.png",
+    "depth_offset": 0,
     "tint": {
       "X": 0.1725490242242813,
       "Y": 0.1725490242242813,
       "Z": 0.1725490242242813,
       "W": 1
-    }
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {

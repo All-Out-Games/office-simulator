@@ -2,7 +2,7 @@
 1408749273089
 336678389813007 1725582060991542300
 {
-  "name": "statue.png",
+  "name": "Overseer Statue",
   "local_enabled": true,
   "local_position": {
     "X": -23.2121543884277344,
@@ -25,7 +25,17 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "overseer/statue.png",
-    "depth_offset": -0.0492496490478516
+    "depth_offset": -0.0492496490478516,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {

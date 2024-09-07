@@ -33,11 +33,10 @@ public partial class RatsEvent : Event
 
   public override void Update()
   {
-    base.Update();
-    
     if (!IsActive) return;
+    base.Tick();
 
-    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Rat Infestation (Time Remaining: {TimeRemaining:F0})";
+    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Rat Infestation (Time Remaining: {TimeRemaining.Value:F0})";
     References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Rats Left: " + GetAliveRatCount() + " / " + rats.Count;
 
     if (IsCompleted() && IsActive && Network.IsServer)

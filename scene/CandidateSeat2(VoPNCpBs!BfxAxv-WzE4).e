@@ -23,6 +23,7 @@
   "component_type": "Mono_Component",
   "mono_component_type": "Seat",
   "data": {
-    "Type": "Candidate"
+    "Type": "Candidate",
+    "FaceLeft": false
   }
 }

@@ -13,6 +13,12 @@ public class EventSwitch : Component
 
     interactable = Entity.AddComponent<Interactable>();
     interactable.Text = EventName;
+    interactable.CanUseCallback = (Player p) =>
+    {
+      var op = (OfficePlayer)p;
+      return op.CurrentRole == Role.OVERSEER;
+    };
+    
     interactable.OnInteract = (Player p) =>
     {
       var op = (OfficePlayer)p;

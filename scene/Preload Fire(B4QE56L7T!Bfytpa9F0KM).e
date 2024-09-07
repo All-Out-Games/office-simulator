@@ -13,7 +13,8 @@
     "X": 1,
     "Y": 1
   },
-  "previous_sibling": "528866400876848:1725642364528055700"
+  "previous_sibling": "528866400876848:1725642364528055700",
+  "next_sibling": "605500649453205:1725666408928995400"
 },
 {
   "cid": 1,
@@ -22,7 +23,16 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "anomalies/fire/hand_fire3.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
     "layer": -4,
-    "wait_for_load": true
+    "wait_for_load": true,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 }

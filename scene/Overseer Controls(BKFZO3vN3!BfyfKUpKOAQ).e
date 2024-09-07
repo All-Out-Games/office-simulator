@@ -5,7 +5,8 @@
   "name": "Overseer Controls",
   "local_enabled": true,
   "local_position": {
-
+    "X": -0.0120158195495605,
+    "Y": -0.1202778816223145
   },
   "local_rotation": 0,
   "local_scale": {

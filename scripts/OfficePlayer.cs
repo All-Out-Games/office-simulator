@@ -14,7 +14,6 @@ public partial class OfficePlayer : Player
   public SyncVar<bool> WasKilledInOverseerBattle = new(false);
   public SyncVar<float> LastRequestedCEOPromoAt = new(0);
   public SyncVar<float> LastRequestedOverseerPromoAt = new(0);
-  public SyncVar<bool> IsDead = new(false);
   private Entity lightEntity;
 
   public bool ShownPromoPrompt = false;
@@ -52,7 +51,7 @@ public partial class OfficePlayer : Player
   // EXPERIENCE //
   public SyncVar<int> Cash = new(0);
 
-  public int RequiredExperience => CurrentRole == Role.MANAGER ? 100 : 100;
+  public int RequiredExperience => 100;
 
   public Spine_Animator KillerSpineAnimator;
   public SyncVar<bool> HasGymPass = new(false);
@@ -75,7 +74,12 @@ public partial class OfficePlayer : Player
       }
       if (HasEffect<OverseerEffect>())
       {
-        multiplier *= 0.75f;
+        if (GameManager.Instance.FastJanitors)
+        {
+          multiplier *= 0.85f;
+        } else {
+          multiplier *= 0.725f;
+        }
       }
       if (Caffeinated)
       {

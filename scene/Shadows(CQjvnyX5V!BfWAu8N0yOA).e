@@ -5,7 +5,8 @@
   "name": "Shadows",
   "local_enabled": true,
   "local_position": {
-
+    "X": 0,
+    "Y": 0
   },
   "local_rotation": 0,
   "local_scale": {
@@ -20,6 +21,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -1642,7 +1644,11 @@
         "X": -6.4006104469299316,
         "Y": 4.0254001617431641
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {
@@ -1651,6 +1657,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -1885,7 +1892,11 @@
         "X": -4.9991393089294434,
         "Y": 0.6843113899230957
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {
@@ -1894,6 +1905,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -2044,7 +2056,11 @@
         "X": 2.5746791362762451,
         "Y": -11.5244312286376953
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {
@@ -2053,6 +2069,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -2099,7 +2116,11 @@
         "X": -10.1833486557006836,
         "Y": -1.5372656583786011
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {
@@ -2108,6 +2129,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -2198,7 +2220,11 @@
         "X": -2.1881151199340820,
         "Y": -1.9217476844787598
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {
@@ -2209,7 +2235,8 @@
   "data": {
     "points": [
 
-    ]
+    ],
+    "is_loop": true
   }
 },
 {
@@ -2503,7 +2530,8 @@
         "X": -6.2007369995117188,
         "Y": 0.6832417249679565
       }
-    ]
+    ],
+    "is_loop": true
   }
 },
 {
@@ -2609,7 +2637,8 @@
         "X": 1.2298760414123535,
         "Y": -11.5131654739379883
       }
-    ]
+    ],
+    "is_loop": true
   }
 },
 {
@@ -2683,7 +2712,8 @@
         "X": -8.4223775863647461,
         "Y": -1.5369855165481567
       }
-    ]
+    ],
+    "is_loop": true
   }
 },
 {
@@ -4121,7 +4151,8 @@
         "X": -8.5984706878662109,
         "Y": 1.4740725755691528
       }
-    ]
+    ],
+    "is_loop": true
   }
 },
 {
@@ -4130,6 +4161,8 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_trigger": false,
+    "is_loop": false,
     "points": [
       {
         "X": 10.8318014144897461,
@@ -4147,7 +4180,11 @@
         "X": 16.8052673339843750,
         "Y": 4.6722702980041504
       }
-    ]
+    ],
+    "density": 1,
+    "friction": 0.2000000029802322,
+    "restitution": 0,
+    "restitution_threshold": 1
   }
 },
 {
@@ -4173,6 +4210,7 @@
         "X": 10.8318014144897461,
         "Y": 4.6722702980041504
       }
-    ]
+    ],
+    "is_loop": true
   }
 }

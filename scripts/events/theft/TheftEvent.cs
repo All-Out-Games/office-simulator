@@ -40,10 +40,11 @@ public partial class TheftEvent : Event
   public override void Update()
   {
       if (!IsActive) return;
+      base.Tick();
   
       var Progression = (Time.TimeSinceStartup - startTime) / Duration;
   
-      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"The Overseer Has Stolen Cash (Time Remaining: {TimeRemaining:F0})";
+      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"The Overseer Has Stolen Cash (Time Remaining: {TimeRemaining.Value:F0})";
       References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Locate the stash and recover the stolen cash";
   
       if (IsCompleted() && IsActive && Network.IsServer)

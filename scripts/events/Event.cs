@@ -4,7 +4,7 @@ public class Event : Component
 {
   [Serialized] public float Duration = 10f;
   public SyncVar<float> startTime = new();
-  public float TimeRemaining => Duration - (Time.TimeSinceStartup - startTime);
+  public SyncVar<float> TimeRemaining = new(100000f);
   protected EventController eventController;
   public SyncVar<bool> IsActive = new(false);
 
@@ -14,10 +14,19 @@ public class Event : Component
     References.Instance.EventUI.Tint = new Vector4(1f, 1f, 1f, 1f);
 
     if (!Network.IsServer) return;
+    TimeRemaining.Set(Duration);
     GameManager.Instance.CallClient_ShowNotification("An anomaly has been detected...");
+    GameManager.Instance.CallClient_PlaySFX("sfx/clue_found2.wav");
     DayNightManager.Instance.Paused.Set(true);
-    startTime.Set(Time.TimeSinceStartup);
     IsActive.Set(true);
+  }
+
+  public virtual void Tick()
+  {
+    if (!Network.IsServer) return;
+    if (!IsActive) return;
+    References.Instance.EventUI.Tint = new Vector4(1f, 1f, 1f, 1f);
+    TimeRemaining.Set(TimeRemaining - Time.DeltaTime);
   }
 
   public virtual void StopEvent(bool failed)
@@ -26,6 +35,7 @@ public class Event : Component
     References.Instance.EventUI.Tint = new Vector4(0, 0, 0, 0);
 
     if (!Network.IsServer) return;
+
     DayNightManager.Instance.Paused.Set(false);
     IsActive.Set(false);
   }

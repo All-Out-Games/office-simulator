@@ -5,7 +5,8 @@
   "name": "FireOverlay",
   "local_enabled": true,
   "local_position": {
-
+    "X": 0,
+    "Y": 0
   },
   "local_rotation": 0,
   "local_scale": {
@@ -23,10 +24,16 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "$AO/white.png",
+    "depth_offset": 0,
     "tint": {
       "X": 1,
-      "Y": 0.1960784345865250
+      "Y": 0.1960784345865250,
+      "Z": 0,
+      "W": 0
     },
-    "layer": 15555
+    "layer": 15555,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 }

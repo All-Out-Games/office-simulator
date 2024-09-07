@@ -2,7 +2,7 @@ using AO;
 
 public class PowerSwitch : Component
 {
-  private bool eventActive = false;
+  private SyncVar<bool> eventActive = new(false);
   public SyncVar<bool> Fixed = new(false);
   private Interactable interactable;
   private Sprite_Renderer spriteRenderer;
@@ -59,7 +59,10 @@ public class PowerSwitch : Component
 
   public void StartEvent()
   {
-    eventActive = true;
+    if (Network.IsServer)
+    {
+      eventActive.Set(true);
+    }
 
     if (Network.IsServer)
     {
@@ -71,7 +74,10 @@ public class PowerSwitch : Component
 
   public void StopEvent()
   {
-    eventActive = false;
+    if (Network.IsServer)
+    {
+      eventActive.Set(false);
+    }
 
     spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
     Fix(null);

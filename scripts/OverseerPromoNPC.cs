@@ -88,6 +88,7 @@ public partial class OverseerPromoNPC : Component
             // If there isn't a current overseer they get set to it immediately
             if (!OverseerPlayer.Alive())
             {
+                GameManager.Instance.CallClient_ShowNotification("A dark force sweeps over the office...");
                 op.CurrentRole = Role.OVERSEER;
                 op.Experience.Set(0);
             }
@@ -136,16 +137,27 @@ public partial class OverseerPromoNPC : Component
     }
 
     [ClientRpc]
-    public void TurnOffFighterLights(Entity fighter1, Entity fighter2)
+    public void EndFight1(Entity fighter1)
     {
         var fighter1Op = fighter1.GetComponent<OfficePlayer>();
+
+        if (fighter1Op != null) {
+            fighter1Op.SetLightOn(false);
+            fighter1Op.Teleport(Vector2.Zero);
+            fighter1Op.RemoveEffect<SpectatorEffect>(false);
+        }
+    }
+
+    [ClientRpc]
+    public void EndFight2(Entity fighter2)
+    {
         var fighter2Op = fighter2.GetComponent<OfficePlayer>();
 
-        if (fighter1Op == null || fighter2Op == null) return;
-
-        fighter1Op.SetLightOn(false);
         fighter2Op.SetLightOn(false);
+        fighter2Op.Teleport(Vector2.Zero);
+        fighter2Op.RemoveEffect<SpectatorEffect>(false);
     }
+
 
     public override void Update()
     {
@@ -154,16 +166,30 @@ public partial class OverseerPromoNPC : Component
             OfficePlayer fighter1 = null;
             OfficePlayer fighter2 = null;
 
-            if (Fighter1.Value != null && Fighter2.Value != null && Fighter1.Value.Alive() && Fighter2.Value.Alive())
+            if (Fighter1.Value.Alive())
             {
-                fighter1 = Fighter1?.Value?.GetComponent<OfficePlayer>();
-                fighter2 = Fighter2?.Value?.GetComponent<OfficePlayer>();
+                fighter1 = Fighter1.Value.GetComponent<OfficePlayer>();
+            }
+
+            if (Fighter2.Value.Alive())
+            {
+                fighter2 = Fighter2.Value.GetComponent<OfficePlayer>();
             }
 
             if (BattleActive && (fighter1 == null || fighter2 == null))
             {
                 BattleActive.Set(false);
                 GameManager.Instance.CallClient_ShowNotification("The trial has been cancelled due to a candidate being unavailable.");
+                if (fighter1.Alive())
+                {
+                    CallClient_EndFight1(fighter1.Entity);
+                }
+
+                if (fighter2.Alive())
+                {
+                    CallClient_EndFight2(fighter2.Entity);
+                }
+
                 Fighter1.Set(null);
                 Fighter2.Set(null);
                 return;
@@ -176,12 +202,8 @@ public partial class OverseerPromoNPC : Component
                 Fighter1.Set(null);
                 Fighter2.Set(null);
 
-                foreach (Player player in Player.AllPlayers)
-                {
-                    player.Teleport(Vector2.Zero);
-                }
-
-                CallClient_TurnOffFighterLights(fighter1.Entity, fighter2.Entity);
+                CallClient_EndFight1(fighter1.Entity);
+                CallClient_EndFight2(fighter2.Entity);
 
                 if ((fighter1.WasKilledInOverseerBattle && fighter2.WasKilledInOverseerBattle) || (!fighter1.WasKilledInOverseerBattle && !fighter2.WasKilledInOverseerBattle))
                 {

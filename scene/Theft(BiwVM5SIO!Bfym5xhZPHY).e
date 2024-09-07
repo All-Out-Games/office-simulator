@@ -14,6 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "434290121069129:1725612690719891600",
+  "next_sibling": "581219857873838:1725658790702174900",
   "parent": "325826132243319:1725578656038314000",
   "spawn_as_networked_entity": true
 },
@@ -23,7 +24,18 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_117.png"
+    "texture": "48x48/Modern_Office_Singles_48x48_117.png",
+    "depth_offset": 0,
+    "tint": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1,
+      "W": 1
+    },
+    "layer": 0,
+    "wait_for_load": false,
+    "wrap": false,
+    "mask_in_shadow": false
   }
 },
 {
