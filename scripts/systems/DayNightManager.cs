@@ -202,15 +202,16 @@ public partial class DayNightManager : Component
       player.AddEffect<KillerEffect>();
     }
 
+    foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
+      jukkebox.SetNightVersion(true);
+    }
+
     // CLIENT ONLY FROM HERE
     var playerRef = (OfficePlayer)Network.LocalPlayer;
     if (!playerRef.Alive()) return;
 
     playerRef.SetLightOn(true);
 
-    foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
-      jukkebox.SetNightVersion(true);
-    }
 
     nightSfxHandle1 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-hit.wav"), new SFX.PlaySoundDesc() { Volume = 1f });
     nightSfxHandle2 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-music.wav"), new SFX.PlaySoundDesc() { Volume = 1f });
@@ -223,14 +224,15 @@ public partial class DayNightManager : Component
     {
       player.RemoveEffect<KillerEffect>(false);
     }
+    
+    foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
+      jukkebox.SetNightVersion(false);
+    }
 
     // CLIENT ONLY FROM HERE
     var playerRef = (OfficePlayer)Network.LocalPlayer;
     if (!playerRef.Alive()) return;
 
-    foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
-      jukkebox.SetNightVersion(false);
-    }
 
     playerRef.SetLightOn(false);
 

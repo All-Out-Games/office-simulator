@@ -218,9 +218,8 @@ public partial class OverseerPromoNPC : Component
                     fighter2.CurrentRole = Role.OVERSEER;
                     fighter2.Experience.Set(0);
                     return;
-                }
-
-                if (fighter2.WasKilledInOverseerBattle)
+                } 
+                else if (fighter2.WasKilledInOverseerBattle)
                 {
                     fighter1.CallClient_ShowNotification("You keep your throne... for now.");
                     fighter1.CurrentRole = Role.OVERSEER;

@@ -5,8 +5,8 @@
   "name": "Sign1",
   "local_enabled": true,
   "local_position": {
-    "X": -63.6752319335937500,
-    "Y": -9.9056749343872070
+    "X": -61.4104728698730469,
+    "Y": -8.8821382522583008
   },
   "local_rotation": 0,
   "local_scale": {

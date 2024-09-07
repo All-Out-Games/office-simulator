@@ -36,7 +36,7 @@ public class EventController : Component
 
   public override void Update()
   {
-    if (CooldownTimeRemaining >= 0f)
+    if (CooldownTimeRemaining >= 0f && Network.IsServer)
     {
       CooldownTimeRemaining.Set(CooldownTimeRemaining - Time.DeltaTime);
     } 
