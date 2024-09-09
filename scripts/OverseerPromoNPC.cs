@@ -73,7 +73,7 @@ public partial class OverseerPromoNPC : Component
             //     return;
             // }
 
-            if (op.Cash < 1000)
+            if (op.Cash < 500)
             {
                 op.CallClient_ShowNotification("You do not have enough cash to request a promotion...");
                 op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
@@ -107,7 +107,7 @@ public partial class OverseerPromoNPC : Component
                 CallClient_StartBattle();
             }
 
-            op.Cash.Set(op.Cash - 1000);
+            op.Cash.Set(op.Cash - 500);
         };
     }
 
@@ -246,6 +246,6 @@ public partial class OverseerPromoNPC : Component
             return;
         }
 
-        interactible.Text = "Commence the Overseer's Trial ($1,000)";
+        interactible.Text = "Commence the Overseer's Trial ($500)";
     }
 }

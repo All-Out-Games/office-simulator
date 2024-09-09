@@ -1,11 +1,8 @@
 using AO;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 public partial class BillboardSign : Component
 {
-    [Serialized] public String Message;
+    [Serialized] public string Message;
     [Serialized] public bool IsIntroMessage;
     [Serialized] public float HalfWidth = 0.5f;
 

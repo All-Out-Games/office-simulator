@@ -5,7 +5,7 @@ public class EventController : Component
   public EventController Instance;
   public UICanvas EventUI;
   public SyncVar<float> CooldownTimeRemaining = new();
-  public float MinTimeBetweenEvents = 120f;
+  public float MinTimeBetweenEvents = 110f;
 
   public override void Awake()
   {

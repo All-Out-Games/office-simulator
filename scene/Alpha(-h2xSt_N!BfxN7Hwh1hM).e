@@ -25,7 +25,7 @@
     "text": "Progress is reset when leaving the game...",
     "settings": {
       "font_id": "",
-      "size": 24,
+      "size": 30,
       "color": {
         "X": 1,
         "Y": 1,

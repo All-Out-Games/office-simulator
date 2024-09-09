@@ -22,10 +22,10 @@
   "component_type": "Internal_Component",
   "internal_component_type": "UIText",
   "data": {
-    "text": "Event Progress",
+    "text": "The office is catching on fire (1/2 extinguished)",
     "settings": {
       "font_id": "",
-      "size": 24,
+      "size": 36,
       "color": {
         "X": 1,
         "Y": 1,

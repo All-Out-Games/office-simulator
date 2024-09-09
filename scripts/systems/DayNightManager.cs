@@ -16,7 +16,7 @@ public partial class DayNightManager : Component
 
   public static DayNightManager Instance;
   public float DayLength = 180;
-  public float NightLength = 50;
+  public float NightLength = 45;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
 
@@ -212,7 +212,6 @@ public partial class DayNightManager : Component
 
     playerRef.SetLightOn(true);
 
-
     nightSfxHandle1 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-hit.wav"), new SFX.PlaySoundDesc() { Volume = 1f });
     nightSfxHandle2 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-music.wav"), new SFX.PlaySoundDesc() { Volume = 1f });
   }
@@ -224,7 +223,7 @@ public partial class DayNightManager : Component
     {
       player.RemoveEffect<KillerEffect>(false);
     }
-    
+
     foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
       jukkebox.SetNightVersion(false);
     }

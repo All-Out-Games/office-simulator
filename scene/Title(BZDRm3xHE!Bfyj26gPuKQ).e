@@ -25,7 +25,7 @@
     "text": "Event Title",
     "settings": {
       "font_id": "",
-      "size": 28,
+      "size": 46,
       "color": {
         "X": 1,
         "Y": 1,

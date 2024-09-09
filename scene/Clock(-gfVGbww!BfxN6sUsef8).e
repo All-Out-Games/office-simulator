@@ -25,7 +25,7 @@
     "text": "Nightfall in: 50s",
     "settings": {
       "font_id": "",
-      "size": 28,
+      "size": 42,
       "color": {
         "X": 1,
         "Y": 1,
