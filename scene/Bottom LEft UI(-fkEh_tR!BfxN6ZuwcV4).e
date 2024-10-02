@@ -5,8 +5,7 @@
   "name": "Bottom LEft UI",
   "local_enabled": true,
   "local_position": {
-    "X": 0,
-    "Y": 0
+
   },
   "local_rotation": 0,
   "local_scale": {
@@ -22,18 +21,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "UICanvas",
   "data": {
-    "layer": 0,
-    "ui_scale_multiplier": 1,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "interactable": true,
-    "start_with_safe_rect": false,
-    "world_space": false,
-    "hide_in_editor": false
+
   }
 },
 {
@@ -42,19 +30,12 @@
   "component_type": "Internal_Component",
   "internal_component_type": "UIRect",
   "data": {
-    "min": {
-      "X": 0,
-      "Y": 0
-    },
     "max": {
-      "X": 0,
-      "Y": 0
+
     },
     "insets": {
       "X": -99,
-      "Y": -525,
-      "Z": 0,
-      "W": 0
+      "Y": -525
     },
     "offset": {
       "X": 120,
@@ -70,8 +51,7 @@
   "data": {
     "width": 1,
     "height": 2,
-    "padding": 15,
-    "size_source": 0
+    "padding": 15
   }
 },
 {
@@ -80,15 +60,8 @@
   "component_type": "Internal_Component",
   "internal_component_type": "UIImage",
   "data": {
-    "sprite": "",
     "tint": {
-      "X": 0,
-      "Y": 0,
-      "Z": 0,
       "W": 0.7333333492279053
-    },
-    "fit_aspect": false,
-    "fit_aspect_kind": 0,
-    "fit_aspect_anchor": 0
+    }
   }
 }

@@ -23,18 +23,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Clothing_Store_Singles_48x48_469.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "texture": "Clothing_Store_Singles_48x48_469.png"
   }
 },
 {
@@ -44,7 +33,6 @@
   "mono_component_type": "BillboardSign",
   "data": {
     "Message": "High value tasks spawn in the server room at night...",
-    "IsIntroMessage": false,
     "HalfWidth": 0.5000000000000000
   }
 },
@@ -73,10 +61,6 @@
         "X": 0.0814867019653320,
         "Y": -0.0763454437255859
       }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    ]
   }
 }

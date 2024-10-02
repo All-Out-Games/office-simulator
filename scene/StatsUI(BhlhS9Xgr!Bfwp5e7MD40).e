@@ -5,8 +5,7 @@
   "name": "StatsUI",
   "local_enabled": true,
   "local_position": {
-    "X": 0,
-    "Y": 0
+
   },
   "local_rotation": 0,
   "local_scale": {
@@ -23,18 +22,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "UICanvas",
   "data": {
-    "layer": 0,
-    "ui_scale_multiplier": 1,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "interactable": true,
-    "start_with_safe_rect": false,
-    "world_space": false,
-    "hide_in_editor": false
+
   }
 },
 {
@@ -52,13 +40,11 @@
       "Y": 1
     },
     "insets": {
-      "X": 0,
       "Y": -625,
       "Z": -60,
       "W": -625
     },
     "offset": {
-      "X": 0,
       "Y": -123
     }
   }
@@ -69,9 +55,6 @@
   "component_type": "Internal_Component",
   "internal_component_type": "UIGrid",
   "data": {
-    "width": 3,
-    "height": 1,
-    "padding": 0,
-    "size_source": 0
+    "height": 1
   }
 }

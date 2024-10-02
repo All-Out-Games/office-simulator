@@ -23,16 +23,7 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "anomalies/fire/hand_fire2.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
     "layer": -4,
-    "wait_for_load": true,
-    "wrap": false,
-    "mask_in_shadow": false
+    "wait_for_load": true
   }
 }

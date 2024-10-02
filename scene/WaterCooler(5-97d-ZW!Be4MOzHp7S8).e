@@ -24,18 +24,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_320.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "texture": "48x48/Modern_Office_Singles_48x48_320.png"
   }
 },
 {
@@ -45,20 +34,13 @@
   "mono_component_type": "Activity",
   "data": {
     "PromptText": "Make Coffee",
-    "MinimumRoleRequired": 0,
     "MaxRole": 3,
     "ActiveTexture": "48x48/Modern_Office_Singles_48x48_328.png",
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_328.png",
-    "OnCompleteSfx": "",
-    "OnActiveSfx": "",
-    "OnCooldownSfx": "",
     "CooldownSeconds": 30,
-    "AvailableForSeconds": 0,
-    "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
     "XpReward": 4,
-    "CashReward": 0,
     "CashCost": 5
   }
 }

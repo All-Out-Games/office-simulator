@@ -5,8 +5,7 @@
   "name": "Flames",
   "local_enabled": true,
   "local_position": {
-    "X": 8.8037910461425781,
-    "Y": 0
+    "X": 8.8037910461425781
   },
   "local_rotation": 0,
   "local_scale": {

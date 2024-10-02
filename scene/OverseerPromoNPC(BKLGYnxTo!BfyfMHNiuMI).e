@@ -24,17 +24,12 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "overseer/statue.png",
-    "depth_offset": 0,
     "tint": {
       "X": 1,
       "Y": 0.3960784375667572,
       "Z": 0.4117647111415863,
       "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    }
   }
 },
 {
@@ -72,10 +67,6 @@
         "X": 0.1301419734954834,
         "Y": -0.2456827163696289
       }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    ]
   }
 }

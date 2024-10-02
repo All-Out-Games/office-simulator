@@ -5,8 +5,7 @@
   "name": "Small Manager's Office",
   "local_enabled": true,
   "local_position": {
-    "X": 18.0096721649169922,
-    "Y": 0
+    "X": 18.0096721649169922
   },
   "local_rotation": 0,
   "local_scale": {

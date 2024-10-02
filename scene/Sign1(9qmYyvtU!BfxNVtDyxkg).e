@@ -23,17 +23,7 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "overseer/statue.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": true,
-    "wrap": false,
-    "mask_in_shadow": false
+    "wait_for_load": true
   }
 },
 {
@@ -43,7 +33,6 @@
   "mono_component_type": "BillboardSign",
   "data": {
     "Message": "Keep my janitors safe.....",
-    "IsIntroMessage": false,
     "HalfWidth": 2
   }
 },
@@ -53,7 +42,6 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
-    "is_trigger": false,
     "is_loop": true,
     "points": [
       {
@@ -80,10 +68,6 @@
         "X": 0.1246843338012695,
         "Y": -0.2507088184356689
       }
-    ],
-    "density": 1,
-    "friction": 0.2000000029802322,
-    "restitution": 0,
-    "restitution_threshold": 1
+    ]
   }
 }

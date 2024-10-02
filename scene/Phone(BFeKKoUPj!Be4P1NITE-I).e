@@ -24,18 +24,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "48x48/Modern_Office_Singles_48x48_242.png",
-    "depth_offset": 0,
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
-    },
-    "layer": 0,
-    "wait_for_load": false,
-    "wrap": false,
-    "mask_in_shadow": false
+    "texture": "48x48/Modern_Office_Singles_48x48_242.png"
   }
 },
 {
@@ -51,14 +40,10 @@
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_242.png",
     "OnCompleteSfx": "sfx/creepy-phone.wav",
     "OnActiveSfx": "sfx/office_phone-ring_medium-loudaif-14604.wav",
-    "OnCooldownSfx": "",
     "CooldownSeconds": 15,
     "AvailableForSeconds": 7,
-    "HideWhenOnCooldown": false,
     "SpawnsDuringDay": true,
     "SpawnsDuringNight": true,
-    "XpReward": 15,
-    "CashReward": 0,
-    "CashCost": 0
+    "XpReward": 15
   }
 }
