@@ -35,6 +35,8 @@ public class SpriteFlasher : Component
 
     public override void OnDestroy()
     {
-      spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 1f);
+      if (spriteRenderer.Alive()) {
+        spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 1f);
+      }
     }
 }

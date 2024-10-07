@@ -24,7 +24,7 @@ public class OfficeController : Component
 
   }
 
-  public void Reset()
+  public void Reset(bool isDestroying = false)
   {
     var room = Entity.Parent.TryGetChildByName("Door").GetComponent<OfficeDoor>().RoomName;
     var playersInOffice = RoomBounds.GetPlayersInRoom(room);
@@ -38,7 +38,7 @@ public class OfficeController : Component
 
 
     if (!Network.IsServer) return;
-    if (Owner.Value.Alive())
+    if (Owner.Value.Alive() && !isDestroying)
     {
       var op = Owner.Value.GetComponent<OfficePlayer>();
       op.OfficeController.Set(null);
