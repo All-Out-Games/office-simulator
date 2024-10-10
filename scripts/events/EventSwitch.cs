@@ -25,8 +25,11 @@ public class EventSwitch : Component
 
       if (DayNightManager.Instance.CurrentState == DayState.NIGHT || DayNightManager.Instance.CurrentState == DayState.DUSK)
       {
-        op.CallClient_ShowNotification("You must wait till night has passed...");
-        op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+        if (Network.IsServer)
+        {
+          op.CallClient_ShowNotification("You must wait till night has passed...");
+          op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+        }
         return;
       }
 
