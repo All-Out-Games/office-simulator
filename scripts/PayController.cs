@@ -16,10 +16,16 @@ public class PayController : Component
       var newReducedPay = !GameManager.Instance.ReducedPay;
       if (newReducedPay)
       {
-        GameManager.Instance.CallClient_ShowNotification("The CEO has decided to cut the budget. Salaries have been reduced.");
+        if (Network.IsServer)
+        {
+          GameManager.Instance.CallClient_ShowNotification("The CEO has decided to cut the budget. Salaries have been reduced.");
+        }
       }
       else {
-        GameManager.Instance.CallClient_ShowNotification("The CEO has decided to increase salaries.");
+        if (Network.IsServer)
+        {
+          GameManager.Instance.CallClient_ShowNotification("The CEO has decided to increase salaries.");
+        }
       }
 
       if (Network.IsServer)

@@ -14,6 +14,7 @@ public class SpeedController : Component
       var op = (OfficePlayer)p;
 
       var newFastJanitors = !GameManager.Instance.FastJanitors;
+      if (!Network.IsServer) return;
       if (newFastJanitors)
       {
         GameManager.Instance.CallClient_ShowNotification("The overseer has empowered their minions...");
@@ -22,7 +23,6 @@ public class SpeedController : Component
         GameManager.Instance.CallClient_ShowNotification("The overseer has reduced their minions power...");
       }
 
-      if (!Network.IsServer) return;
       GameManager.Instance.FastJanitors.Set(newFastJanitors);
     };
   }

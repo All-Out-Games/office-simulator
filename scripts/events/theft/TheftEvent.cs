@@ -96,7 +96,10 @@ public partial class TheftEvent : Event
 
     if (!failed)
     {
-      GameManager.Instance.CallClient_ShowNotification("The money has been recovered!");
+      if (Network.IsServer)
+      {
+        GameManager.Instance.CallClient_ShowNotification("The money has been recovered!");
+      }
       foreach (var player in Player.AllPlayers)
       {
         player.Entity.GetComponent<OfficePlayer>().WinEvent();
