@@ -22,7 +22,10 @@ public class PayController : Component
         GameManager.Instance.CallClient_ShowNotification("The CEO has decided to increase salaries.");
       }
 
-      GameManager.Instance.ReducedPay.Set(newReducedPay);
+      if (Network.IsServer)
+      {
+        GameManager.Instance.ReducedPay.Set(newReducedPay);
+      }
     };
   }
 
