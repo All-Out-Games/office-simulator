@@ -9,7 +9,6 @@ public partial class Jukebox : Component
     public SyncVar<bool> isPlaying = new(false);
     private bool nightVersion = false;
     private bool isLocalPlaying = false;
-
     private Interactable interactable;
 
     public override void Start()
@@ -32,18 +31,15 @@ public partial class Jukebox : Component
                 }
             }
         };
-
         SafePlay();
     }
 
     public override void Update()
     {
         interactable.Text = manuallyStopped ? "Play Jukebox" : "Mute Jukebox";
-
         if (isPlaying.Value != isLocalPlaying)
         {
             isLocalPlaying = isPlaying.Value;
-
             if (isLocalPlaying)
             {
                 ActuallyPlay();
@@ -57,20 +53,28 @@ public partial class Jukebox : Component
 
     public void SetNightVersion(bool night)
     {
+        Log.Info("Setting night version to " + night + " current version was " + nightVersion);
         if (nightVersion != night)
         {
+            Log.Info("Actually Setting night version to " + night);
             nightVersion = night;
-            Stop();
-            SafePlay();
+            if (Network.IsServer)
+            {
+                Stop();
+                SafePlay();
+            }
+            else
+            {
+                ActuallyStop();
+                ActuallyPlay();
+            }
         }
     }
 
     public void ActuallyPlay()
     {
         if (Network.IsServer) return;
-
-        SFX.Stop(sfxHandle);
-
+        ActuallyStop(); // Ensure any existing sound is stopped before playing
         var soundDesc = new SFX.PlaySoundDesc
         {
             Volume = Volume,
@@ -80,32 +84,28 @@ public partial class Jukebox : Component
             RangeMultiplier = nightVersion ? 3f : 2.75f,
             Speed = nightVersion ? 0.875f : 1f
         };
-
         sfxHandle = SFX.Play(Sfx, soundDesc);
     }
 
     public void SafePlay()
     {
         if (!Network.IsServer) return;
-
         if (!manuallyStopped.Value && !isPlaying.Value)
         {
-            isPlaying.Set(true); 
+            isPlaying.Set(true);
         }
     }
 
     public void ActuallyStop()
     {
         if (Network.IsServer) return;
-
-        // Stop the current sound on the client
         SFX.Stop(sfxHandle);
+        sfxHandle = 0; // Reset the handle after stopping
     }
 
     public void Stop()
     {
         if (!Network.IsServer) return;
-
         isPlaying.Set(false);
     }
 }

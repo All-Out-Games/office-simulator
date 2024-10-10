@@ -94,6 +94,8 @@ public partial class OfficePlayer : Player
 
   public override void OnDestroy()
   {
+    if (!OfficeController.Value.Alive()) return;
+    
     var controller = OfficeController.Value?.GetComponent<OfficeController>();
     if (controller.Alive())
     {
@@ -114,15 +116,20 @@ public partial class OfficePlayer : Player
 
     Experience.OnSync += (oldValue, newValue) =>
     {
+      if (Experience.Value >= 100 && !ShownPromoPrompt)
+      {
+        ShownPromoPrompt = true;
+        if (Network.IsServer)
+        {
+          CallClient_ShowNotification("You can now request a promotion in the Finance room.");
+        }
+      }
+
       if (IsLocal)
       {
         References.Instance.ExperienceStatText.Text = "XP: " + Math.Clamp(newValue, 0, 100) + "/100";
 
-        if (Experience.Value >= 100 && !ShownPromoPrompt)
-        {
-          ShownPromoPrompt = true;
-          CallClient_ShowNotification("You can now request a promotion in the Finance room.");
-        }
+
 
         if (newValue >= 100)
         {
