@@ -106,7 +106,10 @@ public partial class FireEvent : Event
 
     if (!failed)
     {
-      GameManager.Instance.CallClient_ShowNotification("The fires have been extinguished!");
+      if (Network.IsServer)
+      {
+        GameManager.Instance.CallClient_ShowNotification("The fires have been extinguished!");
+      }
       foreach (var player in Player.AllPlayers)
       {
         player.Entity.GetComponent<OfficePlayer>().WinEvent();

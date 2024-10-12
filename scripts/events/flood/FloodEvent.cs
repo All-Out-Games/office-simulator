@@ -104,7 +104,10 @@ public partial class FloodEvent : Event
 
     if (!failed)
     {
-      GameManager.Instance.CallClient_ShowNotification("The flooding has been stopped!");
+      if (Network.IsServer)
+      {
+        GameManager.Instance.CallClient_ShowNotification("The flooding has been stopped!");
+      }
       foreach (var player in Player.AllPlayers)
       {
         player.Entity.GetComponent<OfficePlayer>().WinEvent();
