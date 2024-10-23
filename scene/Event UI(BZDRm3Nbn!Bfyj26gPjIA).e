@@ -35,8 +35,8 @@
 
     },
     "insets": {
-      "X": -93,
-      "Y": -736
+      "X": -101,
+      "Y": -790
     },
     "offset": {
       "X": 120,
@@ -52,7 +52,7 @@
   "data": {
     "width": 1,
     "height": 2,
-    "padding": 15
+    "padding": 24
   }
 },
 {
@@ -61,6 +61,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "UIImage",
   "data": {
+    "sprite": "$AO/new/Chat Box/header_selected.png",
     "tint": {
       "W": 0.7333333492279053
     }

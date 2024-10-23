@@ -26,8 +26,8 @@ public partial class Activity : Component
   [Serialized] public bool HideWhenOnCooldown;
 
   // If it's time to respawn but either of these is false and it's day/night, the respawn will wait till the next available time. 
-  [Serialized] public bool SpawnsDuringDay = true;
-  [Serialized] public bool SpawnsDuringNight = true;
+  [Serialized] public bool SpawnsDuringDay;
+  [Serialized] public bool SpawnsDuringNight;
 
 
   // Costs/Rewards
@@ -136,7 +136,7 @@ public partial class Activity : Component
           CurrentState = ActivityState.COOLDOWN;
           break;
         }
-        
+
         break;
       case ActivityState.COOLDOWN:
         if (timeInState.Value >= CooldownSeconds)
@@ -160,7 +160,7 @@ public partial class Activity : Component
 
         if (activeSfxHandle == 0 && OnActiveSfx != null)
         {
-          activeSfxHandle = SFX.Play(OnActiveSfx, new() { Volume=0.5f, Positional=true, Position = Entity.Position });
+          activeSfxHandle = SFX.Play(OnActiveSfx, new() { Volume = 0.5f, Positional = true, Position = Entity.Position });
         }
 
         // Makes the sprite flash if they meet all the requirements to bring attention to the activity
