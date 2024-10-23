@@ -23,18 +23,18 @@ public class MovingRat : Component
       var op = (OfficePlayer)p;
       Squash(op);
     };
-  }
 
-  public override void Start()
-  {
     StopEvent();
   }
 
   public override void Update()
   {
-    if (Squashed) {
+    if (Squashed)
+    {
       spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
-    } else {
+    }
+    else
+    {
       spriteRenderer.Tint = new Vector4(0.8f, 0.8f, 0.8f, 1);
       Entity.Position = StartPosition + new Vector2(MathF.Sin(Time.TimeSinceStartup) * 3, 0);
       Entity.LocalScaleX = MathF.Sign(MathF.Sin(Time.TimeSinceStartup));
@@ -45,7 +45,7 @@ public class MovingRat : Component
   {
     if (sfxHandle != 0) SFX.Stop(sfxHandle);
     spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
-    
+
     if (!Network.IsServer) return;
     Squashed.Set(true);
     op?.CallClient_PlaySFX("anomalies/rats/rat-die.wav");
@@ -58,7 +58,7 @@ public class MovingRat : Component
       Squashed.Set(false);
     }
 
-    sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/rats/rat.wav"), new SFX.PlaySoundDesc() { Volume=0.6f, Loop = true, Positional = true, Position = Entity.Position });
+    sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/rats/rat.wav"), new SFX.PlaySoundDesc() { Volume = 0.6f, Loop = true, Positional = true, Position = Entity.Position });
   }
 
   public void StopEvent()

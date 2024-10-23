@@ -7,10 +7,7 @@ public partial class RatsEvent : Event
   public override void Awake()
   {
     base.Awake();
-  }
 
-  public override void Start()
-  {
     var ratIterator = Entity.Children;
     foreach (var rat in ratIterator)
     {
@@ -86,7 +83,7 @@ public partial class RatsEvent : Event
       if (!Network.IsServer) return;
       GameManager.Instance.CallClient_ShowNotification("You failed to terminate the rats...");
 
-      foreach (var player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         player.Entity.GetComponent<OfficePlayer>().LoseEvent();
       }
@@ -97,7 +94,7 @@ public partial class RatsEvent : Event
       if (!Network.IsServer) return;
       GameManager.Instance.CallClient_ShowNotification("The rats have been terminated");
 
-      foreach (var player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         player.Entity.GetComponent<OfficePlayer>().WinEvent();
       }

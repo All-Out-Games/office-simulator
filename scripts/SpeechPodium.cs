@@ -3,9 +3,9 @@ using AO;
 public class SpeechPodium : Activity
 {
 
-  public override void Start()
+  public override void Awake()
   {
-    base.Start();
+    base.Awake();
 
     interactable.OnInteract = (player) => {
       if (!Network.IsServer) return;

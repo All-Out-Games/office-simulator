@@ -62,7 +62,7 @@ public partial class PromoNPC : Component
 
                     op.CallClient_ShowNotification("New tasks unlocked...");
                     op.CallClient_ShowNotification("Luxury offices unlocked");
-                    
+
                     op.CallClient_PlaySFX("sfx/rank-up.wav");
                     break;
                 case Role.MANAGER:
@@ -101,7 +101,7 @@ public partial class PromoNPC : Component
 
                         var backupSeat = seats.GetRandom();
 
-                        foreach (Player player in Player.AllPlayers)
+                        foreach (var player in Scene.Components<OfficePlayer>())
                         {
                             var op2 = (OfficePlayer)player;
                             Seat seat = backupSeat;
@@ -118,7 +118,9 @@ public partial class PromoNPC : Component
                         op.AssignedMeetingSeat.Set(candidateSeat2.Entity);
 
                         CallClient_StartBoardMeeting();
-                    } else {
+                    }
+                    else
+                    {
                         GameManager.Instance.CallClient_ShowNotification(op.Name + " is the first to reach CEO!");
                         op.CurrentRole = Role.CEO;
                         op.Experience.Set(0);
@@ -152,10 +154,14 @@ public partial class PromoNPC : Component
         {
             Candidate1Votes.Set(Candidate1Votes + 1);
             Log.Info("Candidate 1 votes: " + Candidate1Votes);
-        } else if (cadidate == 2) {
+        }
+        else if (cadidate == 2)
+        {
             Candidate2Votes.Set(Candidate2Votes + 1);
             Log.Info("Candidate 2 votes: " + Candidate2Votes);
-        } else {
+        }
+        else
+        {
             Log.Error("Invalid candidate vote");
         }
     }
@@ -163,12 +169,14 @@ public partial class PromoNPC : Component
     [ClientRpc]
     public void StartBoardMeeting()
     {
-        if (Network.IsClient) {
+        if (Network.IsClient)
+        {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/clue_found2.wav"), new());
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/suspense.wav"), new());
         }
 
-        if (Network.IsServer) {
+        if (Network.IsServer)
+        {
             Candidate1Votes.Set(0);
             Candidate2Votes.Set(0);
 
@@ -177,7 +185,7 @@ public partial class PromoNPC : Component
 
         }
 
-        foreach (Player player in Player.AllPlayers)
+        foreach (var player in Scene.Components<OfficePlayer>())
         {
             player.AddEffect<BoardMeetingEffect>();
         }
@@ -191,7 +199,7 @@ public partial class PromoNPC : Component
             {
                 BoardMeetingActive.Set(false);
 
-                foreach (Player player in Player.AllPlayers)
+                foreach (var player in Scene.Components<OfficePlayer>())
                 {
                     player.RemoveEffect<BoardMeetingEffect>(false);
                 }
@@ -240,15 +248,18 @@ public partial class PromoNPC : Component
         {
             interactible.Text = "Request Promotion to Employee... (100XP)";
             return;
-        } else if (workerPlayer.CurrentRole == Role.EMPLOYEE)
+        }
+        else if (workerPlayer.CurrentRole == Role.EMPLOYEE)
         {
             interactible.Text = "Request Promotion to Manager... (100XP)";
             return;
-        } else if (workerPlayer.CurrentRole == Role.MANAGER)
+        }
+        else if (workerPlayer.CurrentRole == Role.MANAGER)
         {
             interactible.Text = "Request Promotion to CEO... (100XP) (Requires Conference Speech Given)";
             return;
-        } else if (workerPlayer.CurrentRole == Role.CEO)
+        }
+        else if (workerPlayer.CurrentRole == Role.CEO)
         {
             interactible.Text = "Request Promotion... (100XP)";
             return;

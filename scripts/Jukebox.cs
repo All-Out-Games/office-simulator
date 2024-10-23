@@ -11,7 +11,7 @@ public partial class Jukebox : Component
     private bool isLocalPlaying = false;
     private Interactable interactable;
 
-    public override void Start()
+    public override void Awake()
     {
         interactable = AddComponent<Interactable>();
         interactable.RequiredHoldTime = 0.4f;

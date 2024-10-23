@@ -23,6 +23,8 @@ public class StolenBag : Component
       var op = (OfficePlayer)p;
       Fix(op);
     };
+
+    StopEvent();
   }
 
   public override void Update()
@@ -37,11 +39,6 @@ public class StolenBag : Component
     {
       spriteFlasher.Flash = true;
     }
-  }
-
-  public override void Start()
-  {
-    StopEvent();
   }
 
   private void Fix(OfficePlayer op)

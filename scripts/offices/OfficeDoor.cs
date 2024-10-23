@@ -5,13 +5,13 @@ public class OfficeDoor : TwoWayDoor
   OfficeController Controller;
   private Sprite_Renderer spriteRenderer;
 
-  public override void Start()
+  public override void Awake()
   {
-    base.Start();
+    base.Awake();
     spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
 
     Controller = Entity.Parent.TryGetChildByName("Controller").GetComponent<OfficeController>();
-    
+
     interactable.OnInteract = (Player player) =>
     {
       if (!Network.IsServer) return;
@@ -26,7 +26,9 @@ public class OfficeDoor : TwoWayDoor
             op.CallClient_ShowNotification("This office is locked... not enough $ to breach");
             op.CallClient_PlaySFX("sfx/error.wav");
             return;
-          } else {
+          }
+          else
+          {
             // Breach for money
             op.CallClient_PlaySFX("sfx/invisibility_off.wav");
             // TODO: Positional
@@ -65,50 +67,50 @@ public class OfficeDoor : TwoWayDoor
   }
   public UI.TextSettings GetTextSettings(float size, float offset = 0f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
   {
-      if (font == null)
-      {
-          font = UI.Fonts.BarlowBold;
-      }
-      var ts = new UI.TextSettings()
-      {
-          Font = font,
-          Size = size,
-          Color = Vector4.White,
-          DropShadowColor = new Vector4(0f,0f,0.02f,0.5f),
-          DropShadowOffset = new Vector2(0f,-3f),
-          HorizontalAlignment = halign,
-          VerticalAlignment = UI.VerticalAlignment.Center,
-          WordWrap = false,
-          WordWrapOffset = 0,
-          Outline = true,
-          OutlineThickness = 3,
-          Offset = new Vector2(0, offset),
-      };
-      return ts;
+    if (font == null)
+    {
+      font = UI.Fonts.BarlowBold;
+    }
+    var ts = new UI.TextSettings()
+    {
+      Font = font,
+      Size = size,
+      Color = Vector4.White,
+      DropShadowColor = new Vector4(0f, 0f, 0.02f, 0.5f),
+      DropShadowOffset = new Vector2(0f, -3f),
+      HorizontalAlignment = halign,
+      VerticalAlignment = UI.VerticalAlignment.Center,
+      WordWrap = false,
+      WordWrapOffset = 0,
+      Outline = true,
+      OutlineThickness = 3,
+      Offset = new Vector2(0, offset),
+    };
+    return ts;
   }
 
   public UI.TextSettings GetGreenTextSettings(float size, float offset = 0f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
   {
-      if (font == null)
-      {
-          font = UI.Fonts.BarlowBold;
-      }
-      var ts = new UI.TextSettings()
-      {
-          Font = font,
-          Size = size,
-          Color = Vector4.Green,
-          DropShadowColor = new Vector4(0f,0f,0.02f,0.5f),
-          DropShadowOffset = new Vector2(0f,-3f),
-          HorizontalAlignment = halign,
-          VerticalAlignment = UI.VerticalAlignment.Center,
-          WordWrap = false,
-          WordWrapOffset = 0,
-          Outline = true,
-          OutlineThickness = 3,
-          Offset = new Vector2(0, offset),
-      };
-      return ts;
+    if (font == null)
+    {
+      font = UI.Fonts.BarlowBold;
+    }
+    var ts = new UI.TextSettings()
+    {
+      Font = font,
+      Size = size,
+      Color = Vector4.Green,
+      DropShadowColor = new Vector4(0f, 0f, 0.02f, 0.5f),
+      DropShadowOffset = new Vector2(0f, -3f),
+      HorizontalAlignment = halign,
+      VerticalAlignment = UI.VerticalAlignment.Center,
+      WordWrap = false,
+      WordWrapOffset = 0,
+      Outline = true,
+      OutlineThickness = 3,
+      Offset = new Vector2(0, offset),
+    };
+    return ts;
   }
 
   public override void Update()
@@ -119,7 +121,8 @@ public class OfficeDoor : TwoWayDoor
     {
       spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 0.7f);
     }
-    else {
+    else
+    {
       spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 1f);
     }
 
@@ -140,7 +143,8 @@ public class OfficeDoor : TwoWayDoor
 
     if (op.CurrentRoom != RoomName)
     {
-      if (Controller.IsOwned) {
+      if (Controller.IsOwned)
+      {
         if (!Controller.Unlocked && !Controller.IsOwnedByMyClient)
         {
           interactable.Text = $"(Locked - Breach (${Controller.BreachCost}))";
@@ -149,12 +153,14 @@ public class OfficeDoor : TwoWayDoor
 
         interactable.Text = $"Enter Office";
       }
-      else 
+      else
       {
         if (op.OfficeController.Value != null)
         {
           interactable.Text = $"Buy {Entity.Parent.Name} - ${Controller.Cost} (DESTROYS OLD OFFICE)";
-        } else {
+        }
+        else
+        {
           interactable.Text = $"Buy {Entity.Parent.Name} - ${Controller.Cost}";
         }
       }

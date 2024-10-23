@@ -26,6 +26,8 @@ public class FireSwitch : Component
       var op = (OfficePlayer)p;
       Fix(op);
     };
+
+    StopEvent();
   }
 
   public override void Update()
@@ -41,11 +43,6 @@ public class FireSwitch : Component
     {
       spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
     }
-  }
-
-  public override void Start()
-  {
-    StopEvent();
   }
 
   private void Fix(OfficePlayer op)

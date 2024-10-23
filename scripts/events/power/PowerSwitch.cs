@@ -26,6 +26,8 @@ public class PowerSwitch : Component
       var op = (OfficePlayer)p;
       Fix(op);
     };
+
+    StopEvent();
   }
 
   public override void Update()
@@ -33,7 +35,9 @@ public class PowerSwitch : Component
     if (Fixed)
     {
       spriteFlasher.Flash = false;
-    } else {
+    }
+    else
+    {
       spriteFlasher.Flash = true;
     }
 
@@ -43,15 +47,10 @@ public class PowerSwitch : Component
     }
   }
 
-  public override void Start()
-  {
-    StopEvent();
-  }
-
   private void Fix(OfficePlayer op)
   {
     SFX.Stop(sfxHandle);
-    
+
     if (!Network.IsServer) return;
     Fixed.Set(true);
     op?.CallClient_PlaySFX("anomalies/power/breaker-switched.wav");
@@ -69,7 +68,7 @@ public class PowerSwitch : Component
       Fixed.Set(false);
     }
 
-    sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/power/breaker.wav"), new SFX.PlaySoundDesc() { Volume=0.6f, Loop = true, Positional = true, Position = Entity.Position });
+    sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/power/breaker.wav"), new SFX.PlaySoundDesc() { Volume = 0.6f, Loop = true, Positional = true, Position = Entity.Position });
   }
 
   public void StopEvent()

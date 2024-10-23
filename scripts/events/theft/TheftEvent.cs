@@ -7,10 +7,7 @@ public partial class TheftEvent : Event
   public override void Awake()
   {
     base.Awake();
-  }
 
-  public override void Start()
-  {
     var bagLocations = Entity.TryGetChildByName("BagLocations").Children;
     var locations = new List<StolenBag>();
     foreach (var bag in bagLocations)
@@ -39,23 +36,23 @@ public partial class TheftEvent : Event
 
   public override void Update()
   {
-      if (!IsActive) return;
-      base.Tick();
-  
-      var Progression = (Time.TimeSinceStartup - startTime) / Duration;
-  
-      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"The Overseer Has Stolen Cash (Time Remaining: {TimeRemaining.Value:F0})";
-      References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Locate the stash and recover the stolen cash";
-  
-      if (IsCompleted() && IsActive && Network.IsServer)
-      {
-          CallClient_ReceiveServerStopEvent(false);
-      }
-  
-      if (TimeRemaining <= 0 && Network.IsServer)
-      {
-          CallClient_ReceiveServerStopEvent(true);
-      }
+    if (!IsActive) return;
+    base.Tick();
+
+    var Progression = (Time.TimeSinceStartup - startTime) / Duration;
+
+    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"The Overseer Has Stolen Cash (Time Remaining: {TimeRemaining.Value:F0})";
+    References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Locate the stash and recover the stolen cash";
+
+    if (IsCompleted() && IsActive && Network.IsServer)
+    {
+      CallClient_ReceiveServerStopEvent(false);
+    }
+
+    if (TimeRemaining <= 0 && Network.IsServer)
+    {
+      CallClient_ReceiveServerStopEvent(true);
+    }
   }
 
   // Needed to be an RPC because the server sees the completed status, sets isactive to false, and update stops running
@@ -73,7 +70,7 @@ public partial class TheftEvent : Event
   public override void StartEvent()
   {
     base.StartEvent();
-    SFX.Play(Assets.GetAsset<AudioAsset>("sfx/alarm.wav"), new SFX.PlaySoundDesc() { Volume=0.4f });
+    SFX.Play(Assets.GetAsset<AudioAsset>("sfx/alarm.wav"), new SFX.PlaySoundDesc() { Volume = 0.4f });
 
     foreach (var bucket in bags)
     {
@@ -88,7 +85,7 @@ public partial class TheftEvent : Event
     if (failed && Network.IsServer)
     {
       GameManager.Instance.CallClient_ShowNotification("The money has been lost...");
-      foreach (var player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         player.Entity.GetComponent<OfficePlayer>().LoseEvent();
       }
@@ -100,7 +97,7 @@ public partial class TheftEvent : Event
       {
         GameManager.Instance.CallClient_ShowNotification("The money has been recovered!");
       }
-      foreach (var player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         player.Entity.GetComponent<OfficePlayer>().WinEvent();
       }

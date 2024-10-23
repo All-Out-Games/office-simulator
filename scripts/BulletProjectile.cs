@@ -8,7 +8,7 @@ public partial class MurderProjectile : Component
     public const float MaxLife = 0.7f;
     public bool AlreadyHitSomething;
 
-    public override void Start()
+    public override void Awake()
     {
         Entity.GetComponent<Projectile>().OnHit += OnHit;
     }

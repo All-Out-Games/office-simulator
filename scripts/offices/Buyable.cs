@@ -8,10 +8,10 @@ public class Buyable : Component
   public SyncVar<bool> Bought = new(false);
   private Sprite_Renderer spriteRenderer;
 
-  public override void Start()
+  public override void Awake()
   {
     Controller = Entity.Parent.Parent.TryGetChildByName("Controller").GetComponent<OfficeController>();
-    
+
     if (!Controller.Alive())
     {
       Log.Error("Buyable " + Entity.Name + " doesn't have a parent office controller");
@@ -56,7 +56,8 @@ public class Buyable : Component
     }
     else
     {
-      if (Controller.IsOwnedByMyClient) {
+      if (Controller.IsOwnedByMyClient)
+      {
         interactable.Text = $"Buy {Entity.Name} - ${Cost}";
         spriteRenderer.Tint = new Vector4(0, 0, 0, 0.35f);
       }

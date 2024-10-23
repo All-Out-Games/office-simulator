@@ -75,10 +75,7 @@ public partial class Activity : Component
     {
       Entity.AddComponent<SpriteFlasher>();
     }
-  }
 
-  public override void Start()
-  {
     interactable.PromptOffset = new Vector2(-0.5f, 0.25f);
     interactable.OnInteract = OnInteract;
     interactable.CanUseCallback += MeetsBasicRequirements;

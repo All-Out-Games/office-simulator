@@ -95,7 +95,7 @@ public partial class OfficePlayer : Player
   public override void OnDestroy()
   {
     if (!OfficeController.Value.Alive()) return;
-    
+
     var controller = OfficeController.Value?.GetComponent<OfficeController>();
     if (controller.Alive())
     {
@@ -156,7 +156,7 @@ public partial class OfficePlayer : Player
 
     if (IsLocal)
     {
-      CameraControl = Camera.CreateCameraControl(1);
+      CameraControl = CameraControl.Create(1);
     }
 
     {

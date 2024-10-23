@@ -8,10 +8,7 @@ public partial class PowerEvent : Event
   public override void Awake()
   {
     base.Awake();
-  }
 
-  public override void Start()
-  {
     var switchIterator = Entity.Children;
     foreach (var powerSwitch in switchIterator)
     {
@@ -74,16 +71,17 @@ public partial class PowerEvent : Event
   {
     base.StartEvent();
 
-    SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/power/power-out.wav"), new SFX.PlaySoundDesc() { Volume=0.8f });
+    SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/power/power-out.wav"), new SFX.PlaySoundDesc() { Volume = 0.8f });
 
-    foreach (Player player in Player.AllPlayers)
+    foreach (var player in Scene.Components<OfficePlayer>())
     {
       var op = (OfficePlayer)player;
       op.SetLightOn(true);
     }
 
 
-    foreach (Jukebox jukebox in Scene.Components<Jukebox>()) {
+    foreach (Jukebox jukebox in Scene.Components<Jukebox>())
+    {
       jukebox.Stop();
     }
 
@@ -100,7 +98,7 @@ public partial class PowerEvent : Event
     if (failed && Network.IsServer)
     {
       GameManager.Instance.CallClient_ShowNotification("Power Outage anomaly failed");
-      foreach (var player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         player.Entity.GetComponent<OfficePlayer>().LoseEvent();
       }
@@ -111,20 +109,21 @@ public partial class PowerEvent : Event
       GameManager.Instance.CallClient_PlaySFX("anomalies/power/power-on.wav");
       GameManager.Instance.CallClient_ShowNotification("Power has been restored");
 
-      foreach (var player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         player.Entity.GetComponent<OfficePlayer>().WinEvent();
       }
     }
-    
 
-    foreach (Player player in Player.AllPlayers)
+
+    foreach (var player in Scene.Components<OfficePlayer>())
     {
       var op = (OfficePlayer)player;
       op.SetLightOn(false);
     }
 
-    foreach (Jukebox jukebox in Scene.Components<Jukebox>()) {
+    foreach (Jukebox jukebox in Scene.Components<Jukebox>())
+    {
       jukebox.SafePlay();
     }
 

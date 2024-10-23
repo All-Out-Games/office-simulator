@@ -9,10 +9,7 @@ public partial class FireEvent : Event
   public override void Awake()
   {
     base.Awake();
-  }
 
-  public override void Start()
-  {
     fireOverlay = Entity.TryGetChildByName("FireOverlay").GetComponent<Sprite_Renderer>();
     foreach (var child in Entity.Children)
     {
@@ -39,29 +36,29 @@ public partial class FireEvent : Event
 
   public override void Update()
   {
-      if (!IsActive) return;
-      base.Tick();
-  
-      var progression = (Duration - TimeRemaining) / (Duration + TimeRemaining);
+    if (!IsActive) return;
+    base.Tick();
 
-      int totalFires = switches.Count;
-      int fixedBuckets = totalFires - GetUnfixedCount();
-      float fixedPercentage = fixedBuckets / (float)totalFires;
-  
-      fireOverlay.Tint = new Vector4(1, 0.25f, 0.25f, 0.1f + (0.9f * progression) * (1 - fixedPercentage));
-  
-      References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Fires are enveloping the office (Time Remaining: {TimeRemaining.Value:F0})";
-      References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Extinguish: " + GetUnfixedCount() + " / " + totalFires;
-  
-      if (IsCompleted() && IsActive && Network.IsServer)
-      {
-          CallClient_ReceiveServerStopEvent(false);
-      }
-  
-      if (TimeRemaining <= 0 && Network.IsServer)
-      {
-          CallClient_ReceiveServerStopEvent(true);
-      }
+    var progression = (Duration - TimeRemaining) / (Duration + TimeRemaining);
+
+    int totalFires = switches.Count;
+    int fixedBuckets = totalFires - GetUnfixedCount();
+    float fixedPercentage = fixedBuckets / (float)totalFires;
+
+    fireOverlay.Tint = new Vector4(1, 0.25f, 0.25f, 0.1f + (0.9f * progression) * (1 - fixedPercentage));
+
+    References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Fires are enveloping the office (Time Remaining: {TimeRemaining.Value:F0})";
+    References.Instance.EventUI.Entity.TryGetChildByName("Subtitle").GetComponent<UIText>().Text = "Extinguish: " + GetUnfixedCount() + " / " + totalFires;
+
+    if (IsCompleted() && IsActive && Network.IsServer)
+    {
+      CallClient_ReceiveServerStopEvent(false);
+    }
+
+    if (TimeRemaining <= 0 && Network.IsServer)
+    {
+      CallClient_ReceiveServerStopEvent(true);
+    }
   }
 
   // Needed to be an RPC because the server sees the completed status, sets isactive to false, and update stops running
@@ -79,7 +76,7 @@ public partial class FireEvent : Event
   public override void StartEvent()
   {
     base.StartEvent();
-    sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/fire/fire.wav"), new SFX.PlaySoundDesc() { Volume=0.4f, Loop = true });
+    sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/fire/fire.wav"), new SFX.PlaySoundDesc() { Volume = 0.4f, Loop = true });
 
     foreach (var bucket in switches)
     {
@@ -93,12 +90,15 @@ public partial class FireEvent : Event
 
     SFX.Stop(sfxHandle);
 
-    fireOverlay.Tint = new Vector4(0, 0, 0, 0);
+    if (fireOverlay.Alive())
+    {
+      fireOverlay.Tint = new Vector4(0, 0, 0, 0);
+    }
 
     if (failed && Network.IsServer)
     {
       GameManager.Instance.CallClient_ShowNotification("The office has burned down...");
-      foreach (var player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         player.Entity.GetComponent<OfficePlayer>().LoseEvent();
       }
@@ -110,7 +110,7 @@ public partial class FireEvent : Event
       {
         GameManager.Instance.CallClient_ShowNotification("The fires have been extinguished!");
       }
-      foreach (var player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         player.Entity.GetComponent<OfficePlayer>().WinEvent();
       }

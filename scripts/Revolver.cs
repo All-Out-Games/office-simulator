@@ -29,7 +29,7 @@ public partial class Revolver : MyAbility
 public class AimingRevolver : MyEffect
 {
     public override bool IsActiveEffect => true;
-    public override List<Type> AbilityWhitelist { get; } = new List<Type>(){typeof(Revolver)};
+    public override List<Type> AbilityWhitelist { get; } = new List<Type>() { typeof(Revolver) };
     public Entity GunEntity;
 
     public override void OnEffectStart(bool isDropIn)
@@ -61,7 +61,7 @@ public partial class ShootGunEffect : MyEffect
         if (!isDropIn)
         {
             Game.SpawnProjectile(Player, "Bullet.prefab", "detective_bullet", Player.Entity.Position, AbilityPositionOrDirection);
-            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/bullet.wav"), new SFX.PlaySoundDesc(){Positional=true, Position=Player.Entity.Position});
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/bullet.wav"), new SFX.PlaySoundDesc() { Positional = true, Position = Player.Entity.Position });
         }
         Player.RemoveEffect(this, false);
     }

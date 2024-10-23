@@ -119,7 +119,7 @@ public partial class DayNightManager : Component
       CurrentState = DayState.DUSK;
       CallClient_StartClientDusk();
 
-      foreach (Player player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         var op = (OfficePlayer)player;
 
@@ -136,7 +136,7 @@ public partial class DayNightManager : Component
     float interval = 15f / nightfallMessages.Length;
     if (Time.TimeSinceStartup - transitionStartTime >= interval * curNightfallMessageIndex && curNightfallMessageIndex < nightfallMessages.Length)
     {
-      foreach (Player player in Player.AllPlayers)
+      foreach (var player in Scene.Components<OfficePlayer>())
       {
         var op = (OfficePlayer)player;
         if (op.CurrentRole == Role.JANITOR) {
@@ -195,7 +195,7 @@ public partial class DayNightManager : Component
   public void StartClientNight()
   {
 
-    foreach (Player player in Player.AllPlayers)
+    foreach (var player in Scene.Components<OfficePlayer>())
     {
       var op = (OfficePlayer)player;
       if (op.CurrentRole != Role.JANITOR) continue;
@@ -219,7 +219,7 @@ public partial class DayNightManager : Component
   [ClientRpc]
   public void StopClientNight()
   {
-    foreach (Player player in Player.AllPlayers)
+    foreach (var player in Scene.Components<OfficePlayer>())
     {
       player.RemoveEffect<KillerEffect>(false);
     }

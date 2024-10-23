@@ -1,38 +1,38 @@
 using AO;
-    // DO NOT CHANGE ORDER OR ADD TO FRONT
-    public enum Room
-    {
-        LOBBY,
-        GYM,
-        HALLS,
-        CATETERIA,
-        FINANCE,
-        SERVERS,
-        LIBRARY,
-        JANITORCLOSET,
-        HR,
-        CONFERENCE,
-        CONFERENCE_SPEAKER,
-        
-        OFFICE1,
-        OFFICE2,
-        OFFICE3,
-        OFFICE4,
-        OFFICE5,
-        OFFICE6,
-        OFFICE7,
-        OFFICE8,
-        OFFICE_MANAGER,
-        OFFICE_CEO,
-        OFFICE_OVERSEER,
-    }
+// DO NOT CHANGE ORDER OR ADD TO FRONT
+public enum Room
+{
+    LOBBY,
+    GYM,
+    HALLS,
+    CATETERIA,
+    FINANCE,
+    SERVERS,
+    LIBRARY,
+    JANITORCLOSET,
+    HR,
+    CONFERENCE,
+    CONFERENCE_SPEAKER,
+
+    OFFICE1,
+    OFFICE2,
+    OFFICE3,
+    OFFICE4,
+    OFFICE5,
+    OFFICE6,
+    OFFICE7,
+    OFFICE8,
+    OFFICE_MANAGER,
+    OFFICE_CEO,
+    OFFICE_OVERSEER,
+}
 
 public class RoomBounds : Component
 {
     [Serialized]
     public Room RoomName;
 
-    public override void Start()
+    public override void Awake()
     {
         if (!Network.IsServer) return;
 
@@ -55,7 +55,7 @@ public class RoomBounds : Component
     {
         var players = new List<Player>();
 
-        foreach (Player player in Player.AllPlayers)
+        foreach (var player in Scene.Components<OfficePlayer>())
         {
             var op = (OfficePlayer)player;
             if (op.CurrentRoom == room) players.Add(player);
@@ -68,7 +68,7 @@ public class RoomBounds : Component
     {
         var players = new List<Player>();
 
-        foreach (Player player in Player.AllPlayers)
+        foreach (var player in Scene.Components<OfficePlayer>())
         {
             var op = (OfficePlayer)player;
             if (op.CurrentRoom == RoomName) players.Add(player);
