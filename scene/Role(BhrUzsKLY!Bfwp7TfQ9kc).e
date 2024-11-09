@@ -26,13 +26,11 @@
     "settings": {
       "size": 60,
       "drop_shadow_offset": {
-        "X": 171,
-        "Y": -1
+        "X": 171
       },
       "drop_shadow_color": {
         "X": 0.2235294133424759,
-        "Y": 0.2235294133424759,
-        "W": 1
+        "Y": 0.2235294133424759
       },
       "do_outline": true,
       "outline_thickness": 3

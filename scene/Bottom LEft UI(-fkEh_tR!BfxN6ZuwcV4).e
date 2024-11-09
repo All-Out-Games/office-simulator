@@ -30,12 +30,9 @@
   "component_type": "Internal_Component",
   "internal_component_type": "UIRect",
   "data": {
-    "max": {
-
-    },
     "insets": {
-      "X": -108,
-      "Y": -541
+      "X": 979,
+      "Y": 1238
     },
     "offset": {
       "X": 120,

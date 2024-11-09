@@ -5,7 +5,8 @@
   "name": "FireOverlay",
   "local_enabled": true,
   "local_position": {
-
+    "X": 0.7766189575195312,
+    "Y": 14.9436225891113281
   },
   "local_rotation": 0,
   "local_scale": {
@@ -24,8 +25,8 @@
   "data": {
     "texture": "$AO/white.png",
     "tint": {
-      "X": 1,
-      "Y": 0.1960784345865250
+      "Y": 0.1960784345865250,
+      "W": 0
     },
     "layer": 15555
   }

@@ -28,10 +28,7 @@
     "texture": "48x48/Modern_Office_Singles_48x48_338.png",
     "depth_offset": 0.0105752944946289,
     "tint": {
-      "X": 0.6352941393852234,
-      "Y": 1,
-      "Z": 1,
-      "W": 1
+      "X": 0.6352941393852234
     },
     "wait_for_load": true
   }

@@ -1216,9 +1216,9 @@ animations/finger_prints/duster/murder_duster.spine - .ao - 66d277a560ed1ef1ffbc
 animations/killer/002MURDER_killer.png - .ao - 66d277a660ed1ef1ffbc4e85 - 15078432499560666038
 animations/killer/002MURDER_killer.png - .ao.ios - 66d277a660ed1ef1ffbc4e84 - 1927970883900516849
 animations/killer/002MURDER_killer.spine - .ao - 66d277a660ed1ef1ffbc4e87 - 244105175570274238
-animations/player2/playercharacter.png - .ao - 66d277a660ed1ef1ffbc4e8c - 2470198830329660381
-animations/player2/playercharacter.png - .ao.ios - 66d277a660ed1ef1ffbc4e8e - 11076537123205248157
-animations/player2/playercharacter.spine - .ao - 66d277a660ed1ef1ffbc4e90 - 15913589386178933212
+animations/player2/playercharacter.png - .ao - 672e7167ada08dbbbde3f809 - 12181103928905509135
+animations/player2/playercharacter.png - .ao.ios - 672e7167ada08dbbbde3f80a - 5714179842585644094
+animations/player2/playercharacter.spine - .ao - 672e7167ada08dbbbde3f808 - 9417563528506370092
 animations/torch/Murder_Torch.png - .ao - 66d277a660ed1ef1ffbc4e91 - 18370539223647843455
 animations/torch/Murder_Torch.png - .ao.ios - 66d277a760ed1ef1ffbc4e94 - 711787532538104111
 animations/torch/Murder_Torch.spine - .ao - 66d277a760ed1ef1ffbc4e97 - 1066566113579507117

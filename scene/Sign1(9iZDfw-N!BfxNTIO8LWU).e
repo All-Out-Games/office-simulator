@@ -23,12 +23,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "8_Gym_Singles_48x48/Gym_Singles_48x48_1.png",
-    "tint": {
-      "X": 1,
-      "Y": 1,
-      "Z": 1
-    }
+    "texture": "8_Gym_Singles_48x48/Gym_Singles_48x48_1.png"
   }
 },
 {

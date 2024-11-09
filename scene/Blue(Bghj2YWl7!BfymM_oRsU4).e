@@ -5,7 +5,8 @@
   "name": "Blue",
   "local_enabled": true,
   "local_position": {
-
+    "X": 19.3593673706054688,
+    "Y": -10.4242019653320312
   },
   "local_rotation": 0,
   "local_scale": {
@@ -25,7 +26,7 @@
     "texture": "$AO/white.png",
     "tint": {
       "Y": 0.2431372553110123,
-      "Z": 1
+      "W": 0
     },
     "layer": 15555
   }
