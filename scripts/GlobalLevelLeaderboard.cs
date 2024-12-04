@@ -45,7 +45,9 @@ public partial class GlobalLevelLeaderboard : Component
                 var scores = new double[entries.Length];
                 for (int i = 0; i < entries.Length; i++)
                 {
+                    Log.Info($"Leaderboard entry: {entries[i].Key} {entries[i].Value}");
                     names[i] = Game.LookupPlayerName(entries[i].Key);
+                    Log.Info($"Leaderboard entry name: {names[i]}");
                     scores[i] = entries[i].Value;
                 }
                 CallClient_UpdateLeaderboardData(names, scores);

@@ -178,17 +178,17 @@ public partial class DayNightManager : Component
 
       foreach (Player p in ceoPlayers)
       {
-        Save.OrderedGet("nights-ceo", p.UserId, 0, personalEntry =>
+        Save.OrderedGet("nightsCeo", p.UserId, 0, personalEntry =>
         {
-          Save.OrderedSet("nights-ceo", p.UserId, 1 + personalEntry.Value);
+          Save.OrderedSet("nightsCeo", p.UserId, 1 + personalEntry.Value);
         });
       }
 
       foreach (Player p in overseerPlayers)
       {
-        Save.OrderedGet("nights-overseer", p.UserId, 0, personalEntry =>
+        Save.OrderedGet("nightsOverseer", p.UserId, 0, personalEntry =>
         {
-          Save.OrderedSet("nights-overseer", p.UserId, 1 + personalEntry.Value);
+          Save.OrderedSet("nightsOverseer", p.UserId, 1 + personalEntry.Value);
         });
       }
 

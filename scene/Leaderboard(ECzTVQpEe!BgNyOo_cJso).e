@@ -157,6 +157,6 @@
     "LeaderboardBgMe": "Leaderboard/numberless/RANK ME.png",
     "LeaderboardSpriteRenderer": "1138221451147152:1733262340003037800",
     "OptionalTitle": "Most Nights as Overseer",
-    "LeaderboardId": "nights-overseer"
+    "LeaderboardId": "nightsOverseer"
   }
 }

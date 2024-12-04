@@ -506,7 +506,8 @@ public partial class OfficePlayer : Player
     }
 
     // Point to promo NPC when full of XP
-    if (IsLocal && Experience >= RequiredExperience && !(CurrentRole == Role.OVERSEER || CurrentRole == Role.CEO))
+    // TODO: support manager role which requires giving conference talk
+    if (IsLocal && Experience >= RequiredExperience && CurrentRoom != Room.HR && !(CurrentRole == Role.OVERSEER || CurrentRole == Role.CEO || CurrentRole == Role.MANAGER))
     {
       if (References.Instance.PromoNPC.Alive())
       {

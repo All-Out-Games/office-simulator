@@ -153,6 +153,6 @@
     "LeaderboardBgMe": "Leaderboard/numberless/RANK ME.png",
     "LeaderboardSpriteRenderer": "1136716220016469:1733261867720261000",
     "OptionalTitle": "Most Nights as CEO",
-    "LeaderboardId": "nights-ceo"
+    "LeaderboardId": "nightsCeo"
   }
 }
