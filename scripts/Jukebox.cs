@@ -74,7 +74,7 @@ public partial class Jukebox : Component
     public void ActuallyPlay()
     {
         if (Network.IsServer) return;
-        ActuallyStop(); // Ensure any existing sound is stopped before playing
+        ActuallyStop();
         var soundDesc = new SFX.PlaySoundDesc
         {
             Volume = Volume,
@@ -100,7 +100,7 @@ public partial class Jukebox : Component
     {
         if (Network.IsServer) return;
         SFX.Stop(sfxHandle);
-        sfxHandle = 0; // Reset the handle after stopping
+        sfxHandle = 0;
     }
 
     public void Stop()

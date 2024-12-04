@@ -15,8 +15,8 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 180;
-  public float NightLength = 45;
+  public float DayLength = 5;
+  public float NightLength = 5;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
 
@@ -139,9 +139,12 @@ public partial class DayNightManager : Component
       foreach (var player in Scene.Components<OfficePlayer>())
       {
         var op = (OfficePlayer)player;
-        if (op.CurrentRole == Role.JANITOR) {
+        if (op.CurrentRole == Role.JANITOR)
+        {
           op.CallClient_ShowNotification(janitorNightfallMessages[curNightfallMessageIndex]);
-        } else {
+        }
+        else
+        {
           op.CallClient_ShowNotification(nightfallMessages[curNightfallMessageIndex]);
         }
       }
@@ -168,6 +171,28 @@ public partial class DayNightManager : Component
       // Advance to Dawn
       transitionStartTime.Set(Time.TimeSinceStartup);
       CurrentState = DayState.DAWN;
+
+      // Update leaderboards
+      var ceoPlayers = GameManager.Instance.GetPlayersByRole(Role.CEO);
+      var overseerPlayers = GameManager.Instance.GetPlayersByRole(Role.OVERSEER);
+
+      foreach (Player p in ceoPlayers)
+      {
+        Save.OrderedGet("nights-ceo", p.UserId, 0, personalEntry =>
+        {
+          Save.OrderedSet("nights-ceo", p.UserId, 1 + personalEntry.Value);
+        });
+      }
+
+      foreach (Player p in overseerPlayers)
+      {
+        Save.OrderedGet("nights-overseer", p.UserId, 0, personalEntry =>
+        {
+          Save.OrderedSet("nights-overseer", p.UserId, 1 + personalEntry.Value);
+        });
+      }
+
+
       CallClient_StopClientNight();
     }
   }
@@ -186,7 +211,8 @@ public partial class DayNightManager : Component
   [ClientRpc]
   public void StartClientDusk()
   {
-    foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
+    foreach (Jukebox jukkebox in Scene.Components<Jukebox>())
+    {
       jukkebox.Stop();
     }
   }
@@ -202,7 +228,8 @@ public partial class DayNightManager : Component
       player.AddEffect<KillerEffect>();
     }
 
-    foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
+    foreach (Jukebox jukkebox in Scene.Components<Jukebox>())
+    {
       jukkebox.SetNightVersion(true);
     }
 
@@ -224,7 +251,8 @@ public partial class DayNightManager : Component
       player.RemoveEffect<KillerEffect>(false);
     }
 
-    foreach (Jukebox jukkebox in Scene.Components<Jukebox>()) {
+    foreach (Jukebox jukkebox in Scene.Components<Jukebox>())
+    {
       jukkebox.SetNightVersion(false);
     }
 

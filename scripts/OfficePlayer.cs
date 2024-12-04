@@ -48,7 +48,6 @@ public partial class OfficePlayer : Player
 
   // EXPERIENCE //
   public SyncVar<int> Experience = new(0);
-  // EXPERIENCE //
   public SyncVar<int> Cash = new(0);
 
   public int RequiredExperience => 100;
@@ -63,14 +62,14 @@ public partial class OfficePlayer : Player
   public SyncVar<Entity> AssignedMeetingSeat = new();
 
   public SyncVar<Entity> OfficeController = new();
-  public SyncVar<float> MoveSpeedModifier = new(1.25f);
+  public SyncVar<float> MoveSpeedModifier = new(0.95f);
 
   public override Vector2 CalculatePlayerVelocity(Vector2 currentVelocity, Vector2 input, float deltaTime)
   {
     var multiplier = MoveSpeedModifier.Value;
     if (HasEffect<KillerEffect>())
     {
-      multiplier *= 0.6f;
+      multiplier *= 0.75f;
     }
     if (HasEffect<OverseerEffect>())
     {
@@ -85,7 +84,7 @@ public partial class OfficePlayer : Player
     }
     if (Caffeinated)
     {
-      multiplier *= 1.25f;
+      multiplier *= 1.3f;
     }
 
     Vector2 velocity = DefaultPlayerVelocityCalculation(currentVelocity, input, deltaTime, multiplier);
@@ -502,6 +501,38 @@ public partial class OfficePlayer : Player
           roleStatTextSettings.Color = new Vector4(1, 0, 0, 1);
           References.Instance.RoleStatText.Text = "Your Role: \"Janitor\"";
           References.Instance.RoleStatText.Settings = roleStatTextSettings;
+        }
+      }
+    }
+
+    // Point to promo NPC when full of XP
+    if (IsLocal && Experience >= RequiredExperience && !(CurrentRole == Role.OVERSEER || CurrentRole == Role.CEO))
+    {
+      if (References.Instance.PromoNPC.Alive())
+      {
+        var worldOffset = (References.Instance.PromoNPC.Position - Entity.Position);
+        var sellAreaScreenPos = Camera.WorldToScreen(References.Instance.PromoNPC.Position);
+        var playerScreenPos = Camera.WorldToScreen(Entity.Position + new Vector2(0, 0.5f));
+        var dir = (sellAreaScreenPos - playerScreenPos).Normalized;
+        var pos = playerScreenPos;
+        var distance = worldOffset.Length;
+        float arrowSize = 50;
+        var anim = (float)Math.Pow(Math.Abs(Math.Sin(Math.PI * Time.TimeSinceStartup)), 0.75);
+        float distanceThreshold = 3;
+        if (distance >= (distanceThreshold + 0.5f))
+        {
+          var t = 1 - Ease.T(distance - distanceThreshold, 1);
+          var arrowScreenPos = new Rect(pos, pos).Offset(dir.X * 300, dir.Y * 300).Center; // note(josh): using rects to scale by screen size
+          arrowScreenPos = Vector2.Lerp(arrowScreenPos, sellAreaScreenPos, t);
+          var rect = new Rect(arrowScreenPos, arrowScreenPos).Grow(arrowSize);
+          var rotation = Math.Atan2(dir.Y, dir.X) * (180.0 / Math.PI);
+          UI.Image(rect, References.Instance.ArrowIcon, Vector4.White, default, (float)rotation);
+        }
+        else
+        {
+          var rect = new Rect(sellAreaScreenPos, sellAreaScreenPos).Grow(arrowSize);
+          rect = rect.Offset(0, anim * 50);
+          UI.Image(rect, References.Instance.ArrowIcon, Vector4.White, default, 270);
         }
       }
     }

@@ -26,6 +26,8 @@
     "ClickSfx": "sfx/notification.wav",
     "MoneyStatText": "430070096685611:1725063203890567000",
     "ExperienceStatText": "436369706085219:1725065180426720700",
-    "RoleStatText": "431433028826719:1725063631517818500"
+    "RoleStatText": "431433028826719:1725063631517818500",
+    "PromoNPC": "288373715534631:1709456416154145500",
+    "ArrowIcon": "PortalPointer.png"
   }
 }
