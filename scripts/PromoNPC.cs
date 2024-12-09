@@ -204,7 +204,7 @@ public partial class PromoNPC : Component
                     player.RemoveEffect<BoardMeetingEffect>(false);
                 }
 
-                if (Candidate1.Value == null || Candidate2.Value == null)
+                if (!Candidate1.Value.Alive() || !Candidate2.Value.Alive())
                 {
                     Log.Error("Candidate was null");
                     GameManager.Instance.CallClient_ShowNotification("The board meeting has been cancelled due to a candidate being unavailable.");

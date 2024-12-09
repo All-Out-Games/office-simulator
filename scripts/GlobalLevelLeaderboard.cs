@@ -234,6 +234,10 @@ public partial class GlobalLevelLeaderboard : Component
                     OutlineThickness = 3,
                 });
             }
+            else
+            {
+                UI.ExpandCurrentScrollView(entryRect);
+            }
 
             contentCutRect.CutTop(0.05f);
         }
