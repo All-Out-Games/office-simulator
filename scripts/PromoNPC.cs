@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using AO;
 
 public partial class PromoNPC : Component
@@ -50,6 +49,12 @@ public partial class PromoNPC : Component
             {
                 case Role.JANITOR:
                     op.CurrentRole = Role.EMPLOYEE;
+                    // Quest Progress
+                    if (!Game.LaunchedFromEditor)
+                    {
+                        Battlepass.IncrementProgress(op, "6772ede693ce6b94e1eee7cc", 1);
+                    }
+
                     op.Experience.Set(0);
                     op.CallClient_PlaySFX("sfx/rank-up.wav");
                     op.CallClient_ShowNotification("New tasks unlocked...");
@@ -59,6 +64,11 @@ public partial class PromoNPC : Component
                 case Role.EMPLOYEE:
                     op.CurrentRole = Role.MANAGER;
                     op.Experience.Set(0);
+                    // Quest Progress
+                    if (!Game.LaunchedFromEditor)
+                    {
+                        Battlepass.IncrementProgress(op, "6772ede693ce6b94e1eee7cc", 1);
+                    }
 
                     op.CallClient_ShowNotification("New tasks unlocked...");
                     op.CallClient_ShowNotification("Luxury offices unlocked");
@@ -68,6 +78,7 @@ public partial class PromoNPC : Component
                 case Role.MANAGER:
                     if (!op.HasGivenSpeech)
                     {
+
                         op.CallClient_ShowNotification("You must give a speech in the conference room first...");
                         op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
                         break;
@@ -79,7 +90,11 @@ public partial class PromoNPC : Component
                         op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
                         break;
                     }
-
+                    // Quest Progress
+                    if (!Game.LaunchedFromEditor)
+                    {
+                        Battlepass.IncrementProgress(op, "6772ede693ce6b94e1eee7cc", 1);
+                    }
                     op.LastRequestedCEOPromoAt.Set(Time.TimeSinceStartup);
 
                     var CEOPlayers = GameManager.Instance.GetPlayersByRole(Role.CEO);
@@ -123,6 +138,11 @@ public partial class PromoNPC : Component
                     {
                         GameManager.Instance.CallClient_ShowNotification(op.Name + " is the first to reach CEO!");
                         op.CurrentRole = Role.CEO;
+                        // Quest Progress
+                        if (!Game.LaunchedFromEditor)
+                        {
+                            Battlepass.IncrementProgress(op, "6772ede693ce6b94e1eee7cc", 1);
+                        }
                         op.Experience.Set(0);
                         op.CallClient_PlaySFX("sfx/rank-up.wav");
                     }

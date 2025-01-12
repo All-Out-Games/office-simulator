@@ -3,6 +3,7 @@ using AO;
 public partial class MurderProjectile : Component
 {
     [Serialized] public bool IsBullet;
+    public bool IsFromCEOGun;
 
     public float Lifetime;
     public const float MaxLife = 0.7f;
@@ -36,6 +37,17 @@ public partial class MurderProjectile : Component
 
         if (player == null) return;
         if (player.HasEffect<SpectatorEffect>()) return;
+        if (player.CurrentRole == Role.OVERSEER && !OverseerPromoNPC.Instance.BattleActive)
+        {
+            if (Network.IsServer && IsFromCEOGun)
+            {
+                var ceoPlayer = (OfficePlayer)GameManager.Instance.GetPlayersByRole(Role.CEO).FirstOrDefault();
+
+                ceoPlayer.CallClient_ShowNotification("[̲̅y][̲̅o][̲̅u] [̲̅c][̲̅a][̲̅n] [̲̅k][̲̅i][̲̅l][̲̅l] [̲̅m][̲̅e][̲̅?]");
+            }
+
+            return;
+        }
 
         var projectile = Entity.GetComponent<Projectile>();
         if (player == projectile.Owner) return;
@@ -60,7 +72,7 @@ public partial class MurderProjectile : Component
         {
             player.WasKilledInOverseerBattle.Set(true);
         }
-        
+
         player.AddEffect<KillEffect>(preInit: effect =>
         {
 

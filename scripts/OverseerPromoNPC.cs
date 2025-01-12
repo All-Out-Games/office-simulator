@@ -91,11 +91,21 @@ public partial class OverseerPromoNPC : Component
                 GameManager.Instance.CallClient_ShowNotification("A dark force sweeps over the office...");
                 op.CurrentRole = Role.OVERSEER;
                 op.Experience.Set(0);
+                // Quest Progress
+                if (!Game.LaunchedFromEditor)
+                {
+                    Battlepass.IncrementProgress(op, "6772ede693ce6b94e1eee7cc", 1);
+                }
             }
 
             // Fight to the death
             if (OverseerPlayer.Alive())
             {
+                // Quest Progress
+                if (!Game.LaunchedFromEditor)
+                {
+                    Battlepass.IncrementProgress(op, "6772ede693ce6b94e1eee7cc", 1);
+                }
                 Fighter1.Set(OverseerPlayer.Entity);
                 Fighter2.Set(op.Entity);
 
@@ -117,18 +127,20 @@ public partial class OverseerPromoNPC : Component
         var fighter1 = (OfficePlayer)Fighter1.Value.GetComponent<Player>();
         var fighter2 = (OfficePlayer)Fighter2.Value.GetComponent<Player>();
 
-        if (Network.IsClient) {
+        if (Network.IsClient)
+        {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/clue_found2.wav"), new());
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/suspense.wav"), new());
         }
 
-        if (Network.IsServer) {
+        if (Network.IsServer)
+        {
             BattleActive.Set(true);
             BattleStartTime.Set(Time.TimeSinceStartup);
             fighter1.CallClient_ShowNotification("A challenger has appeared... fight for your life.");
             fighter2.CallClient_ShowNotification("Eliminate the overseer to take their role...");
         }
-        
+
         fighter1.SetLightOn(true);
         fighter2.SetLightOn(true);
 
@@ -141,7 +153,8 @@ public partial class OverseerPromoNPC : Component
     {
         var fighter1Op = fighter1.GetComponent<OfficePlayer>();
 
-        if (fighter1Op != null) {
+        if (fighter1Op != null)
+        {
             fighter1Op.SetLightOn(false);
             fighter1Op.Teleport(Vector2.Zero);
             fighter1Op.RemoveEffect<SpectatorEffect>(false);
@@ -218,7 +231,7 @@ public partial class OverseerPromoNPC : Component
                     fighter2.CurrentRole = Role.OVERSEER;
                     fighter2.Experience.Set(0);
                     return;
-                } 
+                }
                 else if (fighter2.WasKilledInOverseerBattle)
                 {
                     fighter1.CallClient_ShowNotification("You keep your throne... for now.");
@@ -235,7 +248,9 @@ public partial class OverseerPromoNPC : Component
         if (op.CurrentRole == Role.JANITOR)
         {
             spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
-        } else {
+        }
+        else
+        {
             spriteRenderer.Tint = new Vector4(1, 0.5f, 0.5f, 1);
         }
 
