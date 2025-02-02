@@ -78,7 +78,6 @@ public partial class PromoNPC : Component
                 case Role.MANAGER:
                     if (!op.HasGivenSpeech)
                     {
-
                         op.CallClient_ShowNotification("You must give a speech in the conference room first...");
                         op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
                         break;
@@ -90,6 +89,7 @@ public partial class PromoNPC : Component
                         op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
                         break;
                     }
+
                     // Quest Progress
                     if (!Game.LaunchedFromEditor)
                     {
@@ -259,30 +259,31 @@ public partial class PromoNPC : Component
             }
         }
 
-
-        if (Network.IsServer) return;
-        var interactible = Entity.GetComponent<Interactable>();
-        var workerPlayer = (OfficePlayer)Network.LocalPlayer;
-        if (!workerPlayer.Alive()) return;
-        if (workerPlayer.CurrentRole == Role.JANITOR)
+        if (Network.IsClient)
         {
-            interactible.Text = "Request Promotion to Employee... (100XP)";
-            return;
-        }
-        else if (workerPlayer.CurrentRole == Role.EMPLOYEE)
-        {
-            interactible.Text = "Request Promotion to Manager... (100XP)";
-            return;
-        }
-        else if (workerPlayer.CurrentRole == Role.MANAGER)
-        {
-            interactible.Text = "Request Promotion to CEO... (100XP) (Requires Conference Speech Given)";
-            return;
-        }
-        else if (workerPlayer.CurrentRole == Role.CEO)
-        {
-            interactible.Text = "Request Promotion... (100XP)";
-            return;
+            var interactible = Entity.GetComponent<Interactable>();
+            var workerPlayer = (OfficePlayer)Network.LocalPlayer;
+            if (!workerPlayer.Alive()) return;
+            if (workerPlayer.CurrentRole == Role.JANITOR)
+            {
+                interactible.Text = "Request Promotion to Employee... (100XP)";
+                return;
+            }
+            else if (workerPlayer.CurrentRole == Role.EMPLOYEE)
+            {
+                interactible.Text = "Request Promotion to Manager... (100XP)";
+                return;
+            }
+            else if (workerPlayer.CurrentRole == Role.MANAGER)
+            {
+                interactible.Text = "Request Promotion to CEO... (100XP) (Requires Conference Speech Given)";
+                return;
+            }
+            else if (workerPlayer.CurrentRole == Role.CEO)
+            {
+                interactible.Text = "Request Promotion... (100XP)";
+                return;
+            }
         }
     }
 }

@@ -164,7 +164,7 @@ public partial class OfficePlayer : Player
       var aoIdleState = aoLayer.TryGetStateByName("Idle");
       var aoRunState = aoLayer.TryGetStateByName("Run_Fast");
       var idleState = murderLayer.CreateState("MURD_002/empty", 0, true);
-      murderLayer.SetInitialState(idleState);
+      murderLayer.InitialState = idleState;
 
       var pointBool = SpineAnimator.SpineInstance.StateMachine.CreateVariable("point", StateMachineVariableKind.BOOLEAN);
       var pointExaggerateTrigger = SpineAnimator.SpineInstance.StateMachine.CreateVariable("point_exaggerate", StateMachineVariableKind.TRIGGER);
@@ -242,7 +242,7 @@ public partial class OfficePlayer : Player
       var runState = killerLayer.CreateState("run", 0, true);
       killerLayer.CreateTransition(idleState, runState, false).CreateBoolCondition(movingBool, true);
       killerLayer.CreateTransition(runState, idleState, false).CreateBoolCondition(movingBool, false);
-      killerLayer.SetInitialState(idleState);
+      killerLayer.InitialState = idleState;
 
       var transformToTrigger = killerStateMachine.CreateVariable("transform_end", StateMachineVariableKind.TRIGGER);
       var transformToEndState = killerLayer.CreateState("teleport_appear", 0, false);
@@ -476,16 +476,8 @@ public partial class OfficePlayer : Player
         CameraControl.Zoom = 1.25f;
       }
 
-      // Make the camera follow the player
-      if (HasEffect<BoardMeetingEffect>())
-      {
-        CameraControl.Position = new Vector2(9.575f, -50.249f);
-        CameraControl.Zoom = 1.4f;
-      }
-      else
-      {
-        CameraControl.Position = Entity.Position + new Vector2(0, 0.5f);
-      }
+
+      CameraControl.Position = Entity.Position + new Vector2(0, 0.5f);
 
       var roleStatTextSettings = References.Instance.RoleStatText.Settings;
       roleStatTextSettings.Color = new Vector4(1, 1, 1, 1);

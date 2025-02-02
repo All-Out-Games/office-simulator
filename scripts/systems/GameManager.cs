@@ -5,11 +5,32 @@ public class GameManagerSystem : System<GameManagerSystem>
 {
   public override void Awake()
   {
+    if (Network.IsServer)
+    {
+      Log.Info("Setting up ad reward handler");
+      Ads.SetRewardHandler(OnAdReward);
+    }
+
     if (!Network.IsServer)
     {
       Analytics.EnableAutomaticAnalytics("c603591ec9cbe82c10c9843ff585e36c", "7e8639e1986d6e928f7992844f9026c321d6a4f8");
     }
 
+  }
+
+  private bool OnAdReward(Player player, string adId)
+  {
+    Log.Info("Ad reward: " + adId);
+    if (adId == "5n_xp_ad")
+    {
+      Log.Info("Ad success give moneeeeeeeeeey!");
+      var op = (OfficePlayer)player;
+      op.Experience.Set(op.Experience.Value + 75);
+      return true;
+    }
+
+
+    return false;
   }
 }
 
@@ -56,7 +77,11 @@ public partial class GameManager : Component
             return;
           }
 
-          var role = (Role)Enum.Parse(typeof(Role), parts[1], true);
+          if (!Enum.TryParse(parts[1], true, out Role role))
+          {
+            Chat.SendMessage(p, "Usage: /role <role>");
+            return;
+          }
 
           player.CurrentRole = role;
           break;
@@ -85,11 +110,11 @@ public partial class GameManager : Component
           player.MoveSpeedModifier.Set(amount);
           break;
         }
-      case "experience":
+      case "xp":
         {
           if (parts.Length < 2)
           {
-            Chat.SendMessage(p, "Usage: /experience <amount>");
+            Chat.SendMessage(p, "Usage: /xp <amount>");
             return;
           }
 

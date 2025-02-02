@@ -1,0 +1,75 @@
+You will be developing a game in a CUSTOM 2D ENGINE similar to Unity but that DOES NOT HAVE ALL UNITY APIs.
+
+All files must start with using AO; *Do not try to import anything except from the C# System namespace*
+
+If you need to get an asset use Assets.GetAsset<TYPE>("path"). Some common types are Texture, AudioAsset and SpineSkeletonAsset, Polygon_Collider
+
+You do not need to write any movement or basic networking code. These are handled for you. 
+If you want to make any object interactable use the Interactable component documented at 
+For any UI reference: references/ui-reference.md
+
+For any animations, we use Spine. You can reference the API at references/spine-reference.md
+To apply temporary effects to players, use the Effects system documented at references/effects-reference.md
+For any abilities, use the Ability system documented at references/abilities-reference.md
+If you want to do anything with Inventories, use the Inventory system documented at references/inventory-reference.md
+If you want to do anything with Colliders check references/colliders-reference.md
+Prefer `public` over `private`.
+To create an entity use Entity.Create(). If you want it to be visible to others you must Network.Spawn(entity) it. This must be done on the server only. 
+If you need to get specific components in the scene (e.g all the players) use foreach (var player in Scene.Components<MyPlayer>())
+If you need to reference an asset, list files in the /res directory. 
+For timers use Time.TimeSinceStartup and compare. Do not use coroutines. 
+For camera related things check camera-control.md
+If you want to lerp you can use AOMath.Lerp (e.g. ControlCamera.Zoom = AOMath.Lerp(ControlCamera.Zoom, 3.5f, 0.2f * Time.DeltaTime);)
+Prefer using standard library math functions for everything else. If a math function you want doesn't exist, make it using the standard library. 
+File names should use PascalCase
+
+Do not try to use any Unity APIs, including any extension other than Component
+Because it's 2D, use Vector2 instead of Vector3
+We have Awake(), we do not have Start()
+There is no HasComponent, only GetComponent and AddComponent. 
+Do not call base.Update() or any other base class methods
+If you need to check whether an entity exists, use .Alive() instead of checking if it's null
+
+You can play sounds like
+SFX.Play(Assets.GetAsset<AudioAsset>("sfx/INSERT PATH"), new SFX.PlaySoundDesc() { Volume = 0.7f, Position = Entity.Position, RangeMultiplier = 2f, Loop = false });
+
+SyncVars wrap a primative and automatically keep it in sync for all clients and the server
+For example, to store "Health" on a Player, you can add a SyncVar as a field of your custom player class:
+
+public partial class BattlePlayer : Player
+{
+  public SyncVar<int> Health = new(100);
+}
+The Health variable can then be used normally (e.g. if (Health <= 0))
+To respond to a SyncVar changing you can use .OnSync
+
+To check if code is running on the client or server use the Network.IsClient or Network.IsServer booleans. 
+
+To change the value of a SyncVar use .Set(), which can only be called on the server.
+MAKE SURE THAT ANY UI CODE OR SPRITE_RENDERER STUFF IS CALLED ON THE CLIENT
+
+Some notes on Sprite Renderer's
+Sprite Renderer's are under the Sprite_Renderer type NOT SpriteRenderer. 
+Sprite_Renderers have a .Tint property. We use Vector4 to represent colors. Do not try to use .Color
+Heads up! When declaring SyncVars make sure to call the constructor. 
+
+SyncVars currently only support the following types:
+- int
+- float
+- bool
+- string
+- Vector2
+- Vector3
+- Vector4
+- Entity
+
+ClientRpcs are used when you want the server to call a function on the client
+For example if you want to play a "success" sound effect on the client from a function running on the server that checks a door's passcode you can create a ClientRpc
+[ClientRpc]
+public void PlaySuccessSound()
+{
+}
+
+Note: [ClientRpc] functions must be called with a prefix CallClient_[FUNCTION NAME] e.g CallClient_PlaySuccessSound
+Note: Classes with RPCs must use the partial keyword
+Note: RPCs must be public functions

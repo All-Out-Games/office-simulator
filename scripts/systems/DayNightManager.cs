@@ -15,8 +15,8 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 160;
-  public float NightLength = 45;
+  public float DayLength = 15;
+  public float NightLength = 15;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
 
@@ -202,10 +202,21 @@ public partial class DayNightManager : Component
     Darkness.Set(Darkness - Time.DeltaTime / 20f);
     if (Darkness <= 0f)
     {
+      if (Ads.IsInterstitialAdLoaded())
+      {
+        Notifications.Show("And now a message from our sponsor!");
+        Ads.ShowInterstitial();
+      }
+      else
+      {
+        Notifications.Show("NO AD 4 U");
+      }
+
       // Advance to Day
       Darkness.Set(0f);
       CurrentState = DayState.DAY;
     }
+
   }
 
   [ClientRpc]

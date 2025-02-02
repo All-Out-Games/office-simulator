@@ -11,60 +11,42 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
 
     public float Timer;
 
-    public Entity UI;
+    public CameraControl BoardCameraControl;
+    public float CameraPhase = 0;
+
+    // public Entity UI;
 
     public override float DefaultDuration => 17f;
-    
+
     public bool HasPlayedEndSound;
 
     public override void OnEffectStart(bool isDropIn)
     {
-
         var playerSeat = Player.AssignedMeetingSeat;
         Player.Teleport(playerSeat.Value.Position);
+        Player.SetLightOn(false);
+
         Player.SetFacingDirection(playerSeat.Value.GetComponent<Seat>().FaceLeft ? false : true);
 
         if (!Player.IsLocal) return;
 
-        UI = Entity.Instantiate(Assets.GetAsset<Prefab>("BoardMeetingUI.prefab"));
+        // Create camera control with higher priority than player camera
+        BoardCameraControl = CameraControl.Create(2);
+        BoardCameraControl.Zoom = 0.8f;
 
         Notifications.Show("A board meeting to elect a new CEO has been called...");
-
-        var voteLeft= UI.TryGetChildByName("VoteLeft");
-        var voteRight= UI.TryGetChildByName("VoteRight");
-
-        var leftCandidate = PromoNPC.Instance.Candidate1.Value.GetComponent<OfficePlayer>();
-        var rightCandidate = PromoNPC.Instance.Candidate2.Value.GetComponent<OfficePlayer>();
-
-        if (voteLeft.Alive() && voteRight.Alive())
-        {
-            var voteLeftButton = voteLeft.GetComponent<UIButton>();
-            var voteRightButton = voteRight.GetComponent<UIButton>();
-
-            var voteLeftText = voteLeft.GetComponent<UIText>();
-            var voteRightText = voteRight.GetComponent<UIText>();
-
-            voteLeftText.Text = leftCandidate.Name;
-            voteRightText.Text = rightCandidate.Name;
-
-            voteLeftButton.OnClicked = () => {
-                PromoNPC.Instance.CallServer_CountVote(1);
-            };
-
-            voteRightButton.OnClicked = () => {
-                PromoNPC.Instance.CallServer_CountVote(2);
-            };
-        }
     }
 
     public override void OnEffectEnd(bool interrupt)
     {
         Player.Teleport(new Vector2(0, 0));
         Player.SetLightOn(false);
-
         if (Player.IsLocal)
         {
-            UI.Destroy();
+            if (BoardCameraControl != null)
+            {
+                BoardCameraControl.Destroy();
+            }
         }
     }
 
@@ -72,7 +54,59 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
     {
         if (AO.Util.OneTime(DurationRemaining <= 4.25f, ref HasPlayedEndSound))
         {
-            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/levelup.wav"), new SFX.PlaySoundDesc() {Volume=0.55f});
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/levelup.wav"), new SFX.PlaySoundDesc() { Volume = 0.55f });
+        }
+
+        if (Player.IsLocal && PromoNPC.Instance.BoardMeetingActive)
+        {
+            var candidate1 = PromoNPC.Instance.Candidate1.Value?.GetComponent<OfficePlayer>();
+            var candidate2 = PromoNPC.Instance.Candidate2.Value?.GetComponent<OfficePlayer>();
+
+            if (candidate1?.Alive() == true && candidate2?.Alive() == true)
+            {
+                // Camera control sequence
+                if (CameraPhase == 0 && DurationRemaining > 15f)
+                {
+                    // Zoom to candidate 1
+                    BoardCameraControl.Position = candidate1.Entity.Position + new Vector2(0, 0.5f);
+                    BoardCameraControl.Zoom = AOMath.Lerp(BoardCameraControl.Zoom, 1.5f, 0.2f * Time.DeltaTime);
+
+                    if (DurationRemaining <= 16f)
+                    {
+                        BoardCameraControl.Zoom = 0.8f;
+                        CameraPhase = 1;
+                    }
+                }
+                else if (CameraPhase == 1 && DurationRemaining > 14f)
+                {
+                    // Zoom to candidate 2
+                    BoardCameraControl.Position = candidate2.Entity.Position + new Vector2(0, 0.5f);
+                    BoardCameraControl.Zoom = AOMath.Lerp(BoardCameraControl.Zoom, 1.5f, 0.2f * Time.DeltaTime);
+
+                    if (DurationRemaining <= 15f)
+                    {
+                        CameraPhase = 2;
+                    }
+                }
+                else
+                {
+                    // Back out to overview position
+                    BoardCameraControl.Position = new Vector2(9.575f, -50.249f);
+                    BoardCameraControl.Zoom = AOMath.Lerp(BoardCameraControl.Zoom, 1.8f, 0.2f * Time.DeltaTime);
+                }
+
+                if (DurationRemaining <= 15f)
+                {
+                    var rect = UI.ScreenRect;
+                    LogButton.DrawVotingUI(rect, candidate1.Name, candidate2.Name, () =>
+                    {
+                        PromoNPC.Instance.CallServer_CountVote(1);
+                    }, () =>
+                    {
+                        PromoNPC.Instance.CallServer_CountVote(2);
+                    });
+                }
+            }
         }
     }
 }
@@ -84,7 +118,7 @@ public class OverseerEffect : MyEffect, INetworkedComponent
 
     public bool DoneAnim = false;
     public ulong sfxHandle;
-    
+
     public void OnKillerAnimationEnd(string animationName)
     {
         if (animationName == "teleport_appear")
@@ -105,12 +139,12 @@ public class OverseerEffect : MyEffect, INetworkedComponent
     {
         if (!isDropIn)
         {
-            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume=0.6f, Positional = true, Position = Player.Entity.Position});
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume = 0.6f, Positional = true, Position = Player.Entity.Position });
 
 
             Player.AddFreezeReason("transforming");
             Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
-            Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd += OnKillerAnimationEnd;
+            Player.KillerSpineAnimator.OnAnimationEnd += OnKillerAnimationEnd;
         }
         else
         {
@@ -125,13 +159,13 @@ public class OverseerEffect : MyEffect, INetworkedComponent
         }
         Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(6, 6);
         Player.KillerSpineAnimator.LocalEnabled = true;
-        Player.KillerSpineAnimator.SpineInstance.OnEvent += OnKillerAnimationEvent;
+        Player.KillerSpineAnimator.OnEvent += OnKillerAnimationEvent;
     }
 
     public override void OnEffectEnd(bool interrupt)
     {
         SFX.Stop(sfxHandle);
-        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_off.wav"), new() { Volume=0.5f, Positional = true, Position = Player.Entity.Position});
+        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_off.wav"), new() { Volume = 0.5f, Positional = true, Position = Player.Entity.Position });
         Player.KillerSpineAnimator.LocalEnabled = false;
         Player.RemoveInvisibilityReason(nameof(OverseerEffect));
         Player.RemoveFreezeReason("transforming");
@@ -140,8 +174,8 @@ public class OverseerEffect : MyEffect, INetworkedComponent
             Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_back_end");
             Player.AddEffect<WaitForAnimEffect>();
         }
-        Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd -= OnKillerAnimationEnd;
-        Player.KillerSpineAnimator.SpineInstance.OnEvent -= OnKillerAnimationEvent;
+        Player.KillerSpineAnimator.OnAnimationEnd -= OnKillerAnimationEnd;
+        Player.KillerSpineAnimator.OnEvent -= OnKillerAnimationEvent;
     }
 
     public override void OnEffectUpdate()
@@ -157,7 +191,7 @@ public class KillerEffect : MyEffect, INetworkedComponent
 
     public bool DoneAnim = false;
     public ulong sfxHandle;
-    
+
     public void OnKillerAnimationEnd(string animationName)
     {
         if (animationName == "teleport_appear")
@@ -178,11 +212,11 @@ public class KillerEffect : MyEffect, INetworkedComponent
     {
         if (!isDropIn)
         {
-            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume=0.6f, Positional = true, Position = Player.Entity.Position});
+            SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume = 0.6f, Positional = true, Position = Player.Entity.Position });
 
             Player.AddFreezeReason("transforming");
             Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
-            Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd += OnKillerAnimationEnd;
+            Player.KillerSpineAnimator.OnAnimationEnd += OnKillerAnimationEnd;
         }
         else
         {
@@ -194,16 +228,16 @@ public class KillerEffect : MyEffect, INetworkedComponent
         Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(4, 4);
         if (!Player.IsLocal)
         {
-            sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc {Volume=0.3f, Position = Player.Entity.Position, Positional=true} );
+            sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/zombie-hum.wav"), new SFX.PlaySoundDesc { Volume = 0.3f, Position = Player.Entity.Position, Positional = true });
         }
         Player.KillerSpineAnimator.LocalEnabled = true;
-        Player.KillerSpineAnimator.SpineInstance.OnEvent += OnKillerAnimationEvent;
+        Player.KillerSpineAnimator.OnEvent += OnKillerAnimationEvent;
     }
 
     public override void OnEffectEnd(bool interrupt)
     {
         SFX.Stop(sfxHandle);
-        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_off.wav"), new() { Volume=0.75f, Positional = true, Position = Player.Entity.Position});
+        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_off.wav"), new() { Volume = 0.75f, Positional = true, Position = Player.Entity.Position });
         Player.KillerSpineAnimator.LocalEnabled = false;
         Player.RemoveInvisibilityReason(nameof(KillerEffect));
         Player.RemoveFreezeReason("transforming");
@@ -212,8 +246,8 @@ public class KillerEffect : MyEffect, INetworkedComponent
             Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_back_end");
             Player.AddEffect<WaitForAnimEffect>();
         }
-        Player.KillerSpineAnimator.SpineInstance.OnAnimationEnd -= OnKillerAnimationEnd;
-        Player.KillerSpineAnimator.SpineInstance.OnEvent -= OnKillerAnimationEvent;
+        Player.KillerSpineAnimator.OnAnimationEnd -= OnKillerAnimationEnd;
+        Player.KillerSpineAnimator.OnEvent -= OnKillerAnimationEvent;
     }
 
     public override void OnEffectUpdate()
@@ -228,7 +262,7 @@ public class TransformFromKillerEffect : MyEffect
 
     public override void OnEffectStart(bool isDropIn)
     {
-        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() {Positional = true, Position = Player.Entity.Position});
+        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Positional = true, Position = Player.Entity.Position });
         Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_back_start");
         if (isDropIn)
         {
@@ -247,7 +281,7 @@ public class TransformFromKillerEffect : MyEffect
 
     public override void OnEffectUpdate()
     {
-        
+
     }
 }
 
@@ -273,7 +307,7 @@ public class FinishTransformFromKillerEffect : MyEffect
 
     public override void OnEffectUpdate()
     {
-        
+
     }
 }
 
@@ -331,7 +365,7 @@ public class KillEffect : MyEffect
 
     public override void OnEffectStart(bool isDropIn)
     {
-        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/disguise_activate.wav"), new() {Positional = true, Position = Player.Entity.Position});
+        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/disguise_activate.wav"), new() { Positional = true, Position = Player.Entity.Position });
 
         Player.SpineAnimator.SpineInstance.StateMachine.SetTrigger("teleport_away");
         JumpSpineInstance = SpineInstance.Make();
@@ -357,7 +391,7 @@ public class KillEffect : MyEffect
         if (Player.IsLocal)
         {
             UI.Image(UI.ScreenRect, UI.WhiteSprite, Vector4.Black);
-            UI.DrawSkeleton(UI.SafeRect.CenterRect(), JumpSpineInstance, Vector2.One*100, 0);
+            UI.DrawSkeleton(UI.SafeRect.CenterRect(), JumpSpineInstance, Vector2.One * 100, 0);
         }
     }
 }
