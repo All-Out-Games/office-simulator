@@ -31,221 +31,216 @@ public partial class GlobalLevelLeaderboard : Component
 
     public override void Update()
     {
-        if (!Network.IsServer) return;
-        // Update our cached entries
-        // var topEntries = Leaderboards.GetTop(LeaderboardId, 50);
-        // Log.Info($"Top entries: {topEntries.Length}");
-        // foreach (var entry in topEntries)
-        // {
-        //     Log.Info($"Entry: {entry.Username} - {entry.Score}");
-        // }
+        if (Network.IsServer) return;
 
-        // if (topEntries != null)
-        // {
-        //     Entries.Clear();
-        //     Entries.AddRange(topEntries);
-        // }
+        var topEntries = Leaderboards.GetTop(LeaderboardId, 50);
 
-        // MyEntry = Leaderboards.GetLocalPlayerEntry(LeaderboardId);
+        if (topEntries != null)
+        {
+            Entries.Clear();
+            Entries.AddRange(topEntries);
+        }
 
-        // using var _0 = UI.PUSH_ID($"LeaderboardId_{Entity.Id}");
-        // var cameraRect = Camera.GetCurrentCameraWorldRect();
-        // var leaderboardZ = AOMath.TransformPoint(LeaderboardSpriteRenderer.Entity.CalculateWorldMatrix(), new Vector2(0, LeaderboardSpriteRenderer.DepthOffset)).Y;
+        MyEntry = Leaderboards.GetLocalPlayerEntry(LeaderboardId);
 
-        // using var _1 = UI.PUSH_CONTEXT(UI.Context.WORLD);
-        // using var _3 = IM.PUSH_Z(leaderboardZ - 0.001f);
-        // using var _4 = UI.PUSH_SCALE_FACTOR(1f);
-        // using var _5 = UI.PUSH_COLOR_MULTIPLIER(LeaderboardSpriteRenderer.Tint);
+        using var _0 = UI.PUSH_ID($"LeaderboardId_{Entity.Id}");
+        var cameraRect = Camera.GetCurrentCameraWorldRect();
+        var leaderboardZ = AOMath.TransformPoint(LeaderboardSpriteRenderer.Entity.CalculateWorldMatrix(), new Vector2(0, LeaderboardSpriteRenderer.DepthOffset)).Y;
 
-        // var viewportRect = new Rect(Entity.Position).Grow(0.5f, 1.6f, 1.62f, 1.6f);
+        using var _1 = UI.PUSH_CONTEXT(UI.Context.WORLD);
+        using var _3 = IM.PUSH_Z(leaderboardZ - 0.001f);
+        using var _4 = UI.PUSH_SCALE_FACTOR(1f);
+        using var _5 = UI.PUSH_COLOR_MULTIPLIER(LeaderboardSpriteRenderer.Tint);
 
-        // // Draw my score entry if we have it
-        // var myRect = viewportRect.CutBottom(0.3f);
-        // if (MyEntry.HasValue)
-        // {
-        //     UI.Image(myRect, LeaderboardBgMe, Vector4.White);
-        //     var textSize = 0.15f;
-        //     var rankTextSize = textSize * 1.5f;
-        //     var rankRect = myRect.LeftRect().Offset(0.2f, 0);
-        //     Vector4 rankColor = new Vector4(41.0f / 255.0f, 35.0f / 255.0f, 39.0f / 255.0f, 1.0f);
-        //     var finalRankRect = UI.Text(rankRect, $"{MyEntry.Value.Placement + 1}", new UI.TextSettings()
-        //     {
-        //         Font = UI.Fonts.Asap,
-        //         Color = rankColor,
-        //         Size = rankTextSize,
-        //         HorizontalAlignment = UI.HorizontalAlignment.Left,
-        //         VerticalAlignment = UI.VerticalAlignment.Center
-        //     });
+        var viewportRect = new Rect(Entity.Position).Grow(0.5f, 1.6f, 1.62f, 1.6f);
 
-        //     var rankSuffixRect = finalRankRect.RightRect().Offset(0, -0.02f);
-        //     var suffix = "th";
-        //     if (MyEntry.Value.Placement == 0) suffix = "st";
-        //     if (MyEntry.Value.Placement == 1) suffix = "nd";
-        //     if (MyEntry.Value.Placement == 2) suffix = "rd";
+        // Draw my score entry if we have it
+        var myRect = viewportRect.CutBottom(0.3f);
+        if (MyEntry.HasValue)
+        {
+            UI.Image(myRect, LeaderboardBgMe, Vector4.White);
+            var textSize = 0.15f;
+            var rankTextSize = textSize * 1.5f;
+            var rankRect = myRect.LeftRect().Offset(0.2f, 0);
+            Vector4 rankColor = new Vector4(41.0f / 255.0f, 35.0f / 255.0f, 39.0f / 255.0f, 1.0f);
+            var finalRankRect = UI.Text(rankRect, $"{MyEntry.Value.Placement + 1}", new UI.TextSettings()
+            {
+                Font = UI.Fonts.Asap,
+                Color = rankColor,
+                Size = rankTextSize,
+                HorizontalAlignment = UI.HorizontalAlignment.Left,
+                VerticalAlignment = UI.VerticalAlignment.Center
+            });
 
-        //     if (cameraRect.Overlaps(myRect))
-        //     {
-        //         UI.Text(rankSuffixRect, suffix, new UI.TextSettings()
-        //         {
-        //             Font = UI.Fonts.Asap,
-        //             Color = rankColor,
-        //             Size = rankTextSize * 0.5f,
-        //             HorizontalAlignment = UI.HorizontalAlignment.Left,
-        //             VerticalAlignment = UI.VerticalAlignment.Top
-        //         });
+            var rankSuffixRect = finalRankRect.RightRect().Offset(0, -0.02f);
+            var suffix = "th";
+            if (MyEntry.Value.Placement == 0) suffix = "st";
+            if (MyEntry.Value.Placement == 1) suffix = "nd";
+            if (MyEntry.Value.Placement == 2) suffix = "rd";
 
-        //         var nameRect = myRect.LeftRect().Offset(1, 0);
-        //         UI.Text(nameRect, MyEntry.Value.Username ?? "Me", new UI.TextSettings()
-        //         {
-        //             Font = UI.Fonts.Asap,
-        //             Color = Vector4.White,
-        //             Size = textSize,
-        //             HorizontalAlignment = UI.HorizontalAlignment.Left,
-        //             VerticalAlignment = UI.VerticalAlignment.Center,
-        //             Outline = true,
-        //             OutlineThickness = 3,
-        //         });
+            if (cameraRect.Overlaps(myRect))
+            {
+                UI.Text(rankSuffixRect, suffix, new UI.TextSettings()
+                {
+                    Font = UI.Fonts.Asap,
+                    Color = rankColor,
+                    Size = rankTextSize * 0.5f,
+                    HorizontalAlignment = UI.HorizontalAlignment.Left,
+                    VerticalAlignment = UI.VerticalAlignment.Top
+                });
 
-        //         var scoreRect = myRect.RightRect().Offset(-0.175f, 0);
-        //         UI.Text(scoreRect, Util.FormatDouble(MyEntry.Value.Score), new UI.TextSettings()
-        //         {
-        //             Font = UI.Fonts.Asap,
-        //             Color = Vector4.White,
-        //             Size = textSize,
-        //             HorizontalAlignment = UI.HorizontalAlignment.Right,
-        //             VerticalAlignment = UI.VerticalAlignment.Center,
-        //             Outline = true,
-        //             OutlineThickness = 3,
-        //         });
-        //     }
-        // }
+                var nameRect = myRect.LeftRect().Offset(1, 0);
+                UI.Text(nameRect, MyEntry.Value.Username ?? "Me", new UI.TextSettings()
+                {
+                    Font = UI.Fonts.Asap,
+                    Color = Vector4.White,
+                    Size = textSize,
+                    HorizontalAlignment = UI.HorizontalAlignment.Left,
+                    VerticalAlignment = UI.VerticalAlignment.Center,
+                    Outline = true,
+                    OutlineThickness = 3,
+                });
 
-        // var scrollView = UI.PushScrollView("world_leaderboard", viewportRect, new UI.ScrollViewSettings() { Vertical = true, Horizontal = false, ClipPadding = new Vector4(0, 0.1f, 0, 0) });
-        // var contentCutRect = scrollView.contentRect.TopRect();
+                var scoreRect = myRect.RightRect().Offset(-0.175f, 0);
+                UI.Text(scoreRect, Util.FormatDouble(MyEntry.Value.Score), new UI.TextSettings()
+                {
+                    Font = UI.Fonts.Asap,
+                    Color = Vector4.White,
+                    Size = textSize,
+                    HorizontalAlignment = UI.HorizontalAlignment.Right,
+                    VerticalAlignment = UI.VerticalAlignment.Center,
+                    Outline = true,
+                    OutlineThickness = 3,
+                });
+            }
+        }
 
-        // // Draw top 50 entries
-        // for (int i = 0; i < 50; i++)
-        // {
-        //     string displayName = "TBD";
-        //     double score = 0;
+        var scrollView = UI.PushScrollView("world_leaderboard", viewportRect, new UI.ScrollViewSettings() { Vertical = true, Horizontal = false, ClipPadding = new Vector4(0, 0.1f, 0, 0) });
+        var contentCutRect = scrollView.contentRect.TopRect();
 
-        //     if (i < Entries.Count)
-        //     {
-        //         displayName = string.IsNullOrEmpty(Entries[i].Username) ? "Unknown" : Entries[i].Username;
-        //         score = Entries[i].Score;
-        //     }
+        // Draw top 50 entries
+        for (int i = 0; i < 50; i++)
+        {
+            string displayName = "TBD";
+            double score = 0;
 
-        //     var h = 0.23f;
-        //     if (i == 0) h = 0.55f;
-        //     if (i == 1) h = 0.375f;
-        //     if (i == 2) h = 0.375f;
+            if (i < Entries.Count)
+            {
+                displayName = string.IsNullOrEmpty(Entries[i].Username) ? "Unknown" : Entries[i].Username;
+                score = Entries[i].Score;
+            }
 
-        //     var tex = LeaderboardBgOther;
-        //     if (i == 0) tex = LeaderboardBgFirst;
-        //     if (i == 1) tex = LeaderboardBgSecond;
-        //     if (i == 2) tex = LeaderboardBgThird;
+            var h = 0.23f;
+            if (i == 0) h = 0.55f;
+            if (i == 1) h = 0.375f;
+            if (i == 2) h = 0.375f;
 
-        //     var entryRect = contentCutRect.CutTop(h);
-        //     if (i == 0) entryRect = entryRect.GrowRight(0.075f);
+            var tex = LeaderboardBgOther;
+            if (i == 0) tex = LeaderboardBgFirst;
+            if (i == 1) tex = LeaderboardBgSecond;
+            if (i == 2) tex = LeaderboardBgThird;
 
-        //     if (entryRect.Overlaps(viewportRect) && cameraRect.Overlaps(entryRect))
-        //     {
-        //         UI.Image(entryRect, tex, Vector4.White);
+            var entryRect = contentCutRect.CutTop(h);
+            if (i == 0) entryRect = entryRect.GrowRight(0.075f);
 
-        //         using var _6 = UI.PUSH_LAYER_RELATIVE(1);
+            if (entryRect.Overlaps(viewportRect) && cameraRect.Overlaps(entryRect))
+            {
+                UI.Image(entryRect, tex, Vector4.White);
 
-        //         var textSize = 0.15f;
-        //         if (i < 3) textSize = 0.215f;
+                using var _6 = UI.PUSH_LAYER_RELATIVE(1);
 
-        //         var rankTextSize = textSize * 1.5f;
-        //         var rankRect = entryRect.LeftRect().Offset(0.2f, 0);
-        //         if (i == 0) rankRect = rankRect.Offset(0, -0.03f);
-        //         Vector4 rankColor = new Vector4(41.0f / 255.0f, 35.0f / 255.0f, 39.0f / 255.0f, 1.0f);
-        //         if (i == 0) rankColor = new Vector4(184.0f / 255.0f, 105.0f / 255.0f, 0.0f / 255.0f, 1.0f);
-        //         if (i == 1) rankColor = new Vector4(63.0f / 255.0f, 67.0f / 255.0f, 79.0f / 255.0f, 1.0f);
-        //         if (i == 2) rankColor = new Vector4(126.0f / 255.0f, 37.0f / 255.0f, 16.0f / 255.0f, 1.0f);
+                var textSize = 0.15f;
+                if (i < 3) textSize = 0.215f;
 
-        //         var rankText = $"{i + 1}";
-        //         if (i < 0) rankText = "TBD";
+                var rankTextSize = textSize * 1.5f;
+                var rankRect = entryRect.LeftRect().Offset(0.2f, 0);
+                if (i == 0) rankRect = rankRect.Offset(0, -0.03f);
+                Vector4 rankColor = new Vector4(41.0f / 255.0f, 35.0f / 255.0f, 39.0f / 255.0f, 1.0f);
+                if (i == 0) rankColor = new Vector4(184.0f / 255.0f, 105.0f / 255.0f, 0.0f / 255.0f, 1.0f);
+                if (i == 1) rankColor = new Vector4(63.0f / 255.0f, 67.0f / 255.0f, 79.0f / 255.0f, 1.0f);
+                if (i == 2) rankColor = new Vector4(126.0f / 255.0f, 37.0f / 255.0f, 16.0f / 255.0f, 1.0f);
 
-        //         var finalRankRect = UI.Text(rankRect, rankText, new UI.TextSettings()
-        //         {
-        //             Font = UI.Fonts.Asap,
-        //             Color = rankColor,
-        //             Size = rankTextSize,
-        //             HorizontalAlignment = UI.HorizontalAlignment.Left,
-        //             VerticalAlignment = UI.VerticalAlignment.Center,
-        //         });
+                var rankText = $"{i + 1}";
+                if (i < 0) rankText = "TBD";
 
-        //         var rankSuffixRect = finalRankRect.RightRect().Offset(0, -0.02f);
-        //         var suffix = "th";
-        //         if (i % 10 == 0 && i != 10) suffix = "st";
-        //         if (i % 10 == 1 && i != 11) suffix = "nd";
-        //         if (i % 10 == 2 && i != 12) suffix = "rd";
-        //         if (i < 0) suffix = "";
+                var finalRankRect = UI.Text(rankRect, rankText, new UI.TextSettings()
+                {
+                    Font = UI.Fonts.Asap,
+                    Color = rankColor,
+                    Size = rankTextSize,
+                    HorizontalAlignment = UI.HorizontalAlignment.Left,
+                    VerticalAlignment = UI.VerticalAlignment.Center,
+                });
 
-        //         UI.Text(rankSuffixRect, suffix, new UI.TextSettings()
-        //         {
-        //             Font = UI.Fonts.Asap,
-        //             Color = rankColor,
-        //             Size = rankTextSize * 0.5f,
-        //             HorizontalAlignment = UI.HorizontalAlignment.Left,
-        //             VerticalAlignment = UI.VerticalAlignment.Top
-        //         });
+                var rankSuffixRect = finalRankRect.RightRect().Offset(0, -0.02f);
+                var suffix = "th";
+                if (i % 10 == 0 && i != 10) suffix = "st";
+                if (i % 10 == 1 && i != 11) suffix = "nd";
+                if (i % 10 == 2 && i != 12) suffix = "rd";
+                if (i < 0) suffix = "";
 
-        //         var nameRect = entryRect.LeftRect().Offset(1, 0);
-        //         if (i == 0) nameRect = nameRect.Offset(0, -0.03f);
-        //         UI.Text(nameRect, displayName, new UI.TextSettings()
-        //         {
-        //             Font = UI.Fonts.Asap,
-        //             Color = Vector4.White,
-        //             Size = textSize,
-        //             HorizontalAlignment = UI.HorizontalAlignment.Left,
-        //             VerticalAlignment = UI.VerticalAlignment.Center,
-        //             Outline = true,
-        //             OutlineThickness = 3,
-        //         });
+                UI.Text(rankSuffixRect, suffix, new UI.TextSettings()
+                {
+                    Font = UI.Fonts.Asap,
+                    Color = rankColor,
+                    Size = rankTextSize * 0.5f,
+                    HorizontalAlignment = UI.HorizontalAlignment.Left,
+                    VerticalAlignment = UI.VerticalAlignment.Top
+                });
 
-        //         var scoreRect = entryRect.RightRect().Offset(-0.175f, 0);
-        //         if (i == 0) scoreRect = scoreRect.Offset(-0.075f, -0.03f);
-        //         UI.Text(scoreRect, Util.FormatDouble(score), new UI.TextSettings()
-        //         {
-        //             Font = UI.Fonts.Asap,
-        //             Color = Vector4.White,
-        //             Size = textSize,
-        //             HorizontalAlignment = UI.HorizontalAlignment.Right,
-        //             VerticalAlignment = UI.VerticalAlignment.Center,
-        //             Outline = true,
-        //             OutlineThickness = 3,
-        //         });
-        //     }
-        //     else
-        //     {
-        //         UI.ExpandCurrentScrollView(entryRect);
-        //     }
+                var nameRect = entryRect.LeftRect().Offset(1, 0);
+                if (i == 0) nameRect = nameRect.Offset(0, -0.03f);
+                UI.Text(nameRect, displayName, new UI.TextSettings()
+                {
+                    Font = UI.Fonts.Asap,
+                    Color = Vector4.White,
+                    Size = textSize,
+                    HorizontalAlignment = UI.HorizontalAlignment.Left,
+                    VerticalAlignment = UI.VerticalAlignment.Center,
+                    Outline = true,
+                    OutlineThickness = 3,
+                });
 
-        //     contentCutRect.CutTop(0.05f);
-        // }
-        // UI.PopScrollView();
+                var scoreRect = entryRect.RightRect().Offset(-0.175f, 0);
+                if (i == 0) scoreRect = scoreRect.Offset(-0.075f, -0.03f);
+                UI.Text(scoreRect, Util.FormatDouble(score), new UI.TextSettings()
+                {
+                    Font = UI.Fonts.Asap,
+                    Color = Vector4.White,
+                    Size = textSize,
+                    HorizontalAlignment = UI.HorizontalAlignment.Right,
+                    VerticalAlignment = UI.VerticalAlignment.Center,
+                    Outline = true,
+                    OutlineThickness = 3,
+                });
+            }
+            else
+            {
+                UI.ExpandCurrentScrollView(entryRect);
+            }
 
-        // // Draw title if we have one
-        // if (OptionalTitle.Has())
-        // {
-        //     using var _7 = UI.PUSH_CONTEXT(UI.Context.WORLD);
+            contentCutRect.CutTop(0.05f);
+        }
+        UI.PopScrollView();
 
-        //     var pos = Entity.Position + new Vector2(0, -2f);
-        //     UI.Text(new Rect(pos, pos), OptionalTitle, new UI.TextSettings()
-        //     {
-        //         Font = UI.Fonts.Barlow,
-        //         Size = 0.5f,
-        //         Color = Vector4.White,
-        //         HorizontalAlignment = UI.HorizontalAlignment.Center,
-        //         VerticalAlignment = UI.VerticalAlignment.Center,
-        //         Outline = true,
-        //         OutlineThickness = 3,
-        //         WordWrap = false,
-        //     });
-        // }
+        // Draw title if we have one
+        if (OptionalTitle.Has())
+        {
+            using var _7 = UI.PUSH_CONTEXT(UI.Context.WORLD);
+
+            var pos = Entity.Position + new Vector2(0, -2f);
+            UI.Text(new Rect(pos, pos), OptionalTitle, new UI.TextSettings()
+            {
+                Font = UI.Fonts.Barlow,
+                Size = 0.5f,
+                Color = Vector4.White,
+                HorizontalAlignment = UI.HorizontalAlignment.Center,
+                VerticalAlignment = UI.VerticalAlignment.Center,
+                Outline = true,
+                OutlineThickness = 3,
+                WordWrap = false,
+            });
+        }
     }
 
     [ClientRpc]
