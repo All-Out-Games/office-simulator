@@ -1,0 +1,30 @@
+---
+description: If you want to synchronize state between clients or between clients and the server
+globs: 
+---
+
+# SyncVars
+
+SyncVars wrap a primative and automatically keep it in sync for all clients and the server
+For example, to store "Health" on a Player, you can add a SyncVar as a field of your player class:
+
+public partial class BattlePlayer : Player
+{
+  public SyncVar<int> Health = new(100);
+}
+The Health variable can be used normally (e.g. if (Health <= 0))
+To respond to a SyncVar changing you can use .OnSync(old, new)
+
+
+When declaring SyncVars make sure to call the constructor. 
+
+
+SyncVars only support the following types:
+- int
+- float
+- bool
+- string
+- Vector2
+- Vector3
+- Vector4
+- Entity

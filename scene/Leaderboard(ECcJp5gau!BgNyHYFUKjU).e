@@ -5,8 +5,8 @@
   "name": "Leaderboard",
   "local_enabled": true,
   "local_position": {
-    "X": -31.4794998168945312,
-    "Y": 4.5716977119445801
+    "X": -66.9373931884765625,
+    "Y": -8.3269653320312500
   },
   "local_rotation": 0,
   "local_scale": {

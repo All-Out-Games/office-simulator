@@ -1,63 +1,41 @@
-You will be developing a game in a CUSTOM 2D ENGINE similar to Unity but that DOES NOT HAVE ALL UNITY APIs.
+You will be developing a game in a custom 2D engine that DOES NOT HAVE ALL UNITY APIs.
 
-All files must start with using AO; *Do not try to import anything except from the C# System namespace*
+- Start files with `using AO;` *Do not try to import anything except from the C# System namespace*
+- You do not need to write any movement or basic networking code. These are handled for you
+- To create an entity use Entity.Create(). If you want it to be visible to others you must Network.Spawn() it. This must be done on the server only
+- To get components in the scene (e.g all the players) use foreach (var player in Scene.Components<MyPlayer>())
+- If you need to get a specific entity use Entity.FindByName()
+- For timers use Time.TimeSinceStartup and compare. DO NOT use coroutines or any other methods.  
+- Prefer using standard library math functions. If a math function you want doesn't exist, make it using the standard library
+- File names should use PascalCase
+- Do not try to use any Unity APIs, including inheriting anything other than Component
+- Because it's 2D, use Vector2 instead of Vector3
+- We have Awake(), we do not have Start()
+- There is no HasComponent, only GetComponent and AddComponent
+- To check whether an entity exists use .Alive() instead of checking if it's null
+- In Player classes add IsLocal checks if you only want something to happen on the local client (e.g. creating a CameraControl)
 
+## Assets
+- To see available assets list files in the /res directory
+- To reference an asset use Assets.GetAsset<TYPE>("path"). Common types are Texture, AudioAsset and SpineSkeletonAsset. Do not prefix with /res
 
-You do not need to write any movement or basic networking code. These are handled for you. 
-Prefer `public` over `private`.
-To create an entity use Entity.Create(). If you want it to be visible to others you must Network.Spawn(entity) it. This must be done on the server only. 
-If you need to get many components in the scene (e.g all the players) use foreach (var player in Scene.Components<MyPlayer>())
-If you need to get a specific entity name use Entity.FindByName()
-To see available assets list files in the /res directory. 
-To reference an asset use Assets.GetAsset<TYPE>("path"). Some common types are Texture, AudioAsset and SpineSkeletonAsset. Do not prefix with /res
-For timers use Time.TimeSinceStartup and compare. DO NOT use coroutines or any other methods.  
-Prefer using standard library math functions. If a math function you want doesn't exist, make it using the standard library. 
-File names should use PascalCase
-Do not try to use any Unity APIs, including any extension other than Component
-Because it's 2D, use Vector2 instead of Vector3
-We have Awake(), we do not have Start()
-There is no HasComponent, only GetComponent and AddComponent. 
-If you need to check whether an entity exists use .Alive() instead of checking if it's null
+## Networking
+- To check if code is running on the client or server use the Network.IsClient/IsServer booleans
+- Only use SyncVars when you need to sync state between clients and the server
+- To change the value of a SyncVar use .Set() which can only be called on the server
 
-To play a sound:
-SFX.Play(Assets.GetAsset<AudioAsset>("sfx/INSERT PATH"), new SFX.PlaySoundDesc() { Volume = 0.7f, Position = Entity.Position, RangeMultiplier = 2f, Loop = false });
-
-SyncVars wrap a primative and automatically keep it in sync for all clients and the server
-For example, to store "Health" on a Player, you can add a SyncVar as a field of your player class:
-
-public partial class BattlePlayer : Player
-{
-  public SyncVar<int> Health = new(100);
-}
-The Health variable can be used normally (e.g. if (Health <= 0))
-To respond to a SyncVar changing you can use .OnSync(old, new)
-
-To check if code is running on the client or server use the Network.IsClient or Network.IsServer booleans. 
-
-To change the value of a SyncVar use .Set() which can only be called on the server.
-MAKE SURE THAT ANY UI CODE OR SPRITE_RENDERER STUFF IS CALLED ON THE CLIENT
-
-Sprite Renderer's are under the Sprite_Renderer type NOT SpriteRenderer. 
-Sprite_Renderers have a .Tint property. We use Vector4 to represent colors. Do not try to use .Color
-When declaring SyncVars make sure to call the constructor. 
-
-SyncVars currently only support the following types:
-- int
-- float
-- bool
-- string
-- Vector2
-- Vector3
-- Vector4
-- Entity
-
-ClientRpcs are used when you want the server to call a function on the client
-For example if you want to play a "success" sound from a function running on the server you can create a ClientRpc
+ClientRpcs are public functions used when you want the server to call a function on the client
+For example to play a "success" sound from a function running on the server you would create a ClientRpc
 [ClientRpc]
 public void PlaySuccessSound()
 {
 }
 
-Note: [ClientRpc] functions must be called with a prefix CallClient_[FUNCTION NAME] e.g CallClient_PlaySuccessSound
-Note: Classes with RPCs must use the partial keyword
-Note: RPCs must be public functions
+- [ClientRpc] functions must be called with a prefix CallClient_[FUNCTION NAME] e.g CallClient_PlaySuccessSound
+- Classes with RPCs must use the partial keyword
+
+## Sprite Renderers
+- Sprite Renderers are under the Sprite_Renderer type
+- Sprite_Renderers have a .Tint property. We use Vector4 to represent colors. Do not try to use .Color
+- Make sure that any UI code or Sprite_Renderer stuff is done on the client
+

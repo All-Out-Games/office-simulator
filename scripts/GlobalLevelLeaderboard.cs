@@ -31,10 +31,15 @@ public partial class GlobalLevelLeaderboard : Component
 
     public override void Update()
     {
-        // if (Network.IsServer) return;
-
-        // // Update our cached entries
+        if (!Network.IsServer) return;
+        // Update our cached entries
         // var topEntries = Leaderboards.GetTop(LeaderboardId, 50);
+        // Log.Info($"Top entries: {topEntries.Length}");
+        // foreach (var entry in topEntries)
+        // {
+        //     Log.Info($"Entry: {entry.Username} - {entry.Score}");
+        // }
+
         // if (topEntries != null)
         // {
         //     Entries.Clear();

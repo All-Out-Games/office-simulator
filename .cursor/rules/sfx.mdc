@@ -1,0 +1,7 @@
+---
+description: For playing SFX
+globs: 
+---
+# SFX
+To play a sound:
+SFX.Play(Assets.GetAsset<AudioAsset>("INSERT PATH"), new SFX.PlaySoundDesc() { Volume = 0.7f, Position = Entity.Position, RangeMultiplier = 2f, Loop = false });

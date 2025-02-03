@@ -15,7 +15,7 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 165;
+  public float DayLength = 15;
   public float NightLength = 45;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
