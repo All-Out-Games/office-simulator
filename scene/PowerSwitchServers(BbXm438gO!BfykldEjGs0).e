@@ -19,12 +19,15 @@
   "spawn_as_networked_entity": true
 },
 {
-  "cid": 1,
-  "aoid": "401844536980591:1725602510746223500",
+  "cid": 3,
+  "aoid": "526345729413388:1738537822249185200",
   "component_type": "Internal_Component",
-  "internal_component_type": "Sprite_Renderer",
+  "internal_component_type": "Spine_Animator",
   "data": {
-    "texture": "anomalies/power/PowerPlantSwitch.png"
+    "skeleton_data_asset": "SwitchSpine/power_plant_switch.spine",
+    "ordered_skins": [
+
+    ]
   }
 },
 {

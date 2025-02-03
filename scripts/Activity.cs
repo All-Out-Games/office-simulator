@@ -78,6 +78,7 @@ public partial class Activity : Component
 
     interactable.PromptOffset = new Vector2(-0.5f, 0.25f);
     interactable.OnInteract = OnInteract;
+    interactable.Radius = 2.5f;
     interactable.CanUseCallback += MeetsBasicRequirements;
     interactable.Text = GetPromptWithRewardsAndCost();
   }

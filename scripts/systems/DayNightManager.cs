@@ -15,10 +15,11 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 15;
-  public float NightLength = 15;
+  public float DayLength = 165;
+  public float NightLength = 45;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
+  private Sprite_Renderer darknessOverlay;
 
   private SyncVar<int> currentState = new((int)DayState.DAY);
   public DayState CurrentState
@@ -51,6 +52,7 @@ public partial class DayNightManager : Component
   public override void Awake()
   {
     Instance = this;
+    darknessOverlay = References.Instance.DarknessOverlay.GetComponent<Sprite_Renderer>();
   }
 
   public override void Update()
@@ -66,6 +68,30 @@ public partial class DayNightManager : Component
       {
         var clampedAmbiant = Math.Clamp(1 - Darkness, 0f, 0.2f);
         op.CameraControl.AmbientColour = new Vector3(clampedAmbiant, clampedAmbiant, clampedAmbiant);
+
+        // Update darkness overlay alpha
+        if (darknessOverlay != null && darknessOverlay.Alive())
+        {
+          switch (CurrentState)
+          {
+            case DayState.DAY:
+              // During day, lerp from 0 to 0.5 alpha as we get closer to night
+              darknessOverlay.Tint = new Vector4(0, 0, 0, AOMath.Lerp(0f, 0.5f, Darkness));
+              break;
+            case DayState.DUSK:
+              // During dusk, keep alpha at 0.5
+              darknessOverlay.Tint = new Vector4(0, 0, 0, 0.5f);
+              break;
+            case DayState.NIGHT:
+              // During night, keep alpha at 0 since player light handles darkness
+              darknessOverlay.Tint = new Vector4(0, 0, 0, 0f);
+              break;
+            case DayState.DAWN:
+              // During dawn, keep alpha at 0
+              darknessOverlay.Tint = new Vector4(0, 0, 0, 0f);
+              break;
+          }
+        }
       }
 
       UpdateClockUI();
@@ -202,21 +228,11 @@ public partial class DayNightManager : Component
     Darkness.Set(Darkness - Time.DeltaTime / 20f);
     if (Darkness <= 0f)
     {
-      if (Ads.IsInterstitialAdLoaded())
-      {
-        Notifications.Show("And now a message from our sponsor!");
-        Ads.ShowInterstitial();
-      }
-      else
-      {
-        Notifications.Show("NO AD 4 U");
-      }
-
       // Advance to Day
       Darkness.Set(0f);
       CurrentState = DayState.DAY;
+      CallClient_ShowDayAd();
     }
-
   }
 
   [ClientRpc]
@@ -277,5 +293,15 @@ public partial class DayNightManager : Component
     // Assuming these are no-op if the handle is null?
     SFX.Stop(nightSfxHandle1);
     SFX.Stop(nightSfxHandle2);
+  }
+
+  [ClientRpc]
+  public void ShowDayAd()
+  {
+    if (Ads.IsInterstitialAdLoaded())
+    {
+      Notifications.Show("And now a message from our sponsors!");
+      Ads.ShowInterstitial();
+    }
   }
 }

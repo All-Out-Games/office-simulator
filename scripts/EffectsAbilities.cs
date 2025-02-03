@@ -213,7 +213,6 @@ public class KillerEffect : MyEffect, INetworkedComponent
         if (!isDropIn)
         {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() { Volume = 0.6f, Positional = true, Position = Player.Entity.Position });
-
             Player.AddFreezeReason("transforming");
             Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
             Player.KillerSpineAnimator.OnAnimationEnd += OnKillerAnimationEnd;

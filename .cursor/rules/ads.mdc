@@ -1,0 +1,47 @@
+---
+description: For playing ads
+globs: 
+---
+
+# Ad Reference
+
+## Rewarded Ads
+First set up the add handler on the server as a system (you can put this in GameManager if it exists)
+public class AdSystem : System<AdSystem>
+{
+  public override void Awake()
+  {
+    if (Network.IsServer)
+    {
+      Ads.SetRewardHandler(OnAdReward);
+    }
+  }
+
+  private bool OnAdReward(Player _player, string adId)
+  {
+    <!-- Cast to their custom player -->
+    var player = (MyPlayer)_player;
+
+    if (adId == "ANY_STRING")
+    {
+      <!-- Let the developer do what they want -->
+
+      return true;
+    }
+
+
+    return false;
+  }
+}
+
+Then on the client, whenever you want the rewarded ad to be prompted (this will open a dialog)
+Ads.PromptRewardedAd("ANY_STRING", "75XP", "Watch to get 75XP", Assets.GetAsset<Texture>("$AO/new/icons/Video.png"));
+
+## Interstitial Ads
+if (Network.IsClient)
+{
+  if (Ads.IsInterstitialAdLoaded())
+  {
+    Ads.ShowInterstitial();
+  }
+}

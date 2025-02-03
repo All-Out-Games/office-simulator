@@ -1,23 +1,27 @@
 using AO;
 
-public class PowerSwitch : Component
+public partial class PowerSwitch : Component
 {
   private SyncVar<bool> eventActive = new(false);
   public SyncVar<bool> Fixed = new(false);
   private Interactable interactable;
-  private Sprite_Renderer spriteRenderer;
-  private SpriteFlasher spriteFlasher;
+  private Spine_Animator spineAnimator;
   private ulong sfxHandle;
+  private bool playingTurnOn = false;
+  private bool playingSwitchOn = false;
 
   public override void Awake()
   {
-    spriteFlasher = Entity.AddComponent<SpriteFlasher>();
-    spriteFlasher.Flash = false;
-
-    spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
+    spineAnimator = Entity.GetComponent<Spine_Animator>();
+    if (!spineAnimator.Alive())
+    {
+      Log.Warn("PowerSwitch has no spine animator");
+      return;
+    }
     interactable = Entity.AddComponent<Interactable>();
     interactable.Text = "Restore Breaker";
     interactable.CanUseCallback = (Player p) =>
+
     {
       return !Fixed;
     };
@@ -27,23 +31,28 @@ public class PowerSwitch : Component
       Fix(op);
     };
 
+    spineAnimator.OnAnimationEnd += OnAnimationEnd;
     StopEvent();
+  }
+
+  private void OnAnimationEnd(string animName)
+  {
+    if (Network.IsClient && animName == "turn_on")
+    {
+      playingTurnOn = false;
+      spineAnimator.SpineInstance.SetAnimation("switch_off", false);
+    }
   }
 
   public override void Update()
   {
-    if (Fixed)
+    if (Network.IsClient && spineAnimator.Alive())
     {
-      spriteFlasher.Flash = false;
-    }
-    else
-    {
-      spriteFlasher.Flash = true;
-    }
-
-    if (!eventActive)
-    {
-      spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
+      if (eventActive && !Fixed && !playingTurnOn && !playingSwitchOn)
+      {
+        playingSwitchOn = true;
+        spineAnimator.SpineInstance.SetAnimation("switch_on", true);
+      }
     }
   }
 
@@ -53,7 +62,16 @@ public class PowerSwitch : Component
 
     if (!Network.IsServer) return;
     Fixed.Set(true);
+    CallClient_PlayFixedAnimation();
     op?.CallClient_PlaySFX("anomalies/power/breaker-switched.wav");
+  }
+
+  [ClientRpc]
+  public void PlayFixedAnimation()
+  {
+    if (!spineAnimator.Alive()) return;
+    playingTurnOn = true;
+    spineAnimator.SpineInstance.SetAnimation("turn_on", false);
   }
 
   public void StartEvent()
@@ -61,11 +79,14 @@ public class PowerSwitch : Component
     if (Network.IsServer)
     {
       eventActive.Set(true);
+      Fixed.Set(false);
     }
 
-    if (Network.IsServer)
+    if (Network.IsClient && spineAnimator.Alive())
     {
-      Fixed.Set(false);
+      playingTurnOn = false;
+      playingSwitchOn = false;
+      spineAnimator.SpineInstance.SetAnimation("switch_on", true);
     }
 
     sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/power/breaker.wav"), new SFX.PlaySoundDesc() { Volume = 0.6f, Loop = true, Positional = true, Position = Entity.Position });
@@ -78,7 +99,6 @@ public class PowerSwitch : Component
       eventActive.Set(false);
     }
 
-    spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
     Fix(null);
   }
 }

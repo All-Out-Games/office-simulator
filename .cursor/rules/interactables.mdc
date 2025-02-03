@@ -1,0 +1,37 @@
+---
+description: For the Interactable component
+globs: 
+---
+# Example usage for Interactables:
+Interactables run on both the client AND the server
+
+public class GymPass : Component
+{
+  public int Cost = 100;
+  private Interactable interactable;
+
+  public override void Awake()
+  {
+    interactable = Entity.AddComponent<Interactable>();
+    interactable.CanUseCallback += (Player p) => 
+    {
+      var myPlayer = (MyPlayer)p;
+      return !myPlayer.HasGymPass;
+    };
+
+    <!-- Runs on both the client and the server -->
+    interactable.OnInteract = (Player p) => 
+    {
+      if (!Network.IsServer) return;
+
+      <!-- Do action here -->
+    };
+  }
+
+  public override void Update()
+  {
+    if (Network.IsServer) return;
+    <!-- You can set the Text in awake if you want, but if it's going to be dynamic it'll need to be in update. -->
+    interactable.Text = $"Buy a gym pass for ${Cost}";
+  }
+}

@@ -28,6 +28,7 @@
     "ExperienceStatText": "436369706085219:1725065180426720700",
     "RoleStatText": "431433028826719:1725063631517818500",
     "PromoNPC": "288373715534631:1709456416154145500",
-    "ArrowIcon": "PortalPointer.png"
+    "ArrowIcon": "PortalPointer.png",
+    "DarknessOverlay": "522496267873647:1738536614422071100"
   }
 }

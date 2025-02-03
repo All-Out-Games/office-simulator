@@ -5,30 +5,27 @@ public class GameManagerSystem : System<GameManagerSystem>
 {
   public override void Awake()
   {
-    if (Network.IsServer)
-    {
-      Log.Info("Setting up ad reward handler");
-      Ads.SetRewardHandler(OnAdReward);
-    }
-
     if (!Network.IsServer)
     {
       Analytics.EnableAutomaticAnalytics("c603591ec9cbe82c10c9843ff585e36c", "7e8639e1986d6e928f7992844f9026c321d6a4f8");
     }
 
+    if (Network.IsServer)
+    {
+      Ads.SetRewardHandler(OnAdReward);
+    }
   }
 
-  private bool OnAdReward(Player player, string adId)
+  private bool OnAdReward(Player _player, string adId)
   {
-    Log.Info("Ad reward: " + adId);
+    var player = (OfficePlayer)_player;
+
     if (adId == "5n_xp_ad")
     {
-      Log.Info("Ad success give moneeeeeeeeeey!");
-      var op = (OfficePlayer)player;
-      op.Experience.Set(op.Experience.Value + 75);
+      player.Experience.Set(player.Experience + 75);
+      player.CallClient_ShowNotification("You earned 75 XP!");
       return true;
     }
-
 
     return false;
   }

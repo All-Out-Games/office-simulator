@@ -10,6 +10,7 @@ public class References : Component
     [Serialized] public UIText RoleStatText;
     [Serialized] public Entity PromoNPC;
     [Serialized] public Texture ArrowIcon;
+    [Serialized] public Entity DarknessOverlay;
 
 
     public static References _instance;

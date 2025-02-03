@@ -1,0 +1,33 @@
+---
+description: If you want to change the player's camera properties
+globs: 
+---
+# CameraControl Reference
+
+You can create CameraControls with `CameraControl.Create(layer)`, the highest layer camera that exists will be what the player sees.
+
+Control Zoom with .Zoom
+> Good values are between 0.8f and 2f the lower the closer the zoom.
+
+Most games will want a CameraControl on their player to start with
+```cs
+public CameraControl CameraControl;
+
+In your player Awake (with an IsLocal check). 
+CameraControl = CameraControl.Create(0);
+CameraControl.Zoom = 1.45f;
+```
+
+If you create a CameraControl, make sure to make it follow the player by setting its Position in the player's LateUpdate. 
+```cs
+public override void LateUpdate()
+{
+    if (IsLocal)
+    {
+        CameraControl.Position = Vector2.Lerp(CameraControl.Position, Entity.Position + new Vector2(0, 0.5f), 0.5f);
+    }
+}
+```
+
+You can create additional cameras in other components with higher layers to override. 
+Don't forget to destroy them when you're done!

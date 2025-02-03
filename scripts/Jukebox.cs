@@ -14,7 +14,7 @@ public partial class Jukebox : Component
     public override void Awake()
     {
         interactable = AddComponent<Interactable>();
-        interactable.RequiredHoldTime = 0.4f;
+        interactable.RequiredHoldTime = 0.8f;
         interactable.PromptOffset = new Vector2(-0.6f, -0.5f);
         interactable.OnInteract += (Player p) =>
         {

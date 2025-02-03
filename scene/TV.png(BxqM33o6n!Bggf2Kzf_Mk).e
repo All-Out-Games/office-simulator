@@ -5,8 +5,8 @@
   "name": "TV.png",
   "local_enabled": true,
   "local_position": {
-    "X": -62.1668701171875000,
-    "Y": -15.3987932205200195
+    "X": -56.8879203796386719,
+    "Y": 8.2487277984619141
   },
   "local_rotation": 0,
   "local_scale": {
@@ -14,6 +14,7 @@
     "Y": 4
   },
   "previous_sibling": "1138221450957086:1733262340002978600",
+  "next_sibling": "522496267873647:1738536614422071100",
   "spawn_as_networked_entity": true
 },
 {
@@ -32,18 +33,6 @@
   "mono_component_type": "AdPlayer",
   "data": {
 
-  }
-},
-{
-  "cid": 3,
-  "aoid": "499986158830280:1738529551589346800",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Interactable",
-  "data": {
-    "text": "Watch a corporate overlord ad",
-    "prompt_offset": {
-      "Y": 0.7500000000000000
-    }
   }
 },
 {
@@ -74,5 +63,17 @@
         "Y": 0.3583333194255829
       }
     ]
+  }
+},
+{
+  "cid": 3,
+  "aoid": "516069527187759:1738534597925188800",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Interactable",
+  "data": {
+    "text": "Watch Ad (+75 XP)",
+    "prompt_offset": {
+      "Y": 0.6000000238418579
+    }
   }
 }

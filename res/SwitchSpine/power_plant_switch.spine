@@ -1,0 +1,289 @@
+{
+"skeleton": { "hash": "C0Xy1PBXSl4", "spine": "4.0.64", "x": -167.36, "y": -99.13, "width": 337.45, "height": 314.84 },
+"bones": [
+	{ "name": "root" },
+	{ "name": "Switch Base", "parent": "root", "x": -121.56, "y": 143.99 },
+	{ "name": "SwitchCrackles3", "parent": "root", "x": -145.76, "y": 118.72 },
+	{ "name": "SwitchCrackles6", "parent": "root", "x": 55.33, "y": 187.54 },
+	{ "name": "SwitchCrackles4", "parent": "root", "x": 110.17, "y": 106.89 },
+	{ "name": "SwitchCrackles5", "parent": "root", "x": 89.2, "y": -47.42 },
+	{ "name": "SwitchCrackles1", "parent": "root", "x": -77.47, "y": -43.66 }
+],
+"slots": [
+	{ "name": "Switch Base", "bone": "root", "attachment": "Switch Base" },
+	{ "name": "SwitchCrackles1", "bone": "SwitchCrackles1", "attachment": "SwitchCrackles1" },
+	{ "name": "SwitchCrackles4", "bone": "SwitchCrackles4", "attachment": "SwitchCrackles1" },
+	{ "name": "SwitchCrackles2", "bone": "Switch Base", "attachment": "SwitchCrackles2" },
+	{ "name": "SwitchCrackles5", "bone": "SwitchCrackles5", "attachment": "SwitchCrackles2" },
+	{ "name": "SwitchCrackles3", "bone": "SwitchCrackles3", "attachment": "SwitchCrackles3" },
+	{ "name": "SwitchCrackles6", "bone": "SwitchCrackles6", "attachment": "SwitchCrackles3" },
+	{ "name": "SwitchHandle1", "bone": "root", "attachment": "SwitchHandle1" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"Switch Base": {
+				"Switch Base": { "x": -6.81, "y": 63.12, "width": 246, "height": 281 }
+			},
+			"SwitchCrackles1": {
+				"SwitchCrackles1": { "x": -21.94, "y": -16.47, "width": 74, "height": 78 }
+			},
+			"SwitchCrackles2": {
+				"SwitchCrackles2": { "x": -8.25, "y": -0.22, "scaleX": -1, "rotation": -7.86, "width": 66, "height": 71 }
+			},
+			"SwitchCrackles3": {
+				"SwitchCrackles3": { "x": -0.83, "y": -0.21, "width": 41, "height": 60 }
+			},
+			"SwitchCrackles4": {
+				"SwitchCrackles1": { "x": 16.88, "y": 14.9, "rotation": -170.31, "width": 74, "height": 78 }
+			},
+			"SwitchCrackles5": {
+				"SwitchCrackles2": { "x": 8, "y": -1.59, "width": 66, "height": 71 }
+			},
+			"SwitchCrackles6": {
+				"SwitchCrackles3": { "x": -0.51, "y": 1.09, "scaleY": -1, "rotation": -76.15, "width": 41, "height": 60 }
+			},
+			"SwitchHandle1": {
+				"SwitchHandle1": { "y": 115, "width": 78, "height": 98 },
+				"SwitchHandle2": { "y": 66, "width": 75, "height": 40 },
+				"SwitchHandle3": { "y": 7, "width": 78, "height": 97 }
+			}
+		}
+	}
+],
+"animations": {
+	"switch_off": {
+		"slots": {
+			"SwitchCrackles1": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"SwitchCrackles2": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"SwitchCrackles3": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"SwitchCrackles4": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"SwitchCrackles5": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"SwitchCrackles6": {
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"translate": [
+					{ "time": 0.0667 }
+				]
+			}
+		}
+	},
+	"switch_on": {
+		"slots": {
+			"SwitchCrackles1": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.1, "name": "SwitchCrackles1" },
+					{ "time": 0.2, "name": null }
+				]
+			},
+			"SwitchCrackles2": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3333, "name": "SwitchCrackles2" },
+					{ "time": 0.4333, "name": null }
+				]
+			},
+			"SwitchCrackles3": {
+				"attachment": [
+					{ "time": 0.1, "name": null }
+				]
+			},
+			"SwitchCrackles4": {
+				"attachment": [
+					{ "time": 0.1333, "name": null }
+				]
+			},
+			"SwitchCrackles5": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3667, "name": "SwitchCrackles2" },
+					{ "time": 0.4667, "name": null }
+				]
+			},
+			"SwitchCrackles6": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.1667, "name": "SwitchCrackles3" },
+					{ "time": 0.2667, "name": null }
+				]
+			},
+			"SwitchHandle1": {
+				"attachment": [
+					{ "name": "SwitchHandle3" }
+				]
+			}
+		},
+		"bones": {
+			"SwitchCrackles6": {
+				"translate": [
+					{ "time": 0.1667 },
+					{ "time": 0.2667, "x": -0.14, "y": 20.6 }
+				]
+			},
+			"SwitchCrackles5": {
+				"translate": [
+					{ "time": 0.3667 },
+					{ "time": 0.4667, "x": 18.75, "y": -6.23 }
+				]
+			},
+			"SwitchCrackles4": {
+				"translate": [
+					{},
+					{ "time": 0.1333, "x": 17.02, "y": 9.3 }
+				]
+			},
+			"SwitchCrackles3": {
+				"translate": [
+					{ "x": 12.62 },
+					{ "time": 0.1, "x": -6.23, "y": -11.68 }
+				]
+			},
+			"SwitchCrackles1": {
+				"translate": [
+					{ "time": 0.1 },
+					{ "time": 0.2, "x": -24.6, "y": -25.81 }
+				]
+			},
+			"Switch Base": {
+				"translate": [
+					{ "time": 0.3333 },
+					{ "time": 0.4333, "x": -20.01, "y": 14.01 }
+				]
+			}
+		}
+	},
+	"turn_on": {
+		"slots": {
+			"SwitchCrackles1": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3333, "name": "SwitchCrackles1" },
+					{ "time": 0.4333, "name": null },
+					{ "time": 0.6333, "name": "SwitchCrackles1" },
+					{ "time": 0.7333, "name": null }
+				]
+			},
+			"SwitchCrackles2": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.8667, "name": "SwitchCrackles2" },
+					{ "time": 0.9667, "name": null }
+				]
+			},
+			"SwitchCrackles3": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3667, "name": "SwitchCrackles3" },
+					{ "time": 0.4667, "name": null }
+				]
+			},
+			"SwitchCrackles4": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3333, "name": "SwitchCrackles1" },
+					{ "time": 0.4667, "name": null },
+					{ "time": 0.5333, "name": "SwitchCrackles1" },
+					{ "time": 0.6667, "name": null }
+				]
+			},
+			"SwitchCrackles5": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3667, "name": "SwitchCrackles2" },
+					{ "time": 0.4667, "name": null },
+					{ "time": 0.9, "name": "SwitchCrackles2" },
+					{ "time": 1, "name": null }
+				]
+			},
+			"SwitchCrackles6": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.3333, "name": "SwitchCrackles3" },
+					{ "time": 0.4333, "name": null },
+					{ "time": 0.7, "name": "SwitchCrackles3" },
+					{ "time": 0.8, "name": null }
+				]
+			},
+			"SwitchHandle1": {
+				"attachment": [
+					{ "time": 0.0667, "name": "SwitchHandle2" },
+					{ "time": 0.1333, "name": "SwitchHandle3" }
+				]
+			}
+		},
+		"bones": {
+			"SwitchCrackles6": {
+				"translate": [
+					{ "time": 0.3333 },
+					{ "time": 0.4333, "x": -0.14, "y": 20.6 },
+					{ "time": 0.7 },
+					{ "time": 0.8, "x": -0.14, "y": 20.6 }
+				]
+			},
+			"SwitchCrackles5": {
+				"translate": [
+					{ "time": 0.3667 },
+					{ "time": 0.4667, "x": 9.1, "y": -12.91 },
+					{ "time": 0.9 },
+					{ "time": 1, "x": 18.75, "y": -6.23 }
+				]
+			},
+			"SwitchCrackles4": {
+				"translate": [
+					{ "time": 0.3333 },
+					{ "time": 0.4667, "x": 30.39, "y": -10.74 },
+					{ "time": 0.5333 },
+					{ "time": 0.6667, "x": 17.02, "y": 9.3 }
+				]
+			},
+			"SwitchCrackles3": {
+				"translate": [
+					{ "time": 0.3667, "x": 12.62 },
+					{ "time": 0.4667, "x": -6.23, "y": -11.68 }
+				]
+			},
+			"SwitchCrackles1": {
+				"translate": [
+					{ "time": 0.3333 },
+					{ "time": 0.4333, "x": -24.6, "y": -25.81 },
+					{ "time": 0.6333 },
+					{ "time": 0.7333, "x": -24.6, "y": -25.81 }
+				]
+			},
+			"Switch Base": {
+				"translate": [
+					{ "time": 0.8667 },
+					{ "time": 0.9667, "x": -20.01, "y": 14.01 }
+				]
+			}
+		}
+	}
+}
+}

@@ -5,8 +5,8 @@
   "name": "PowerSwitchJanitor",
   "local_enabled": true,
   "local_position": {
-    "X": -39.5971069335937500,
-    "Y": -13.0585870742797852
+    "X": -39.5213890075683594,
+    "Y": -12.6527414321899414
   },
   "local_rotation": 0,
   "local_scale": {
@@ -18,12 +18,15 @@
   "spawn_as_networked_entity": true
 },
 {
-  "cid": 1,
-  "aoid": "398495268856923:1725601459895629800",
+  "cid": 3,
+  "aoid": "525304070398604:1738537495416857500",
   "component_type": "Internal_Component",
-  "internal_component_type": "Sprite_Renderer",
+  "internal_component_type": "Spine_Animator",
   "data": {
-    "texture": "anomalies/power/PowerPlantSwitch.png"
+    "skeleton_data_asset": "SwitchSpine/power_plant_switch.spine",
+    "ordered_skins": [
+
+    ]
   }
 },
 {

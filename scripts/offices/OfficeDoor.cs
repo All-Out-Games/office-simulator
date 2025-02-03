@@ -65,7 +65,7 @@ public class OfficeDoor : TwoWayDoor
       base.OnInteract(player);
     };
   }
-  public UI.TextSettings GetTextSettings(float size, float offset = 0f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
+  public UI.TextSettings GetTextSettings(float size, Vector4 color, float offset = 0f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
   {
     if (font == null)
     {
@@ -75,7 +75,7 @@ public class OfficeDoor : TwoWayDoor
     {
       Font = font,
       Size = size,
-      Color = Vector4.White,
+      Color = color,
       DropShadowColor = new Vector4(0f, 0f, 0.02f, 0.5f),
       DropShadowOffset = new Vector2(0f, -3f),
       HorizontalAlignment = halign,
@@ -136,7 +136,7 @@ public class OfficeDoor : TwoWayDoor
 
     if (Controller.Owner.Value.Alive())
     {
-      var ts = (op.Entity == Controller.Owner.Value) ? GetGreenTextSettings(0.35f) : GetTextSettings(0.35f);
+      var ts = (op.Entity == Controller.Owner.Value) ? GetTextSettings(0.35f, Vector4.LightGreen) : GetTextSettings(0.35f, Vector4.White);
       var overlayText = op.Entity == Controller.Owner.Value ? "Your Office" : Controller.Owner.Value.Name + "'s Office";
       UI.Text(rect, overlayText, ts);
     }

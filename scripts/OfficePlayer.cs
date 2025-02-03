@@ -16,6 +16,12 @@ public partial class OfficePlayer : Player
   public SyncVar<float> LastRequestedOverseerPromoAt = new(0);
   private Entity lightEntity;
 
+  // Animation timing fields
+  private float experienceAnimEndTime;
+  private float cashAnimEndTime;
+  private float roleAnimEndTime;
+  private float ANIM_DURATION = 0.2f;
+
   public bool ShownPromoPrompt = false;
   public CameraControl CameraControl;
   private SyncVar<int> currentRole = new((int)Role.JANITOR);
@@ -128,29 +134,68 @@ public partial class OfficePlayer : Player
       {
         References.Instance.ExperienceStatText.Text = "XP: " + Math.Clamp(newValue, 0, 100) + "/100";
 
+        var settings = References.Instance.ExperienceStatText.Settings;
 
-
-        if (newValue >= 100)
+        // Flash green if increased, red if decreased
+        if (newValue > oldValue)
         {
-          var settings = References.Instance.ExperienceStatText.Settings;
           settings.Color = new Vector4(0, 1, 0, 1);
-
-          References.Instance.ExperienceStatText.Settings = settings;
+          settings.Size = settings.Size * 1.2f; // Scale bump
+        }
+        else if (newValue < oldValue)
+        {
+          settings.Color = new Vector4(1, 0, 0, 1);
+          settings.Size = settings.Size * 1.2f; // Scale bump
         }
         else
         {
-          var settings = References.Instance.ExperienceStatText.Settings;
           settings.Color = new Vector4(1, 1, 1, 1);
-
-          References.Instance.ExperienceStatText.Settings = settings;
         }
-      }
 
+        References.Instance.ExperienceStatText.Settings = settings;
+        experienceAnimEndTime = Time.TimeSinceStartup + ANIM_DURATION;
+      }
     };
 
     Cash.OnSync += (oldValue, newValue) =>
     {
-      if (IsLocal) References.Instance.MoneyStatText.Text = "Cash $" + newValue;
+      if (IsLocal)
+      {
+        References.Instance.MoneyStatText.Text = "Cash $" + newValue;
+
+        var settings = References.Instance.MoneyStatText.Settings;
+
+        // Flash green if increased, red if decreased
+        if (newValue > oldValue)
+        {
+          settings.Color = new Vector4(0, 1, 0, 1);
+          settings.Size = settings.Size * 1.2f; // Scale bump
+        }
+        else if (newValue < oldValue)
+        {
+          settings.Color = new Vector4(1, 0, 0, 1);
+          settings.Size = settings.Size * 1.2f; // Scale bump
+        }
+        else
+        {
+          settings.Color = new Vector4(1, 1, 1, 1);
+        }
+
+        References.Instance.MoneyStatText.Settings = settings;
+        cashAnimEndTime = Time.TimeSinceStartup + ANIM_DURATION;
+      }
+    };
+
+    currentRole.OnSync += (oldValue, newValue) =>
+    {
+      if (IsLocal)
+      {
+        var settings = References.Instance.RoleStatText.Settings;
+        settings.Color = new Vector4(0, 1, 0, 1);
+        settings.Size = settings.Size * 1.2f; // Scale bump
+        References.Instance.RoleStatText.Settings = settings;
+        roleAnimEndTime = Time.TimeSinceStartup + ANIM_DURATION;
+      }
     };
 
     if (IsLocal)
@@ -275,7 +320,7 @@ public partial class OfficePlayer : Player
       var light = lightEntity.AddComponent<SpookyLight>();
       light.Light.Color = new Vector4(1, 1f, 1f, 0);
       light.Light.ShadowCaster = false;
-      light.Light.Radi = new Vector2(0, 50);
+      light.Light.Radi = new Vector2(0, 5000);
     }
   }
 
@@ -294,12 +339,12 @@ public partial class OfficePlayer : Player
     else
     {
       lightEntity.GetComponent<SpookyLight>().Light.Color = new Vector4(1, 1f, 1f, 0);
-      lightEntity.GetComponent<SpookyLight>().Light.Radi = new Vector2(0, 50f);
+      lightEntity.GetComponent<SpookyLight>().Light.Radi = new Vector2(0, 5000f);
       lightEntity.GetComponent<SpookyLight>().Light.ShadowCaster = false;
     }
   }
 
-  public UI.TextSettings GetTextSettings(float size, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
+  public UI.TextSettings GetTextSettings(float size, Vector4 color, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
   {
     if (font == null)
     {
@@ -309,79 +354,7 @@ public partial class OfficePlayer : Player
     {
       Font = font,
       Size = size,
-      Color = Vector4.White,
-      DropShadowColor = new Vector4(0f, 0f, 0.02f, 0.5f),
-      DropShadowOffset = new Vector2(0f, -3f),
-      HorizontalAlignment = halign,
-      VerticalAlignment = UI.VerticalAlignment.Center,
-      WordWrap = false,
-      WordWrapOffset = 0,
-      Outline = true,
-      OutlineThickness = 3,
-      Offset = new Vector2(0, offset),
-    };
-    return ts;
-  }
-
-  public UI.TextSettings GetRedTextSettings(float size, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
-  {
-    if (font == null)
-    {
-      font = UI.Fonts.BarlowBold;
-    }
-    var ts = new UI.TextSettings()
-    {
-      Font = font,
-      Size = size,
-      Color = Vector4.Red,
-      DropShadowColor = new Vector4(0f, 0f, 0.02f, 0.5f),
-      DropShadowOffset = new Vector2(0f, -3f),
-      HorizontalAlignment = halign,
-      VerticalAlignment = UI.VerticalAlignment.Center,
-      WordWrap = false,
-      WordWrapOffset = 0,
-      Outline = true,
-      OutlineThickness = 3,
-      Offset = new Vector2(0, offset),
-    };
-    return ts;
-  }
-
-  public UI.TextSettings GetGreenTextSettings(float size, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
-  {
-    if (font == null)
-    {
-      font = UI.Fonts.BarlowBold;
-    }
-    var ts = new UI.TextSettings()
-    {
-      Font = font,
-      Size = size,
-      Color = Vector4.LightGreen,
-      DropShadowColor = new Vector4(0f, 0f, 0.02f, 0.5f),
-      DropShadowOffset = new Vector2(0f, -3f),
-      HorizontalAlignment = halign,
-      VerticalAlignment = UI.VerticalAlignment.Center,
-      WordWrap = false,
-      WordWrapOffset = 0,
-      Outline = true,
-      OutlineThickness = 3,
-      Offset = new Vector2(0, offset),
-    };
-    return ts;
-  }
-
-  public UI.TextSettings GetPurpleTextSettings(float size, float offset = 1.90f, FontAsset font = null, UI.HorizontalAlignment halign = UI.HorizontalAlignment.Center)
-  {
-    if (font == null)
-    {
-      font = UI.Fonts.BarlowBold;
-    }
-    var ts = new UI.TextSettings()
-    {
-      Font = font,
-      Size = size,
-      Color = new Vector4(0.6f, 0.2f, 1f, 1f),
+      Color = color,
       DropShadowColor = new Vector4(0f, 0f, 0.02f, 0.5f),
       DropShadowOffset = new Vector2(0f, -3f),
       HorizontalAlignment = halign,
@@ -440,6 +413,36 @@ public partial class OfficePlayer : Player
 
     if (IsLocal)
     {
+      // Handle Experience animation reset
+      if (Time.TimeSinceStartup >= experienceAnimEndTime && experienceAnimEndTime > 0)
+      {
+        var resetSettings = References.Instance.ExperienceStatText.Settings;
+        resetSettings.Color = Experience.Value >= 100 ? new Vector4(0, 1, 0, 1) : new Vector4(1, 1, 1, 1);
+        resetSettings.Size = resetSettings.Size / 1.2f;
+        References.Instance.ExperienceStatText.Settings = resetSettings;
+        experienceAnimEndTime = 0;
+      }
+
+      // Handle Cash animation reset
+      if (Time.TimeSinceStartup >= cashAnimEndTime && cashAnimEndTime > 0)
+      {
+        var resetSettings = References.Instance.MoneyStatText.Settings;
+        resetSettings.Color = new Vector4(1, 1, 1, 1);
+        resetSettings.Size = resetSettings.Size / 1.2f;
+        References.Instance.MoneyStatText.Settings = resetSettings;
+        cashAnimEndTime = 0;
+      }
+
+      // Handle Role animation reset
+      if (Time.TimeSinceStartup >= roleAnimEndTime && roleAnimEndTime > 0)
+      {
+        var resetSettings = References.Instance.RoleStatText.Settings;
+        resetSettings.Color = new Vector4(1, 1, 1, 1);
+        resetSettings.Size = resetSettings.Size / 1.2f;
+        References.Instance.RoleStatText.Settings = resetSettings;
+        roleAnimEndTime = 0;
+      }
+
       if (HasEffect<KillerEffect>())
       {
         DrawDefaultAbilityUI(new AbilityDrawOptions()
@@ -538,20 +541,20 @@ public partial class OfficePlayer : Player
     using var _3 = UI.PUSH_PLAYER_MATERIAL(this);
     var rect = new Rect(Entity.Position, Entity.Position).Grow(0.125f);
 
-    var ts = GetTextSettings(0.225f);
+    var ts = GetTextSettings(0.225f, new Vector4(1, 1, 1, 1));
     if (DayNightManager.Instance.CurrentState == DayState.NIGHT && CurrentRole == Role.JANITOR)
     {
-      ts = GetRedTextSettings(0.225f);
+      ts = GetTextSettings(0.225f, new Vector4(1, 0, 0, 1));
       UI.Text(rect, "JANITOR", ts);
     }
     else if (CurrentRole == Role.OVERSEER)
     {
-      ts = GetPurpleTextSettings(0.40f);
+      ts = GetTextSettings(0.40f, new Vector4(0.6f, 0.2f, 1f, 1f));
       UI.Text(rect, "OVERSEER", ts);
     }
     else if (CurrentRole == Role.CEO)
     {
-      ts = GetGreenTextSettings(0.35f);
+      ts = GetTextSettings(0.35f, new Vector4(0, 1, 0, 1));
       UI.Text(rect, "CEO", ts);
     }
     else

@@ -1,0 +1,40 @@
+---
+description: For applying temporary effects to any Player
+globs: 
+---
+# Effects
+Effects are a powerful system for applying temporary effects to your player. Some example use cases:
+
+public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
+{
+  <!-- Only one active effect may be on a player at a time. If true, this effect will cancel the existing active effect when added to a player. -->
+  public override bool IsActiveEffect => true;
+  <!-- If true, the player will not be able to use abilities while this effect is active. Default to IsActiveEffect so if you want an Active effect that doesn't block abilities then you will have to override. -->
+  public override bool BlockAbilityActivation => true;
+
+  public override bool FreezePlayer => true;
+  <!-- The default duration of the effect, in seconds. Do not override if the effect is permanent, or you plan to set the duration when calling AddEffect. -->
+  public override float DefaultDuration => 17f;
+
+  public bool HasPlayedEndSound;
+
+  <!-- If drop in is tru the player is joining mid effect or resyncing network state, so you don't need to play animations/sounds in this case -->
+  public override void OnEffectStart(bool isDropIn)
+  {
+
+  }
+
+  public override void OnEffectEnd(bool interrupt)
+  {
+
+  }
+
+  public override void OnEffectUpdate()
+  {
+    <!-- For doing things once during an effect use OneTime -->
+    if (AO.Util.OneTime(DurationRemaining <= 4.25f, ref HasPlayedEndSound))
+    {
+
+    }
+  }
+}

@@ -65,6 +65,7 @@
   "mono_component_type": "Activity",
   "data": {
     "PromptText": "Take Out The Trash",
+    "MaxRole": 1,
     "ActiveTexture": "48x48/Modern_Office_Singles_48x48_169.png",
     "CooldownTexture": "48x48/Modern_Office_Singles_48x48_167.png",
     "OnCompleteSfx": "sfx/paper.wav",
