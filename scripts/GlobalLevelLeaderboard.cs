@@ -242,22 +242,4 @@ public partial class GlobalLevelLeaderboard : Component
             });
         }
     }
-
-    [ClientRpc]
-    public void UpdateLeaderboardData(string[] names, double[] scores)
-    {
-        Entries.Clear();
-        for (int i = 0; i < names.Length; i++)
-        {
-            Entries.Add(new LeaderboardEntry() { Username = names[i], Score = scores[i] });
-        }
-    }
-
-    [ClientRpc]
-    public void UpdateSinglePlayerLeaderboardData(ulong playerNetworkId, double score, int rank)
-    {
-        if (Network.IsServer) return;
-        if (Network.LocalPlayer == null || Network.LocalPlayer.Entity.NetworkId != playerNetworkId) return;
-        MyEntry = new LeaderboardEntry() { Username = "Me", Score = score, Placement = rank };
-    }
 }
