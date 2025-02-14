@@ -20,7 +20,7 @@ public class Money : Component
                 var amount = op.Salary / 7;
                 op.Cash.Set(op.Cash + amount);
                 Chat.SendMessage(op, "Thank you for your hard work!");
-                moneyUI.CallClient_PlayMoneyCollectAnimation(Entity.Position, amount);
+                moneyUI.CallClient_PlayMoneyCollectAnimation(Entity.Position, amount, rpcTarget: op);
             }
             if (Network.LocalPlayer == p)
             {

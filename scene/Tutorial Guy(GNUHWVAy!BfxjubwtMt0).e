@@ -23,7 +23,12 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Clothing_Store_Singles_48x48_469.png"
+    "texture": "Clothing_Store_Singles_48x48_469.png",
+    "tint": {
+      "X": 0.0980392172932625,
+      "Y": 0.0980392172932625,
+      "Z": 0.1764705926179886
+    }
   }
 },
 {

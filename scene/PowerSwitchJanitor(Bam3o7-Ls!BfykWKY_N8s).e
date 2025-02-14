@@ -5,8 +5,8 @@
   "name": "PowerSwitchJanitor",
   "local_enabled": true,
   "local_position": {
-    "X": -39.5213890075683594,
-    "Y": -12.6527414321899414
+    "X": -39.8151779174804688,
+    "Y": -12.6231832504272461
   },
   "local_rotation": 0,
   "local_scale": {

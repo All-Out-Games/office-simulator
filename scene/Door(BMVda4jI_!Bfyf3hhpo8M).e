@@ -5,8 +5,8 @@
   "name": "Door",
   "local_enabled": true,
   "local_position": {
-    "X": -26.4316558837890625,
-    "Y": -0.9272033572196960
+    "X": -26.7520675659179688,
+    "Y": -0.2615337371826172
   },
   "local_rotation": 0,
   "local_scale": {
@@ -19,16 +19,18 @@
   "spawn_as_networked_entity": true
 },
 {
-  "cid": 1,
-  "aoid": "335726234422653:1725581762247750700",
+  "cid": 4,
+  "aoid": "1031931517365914:1738696520244341600",
   "component_type": "Internal_Component",
-  "internal_component_type": "Sprite_Renderer",
+  "internal_component_type": "Spine_Animator",
   "data": {
-    "texture": "Condominium_Singles_48x48_82.png",
-    "tint": {
-      "X": 0.6000000238418579,
-      "Y": 0.7098039388656616,
-      "Z": 0.7019608020782471
+    "skeleton_data_asset": "boss_door/boss_door.spine",
+    "ordered_skins": [
+
+    ],
+    "skeleton_scale": {
+      "X": 0.2500000000000000,
+      "Y": 0.2500000000000000
     }
   }
 },
@@ -86,6 +88,7 @@
   "data": {
     "Inside": "335726233335859:1725581762247409800",
     "Outside": "335726233366844:1725581762247419500",
-    "RoomName": 21
+    "RoomName": 21,
+    "IsBossDoor": true
   }
 }

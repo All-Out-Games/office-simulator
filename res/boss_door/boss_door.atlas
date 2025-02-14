@@ -1,0 +1,21 @@
+boss_door.png
+	size: 808, 808
+	filter: Linear, Linear
+door
+	bounds: 483, 542, 258, 317
+	rotate: 90
+door_behind
+	bounds: 483, 489, 284, 47
+	offsets: 1, 1, 286, 49
+door_outer
+	bounds: 6, 380, 471, 420
+	offsets: 1, 1, 473, 422
+dust
+	bounds: 483, 345, 148, 138
+	offsets: 1, 1, 150, 140
+heart_full
+	bounds: 637, 425, 70, 58
+	offsets: 1, 1, 72, 60
+heart_recess
+	bounds: 713, 425, 70, 58
+	offsets: 1, 1, 72, 60

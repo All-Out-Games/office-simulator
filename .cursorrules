@@ -10,21 +10,29 @@ You will be developing a game in a custom 2D engine that DOES NOT HAVE ALL UNITY
 - File names should use PascalCase
 - Do not try to use any Unity APIs, including inheriting anything other than Component
 - Because it's 2D, use Vector2 instead of Vector3
-- We have Awake(), we do not have Start()
 - There is no HasComponent, only GetComponent and AddComponent
 - To check whether an entity exists use .Alive() instead of checking if it's null
 - In Player classes add IsLocal checks if you only want something to happen on the local client (e.g. creating a CameraControl)
+- These games are mobile-first so don't use any keyboard input
+- Use Entity.LocalScale instead of .Scale
+- To generate random numbers use the `RNG` class by starting with `RNG.Seed(1337)` and then calling RangeInt or RangeFloat (do not try any other RNG methods)
 
 ## Assets
-- To see available assets list files in the /res directory
+- To see available assets list files in the /res directory. You'll have to look in nested folders. 
 - To reference an asset use Assets.GetAsset<TYPE>("path"). Common types are Texture, AudioAsset and SpineSkeletonAsset. Do not prefix with /res
+
+## Sprite Renderers
+- Sprite Renderers are under the Sprite_Renderer type
+- Sprite_Renderers have a .Tint property. We use Vector4 to represent colors. Do not try to use .Color
+- Make sure that any UI code or Sprite_Renderer stuff is done on the client
 
 ## Networking
 - To check if code is running on the client or server use the Network.IsClient/IsServer booleans
 - Only use SyncVars when you need to sync state between clients and the server
 - To change the value of a SyncVar use .Set() which can only be called on the server
 
-ClientRpcs are public functions used when you want the server to call a function on the client
+### RPCs
+ClientRpcs must be **public** functions used when you want the server to call a function on the client
 For example to play a "success" sound from a function running on the server you would create a ClientRpc
 [ClientRpc]
 public void PlaySuccessSound()
@@ -33,9 +41,28 @@ public void PlaySuccessSound()
 
 - [ClientRpc] functions must be called with a prefix CallClient_[FUNCTION NAME] e.g CallClient_PlaySuccessSound
 - Classes with RPCs must use the partial keyword
+- You can pass entities to RPCs
 
-## Sprite Renderers
-- Sprite Renderers are under the Sprite_Renderer type
-- Sprite_Renderers have a .Tint property. We use Vector4 to represent colors. Do not try to use .Color
-- Make sure that any UI code or Sprite_Renderer stuff is done on the client
+### SyncVars
+SyncVars wrap a primative and automatically keep it in sync for all clients and the server
+For example, to store "Health" on a Player, you can add a SyncVar as a field of your player class:
+
+public partial class BattlePlayer : Player
+{
+  public SyncVar<int> Health = new(100);
+}
+The Health variable can be used (e.g. if (Health.Value <= 0))
+To respond to a SyncVar changing you can use .OnSync(old, new)
+
+When declaring SyncVars make sure to call the constructor. 
+
+SyncVars only support the following types:
+- int
+- float
+- bool
+- string
+- Vector2
+- Vector3
+- Vector4
+- Entity
 

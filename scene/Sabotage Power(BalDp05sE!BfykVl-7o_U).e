@@ -5,8 +5,8 @@
   "name": "Sabotage Power",
   "local_enabled": true,
   "local_position": {
-    "X": -2.2082657814025879,
-    "Y": -37.5104331970214844
+    "X": -2.1854615211486816,
+    "Y": -37.2940864562988281
   },
   "local_rotation": 0,
   "local_scale": {

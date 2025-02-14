@@ -15,11 +15,12 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 15;
+  public float DayLength = 165;
   public float NightLength = 45;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
   private Sprite_Renderer darknessOverlay;
+  private Sprite_Renderer mapBG;
 
   private SyncVar<int> currentState = new((int)DayState.DAY);
   public DayState CurrentState
@@ -49,10 +50,18 @@ public partial class DayNightManager : Component
         "You are a killer now..."
   };
 
+  private float gameStartTime;
+  private float adNotificationTime;
+  private bool adNotificationShown;
+  private const float INTRO_COOLDOWN = 145f;
+  private const float AD_NOTIFICATION_DELAY = 3f; // 3 seconds
+
   public override void Awake()
   {
     Instance = this;
     darknessOverlay = References.Instance.DarknessOverlay.GetComponent<Sprite_Renderer>();
+    mapBG = References.Instance.MapBG.GetComponent<Sprite_Renderer>();
+    gameStartTime = Time.TimeSinceStartup;
   }
 
   public override void Update()
@@ -72,23 +81,28 @@ public partial class DayNightManager : Component
         // Update darkness overlay alpha
         if (darknessOverlay != null && darknessOverlay.Alive())
         {
+          var bgLerp = AOMath.Lerp(1.45f, 0.25f, Darkness);
           switch (CurrentState)
           {
             case DayState.DAY:
               // During day, lerp from 0 to 0.5 alpha as we get closer to night
-              darknessOverlay.Tint = new Vector4(0, 0, 0, AOMath.Lerp(0f, 0.5f, Darkness));
+              darknessOverlay.Tint = new Vector4(0, 0, 0, AOMath.Lerp(0f, 0.7f, Darkness));
+              mapBG.Tint = new Vector4(bgLerp, bgLerp, bgLerp, 1f);
               break;
             case DayState.DUSK:
               // During dusk, keep alpha at 0.5
               darknessOverlay.Tint = new Vector4(0, 0, 0, 0.5f);
+              mapBG.Tint = new Vector4(bgLerp, bgLerp, bgLerp, 1f);
               break;
             case DayState.NIGHT:
               // During night, keep alpha at 0 since player light handles darkness
               darknessOverlay.Tint = new Vector4(0, 0, 0, 0f);
+              mapBG.Tint = new Vector4(bgLerp, bgLerp, bgLerp, 1f);
               break;
             case DayState.DAWN:
               // During dawn, keep alpha at 0
               darknessOverlay.Tint = new Vector4(0, 0, 0, 0f);
+              mapBG.Tint = new Vector4(bgLerp, bgLerp, bgLerp, 1f);
               break;
           }
         }
@@ -298,10 +312,21 @@ public partial class DayNightManager : Component
   [ClientRpc]
   public void ShowDayAd()
   {
-    if (Ads.IsInterstitialAdLoaded())
+    if (!Ads.IsInterstitialAdLoaded()) return;
+
+    // Don't show ads in first 3 minutes
+    if (Time.TimeSinceStartup - gameStartTime < INTRO_COOLDOWN) return;
+
+    if (!adNotificationShown)
     {
-      Notifications.Show("And now a message from our sponsors!");
+      Notifications.Show("And now a message from our corporate overlords!");
+      adNotificationTime = Time.TimeSinceStartup;
+      adNotificationShown = true;
+    }
+    else if (Time.TimeSinceStartup - adNotificationTime >= AD_NOTIFICATION_DELAY)
+    {
       Ads.ShowInterstitial();
+      adNotificationShown = false;
     }
   }
 }

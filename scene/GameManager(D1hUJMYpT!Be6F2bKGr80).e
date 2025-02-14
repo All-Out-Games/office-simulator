@@ -24,4 +24,13 @@
   "data": {
 
   }
+},
+{
+  "cid": 2,
+  "aoid": "834165394151885:1738634468731630000",
+  "component_type": "Mono_Component",
+  "mono_component_type": "FTUEDialog",
+  "data": {
+
+  }
 }

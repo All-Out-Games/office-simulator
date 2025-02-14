@@ -5,8 +5,8 @@
   "name": "SmallMoney",
   "local_enabled": true,
   "local_position": {
-    "X": -44.2402763366699219,
-    "Y": -21.6638679504394531
+    "X": -44.6335716247558594,
+    "Y": -20.4839839935302734
   },
   "local_rotation": 0,
   "local_scale": {

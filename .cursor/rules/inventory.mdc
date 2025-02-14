@@ -4,34 +4,45 @@ globs:
 ---
 # Items & Inventory
 
+- Note that by default items in the inventory array are **null** be careful! 
+- Make sure to perform inventory operations on the client AND server
+
 ## Drawing the Inventory
-You must draw the inventory in the Player's update function
-// Option 1: Use the pre-built hotbar
+You must draw the inventory in the Player's update function. Use the default inventory unless told otherwise. 
+
 public override void Update()
 {
-  Inventory.DrawHotbar($"{UserId}_storage", new Inventory.DrawOptions()
+  var hotbarResult = Inventory.DrawHotbar(DefaultInventory.Id, new Inventory.DrawOptions()
   {
     HotbarItemCount = 5,
-    TargetItemSize = 100,
     AllowDragDrop = true,
 
     EnableUseFromHotbar = true,
     ScrollItemSelection = true,
     KeyboardItemSelection = true,
   });
-}
 
-## Creating an Inventory
-public Inventory MyInventory;
-public void OnLoad()
-{
-  Inventory.Fetch($"{UserId}_bag", 20, (inventory) =>
+  <!-- Optionally check if a player drag-n-dropped an item out of the inventory -->
+  if (hotbarResult.DroppedItem != null)
   {
-    MyInventory = inventory;
-    MyInventory.OnInventoryEvent += (eventName, item) => { };
-  });
-}
+      CallServer_PleaseDropItem(hotbarResult.DroppedItem.InventorySlot);
+  }
 
+  [ServerRpc]
+  public void PleaseDropItem(long itemIndex)
+  {
+      var items = DefaultInventory.Items;
+      if (itemIndex < 0 || itemIndex >= items.Length) return;
+      var player = (MyPlayer)Network.GetRemoteCallContextPlayer();
+      if (!player.Alive()) return;
+      var item = items[itemIndex];
+      if (item == null) return;
+      if (item.Inventory != player.DefaultInventory) return;
+
+      Inventory.RemoveItemFromInventory(item, player.DefaultInventory);
+      ServerDropItems(new List<Item_Instance>(){item});
+  }
+}
 
 ## Creating Items
 public Item_Definition Item;
@@ -39,15 +50,10 @@ public override void Start()
 {
   Item = Item_Definition.Create(new ItemDescription()
   {
-    Id = "my_item",
+    Id = "fish",
     Icon = "my_asset.png",
-    Name = "Fancy Item",
+    Name = "Fish",
     StackSize = -1, // Infinite
-  });
-
-  Item.RegisterUseHandler((player, itemInstance) =>
-  {
-    Log.Info("Use the fancy item!!!");
   });
 }
 
@@ -55,5 +61,9 @@ public override void Start()
 Be very careful not to grant past the max stack size or it will crash. 
 public void GrantItem()
 {
-  MyInventory.GrantItem(Item, 10 /* Amount */);
+    var item = Inventory.CreateItem(item_name, quantity);
+    Inventory.MoveItemToInventory(item, Player.DefaultInventory);
 }
+
+## Other functions
+Inventory.DestroyItem(item);

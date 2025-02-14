@@ -14,7 +14,7 @@ public class AnimateSpineByName : Component
       spineAnimator.Awaken();
       spineAnimator.Entity.Scale = new Vector2(1.25f, 1.25f);
       spineAnimator.SpineInstance.SetAnimation(AnimationName, !DontLoop);
-      spineAnimator.SetCrewchsia(15);
+      spineAnimator.SetCrewchsia(10);
     }
   }
 }

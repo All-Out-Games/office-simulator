@@ -4,11 +4,33 @@ public class OfficeDoor : TwoWayDoor
 {
   OfficeController Controller;
   private Sprite_Renderer spriteRenderer;
+  private Spine_Animator spineAnimator;
+  [Serialized] public bool IsBossDoor = false;
+  private bool isDoorOpen = false;
 
   public override void Awake()
   {
     base.Awake();
-    spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
+    if (IsBossDoor)
+    {
+      spineAnimator = Entity.GetComponent<Spine_Animator>();
+      spineAnimator.SpineInstance.SetAnimation("door1/door_idle", true);
+      spineAnimator.OnAnimationEnd += (string animName) =>
+      {
+        if (animName == "door1/door_opening" && Controller.Unlocked)
+        {
+          spineAnimator.SpineInstance.SetAnimation("door1/door_open", true);
+        }
+        else if (animName == "door1/door_opening" && !Controller.Unlocked)
+        {
+          spineAnimator.SpineInstance.SetAnimation("door1/door_idle", true);
+        }
+      };
+    }
+    else
+    {
+      spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
+    }
 
     Controller = Entity.Parent.TryGetChildByName("Controller").GetComponent<OfficeController>();
 
@@ -117,17 +139,33 @@ public class OfficeDoor : TwoWayDoor
   {
     if (Network.IsServer) return;
 
-    if (Controller.Unlocked)
+    var op = (OfficePlayer)Network.LocalPlayer;
+    if (!op.Alive()) return;
+
+    if (IsBossDoor)
     {
-      spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 0.7f);
+      if (Controller.Unlocked && !isDoorOpen)
+      {
+        spineAnimator.SpineInstance.SetAnimation("door1/door_opening", false);
+        isDoorOpen = true;
+      }
+      else if (!Controller.Unlocked && isDoorOpen)
+      {
+        spineAnimator.SpineInstance.SetAnimation("door1/door_opening", true);
+        isDoorOpen = false;
+      }
     }
     else
     {
-      spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 1f);
+      if (Controller.Unlocked)
+      {
+        spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 0.7f);
+      }
+      else
+      {
+        spriteRenderer.Tint = new Vector4(1f, 1f, 1f, 1f);
+      }
     }
-
-    var op = (OfficePlayer)Network.LocalPlayer;
-    if (!op.Alive()) return;
 
     using var _1 = UI.PUSH_CONTEXT(UI.Context.WORLD);
     using var _2 = IM.PUSH_Z(5000);

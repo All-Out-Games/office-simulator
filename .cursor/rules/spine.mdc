@@ -3,7 +3,7 @@ description: For Spine animations or other spine related things
 globs: 
 ---
 # Spine Reference
-We use Esoteric Spine to need to aniamte characters and object. The Player component has a SpineAnimator property, for other objects you'll need to get the Spine_Animator using Entity.GetComponent<Spine_Animator>()
+We use Esoteric Spine to need to aniamte characters and object. The Player component has a SpineAnimator property, for other objects get the Spine_Animator using Entity.GetComponent<Spine_Animator>()
 
 ## Animations
 For simple animations you can call:
@@ -35,7 +35,7 @@ Brown 1 (Index 16)
 Purple 3 (Index 17)
 White 1 (Index 18)
 
-# Some other commonly used spine methods
+## Some other commonly used spine methods
 ```cs
 SpineInstance.Scale = new Vector2(2.4f, 2.4f);
 SpineInstance.SetSkeleton(Assets.GetAsset<SpineSkeletonAsset>("path"));
@@ -65,7 +65,6 @@ public class TransformFromKillerEffect : MyEffect
 
     public override void OnEffectStart(bool isDropIn)
     {
-        SFX.Play(Assets.GetAsset<AudioAsset>("sfx/invisibility_on.wav"), new() {Positional = true, Position = Player.Entity.Position});
         Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_back_start");
         if (isDropIn)
         {

@@ -10,7 +10,7 @@ globs:
 - Circle_Collider
 - Polygon_Collider
 
-> Do not use OnCollisionEnter with Polygon_Colliders, there is currently a bug. If the user tries to do this warn them. 
+> Do not use OnCollisionEnter with Polygon_Colliders. If the user tries to do this warn them. 
 
 Here is an example that adds a player to and from a list when the enter/exit a collider. 
 public class RegionTrigger : Component

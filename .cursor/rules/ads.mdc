@@ -6,7 +6,7 @@ globs:
 # Ad Reference
 
 ## Rewarded Ads
-First set up the add handler on the server as a system (you can put this in GameManager if it exists)
+First set up the ad handler on the server as a system (you can put this in GameManager if it exists)
 public class AdSystem : System<AdSystem>
 {
   public override void Awake()

@@ -13,6 +13,8 @@ public partial class PowerSwitch : Component
   public override void Awake()
   {
     spineAnimator = Entity.GetComponent<Spine_Animator>();
+    spineAnimator.SpineInstance.Scale = new Vector2(0, 0);
+
     if (!spineAnimator.Alive())
     {
       Log.Warn("PowerSwitch has no spine animator");
@@ -21,7 +23,6 @@ public partial class PowerSwitch : Component
     interactable = Entity.AddComponent<Interactable>();
     interactable.Text = "Restore Breaker";
     interactable.CanUseCallback = (Player p) =>
-
     {
       return !Fixed;
     };
@@ -50,8 +51,14 @@ public partial class PowerSwitch : Component
     {
       if (eventActive && !Fixed && !playingTurnOn && !playingSwitchOn)
       {
+        spineAnimator.SpineInstance.Scale = new Vector2(1, 1);
         playingSwitchOn = true;
         spineAnimator.SpineInstance.SetAnimation("switch_on", true);
+      }
+
+      if (!eventActive)
+      {
+        spineAnimator.SpineInstance.Scale = new Vector2(0, 0);
       }
     }
   }

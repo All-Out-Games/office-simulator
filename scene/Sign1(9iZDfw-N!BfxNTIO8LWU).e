@@ -5,8 +5,8 @@
   "name": "Sign1",
   "local_enabled": true,
   "local_position": {
-    "X": -65.4817962646484375,
-    "Y": -15.8849582672119141
+    "X": -58.1574821472167969,
+    "Y": 3.4142675399780273
   },
   "local_rotation": 0,
   "local_scale": {
@@ -18,23 +18,26 @@
   "spawn_as_networked_entity": true
 },
 {
-  "cid": 1,
-  "aoid": "270644201720810:1725218621374944000",
-  "component_type": "Internal_Component",
-  "internal_component_type": "Sprite_Renderer",
+  "cid": 5,
+  "aoid": "1040579011271675:1738699233526391200",
+  "component_type": "Mono_Component",
+  "mono_component_type": "AnimateSpineByName",
   "data": {
-    "texture": "8_Gym_Singles_48x48/Gym_Singles_48x48_1.png"
+    "AnimationName": "Player_Shop/Idle"
   }
 },
 {
-  "cid": 2,
-  "aoid": "270663736569614:1725218627504102800",
-  "component_type": "Mono_Component",
-  "mono_component_type": "BillboardSign",
+  "cid": 1,
+  "aoid": "1040140757000533:1738699096015319000",
+  "component_type": "Internal_Component",
+  "internal_component_type": "Spine_Animator",
   "data": {
-    "Message": "It's your first day at Nocturn Inc, Matt",
-    "IsIntroMessage": true,
-    "HalfWidth": 2
+    "skeleton_data_asset": "$AO/schleem/playercharacter.spine",
+    "ordered_skins": [
+      "full_character/secret_service_full",
+      "base/crewchsia"
+    ],
+    "depth_offset": 0.4347542524337769
   }
 },
 {
@@ -43,46 +46,31 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
-    "is_loop": true,
     "points": [
       {
-        "X": -0.4090499877929688,
-        "Y": -0.8046045303344727
+        "X": -0.2649765014648438,
+        "Y": 0.0110778808593750
       },
       {
-        "X": -0.4902572631835938,
-        "Y": -0.2258253097534180
+        "X": -0.4066009521484375,
+        "Y": 0.2213516235351562
       },
       {
-        "X": -0.3359375000000000,
-        "Y": 0.3486804962158203
+        "X": -0.3405838012695312,
+        "Y": 0.3279781341552734
       },
       {
-        "X": 0.2811126708984375,
-        "Y": 0.3703918457031250
+        "X": 0.3089981079101562,
+        "Y": 0.3621120452880859
       },
       {
-        "X": 0.3392333984375000,
-        "Y": -0.4016342163085938
+        "X": 0.2788162231445312,
+        "Y": 0.0414018630981445
       },
       {
-        "X": 0.2811126708984375,
-        "Y": -0.8100318908691406
+        "X": -0.1557540893554688,
+        "Y": 0.0263538360595703
       }
     ]
-  }
-},
-{
-  "cid": 4,
-  "aoid": "535728824055561:1725301797301304500",
-  "component_type": "Mono_Component",
-  "mono_component_type": "Activity",
-  "data": {
-    "PromptText": "Greet New Employee",
-    "MinimumRoleRequired": 1,
-    "MaxRole": 3,
-    "CooldownSeconds": 45,
-    "SpawnsDuringDay": true,
-    "XpReward": 10
   }
 }

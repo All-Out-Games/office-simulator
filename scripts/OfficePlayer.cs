@@ -126,7 +126,14 @@ public partial class OfficePlayer : Player
         ShownPromoPrompt = true;
         if (Network.IsServer)
         {
-          CallClient_ShowNotification("You can now request a promotion in the Finance room.");
+          if (CurrentRole == Role.MANAGER)
+          {
+            CallClient_ShowNotification("Give a speech to convince the office to vote for you.");
+          }
+          else
+          {
+            CallClient_ShowNotification("You can now request a promotion in the HR room.");
+          }
         }
       }
 
@@ -502,16 +509,25 @@ public partial class OfficePlayer : Player
 
     // Point to promo NPC when full of XP
     // TODO: support manager role which requires giving conference talk
-    if (IsLocal && Experience >= RequiredExperience && CurrentRoom != Room.HR && !(CurrentRole == Role.OVERSEER || CurrentRole == Role.CEO || CurrentRole == Role.MANAGER))
+    if (IsLocal && Experience >= RequiredExperience && CurrentRoom != Room.HR && !(CurrentRole == Role.OVERSEER || CurrentRole == Role.CEO))
     {
-      if (References.Instance.PromoNPC.Alive())
+      var pointToEntity = References.Instance.PromoNPC;
+      if (CurrentRole == Role.MANAGER)
       {
-        var worldOffset = (References.Instance.PromoNPC.Position - Entity.Position);
-        var sellAreaScreenPos = Camera.WorldToScreen(References.Instance.PromoNPC.Position);
+        pointToEntity = References.Instance.Podium;
+
+      }
+
+      if (pointToEntity.Alive())
+      {
+        var worldOffset = (pointToEntity.Position - Entity.Position);
+
+        var sellAreaScreenPos = Camera.WorldToScreen(pointToEntity.Position);
         var playerScreenPos = Camera.WorldToScreen(Entity.Position + new Vector2(0, 0.5f));
         var dir = (sellAreaScreenPos - playerScreenPos).Normalized;
         var pos = playerScreenPos;
         var distance = worldOffset.Length;
+
         float arrowSize = 50;
         var anim = (float)Math.Pow(Math.Abs(Math.Sin(Math.PI * Time.TimeSinceStartup)), 0.75);
         float distanceThreshold = 3;

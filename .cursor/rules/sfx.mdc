@@ -3,5 +3,7 @@ description: For playing SFX
 globs: 
 ---
 # SFX
+- To see available assets list files in the /res/sfx directory. You'll have to look in nested folders. 
+
 To play a sound:
 SFX.Play(Assets.GetAsset<AudioAsset>("INSERT PATH"), new SFX.PlaySoundDesc() { Volume = 0.7f, Position = Entity.Position, RangeMultiplier = 2f, Loop = false });

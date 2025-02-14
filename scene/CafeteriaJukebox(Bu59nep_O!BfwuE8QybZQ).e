@@ -5,8 +5,8 @@
   "name": "CafeteriaJukebox",
   "local_enabled": true,
   "local_position": {
-    "X": -42.0759391784667969,
-    "Y": -29.8414859771728516
+    "X": -42.0499229431152344,
+    "Y": -30.4854469299316406
   },
   "local_rotation": 0,
   "local_scale": {
@@ -25,7 +25,7 @@
   "internal_component_type": "Sprite_Renderer",
   "data": {
     "texture": "48x48/Modern_Office_Singles_48x48_166.png",
-    "layer": -2
+    "layer": -4
   }
 },
 {

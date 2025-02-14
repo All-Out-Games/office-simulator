@@ -22,7 +22,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "map2.png",
+    "texture": "map_foreground.png",
     "depth_offset": 0.1266444921493530,
     "layer": -1,
     "wait_for_load": true

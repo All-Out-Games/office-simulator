@@ -11,6 +11,8 @@ public class References : Component
     [Serialized] public Entity PromoNPC;
     [Serialized] public Texture ArrowIcon;
     [Serialized] public Entity DarknessOverlay;
+    [Serialized] public Entity MapBG;
+    [Serialized] public Entity Podium;
 
 
     public static References _instance;

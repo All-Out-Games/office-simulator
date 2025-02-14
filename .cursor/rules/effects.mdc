@@ -18,7 +18,7 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
 
   public bool HasPlayedEndSound;
 
-  <!-- If drop in is tru the player is joining mid effect or resyncing network state, so you don't need to play animations/sounds in this case -->
+  <!-- If drop in is true the player is joining mid effect or resyncing network state, so you don't need to play animations/sounds in this case -->
   public override void OnEffectStart(bool isDropIn)
   {
 

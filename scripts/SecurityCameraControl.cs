@@ -8,6 +8,7 @@ public class SecurityCameraControl : Component
   public bool isInCameraMode;
   public int currentCameraIndex;
   public Entity[] cameraPositions;
+  public Entity interactingPlayer;
   public static readonly Vector4 BUTTON_COLOR = new(0.2f, 0.7f, 0.2f, 1f);
 
   public static readonly UI.ButtonSettings ButtonSettings = new UI.ButtonSettings()
@@ -51,15 +52,18 @@ public class SecurityCameraControl : Component
     interactable.OnInteract = (Player p) =>
     {
       if (cameraPositions == null || cameraPositions.Length == 0) return;
+      if (!p.IsLocal) return;
 
       isInCameraMode = !isInCameraMode;
       if (isInCameraMode)
       {
+        interactingPlayer = p.Entity;
         currentCameraIndex = 0;
         EnterCameraMode();
       }
       else
       {
+        interactingPlayer = null;
         ExitCameraMode();
       }
     };
@@ -68,6 +72,7 @@ public class SecurityCameraControl : Component
   public void EnterCameraMode()
   {
     if (!Network.IsClient) return;
+    if (!interactingPlayer.Alive()) return;
 
     if (cameraControl == null)
     {
@@ -91,6 +96,7 @@ public class SecurityCameraControl : Component
   public void UpdateCameraPosition()
   {
     if (!Network.IsClient || cameraControl == null) return;
+    if (!interactingPlayer.Alive()) return;
 
     if (cameraPositions != null && cameraPositions.Length > 0 && currentCameraIndex < cameraPositions.Length)
     {
@@ -105,8 +111,17 @@ public class SecurityCameraControl : Component
   public override void Update()
   {
     if (!Network.IsClient) return;
+    if (!interactingPlayer.Alive())
+    {
+      if (isInCameraMode)
+      {
+        isInCameraMode = false;
+        ExitCameraMode();
+      }
+      return;
+    }
 
-    if (isInCameraMode && cameraControl != null)
+    if (isInCameraMode && cameraControl != null && interactingPlayer == Network.LocalPlayer.Entity)
     {
       DrawCameraUI();
     }
@@ -117,17 +132,18 @@ public class SecurityCameraControl : Component
     var baseRect = UI.ScreenRect.CenterRect();
     var containerRect = baseRect.Offset(0, -300);
 
-    var buttonHeight = 60;
     var buttonWidth = 200;
-    var nextButtonRect = containerRect.Offset(-buttonWidth - 10, 0).Grow(buttonWidth / 2, buttonHeight / 2, buttonWidth / 2, buttonHeight / 2);
-    var exitButtonRect = containerRect.Offset(10, 0).Grow(buttonWidth / 2, buttonHeight / 2, buttonWidth / 2, buttonHeight / 2);
+    var buttonHeight = buttonWidth * (16f / 9f); // Maintain 9:16 aspect ratio
+    var nextButtonRect = containerRect.OffsetUnscaled(-buttonWidth - 100, 0).GrowUnscaled(buttonWidth / 2, buttonHeight / 2, buttonWidth / 2, buttonHeight / 2);
+    var exitButtonRect = containerRect.OffsetUnscaled(100, 0).GrowUnscaled(buttonWidth / 2, buttonHeight / 2, buttonWidth / 2, buttonHeight / 2);
+
 
     var buttonSettings = ButtonSettings;
     var intensity = 0.5f + 0.5f * MathF.Sin(Time.TimeSinceStartup * 3f);
     buttonSettings.BackgroundColorMultiplier = new Vector4(1f, 0.5f + (0.5f * intensity), 0.5f + (0.5f * intensity), 1);
 
     var cameraText = $"Camera {currentCameraIndex + 1}/{cameraPositions?.Length ?? 0}";
-    var textRect = containerRect.Offset(0, 60);
+    var textRect = containerRect.Offset(0, 125);
     UI.Text(textRect, cameraText, TextSettings);
 
     using var _scale = UI.PUSH_SCALE_FACTOR(MathF.Max(1f, 0.01f));

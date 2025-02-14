@@ -24,7 +24,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Sprite_Renderer",
   "data": {
-    "texture": "Destroyed Computer - light.png"
+    "texture": "ComputerDetroyed.png"
   }
 },
 {

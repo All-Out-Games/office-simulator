@@ -5,15 +5,15 @@
   "name": "SmallMoney",
   "local_enabled": true,
   "local_position": {
-    "X": -45.5544700622558594,
-    "Y": -21.6638679504394531
+    "X": -45.4591255187988281,
+    "Y": -20.5256977081298828
   },
   "local_rotation": 0,
   "local_scale": {
     "X": 5,
     "Y": 4
   },
-  "previous_sibling": "342493489541129:1725241164455041600",
+  "previous_sibling": "299825821612059:1725227777256854200",
   "next_sibling": "342546156153984:1725241180979459600",
   "parent": "20641301987117:1717370526513028600",
   "spawn_as_networked_entity": true,
