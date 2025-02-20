@@ -312,21 +312,21 @@ public partial class DayNightManager : Component
   [ClientRpc]
   public void ShowDayAd()
   {
-    if (!Ads.IsInterstitialAdLoaded()) return;
+    // if (!Ads.IsInterstitialAdLoaded()) return;
 
-    // Don't show ads in first 3 minutes
-    if (Time.TimeSinceStartup - gameStartTime < INTRO_COOLDOWN) return;
+    // // Don't show ads in first 3 minutes
+    // if (Time.TimeSinceStartup - gameStartTime < INTRO_COOLDOWN) return;
 
-    if (!adNotificationShown)
-    {
-      Notifications.Show("And now a message from our corporate overlords!");
-      adNotificationTime = Time.TimeSinceStartup;
-      adNotificationShown = true;
-    }
-    else if (Time.TimeSinceStartup - adNotificationTime >= AD_NOTIFICATION_DELAY)
-    {
-      Ads.ShowInterstitial();
-      adNotificationShown = false;
-    }
+    // if (!adNotificationShown)
+    // {
+    //   Notifications.Show("And now a message from our corporate overlords!");
+    //   adNotificationTime = Time.TimeSinceStartup;
+    //   adNotificationShown = true;
+    // }
+    // else if (Time.TimeSinceStartup - adNotificationTime >= AD_NOTIFICATION_DELAY)
+    // {
+    //   Ads.ShowInterstitial();
+    //   adNotificationShown = false;
+    // }
   }
 }

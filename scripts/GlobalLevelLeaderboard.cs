@@ -65,7 +65,7 @@ public partial class GlobalLevelLeaderboard : Component
             Vector4 rankColor = new Vector4(41.0f / 255.0f, 35.0f / 255.0f, 39.0f / 255.0f, 1.0f);
             var finalRankRect = UI.Text(rankRect, $"{MyEntry.Value.Placement + 1}", new UI.TextSettings()
             {
-                Font = UI.Fonts.Asap,
+                Font = UI.Fonts.Barlow,
                 Color = rankColor,
                 Size = rankTextSize,
                 HorizontalAlignment = UI.HorizontalAlignment.Left,
@@ -82,7 +82,7 @@ public partial class GlobalLevelLeaderboard : Component
             {
                 UI.Text(rankSuffixRect, suffix, new UI.TextSettings()
                 {
-                    Font = UI.Fonts.Asap,
+                    Font = UI.Fonts.Barlow,
                     Color = rankColor,
                     Size = rankTextSize * 0.5f,
                     HorizontalAlignment = UI.HorizontalAlignment.Left,
@@ -92,7 +92,7 @@ public partial class GlobalLevelLeaderboard : Component
                 var nameRect = myRect.LeftRect().Offset(1, 0);
                 UI.Text(nameRect, MyEntry.Value.Username ?? "Me", new UI.TextSettings()
                 {
-                    Font = UI.Fonts.Asap,
+                    Font = UI.Fonts.Barlow,
                     Color = Vector4.White,
                     Size = textSize,
                     HorizontalAlignment = UI.HorizontalAlignment.Left,
@@ -104,7 +104,7 @@ public partial class GlobalLevelLeaderboard : Component
                 var scoreRect = myRect.RightRect().Offset(-0.175f, 0);
                 UI.Text(scoreRect, Util.FormatDouble(MyEntry.Value.Score), new UI.TextSettings()
                 {
-                    Font = UI.Fonts.Asap,
+                    Font = UI.Fonts.Barlow,
                     Color = Vector4.White,
                     Size = textSize,
                     HorizontalAlignment = UI.HorizontalAlignment.Right,
@@ -165,7 +165,7 @@ public partial class GlobalLevelLeaderboard : Component
 
                 var finalRankRect = UI.Text(rankRect, rankText, new UI.TextSettings()
                 {
-                    Font = UI.Fonts.Asap,
+                    Font = UI.Fonts.Barlow,
                     Color = rankColor,
                     Size = rankTextSize,
                     HorizontalAlignment = UI.HorizontalAlignment.Left,
@@ -181,7 +181,7 @@ public partial class GlobalLevelLeaderboard : Component
 
                 UI.Text(rankSuffixRect, suffix, new UI.TextSettings()
                 {
-                    Font = UI.Fonts.Asap,
+                    Font = UI.Fonts.Barlow,
                     Color = rankColor,
                     Size = rankTextSize * 0.5f,
                     HorizontalAlignment = UI.HorizontalAlignment.Left,
@@ -192,7 +192,7 @@ public partial class GlobalLevelLeaderboard : Component
                 if (i == 0) nameRect = nameRect.Offset(0, -0.03f);
                 UI.Text(nameRect, displayName, new UI.TextSettings()
                 {
-                    Font = UI.Fonts.Asap,
+                    Font = UI.Fonts.Barlow,
                     Color = Vector4.White,
                     Size = textSize,
                     HorizontalAlignment = UI.HorizontalAlignment.Left,
@@ -205,7 +205,7 @@ public partial class GlobalLevelLeaderboard : Component
                 if (i == 0) scoreRect = scoreRect.Offset(-0.075f, -0.03f);
                 UI.Text(scoreRect, Util.FormatDouble(score), new UI.TextSettings()
                 {
-                    Font = UI.Fonts.Asap,
+                    Font = UI.Fonts.Barlow,
                     Color = Vector4.White,
                     Size = textSize,
                     HorizontalAlignment = UI.HorizontalAlignment.Right,

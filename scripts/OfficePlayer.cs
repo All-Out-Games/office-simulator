@@ -459,16 +459,7 @@ public partial class OfficePlayer : Player
         });
       }
 
-      if (CurrentRole == Role.CEO)
-      {
-        DrawDefaultAbilityUI(new AbilityDrawOptions()
-        {
-          AbilityElementSize = 125,
-          Abilities = new Ability[] { GetAbility<Revolver>() }
-        });
-      }
-
-      if (IsInOverseerBattle())
+      if (CurrentRole == Role.CEO || IsInOverseerBattle())
       {
         DrawDefaultAbilityUI(new AbilityDrawOptions()
         {

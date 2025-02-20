@@ -127,6 +127,9 @@ public partial class OverseerPromoNPC : Component
         var fighter1 = (OfficePlayer)Fighter1.Value.GetComponent<Player>();
         var fighter2 = (OfficePlayer)Fighter2.Value.GetComponent<Player>();
 
+        fighter1.GetAbility<Revolver>().CooldownRemaining = 3f;
+        fighter2.GetAbility<Revolver>().CooldownRemaining = 3f;
+
         if (Network.IsClient)
         {
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/clue_found2.wav"), new());
