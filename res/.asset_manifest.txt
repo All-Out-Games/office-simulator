@@ -1176,7 +1176,7 @@ anomalies/deadline/deadline.wav - .ao - 67e59d44567ef7a06a14ed54 - 1838260938979
 anomalies/dinner/dinner.wav - .ao - 67e59d44567ef7a06a14ed52 - 8911980071666727847
 anomalies/fire/fire-alarm.wav - .ao - 67e59d44567ef7a06a14ed56 - 16497928821211020295
 anomalies/fire/fire-extinguish.wav - .ao - 67e59d44567ef7a06a14ed53 - 7449389348326684029
-anomalies/fire/fire.wav - .ao - 67e59d44567ef7a06a14ed57 - 2926707192540220838
+anomalies/fire/fire.wav - .ao - 67fdcf0d567ef7a06a155991 - 3858038687594729245
 anomalies/fire/hand_fire1.png - .ao - 67e59d44567ef7a06a14ed55 - 6089774745551290232
 anomalies/fire/hand_fire1.png - .ao.astc - 67e59d44567ef7a06a14ed58 - 15548887558326142104
 anomalies/fire/hand_fire2.png - .ao - 67e59d44567ef7a06a14ed59 - 7930458238365256176
