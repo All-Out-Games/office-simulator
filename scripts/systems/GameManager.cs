@@ -125,7 +125,7 @@ public partial class GameManager : Component
 
   private void SetupLeaderboards()
   {
-    Leaderboard.Register("Role", (Player[] players, string[] scores) =>
+    PlayerList.Register("Role", (Player[] players, string[] scores) =>
     {
       for (int i = 0; i < players.Length; i++)
       {
@@ -134,7 +134,7 @@ public partial class GameManager : Component
       }
     });
 
-    Leaderboard.Register("Room", (Player[] players, string[] scores) =>
+    PlayerList.Register("Room", (Player[] players, string[] scores) =>
     {
       for (int i = 0; i < players.Length; i++)
       {
@@ -143,7 +143,7 @@ public partial class GameManager : Component
       }
     });
 
-    Leaderboard.RegisterSortCallback((Player[] players) =>
+    PlayerList.RegisterSortCallback((Player[] players) =>
     {
       Array.Sort(players, (a, b) =>
         {

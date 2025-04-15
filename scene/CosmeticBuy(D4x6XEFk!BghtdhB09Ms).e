@@ -5,8 +5,8 @@
   "name": "CosmeticBuy",
   "local_enabled": true,
   "local_position": {
-    "X": -47.5902175903320312,
-    "Y": 8.9553794860839844
+    "X": -63.3894958496093750,
+    "Y": -11.9529161453247070
   },
   "local_rotation": 0,
   "local_scale": {
@@ -79,6 +79,6 @@
   "component_type": "Mono_Component",
   "mono_component_type": "CosmeticStand",
   "data": {
-    "cosmeticId": "65a6e4cf6c871a7a9ea7ae2a"
+    "cosmeticId": "67e1d594e"
   }
 }

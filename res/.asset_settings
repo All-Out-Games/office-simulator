@@ -1,9 +1,8 @@
 [
   {
-    "id": "chair.png",
+    "id": "*",
     "texture": {
-      "wrap_repeat": true,
-      "pixels_per_unit": 300
+      "resample_multiplier": 1
     }
   }
 ]
