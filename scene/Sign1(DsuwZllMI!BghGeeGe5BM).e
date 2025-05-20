@@ -77,7 +77,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Spine_Animator",
   "data": {
-    "skeleton_data_asset": "$AO/schleem/playercharacter.spine",
+    "skeleton_data_asset": "$AO/streamed_character",
     "ordered_skins": [
       "full_character/secret_service_full",
       "base/crewchsia"

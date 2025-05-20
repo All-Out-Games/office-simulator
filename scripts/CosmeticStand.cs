@@ -14,6 +14,7 @@ public class CosmeticStand : Component
 
   private void OnInteract(Player player)
   {
+    if (Network.LocalPlayer != player) return;
     if (!Network.IsClient) return;
     if (Cosmetics.OwnsCosmetic(player, cosmeticId))
     {

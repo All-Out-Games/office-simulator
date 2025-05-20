@@ -119,50 +119,76 @@ public partial class OfficePlayer : Player
       continue;
     }
 
-    Experience.OnSync += (oldValue, newValue) =>
+    Agent.CustomVelocityCallback += (agent, velocity, input, dt) =>
     {
-      if (Experience.Value >= 100 && !ShownPromoPrompt)
+      var multiplier = MoveSpeedModifier.Value;
+      if (HasEffect<KillerEffect>())
       {
-        ShownPromoPrompt = true;
-        if (Network.IsServer)
-        {
-          if (CurrentRole == Role.MANAGER)
-          {
-            CallClient_ShowNotification("Give a speech to convince the office to vote for you.");
-          }
-          else
-          {
-            CallClient_ShowNotification("You can now request a promotion in the HR room.");
-          }
-        }
+        multiplier *= 0.75f;
       }
-
-      if (IsLocal)
+      if (HasEffect<OverseerEffect>())
       {
-        References.Instance.ExperienceStatText.Text = "XP: " + Math.Clamp(newValue, 0, 100) + "/100";
-
-        var settings = References.Instance.ExperienceStatText.Settings;
-
-        // Flash green if increased, red if decreased
-        if (newValue > oldValue)
+        if (GameManager.Instance.FastJanitors)
         {
-          settings.Color = new Vector4(0, 1, 0, 1);
-          settings.Size = settings.Size * 1.2f; // Scale bump
-        }
-        else if (newValue < oldValue)
-        {
-          settings.Color = new Vector4(1, 0, 0, 1);
-          settings.Size = settings.Size * 1.2f; // Scale bump
+          multiplier *= 0.85f;
         }
         else
         {
-          settings.Color = new Vector4(1, 1, 1, 1);
+          multiplier *= 0.725f;
+        }
+      }
+      if (Caffeinated)
+      {
+        multiplier *= 1.3f;
+      }
+
+      return DefaultPlayerVelocityCalculation(velocity, input, dt, multiplier);
+    };
+
+    Experience.OnSync += (oldValue, newValue) =>
+      {
+        if (Experience.Value >= 100 && !ShownPromoPrompt)
+        {
+          ShownPromoPrompt = true;
+          if (Network.IsServer)
+          {
+            if (CurrentRole == Role.MANAGER)
+            {
+              CallClient_ShowNotification("Give a speech to convince the office to vote for you.");
+            }
+            else
+            {
+              CallClient_ShowNotification("You can now request a promotion in the HR room.");
+            }
+          }
         }
 
-        References.Instance.ExperienceStatText.Settings = settings;
-        experienceAnimEndTime = Time.TimeSinceStartup + ANIM_DURATION;
-      }
-    };
+        if (IsLocal)
+        {
+          References.Instance.ExperienceStatText.Text = "XP: " + Math.Clamp(newValue, 0, 100) + "/100";
+
+          var settings = References.Instance.ExperienceStatText.Settings;
+
+          // Flash green if increased, red if decreased
+          if (newValue > oldValue)
+          {
+            settings.Color = new Vector4(0, 1, 0, 1);
+            settings.Size = settings.Size * 1.2f; // Scale bump
+          }
+          else if (newValue < oldValue)
+          {
+            settings.Color = new Vector4(1, 0, 0, 1);
+            settings.Size = settings.Size * 1.2f; // Scale bump
+          }
+          else
+          {
+            settings.Color = new Vector4(1, 1, 1, 1);
+          }
+
+          References.Instance.ExperienceStatText.Settings = settings;
+          experienceAnimEndTime = Time.TimeSinceStartup + ANIM_DURATION;
+        }
+      };
 
     Cash.OnSync += (oldValue, newValue) =>
     {
@@ -397,7 +423,7 @@ public partial class OfficePlayer : Player
 
   public override void Update()
   {
-    bool moving = Velocity.Length > 0.03f;
+    bool moving = Agent.Velocity.Length > 0.03f;
     KillerSpineAnimator.SpineInstance.StateMachine.SetBool("moving", moving);
 
     if (Network.IsServer)
@@ -459,16 +485,7 @@ public partial class OfficePlayer : Player
         });
       }
 
-      if (CurrentRole == Role.CEO)
-      {
-        DrawDefaultAbilityUI(new AbilityDrawOptions()
-        {
-          AbilityElementSize = 125,
-          Abilities = new Ability[] { GetAbility<Revolver>() }
-        });
-      }
-
-      if (IsInOverseerBattle())
+      if (CurrentRole == Role.CEO || IsInOverseerBattle())
       {
         DrawDefaultAbilityUI(new AbilityDrawOptions()
         {

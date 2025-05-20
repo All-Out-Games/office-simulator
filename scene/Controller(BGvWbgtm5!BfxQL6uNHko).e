@@ -23,6 +23,7 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Box_Collider",
   "data": {
+    "is_trigger": true,
     "size": {
       "X": 14.3219280242919922,
       "Y": 11.3857326507568359
@@ -30,8 +31,7 @@
     "offset": {
       "X": 2.9318485260009766,
       "Y": -1.9407955408096313
-    },
-    "is_trigger": true
+    }
   }
 },
 {
