@@ -108,7 +108,7 @@ public class FTUEDialog : Component
     var mainTitleTs = titleTs;
     mainTitleTs.Size = 48;
     mainTitleTs.HorizontalAlignment = UI.HorizontalAlignment.Center;
-    UI.Text(contentRect.CutTop(60), "Five Nights at The Office", mainTitleTs);
+    UI.TextAsync(contentRect.CutTop(60), "Five Nights at The Office", mainTitleTs);
     contentRect.CutTop(20); // Spacing after main title
 
     // Animate entrance
@@ -136,8 +136,8 @@ public class FTUEDialog : Component
 
       // Title and content on the right
       var textArea = sectionRect.Inset(0, 0, 0, 10);
-      UI.Text(textArea.CutTop(30), section.Title, titleTs);
-      UI.Text(textArea, section.Content, contentTs);
+      UI.TextAsync(textArea.CutTop(30), section.Title, titleTs);
+      UI.TextAsync(textArea, section.Content, contentTs);
     }
 
     // Close button at the bottom with pulsing animation

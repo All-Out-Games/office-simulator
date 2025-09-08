@@ -63,7 +63,7 @@ public partial class GlobalLevelLeaderboard : Component
             var rankTextSize = textSize * 1.5f;
             var rankRect = myRect.LeftRect().Offset(0.2f, 0);
             Vector4 rankColor = new Vector4(41.0f / 255.0f, 35.0f / 255.0f, 39.0f / 255.0f, 1.0f);
-            var finalRankRect = UI.Text(rankRect, $"{MyEntry.Value.Placement + 1}", new UI.TextSettings()
+            var finalRankRect = UI.TextSync(rankRect, $"{MyEntry.Value.Placement + 1}", new UI.TextSettings()
             {
                 Font = UI.Fonts.Barlow,
                 Color = rankColor,
@@ -80,7 +80,7 @@ public partial class GlobalLevelLeaderboard : Component
 
             if (cameraRect.Overlaps(myRect))
             {
-                UI.Text(rankSuffixRect, suffix, new UI.TextSettings()
+                UI.TextAsync(rankSuffixRect, suffix, new UI.TextSettings()
                 {
                     Font = UI.Fonts.Barlow,
                     Color = rankColor,
@@ -90,7 +90,7 @@ public partial class GlobalLevelLeaderboard : Component
                 });
 
                 var nameRect = myRect.LeftRect().Offset(1, 0);
-                UI.Text(nameRect, MyEntry.Value.Username ?? "Me", new UI.TextSettings()
+                UI.TextAsync(nameRect, MyEntry.Value.Username ?? "Me", new UI.TextSettings()
                 {
                     Font = UI.Fonts.Barlow,
                     Color = Vector4.White,
@@ -102,7 +102,7 @@ public partial class GlobalLevelLeaderboard : Component
                 });
 
                 var scoreRect = myRect.RightRect().Offset(-0.175f, 0);
-                UI.Text(scoreRect, Util.FormatDouble(MyEntry.Value.Score), new UI.TextSettings()
+                UI.TextAsync(scoreRect, Util.FormatDouble(MyEntry.Value.Score), new UI.TextSettings()
                 {
                     Font = UI.Fonts.Barlow,
                     Color = Vector4.White,
@@ -163,7 +163,7 @@ public partial class GlobalLevelLeaderboard : Component
                 var rankText = $"{i + 1}";
                 if (i < 0) rankText = "TBD";
 
-                var finalRankRect = UI.Text(rankRect, rankText, new UI.TextSettings()
+                var finalRankRect = UI.TextSync(rankRect, rankText, new UI.TextSettings()
                 {
                     Font = UI.Fonts.Barlow,
                     Color = rankColor,
@@ -179,7 +179,7 @@ public partial class GlobalLevelLeaderboard : Component
                 if (i % 10 == 2 && i != 12) suffix = "rd";
                 if (i < 0) suffix = "";
 
-                UI.Text(rankSuffixRect, suffix, new UI.TextSettings()
+                UI.TextAsync(rankSuffixRect, suffix, new UI.TextSettings()
                 {
                     Font = UI.Fonts.Barlow,
                     Color = rankColor,
@@ -190,7 +190,7 @@ public partial class GlobalLevelLeaderboard : Component
 
                 var nameRect = entryRect.LeftRect().Offset(1, 0);
                 if (i == 0) nameRect = nameRect.Offset(0, -0.03f);
-                UI.Text(nameRect, displayName, new UI.TextSettings()
+                UI.TextAsync(nameRect, displayName, new UI.TextSettings()
                 {
                     Font = UI.Fonts.Barlow,
                     Color = Vector4.White,
@@ -203,7 +203,7 @@ public partial class GlobalLevelLeaderboard : Component
 
                 var scoreRect = entryRect.RightRect().Offset(-0.175f, 0);
                 if (i == 0) scoreRect = scoreRect.Offset(-0.075f, -0.03f);
-                UI.Text(scoreRect, Util.FormatDouble(score), new UI.TextSettings()
+                UI.TextAsync(scoreRect, Util.FormatDouble(score), new UI.TextSettings()
                 {
                     Font = UI.Fonts.Barlow,
                     Color = Vector4.White,
@@ -229,7 +229,7 @@ public partial class GlobalLevelLeaderboard : Component
             using var _7 = UI.PUSH_CONTEXT(UI.Context.WORLD);
 
             var pos = Entity.Position + new Vector2(0, -2f);
-            UI.Text(new Rect(pos, pos), OptionalTitle, new UI.TextSettings()
+            UI.TextAsync(new Rect(pos, pos), OptionalTitle, new UI.TextSettings()
             {
                 Font = UI.Fonts.Barlow,
                 Size = 0.5f,

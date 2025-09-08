@@ -50,7 +50,7 @@ public partial class MurderProjectile : Component
         }
 
         var projectile = Entity.GetComponent<Projectile>();
-        if (player == projectile.Owner) return;
+        if (player.Entity == projectile.Entity) return;
 
         // HIT CONFIRMED
         AlreadyHitSomething = true;
@@ -58,7 +58,11 @@ public partial class MurderProjectile : Component
         {
             if (Network.IsServer)
             {
-                CallClient_KillPlayer(player, (OfficePlayer)projectile.Owner);
+                var owner = (OfficePlayer)projectile.Entity?.GetComponent<Player>();
+                if (owner.Alive())
+                {
+                    CallClient_KillPlayer(player, owner);
+                }
             }
         }
 

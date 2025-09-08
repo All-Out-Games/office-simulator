@@ -591,21 +591,21 @@ public partial class OfficePlayer : Player
     if (DayNightManager.Instance.CurrentState == DayState.NIGHT && CurrentRole == Role.JANITOR)
     {
       ts = GetTextSettings(0.225f, new Vector4(1, 0, 0, 1));
-      UI.Text(rect, "JANITOR", ts);
+      UI.TextAsync(rect, "JANITOR", ts);
     }
     else if (CurrentRole == Role.OVERSEER)
     {
       ts = GetTextSettings(0.40f, new Vector4(0.6f, 0.2f, 1f, 1f));
-      UI.Text(rect, "OVERSEER", ts);
+      UI.TextAsync(rect, "OVERSEER", ts);
     }
     else if (CurrentRole == Role.CEO)
     {
       ts = GetTextSettings(0.35f, new Vector4(0, 1, 0, 1));
-      UI.Text(rect, "CEO", ts);
+      UI.TextAsync(rect, "CEO", ts);
     }
     else
     {
-      UI.Text(rect, CurrentRole.ToString(), ts);
+      UI.TextAsync(rect, CurrentRole.ToString(), ts);
     }
   }
 

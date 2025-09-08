@@ -76,7 +76,7 @@ public partial class MoneyCollectUI : Component
         OutlineColor = new Vector4(0, 0, 0, alpha)
       };
 
-      UI.Text(rect.Offset(0, 60 * currentScale.Y), $"+${anim.Amount}", ts);
+      UI.TextAsync(rect.Offset(0, 60 * currentScale.Y), $"+${anim.Amount}", ts);
     }
   }
 }

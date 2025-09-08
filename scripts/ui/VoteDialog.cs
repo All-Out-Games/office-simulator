@@ -91,13 +91,13 @@ public static class LogButton
     var glowIntensity = 0.5f + 0.5f * MathF.Sin(Time.TimeSinceStartup * 3f);
     var nameSettings = PlayerNameSettings;
     nameSettings.Color = new Vector4(1f, 0.8f + (0.2f * glowIntensity), 0.2f + (0.8f * glowIntensity), 1f);
-    UI.Text(GetShakeRect(nameRect, shake * 0.3f), playerName, nameSettings);
+    UI.TextAsync(GetShakeRect(nameRect, shake * 0.3f), playerName, nameSettings);
 
     // Vote count with scaling effect
     var countSettings = VoteCountSettings;
     countSettings.Size = 48 + (int)(48 * intensity);
     var voteRect = baseRect.Offset(offsetX, 0);
-    UI.Text(GetShakeRect(voteRect, shake), ((int)votes).ToString(), countSettings);
+    UI.TextAsync(GetShakeRect(voteRect, shake), ((int)votes).ToString(), countSettings);
 
     // Vote button with pulsing effect
     var buttonRect = baseRect.Offset(offsetX, -140).Grow(60 + (30 * intensity), 100 + (50 * intensity), 60 + (30 * intensity), 100 + (50 * intensity));
@@ -174,7 +174,7 @@ public static class LogButton
       using var _vsRotate = UI.PUSH_ROTATE_ABOUT_POINT(MathF.Sin(Time.TimeSinceStartup * 3f) * 0.1f, vsRect.Center);
 
       var vsShake = MathF.Max(Player1Votes, Player2Votes) / 100f * MaxShake;
-      UI.Text(GetShakeRect(vsRect, vsShake), "VS", vsSettings);
+      UI.TextAsync(GetShakeRect(vsRect, vsShake), "VS", vsSettings);
 
       // Add dramatic flash effect
       if (vsProgress > 0 && vsProgress < 0.3f)

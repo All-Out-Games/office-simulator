@@ -144,7 +144,7 @@ public class SecurityCameraControl : Component
 
     var cameraText = $"Camera {currentCameraIndex + 1}/{cameraPositions?.Length ?? 0}";
     var textRect = containerRect.Offset(0, 125);
-    UI.Text(textRect, cameraText, TextSettings);
+    UI.TextAsync(textRect, cameraText, TextSettings);
 
     using var _scale = UI.PUSH_SCALE_FACTOR(MathF.Max(1f, 0.01f));
 

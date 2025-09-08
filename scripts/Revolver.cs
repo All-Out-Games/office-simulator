@@ -60,7 +60,7 @@ public partial class ShootGunEffect : MyEffect
     {
         if (!isDropIn)
         {
-            Game.SpawnProjectile(Player, "Bullet.prefab", "detective_bullet", Player.Entity.Position, AbilityDirection);
+            Game.SpawnProjectile(Player.Entity, "Bullet.prefab", "detective_bullet", Player.Entity.Position, AbilityDirection);
             SFX.Play(Assets.GetAsset<AudioAsset>("sfx/bullet.wav"), new SFX.PlaySoundDesc() { Positional = true, Position = Player.Entity.Position });
         }
         Player.RemoveEffect(this, false);

@@ -176,7 +176,7 @@ public class OfficeDoor : TwoWayDoor
     {
       var ts = (op.Entity == Controller.Owner.Value) ? GetTextSettings(0.35f, Vector4.LightGreen) : GetTextSettings(0.35f, Vector4.White);
       var overlayText = op.Entity == Controller.Owner.Value ? "Your Office" : Controller.Owner.Value.Name + "'s Office";
-      UI.Text(rect, overlayText, ts);
+      UI.TextAsync(rect, overlayText, ts);
     }
 
     if (op.CurrentRoom != RoomName)

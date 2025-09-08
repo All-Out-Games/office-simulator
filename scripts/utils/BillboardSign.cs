@@ -13,7 +13,7 @@ public partial class BillboardSign : Component
         if (Network.IsServer) return;
         if (Network.LocalPlayer == null) return;
 
-        var localPlayer = (OfficePlayer) Network.LocalPlayer;
+        var localPlayer = (OfficePlayer)Network.LocalPlayer;
         if ((localPlayer.Entity.Position - Entity.Position).Length > 2)
         {
             NearSinceTime = Time.TimeSinceStartup;
@@ -31,7 +31,7 @@ public partial class BillboardSign : Component
             var rect = new Rect(pos, pos).CenterRect().OffsetUnscaled(0, 0.3f).Grow(0, adjustedHalfWidth, 0, adjustedHalfWidth);
 
             int bgSerial = IM.GetNextSerial();
-            var actualTextRect = UI.Text(rect, IsIntroMessage ? $"It's your first day at Nocturn Inc, {localPlayer.Name}!" : Message, new UI.TextSettings()
+            var actualTextRect = UI.TextSync(rect, IsIntroMessage ? $"It's your first day at Nocturn Inc, {localPlayer.Name}!" : Message, new UI.TextSettings()
             {
                 Font = UI.Fonts.Barlow,
                 Size = Game.IsMobile ? 0.3f : 0.2f,
