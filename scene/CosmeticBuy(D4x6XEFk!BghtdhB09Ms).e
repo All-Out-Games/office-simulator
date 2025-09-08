@@ -3,7 +3,7 @@
 17096022704484 1738870871563686700
 {
   "name": "CosmeticBuy",
-  "local_enabled": true,
+  "local_enabled": false,
   "local_position": {
     "X": -47.5902175903320312,
     "Y": 8.9553794860839844
