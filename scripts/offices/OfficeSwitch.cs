@@ -15,8 +15,9 @@ public class OfficeSwitch : Component
       Log.Error("OfficeSwitch " + Entity.Name + " doesn't have a parent office controller");
     }
 
-    interactable = AddComponent<Interactable>();
-    interactable.CanUseCallback = (Player p) => {
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
+    interactable.CanUseCallback = (Player p) =>
+    {
       var op = (OfficePlayer)p;
 
       if (!Controller.IsOwned)
@@ -24,18 +25,21 @@ public class OfficeSwitch : Component
         return false;
       }
 
-      if (Controller.IsOwned && Controller.Owner != op.Entity) {
+      if (Controller.IsOwned && Controller.Owner != op.Entity)
+      {
         return false;
       }
 
       return true;
     };
 
-    interactable.OnInteract = (Player p) => {
+    interactable.OnInteract = (Player p) =>
+    {
       if (!Network.IsServer) return;
       var op = (OfficePlayer)p;
 
-      if (Controller.Owner != op.Entity) {
+      if (Controller.Owner != op.Entity)
+      {
         op.CallClient_ShowNotification("You must own this office to lock/unlock it");
         op.CallClient_PlaySFX("sfx/error.wav");
         return;
@@ -58,7 +62,9 @@ public class OfficeSwitch : Component
         }
 
         op.CallClient_PlaySFX("sfx/progress_check_on.wav");
-      } else {
+      }
+      else
+      {
         op.CallClient_PlaySFX("sfx/progress_check_off.wav");
       }
 

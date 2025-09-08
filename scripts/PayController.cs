@@ -5,12 +5,14 @@ public class PayController : Component
   private Interactable interactable;
   public override void Awake()
   {
-    interactable = AddComponent<Interactable>();
-    interactable.CanUseCallback = (Player p) => {
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
+    interactable.CanUseCallback = (Player p) =>
+    {
       return ((OfficePlayer)p).CurrentRole == Role.CEO;
     };
 
-    interactable.OnInteract += (Player p) => {
+    interactable.OnInteract += (Player p) =>
+    {
       var op = (OfficePlayer)p;
 
       var newReducedPay = !GameManager.Instance.ReducedPay;
@@ -21,7 +23,8 @@ public class PayController : Component
           GameManager.Instance.CallClient_ShowNotification("The CEO has decided to cut the budget. Salaries have been reduced.");
         }
       }
-      else {
+      else
+      {
         if (Network.IsServer)
         {
           GameManager.Instance.CallClient_ShowNotification("The CEO has decided to increase salaries.");

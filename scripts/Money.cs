@@ -9,7 +9,7 @@ public class Money : Component
 
     public override void Awake()
     {
-        moneyUI = Entity.AddComponent<MoneyCollectUI>();
+        moneyUI = Entity.Unsafe_AddComponent<MoneyCollectUI>();
         var interactible = Entity.GetComponent<Interactable>();
         interactible.OnInteract = (Player p) =>
         {

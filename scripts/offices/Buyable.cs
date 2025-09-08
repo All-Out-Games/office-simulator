@@ -17,7 +17,7 @@ public class Buyable : Component
       Log.Error("Buyable " + Entity.Name + " doesn't have a parent office controller");
     }
 
-    interactable = AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.OnInteract = OnInteract;
     interactable.PromptOffset = new Vector2(-0.6f, -0.5f);
     interactable.CanUseCallback = (Player p) =>

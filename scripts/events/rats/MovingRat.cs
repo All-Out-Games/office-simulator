@@ -12,7 +12,7 @@ public class MovingRat : Component
   {
     spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
     StartPosition = Entity.Position;
-    interactable = Entity.AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.Text = "Squash Rat";
     interactable.CanUseCallback = (Player p) =>
     {

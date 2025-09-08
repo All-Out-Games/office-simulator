@@ -16,7 +16,7 @@ public class TwoWayDoor : Component
 
   public override void Awake()
   {
-    interactable = AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.OnInteract = OnInteract;
   }
 
@@ -34,7 +34,7 @@ public class TwoWayDoor : Component
     {
       op.Teleport(Outside.Position);
       op.CurrentRoom = Room.HALLS;
-    } 
+    }
   }
 
   public override void Update()

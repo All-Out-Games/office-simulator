@@ -8,7 +8,7 @@ public class CosmeticStand : Component
   public Interactable interactable;
   public override void Awake()
   {
-    interactable = AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.OnInteract += OnInteract;
   }
 

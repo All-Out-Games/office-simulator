@@ -8,11 +8,11 @@ public class StolenBag : Component
   private SpriteFlasher spriteFlasher;
   public override void Awake()
   {
-    spriteFlasher = Entity.AddComponent<SpriteFlasher>();
+    spriteFlasher = Entity.Unsafe_AddComponent<SpriteFlasher>();
     spriteFlasher.Flash = false;
 
     spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
-    interactable = Entity.AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.Text = "Recover Stolen Cash";
     interactable.CanUseCallback = (Player p) =>
     {

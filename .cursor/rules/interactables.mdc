@@ -12,7 +12,7 @@ public class GymPass : Component
 
   public override void Awake()
   {
-    interactable = Entity.AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.CanUseCallback += (Player p) => 
     {
       var myPlayer = (MyPlayer)p;

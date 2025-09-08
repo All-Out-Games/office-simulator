@@ -19,7 +19,7 @@ public partial class PromoNPC : Component
     {
         Instance = this;
 
-        interactable = Entity.AddComponent<Interactable>();
+        interactable = Entity.Unsafe_AddComponent<Interactable>();
         interactable.OnInteract = (Player p) =>
         {
             if (!Network.IsServer) return;

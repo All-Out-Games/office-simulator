@@ -19,7 +19,7 @@ public partial class OverseerPromoNPC : Component
         Instance = this;
         spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
 
-        interactable = Entity.AddComponent<Interactable>();
+        interactable = Entity.Unsafe_AddComponent<Interactable>();
         interactable.CanUseCallback = (Player p) =>
         {
             var op = (OfficePlayer)p;

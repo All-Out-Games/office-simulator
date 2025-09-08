@@ -5,12 +5,14 @@ public class SpeedController : Component
   private Interactable interactable;
   public override void Awake()
   {
-    interactable = AddComponent<Interactable>();
-    interactable.CanUseCallback = (Player p) => {
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
+    interactable.CanUseCallback = (Player p) =>
+    {
       return ((OfficePlayer)p).CurrentRole == Role.OVERSEER;
     };
 
-    interactable.OnInteract += (Player p) => {
+    interactable.OnInteract += (Player p) =>
+    {
       var op = (OfficePlayer)p;
 
       var newFastJanitors = !GameManager.Instance.FastJanitors;
@@ -19,7 +21,8 @@ public class SpeedController : Component
       {
         GameManager.Instance.CallClient_ShowNotification("The overseer has empowered their minions...");
       }
-      else {
+      else
+      {
         GameManager.Instance.CallClient_ShowNotification("The overseer has reduced their minions power...");
       }
 

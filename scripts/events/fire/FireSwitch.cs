@@ -11,11 +11,11 @@ public class FireSwitch : Component
 
   public override void Awake()
   {
-    spriteFlasher = Entity.AddComponent<SpriteFlasher>();
+    spriteFlasher = Entity.Unsafe_AddComponent<SpriteFlasher>();
     spriteFlasher.Flash = false;
 
     spriteRenderer = Entity.GetComponent<Sprite_Renderer>();
-    interactable = Entity.AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.Text = "Pull Extinguisher";
     interactable.CanUseCallback = (Player p) =>
     {
@@ -35,7 +35,9 @@ public class FireSwitch : Component
     if (Fixed)
     {
       spriteFlasher.Flash = false;
-    } else {
+    }
+    else
+    {
       spriteFlasher.Flash = true;
     }
 
@@ -62,7 +64,7 @@ public class FireSwitch : Component
     }
 
 
-    sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/fire/fire.wav"), new SFX.PlaySoundDesc() { Volume=0.4f, Loop = true, Positional=true, Position=Entity.Position });
+    sfxHandle = SFX.Play(Assets.GetAsset<AudioAsset>("anomalies/fire/fire.wav"), new SFX.PlaySoundDesc() { Volume = 0.4f, Loop = true, Positional = true, Position = Entity.Position });
 
     if (Network.IsServer)
     {

@@ -34,7 +34,7 @@ public class SecurityCameraControl : Component
 
   public override void Awake()
   {
-    interactable = Entity.AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.Text = "Enter Camera Mode";
 
     // Cache camera positions

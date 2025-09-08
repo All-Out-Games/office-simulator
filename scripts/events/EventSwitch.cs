@@ -11,14 +11,14 @@ public class EventSwitch : Component
   {
     eventController = Entity.Parent.GetComponent<EventController>();
 
-    interactable = Entity.AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.Text = EventName;
     interactable.CanUseCallback = (Player p) =>
     {
       var op = (OfficePlayer)p;
       return op.CurrentRole == Role.OVERSEER;
     };
-    
+
     interactable.OnInteract = (Player p) =>
     {
       var op = (OfficePlayer)p;

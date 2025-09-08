@@ -20,7 +20,7 @@ public partial class PowerSwitch : Component
       Log.Warn("PowerSwitch has no spine animator");
       return;
     }
-    interactable = Entity.AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
     interactable.Text = "Restore Breaker";
     interactable.CanUseCallback = (Player p) =>
     {

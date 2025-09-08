@@ -69,11 +69,11 @@ public partial class Activity : Component
       ActiveTexture = spriteRenderer.Texture;
     }
 
-    interactable = Entity.AddComponent<Interactable>();
+    interactable = Entity.Unsafe_AddComponent<Interactable>();
 
     if (Network.IsClient)
     {
-      Entity.AddComponent<SpriteFlasher>();
+      Entity.Unsafe_AddComponent<SpriteFlasher>();
     }
 
     interactable.PromptOffset = new Vector2(-0.5f, 0.25f);
