@@ -13,6 +13,14 @@ public class Money : Component
         var interactible = Entity.GetComponent<Interactable>();
         interactible.OnInteract = (Player p) =>
         {
+            if (Network.LocalPlayer == p)
+            {
+                if (Network.IsClient)
+                {
+                    Haptics.PlayImpact(Haptics.ImpactType.Light);
+                }
+            }
+
             var op = (OfficePlayer)p;
             if (Network.IsServer)
             {
@@ -20,7 +28,7 @@ public class Money : Component
                 var amount = op.Salary / 7;
                 op.Cash.Set(op.Cash + amount);
                 Chat.SendMessage(op, "Thank you for your hard work!");
-                moneyUI.CallClient_PlayMoneyCollectAnimation(Entity.Position, amount, new RPCOptions(target: op));
+                moneyUI.CallClient_PlayMoneyCollectAnimation(Entity.Position, amount, new RPCOptions { Target = op });
             }
             if (Network.LocalPlayer == p)
             {

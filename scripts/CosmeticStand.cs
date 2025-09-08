@@ -16,6 +16,12 @@ public class CosmeticStand : Component
   {
     if (Network.LocalPlayer != player) return;
     if (!Network.IsClient) return;
+
+    if (!Cosmetics.GetAllCosmetics().Any(c => c.Id == cosmeticId))
+    {
+      return;
+    }
+
     if (Cosmetics.OwnsCosmetic(player, cosmeticId))
     {
       Cosmetics.EquipCosmetic(cosmeticId);
@@ -29,6 +35,12 @@ public class CosmeticStand : Component
   public override void Update()
   {
     if (!Network.LocalPlayer.Alive()) return;
+
+    if (!Cosmetics.GetAllCosmetics().Any(c => c.Id == cosmeticId))
+    {
+      interactable.Text = "Loading...";
+      return;
+    }
 
     if (Cosmetics.OwnsCosmetic(Network.LocalPlayer, cosmeticId))
     {

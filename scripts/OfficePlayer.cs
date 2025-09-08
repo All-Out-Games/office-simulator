@@ -234,6 +234,7 @@ public partial class OfficePlayer : Player
     if (IsLocal)
     {
       CameraControl = CameraControl.Create(1);
+      CameraControl.SetPostProcessor(CustomPostProcessor);
     }
 
     {
@@ -419,6 +420,18 @@ public partial class OfficePlayer : Player
   public bool IsInOverseerBattle()
   {
     return OverseerPromoNPC.Instance.Fighter1?.Value == this.Entity || OverseerPromoNPC.Instance.Fighter2?.Value == this.Entity;
+  }
+
+  public void CustomPostProcessor(CameraControl camera)
+  {
+    if (DayNightManager.Instance.CurrentState == DayState.NIGHT)
+    {
+      PostProcessing.ChromaticAberration(new PostProcessing.ChromaticAberrationConfig()
+      {
+        ChannelOffsets = new Vector3(0.015f, 0.000f, 0.000f), // Play with these (RGB)
+        FocalPoint = new Vector2(-0.1f, -0.1f) // each channle will move by their offset away from this point (0,0) is the center (pretty sure it's -1 to 1)
+      });
+    }
   }
 
   public override void Update()

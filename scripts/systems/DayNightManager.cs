@@ -15,7 +15,7 @@ public partial class DayNightManager : Component
   public UIText ClockUIRef;
 
   public static DayNightManager Instance;
-  public float DayLength = 165;
+  public float DayLength = 165f;
   public float NightLength = 45;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
@@ -81,7 +81,7 @@ public partial class DayNightManager : Component
         // Update darkness overlay alpha
         if (darknessOverlay != null && darknessOverlay.Alive())
         {
-          var bgLerp = AOMath.Lerp(1.45f, 0.25f, Darkness);
+          var bgLerp = AOMath.Lerp(0.5f, 0.05f, Darkness);
           switch (CurrentState)
           {
             case DayState.DAY:

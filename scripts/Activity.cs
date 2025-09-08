@@ -87,6 +87,14 @@ public partial class Activity : Component
   {
     var op = (OfficePlayer)p;
 
+    if (Network.LocalPlayer == p)
+    {
+      if (Network.IsClient)
+      {
+        Haptics.PlayImpact(Haptics.ImpactType.Light);
+      }
+    }
+
     // Guards
     if (!Network.IsServer) return;
     var requirementsResult = CheckAllRequirements(op);
