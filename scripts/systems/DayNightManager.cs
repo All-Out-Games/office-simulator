@@ -16,7 +16,7 @@ public partial class DayNightManager : Component
 
   public static DayNightManager Instance;
   public float DayLength = 165f;
-  public float NightLength = 45;
+  public float NightLength = 45f;
   public SyncVar<float> Darkness = new(0f);
   private SyncVar<float> transitionStartTime = new(0f);
   private Sprite_Renderer darknessOverlay;
@@ -75,7 +75,7 @@ public partial class DayNightManager : Component
       var op = (OfficePlayer)Network.LocalPlayer;
       if (op.CurrentRoom != Room.HR)
       {
-        var clampedAmbiant = Math.Clamp(1 - Darkness, 0f, 0.2f);
+        var clampedAmbiant = Math.Clamp(1 - Darkness, 0.225f, 1f);
         op.CameraControl.AmbientColour = new Vector3(clampedAmbiant, clampedAmbiant, clampedAmbiant);
 
         // Update darkness overlay alpha
