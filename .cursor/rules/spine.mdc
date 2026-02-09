@@ -1,104 +1,253 @@
 ---
-description: For Spine animations or other spine related things
-globs: 
+description: When dealing with animations, spine rigs or state machines. Also check here to interact with the built-in player animation state machine
+alwaysApply: false
 ---
 # Spine Reference
-We use Esoteric Spine to need to aniamte characters and object. The Player component has a SpineAnimator property, for other objects get the Spine_Animator using Entity.GetComponent<Spine_Animator>()
+We use Esoteric Spine to animate characters and objects. The Player component has a SpineAnimator property, for other objects get the Spine_Animator using Entity.GetComponent<Spine_Animator>()
 
-## Animations
-For simple animations you can call:
-`spineAnimator.SpineInstance.SetAnimation("AnimationName", loop);`
-Prefer this unless you know you NEED to use the state machine. 
+- Spine methods MUST run on the client or they will do nothing.
+- Never set the player's skeleton yourself. Player skeletons from the project are merged together automatically. 
 
-To have a spine animator be aware of the player's mouse/aiming direction use Player.SetMouseIKEnabled.
+## Skins
+There is a tool to identify what skins are available to you. This tool can be run by executing `cd .cursor/spine-parser-tool; dotnet run ..\..\res\<rest_of_path.spine> skins` (DO NOT PIPE TO CAT) to get the skin names. NEVER assume you know the names of the skins.
 
-## Crewshia
-You can control the color of any spine rig, including player's character with the .SetCrewchsia(int) method of the Spine Animator.
-The colors are defined as:
-Red(Index 0)
-Cyan(Index 1)
-Green(Index 2)
-Yellow(Index 3)
-Light Green(Index 4)
-Pink(Index 5)
-Orange(Index 6)
-Black(Index 7)
-Purple(Index 8)
-Light Gray(Index 9)
-Black 2 (Index 10)
-Green 3 (Index 11)
-Orange 2 (Index 12)
-Purple 2 (Index 13)
-Red 2 (Index 14)
-Blue 2 (Index 15)
-Brown 1 (Index 16)
-Purple 3 (Index 17)
-White 1 (Index 18)
+To set the skin for the SpineAnimator call `SpineInstance.EnableSkin("<skin_name>");`, then you MUST call `SpineInstance.RefreshSkins()`.
+
+## Crewchsia
+You can control the color of any Spine rig including characters with the .SetCrewchsia(CrewchsiaColor color) method of the Spine Animator. For example you can use `CrewchsiaColor.Red`
 
 ## Some other commonly used spine methods
 ```cs
 SpineInstance.Scale = new Vector2(2.4f, 2.4f);
-SpineInstance.SetSkeleton(Assets.GetAsset<SpineSkeletonAsset>("path"));
-SpineInstance.SetStateMachine(BookshelfLever.MakeBookshelfStateMachine(), Entity);
+SpineInstance.Speed = 0.5f;
+SpineInstance.SetSkeleton(Assets.GetAsset<SpineSkeletonAsset>("INSERT PATH.spine"));
+```
 
-var murderLayer = SpineAnimator.SpineInstance.StateMachine.CreateLayer("murder_layer", 10);
-var aoLayer = SpineAnimator.SpineInstance.StateMachine.TryGetLayerByName("main");
-var aoIdleState = aoLayer.TryGetStateByName("Idle");
-var aoRunState = aoLayer.TryGetStateByName("Run_Fast");
-var idleState = murderLayer.CreateState("MURD_002/empty", 0, true);
-murderLayer.SetInitialState(idleState);
+## Animations
+There is a tool to identify what animations are available to you. This tool can be run by executing `cd .cursor/spine-parser-tool; dotnet run ..\..\res\<rest_of_path.spine> animations` (DO NOT PIPE TO CAT) to get the animation names. NEVER assume you know the names of the animations.
 
-var pointBool = SpineAnimator.SpineInstance.StateMachine.CreateVariable("point", StateMachineVariableKind.BOOLEAN);
-var pointExaggerateTrigger = SpineAnimator.SpineInstance.StateMachine.CreateVariable("point_exaggerate", StateMachineVariableKind.TRIGGER);
-var pointState = murderLayer.CreateState("MURD_002/point_mIK_AL", 0, true);
-var pointExaggerateState = murderLayer.CreateState("MURD_002/point_ex_mIK_AL", 0, false);
-murderLayer.CreateTransition(idleState, pointState, false).CreateBoolCondition(pointBool, true);
-murderLayer.CreateTransition(pointState, pointExaggerateState, false).CreateTriggerCondition(pointExaggerateTrigger);
-murderLayer.CreateTransition(pointExaggerateState, pointExaggerateState, false).CreateTriggerCondition(pointExaggerateTrigger);
-murderLayer.CreateTransition(pointExaggerateState, pointState, true);
-murderLayer.CreateTransition(pointState, idleState, false).CreateBoolCondition(pointBool, false);
+For simple animations you can call:
+`SpineAnimator.SpineInstance.SetAnimation("AnimationName", loop);`
+Prefer this unless you know you need to use the state machine (player/NPC animations). Be careful to avoid calling SetAnimation every frame or it will never progress. 
 
-public class TransformFromKillerEffect : MyEffect
+## State Machines
+The player has a SpineAnimator with a StateMachine created by default. If requested by the user you can add additional animations with animation names from the above tool. 
+
+### Player default state machine
+- Layers:
+  - main (track 0): core locomotion and reactions; initial state is Idle.
+  - attack (track 1): additive/overlay for melee, punch, shooting; initial state is `__CLEAR_TRACK__`.
+  - invisibility (track 2): overlay for cloak visuals; initial state is `__CLEAR_TRACK__`.
+  - skin_anim (track 10000): internal skinning visuals; initial state is `__skin_anim`.
+
+- Variables:
+  - Booleans: `moving`, `use_ik`, `electrocute`, `sleep`, `ghost_form`.
+  - Triggers: `RESET`, `start_eating`, `attack`, `dodge_roll`, `collect_item`, `death`, `flinch`, `fall_hurt`, `fall_safe`, `grow_big`, `punch`, `teleport_away`, `teleport_appear`, `shoot`.
+
+- Main layer states (looping unless noted):
+  - Idle, Run_Fast
+  - Dodge_Roll (oneshot)
+  - Collect_Item (oneshot)
+  - Death_No_HP (oneshot)
+  - Electrocute_Start (oneshot) → Electrocute_Loop → Electrocute_End (oneshot)
+  - Fall_Asleep (oneshot) → Sleeping → Wake_Up (oneshot)
+  - Flinch_Big (oneshot)
+  - Fall_To_Ground_Hurt (oneshot) → Get_Up (oneshot)
+  - Fall_To_Ground_Safe (oneshot) → Get_Up (oneshot)
+  - Grow_Big (oneshot)
+  - Idle_Ghost, Run_Ghost
+  - Teleport_Away (oneshot) → Teleport_Appear (oneshot)
+  - Emote/Dab/Dab_loop (loop)
+  - FAT_001/small/eating_loop (loop; entered by trigger)
+
+- Main layer transitions:
+  - Locomotion: `Idle ↔ Run_Fast` by `moving` true/false.
+  - Ghost locomotion: `Idle_Ghost ↔ Run_Ghost` by `moving` true/false.
+  - Form swap: `Idle ↔ Idle_Ghost`, `Run_Fast ↔ Run_Ghost` by `ghost_form` true/false.
+  - One-shots (global): `collect_item`, `death`, `dodge_roll`, `flinch`, `grow_big` each enter their state and then return (transition back with `true`).
+  - Teleport: `teleport_away` → (on `teleport_appear`) → `Idle`.
+  - Electrocute: `Electrocute_Start` → `Electrocute_Loop` → `Electrocute_End` when `electrocute` goes false.
+  - Sleep: `Fall_Asleep` → `Sleeping` → `Wake_Up` when `sleep` goes false.
+  - Fall: `fall_hurt` or `fall_safe` → `Get_Up` → return.
+  - Eating: `start_eating` enters `FAT_001/small/eating_loop`.
+
+- Attack layer (track 1):
+  - States: `Attack_Melee_1` (no IK), `Attack_Melee_1_mIK_AL` (IK), `Punch_AL`, `Shoot_Gun_mIK_AL`, `__CLEAR_TRACK__`.
+  - Transitions (global):
+    - `attack` + `use_ik=false` → `Attack_Melee_1` → clear.
+    - `attack` + `use_ik=true` → `Attack_Melee_1_mIK_AL` → clear.
+    - `punch` → `Punch_AL` → clear.
+    - `shoot` → `Shoot_Gun_mIK_AL` → clear.
+
+- Invisibility layer (track 2):
+  - States: `__CLEAR_TRACK__` and `Use_Invisibility_Cloak_AL`.
+  - Controlled by gameplay (cloak visuals), initial is clear.
+
+- Notes:
+  - A `RESET` trigger globally returns to Idle.
+  - Emotes dynamically add global transitions to main; some special emotes (e.g. Dab) loop and return to run on `moving`.
+  - Player spawn sets the visible list rig idle animation independently of the state machine.
+
+```cs
+  // MyPlayer.cs
+  public static void SetupPlayerStateMachine()
+  {
+    // Will refer to the implicitly created player state machine, which you can add to here. 
+    var sm = SpineAnimator.SpineInstance.StateMachine;
+
+    var aoLayer = sm.TryGetLayerByIndex(0);
+
+    var aoIdleState = aoLayer.TryGetStateByName("Idle");
+    var aoRunState = aoLayer.TryGetStateByName("Run_Fast");
+
+    var movingVar = sm.TryGetVariableByName("moving");
+
+    var use1hIk = sm.TryGetVariableByName("use_ik");
+    var use2hIk = sm.CreateVariable("use_2h_ik", StateMachineVariableKind.BOOLEAN);
+
+    var aimRun1hFast = aoLayer.CreateState("redsun/Run_Fast_mIK", 0, true);
+    var aimRun2hFast = aoLayer.CreateState("redsun/Run_Fast_mIK", 0, true);
+    var aimIdle1h = aoLayer.CreateState("redsun/Idle_mIK", 0, true);
+    var aimIdle2h = aoLayer.CreateState("redsun/Idle_mIK", 0, true);
+
+    //Entry
+    aoLayer.CreateGlobalTransition(aoIdleState, false).CreateTriggerCondition(sm.CreateVariable("cancel_all", StateMachineVariableKind.TRIGGER));
+    aoLayer.CreateTransition(aoIdleState, aimIdle1h, false).CreateBoolCondition(use1hIk, true);
+    aoLayer.CreateTransition(aoIdleState, aimIdle2h, false).CreateBoolCondition(use2hIk, true);
+    aoLayer.CreateTransition(aoRunState, aimRun1hFast, false).CreateBoolCondition(use1hIk, true);
+    aoLayer.CreateTransition(aoRunState, aimRun2hFast, false).CreateBoolCondition(use2hIk, true);
+    //Idle <-> Run
+    aoLayer.CreateTransition(aimRun1hFast, aimIdle1h, false).CreateBoolCondition(movingVar, false);
+    aoLayer.CreateTransition(aimIdle1h, aimRun1hFast, false).CreateBoolCondition(movingVar, true);
+    aoLayer.CreateTransition(aimRun2hFast, aimIdle2h, false).CreateBoolCondition(movingVar, false);
+    aoLayer.CreateTransition(aimIdle2h, aimRun2hFast, false).CreateBoolCondition(movingVar, true);
+    //Exit
+    aoLayer.CreateTransition(aimIdle1h, aoIdleState, false).CreateBoolCondition(use1hIk, false);
+    aoLayer.CreateTransition(aimIdle2h, aoIdleState, false).CreateBoolCondition(use2hIk, false);
+    aoLayer.CreateTransition(aimRun1hFast, aoRunState, false).CreateBoolCondition(use1hIk, false);
+    aoLayer.CreateTransition(aimRun2hFast, aoRunState, false).CreateBoolCondition(use2hIk, false);
+
+    var flinchState = aoLayer.CreateState("016ARP/Flinch", 0, false);
+    var deathState = aoLayer.CreateState("Death_No_HP", 0, false);
+
+    var spawnInState = aoLayer.CreateState("016ARP/Spawn_In", 0, false);
+    var wakeUpState = aoLayer.CreateState("016ARP/Wake_Up", 0, false);
+
+    var flinchTrigger = sm.CreateVariable("flinch", StateMachineVariableKind.TRIGGER);
+    var deathTrigger = sm.CreateVariable("death", StateMachineVariableKind.TRIGGER);
+    var spawnTrigger = sm.CreateVariable("spawn", StateMachineVariableKind.TRIGGER);
+
+    aoLayer.CreateGlobalTransition(aoIdleState, false).CreateTriggerCondition(sm.CreateVariable("cancel_all", StateMachineVariableKind.TRIGGER));
+    aoLayer.CreateGlobalTransition(flinchState).CreateTriggerCondition(flinchTrigger);
+    aoLayer.CreateTransition(flinchState, aoRunState, true);
+
+    aoLayer.CreateGlobalTransition(deathState).CreateTriggerCondition(deathTrigger);
+    aoLayer.CreateTransition(deathState, aoRunState, false);
+
+    aoLayer.CreateGlobalTransition(spawnInState).CreateTriggerCondition(spawnTrigger);
+    aoLayer.CreateTransition(spawnInState, aoRunState, true);
+
+    var sitState = aoLayer.CreateState("Emote/Sit_Down", 0, false);
+    var sitTrigger = sm.CreateVariable("sit", StateMachineVariableKind.TRIGGER);
+    aoLayer.CreateGlobalTransition(sitState).CreateTriggerCondition(sitTrigger);
+    aoLayer.CreateTransition(sitState, aoRunState, true);
+
+    // Additive Layer (used when you want to layer e.g. punching while walking)
+    var additiveLayer = sm.CreateLayer("additive_layer", 1);
+    var idleState = additiveLayer.CreateState("__CLEAR_TRACK__", 0, true);
+    additiveLayer.InitialState = idleState;
+
+    additiveLayer.CreateGlobalTransition(idleState, false).CreateTriggerCondition(sm.TryGetVariableByName("cancel_all"));
+    additiveLayer.AddSimpleTriggeredState("punch2", "016ARP/Punch_mIK_AL");
+    additiveLayer.AddSimpleTriggeredState("place_block", "Place_Block_AL");
+    additiveLayer.AddSimpleTriggeredState("flinch_big", "Flinch_Big");
+    additiveLayer.AddSimpleTriggeredState("handless", "Handless", false, true);
+
+    additiveLayer.AddSimpleTriggeredState("shoot_1h_weapon", "redsun/Shoot_Gun_mIK_AL");
+    additiveLayer.AddSimpleTriggeredState("shoot_2h_weapon", "redsun/Shoot_Gun_mIK_AL_twohands");
+
+    var dustOffState = additiveLayer.CreateState("Emote/Dust_Self_Off", 0, false);
+    var dustOffTrigger = sm.CreateVariable("dust_off", StateMachineVariableKind.TRIGGER);
+    additiveLayer.CreateGlobalTransition(dustOffState).CreateTriggerCondition(dustOffTrigger);
+    additiveLayer.CreateTransition(dustOffState, idleState, true);
+
+    additiveLayer.AddSimpleTriggeredState("attack_melee_1", "Attack_Melee_1");
+  }
+```
+
+For complex non-player SpineAnimators you can create your own state machine like so:
+```cs
+  public void SetupStateMachine()
+  {
+    var sm = StateMachine.Make();
+    SpineAnimator.SpineInstance.SetStateMachine(sm, Entity);
+
+    var gameLayer = SpineAnimator.SpineInstance.StateMachine.CreateLayer("game_layer", 10);
+    var empty = gameLayer.CreateState("__CLEAR_TRACK__", 0, true);
+
+    var idleState = gameLayer.CreateState("016ARP_Cop/Idle", 0, true);
+    var runState = gameLayer.CreateState("016ARP_Cop/Run", 0, true);
+    var chaseIdleState = gameLayer.CreateState("016ARP_Cop/Chase_Idle", 0, true);
+    var chaseRunState = gameLayer.CreateState("016ARP_Cop/Chase_Run", 0, true);
+
+    var movingBool = SpineAnimator.SpineInstance.StateMachine.CreateVariable("moving", StateMachineVariableKind.BOOLEAN);
+    var chasingBool = SpineAnimator.SpineInstance.StateMachine.CreateVariable("chasing", StateMachineVariableKind.BOOLEAN);
+
+    // Create transitions...
+
+    // Add states...
+
+    gameLayer.InitialState = idleState;
+  }
+```
+
+### Mouse IK (aiming)
+- Enable mouse aiming with `Player.SetMouseIKEnabled(true)` on the client.
+- When enabled, the player will continuously aim toward the mouse position in world space and automatically flip facing toward the target.
+- You can explicitly set the aim target (for custom cursors/gamepad aiming) via `Player.SetAimTarget(Vector2 target)`; this uses world coordinates.
+- Disabling mouse IK with `Player.SetMouseIKEnabled(false)` returns facing control to standard movement-based flipping (unless you override it).
+- Enabling mouse IK also selects IK-aware animation paths where available (e.g., IK shooting/melee variants) in the default state machine.
+
+Example (client-only):
+```cs
+public class MyPlayer : Player
 {
-    public override bool IsActiveEffect => true;
-    public override bool FreezePlayer => true;
+  public override void Awake()
+  {
+    if (Network.IsClient && IsLocal)
+      SetMouseIKEnabled(true);
+  }
 
-    public override void OnEffectStart(bool isDropIn)
-    {
-        Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_back_start");
-        if (isDropIn)
-        {
-            DurationRemaining = Player.KillerSpineAnimator.SpineInstance.StateMachine.TryGetLayerByName("killer_layer").GetCurrentStateLength();
-        }
-    }
-
-    public override void OnEffectEnd(bool interrupt)
-    {
-        Player.AddEffect<FinishTransformFromKillerEffect>();
-        if (interrupt)
-        {
-            Player.RemoveEffect<FinishTransformFromKillerEffect>(true);
-        }
-    }
+  public override void Update()
+  {
+    // Optional override: aim at a custom world position (e.g., a reticle)
+    // SetAimTarget(CustomAimWorldPosition);
+  }
 }
+```
 
-    public override void OnEffectStart(bool isDropIn)
-    {
-        if (!isDropIn)
-        {
-            Player.AddFreezeReason("transforming");
-            Player.KillerSpineAnimator.SpineInstance.StateMachine.SetTrigger("transform_end");
-            Player.KillerSpineAnimator.OnAnimationEnd += OnKillerAnimationEnd;
-        }
-        else
-        {
-            Player.RemoveFreezeReason("transforming");
-            DoneAnim = true;
-        }
+### SetAimTarget
+- Use `Player.SetAimTarget(Vector2 targetWorldPosition)` to explicitly drive aim with a world-space point.
+- Typically called every frame (in `Update`) while you want to steer aim manually (e.g., controller reticle, lock-on target, scripted scenes).
+- Works alongside `SetMouseIKEnabled(true)` to keep IK-aware animation paths active; `SetAimTarget` sets facing automatically toward the target.
+- If you want movement-based facing instead, disable mouse IK with `SetMouseIKEnabled(false)` and avoid calling `SetAimTarget`.
 
-        Player.AddInvisibilityReason(nameof(KillerEffect));
-        Player.KillerSpineAnimator.SpineInstance.Scale = new Vector2(4, 4);
-        Player.KillerSpineAnimator.LocalEnabled = true;
-        Player.KillerSpineAnimator.OnEvent += OnKillerAnimationEvent;
-    }
+Example (manual reticle):
+```cs
+public class MyPlayer : Player
+{
+  Vector2 reticle;
+
+  public override void Awake()
+  {
+    if (Network.IsClient && IsLocal)
+      SetMouseIKEnabled(true);
+  }
+
+  public override void Update()
+  {
+    // Update reticle however you wish, then drive aim:
+    SetAimTarget(reticle);
+  }
+}
 ```

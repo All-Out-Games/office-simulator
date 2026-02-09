@@ -1,24 +1,31 @@
 ---
-description: If you want to change the player's camera properties
-globs: 
+description: If you need to change the player's camera properties or apply post processing
+alwaysApply: false
 ---
 # CameraControl Reference
 
 You can create CameraControls with `CameraControl.Create(layer)`, the highest layer camera that exists will be what the player sees.
 
-Control Zoom with .Zoom
-> Good values are between 0.8f and 2f the lower the closer the zoom.
-
 Most games will want a CameraControl on their player to start with
+
+
+### Example 1: Basic Zoom
 ```cs
+// MyPlayer.cs
 public CameraControl CameraControl;
 
-In your player Awake (with an IsLocal check). 
-CameraControl = CameraControl.Create(0);
-CameraControl.Zoom = 1.45f;
+public override void Awake()
+{
+    // Important IsLocal check!
+    if (IsLocal)
+    {
+        CameraControl = CameraControl.Create(0);
+        CameraControl.Zoom = 1.45f;
+    }
+}
 ```
 
-If you create a CameraControl, make sure to make it follow the player by setting its Position in the player's LateUpdate. 
+If you create a CameraControl generally you'll want it to follow the player by setting its Position in the player's LateUpdate. 
 ```cs
 public override void LateUpdate()
 {
@@ -31,3 +38,219 @@ public override void LateUpdate()
 
 You can create additional cameras in other components with higher layers to override. 
 Don't forget to destroy them when you're done!
+
+### Example 2: Post Processing
+```cs
+// MyPlayer.cs
+    public override void Awake()
+    {
+        // Important IsLocal check!
+        if (IsLocal)
+        {
+            CameraControl = CameraControl.Create(0);
+            CameraControl.SetPostProcessor(CustomPostProcessor);
+        }
+    }
+
+  public void CustomPostProcessor(CameraControl camera)
+  {
+    if (HealthManager.Health <= 0)
+    {
+      float timeSinceDeath = Time.TimeSinceStartup - ClientDiedAt;
+      float lerpValue;
+
+      // Longer duration for the color fade effect
+      float colorFadeDuration = 3f;
+
+      if (timeSinceDeath <= colorFadeDuration && ClientDiedAt > 0)
+      {
+        // Calculate lerpValue with a longer fade (3.15 to 1.0 over colorFadeDuration)
+        float colorT = Math.Min(timeSinceDeath / colorFadeDuration, 1.0f);
+        float colorEaseOut = 1 - (float)Math.Pow(1 - colorT, 3);
+        lerpValue = 3.15f - (2.15f * colorEaseOut);
+      }
+      else
+      {
+        lerpValue = 1.0f;
+      }
+
+      PostProcessing.ColorGrade(new PostProcessing.ColorGradeConfig()
+      {
+        Contrast = 1f,
+        Saturation = 0f,
+        ColorFilter = new Vector3(lerpValue, lerpValue, lerpValue)
+      });
+    }
+    else
+    {
+      // Calculate how far along we are in the day/night transition using client-side time reference
+      float timeSinceChanged = Time.TimeSinceStartup - ClientTimeDayChanged;
+      float transitionProgress = Math.Min(timeSinceChanged / DayNightTransitionDuration, 1.0f);
+
+      // Default day values
+      Vector3 dayColorFilter = new Vector3(1.2f, 1.1f, 1.0f);
+      float daySaturation = 1.0f;
+
+      // Night values
+      Vector3 nightColorFilter = new Vector3(0.3f, 0.6f, 2.5f);
+      float nightSaturation = 0.5f;
+
+      if (GameManager.Instance.IsDay.Value)
+      {
+        // Transitioning from night to day
+        Vector3 lerpedColorFilter = new Vector3(
+          AOMath.Lerp(nightColorFilter.X, dayColorFilter.X, transitionProgress),
+          AOMath.Lerp(nightColorFilter.Y, dayColorFilter.Y, transitionProgress),
+          AOMath.Lerp(nightColorFilter.Z, dayColorFilter.Z, transitionProgress)
+        );
+        float lerpedSaturation = AOMath.Lerp(nightSaturation, daySaturation, transitionProgress);
+
+        PostProcessing.ColorGrade(new PostProcessing.ColorGradeConfig()
+        {
+          Contrast = 1f,
+          Saturation = lerpedSaturation,
+          ColorFilter = lerpedColorFilter
+        });
+      }
+      else
+      {
+        // Transitioning from day to night
+        Vector3 lerpedColorFilter = new Vector3(
+          AOMath.Lerp(dayColorFilter.X, nightColorFilter.X, transitionProgress),
+          AOMath.Lerp(dayColorFilter.Y, nightColorFilter.Y, transitionProgress),
+          AOMath.Lerp(dayColorFilter.Z, nightColorFilter.Z, transitionProgress)
+        );
+        float lerpedSaturation = AOMath.Lerp(daySaturation, nightSaturation, transitionProgress);
+
+        PostProcessing.ColorGrade(new PostProcessing.ColorGradeConfig()
+        {
+          Contrast = 1f,
+          Saturation = lerpedSaturation,
+          ColorFilter = lerpedColorFilter
+        });
+      }
+    }
+  }
+```
+
+Post Processing Effect Reference:
+### Bloom
+Bloom can be used to convey brightness more effectively. You can increase the brightness of things in your scene by upping the color value, All Out uses and HDR renderer so you can provide values above 1. 
+
+Config Options: 
+ - BloomAmount: How much should we blend the bloom texture with the scene. This value will usually be kept pretty low. 
+
+```C#
+public void CustomPostProcessor(CameraControl camera)
+{
+	PostProcessing.Bloom(new PostProcessing.BloomConfig()
+	{
+		BloomAmount = 0.02f,
+	});
+}
+```
+### Blur
+Our blur works by tapping pixels in a circle around the current pixel in the fragment shader.
+
+> [!IMPORTANT]
+> The Directions and Size fields can have a very big impact on performance. Keep these fields as low as you can. 
+
+Config Options:
+ - Directions: how many times around the circle should we tap. Eg `Directions = 4` would tap every 90 degrees.
+ - Size: how far away from the current pixel should we tap?
+ - Quality: How many times should we tap between the center and center + size
+
+Potential Future Additions: 
+ - Allowing individual objects to have a luminance field for finer grained tuning of an objects brightness 
+
+```c#
+public void CustomPostProcessor(CameraControl camera)
+{
+	PostProcessing.Blur(new PostProcessing.BlurConfig()
+	{
+		Directions = 16,
+		Quality = 4,
+		Size = 17,
+	});
+}
+```
+
+### Chromatic Aberration
+
+The All Out Chromatic Aberration works by offsetting the different color channels based on how their direction and distance from a focal point.
+
+Config Options:
+- ChannelOffsets: How far each channel should be offset.
+- FocalPoint: The point in viewport space (-1 to 1) used to calculate the distance and direction. This field is often left at 0, 0.
+
+```C#
+public void CustomPostProcessor(CameraControl camera)
+{
+	PostProcessing.ChromaticAberration(new PostProcessing.ChromaticAberrationConfig()
+	{
+		ChannelOffsets = new Vector3(0.005f, -0.01f, 0.01f),
+		FocalPoint = new Vector2(0, 0),
+	});
+}
+
+```
+### Color Grade
+Config Options:
+- ColorFilter: multiply the scene output by this color
+- Saturation:
+- Contrast: 
+
+```C#
+public void CustomPostProcessor(CameraControl camera)
+{
+	PostProcessing.ColorGrade(new PostProcessing.ColorGradeConfig()
+	{
+		ColorFilter = new Vector3(),
+		Saturation = 1.0f,
+		Contrast = 1.0f,
+	});
+}
+```
+### Film Grain
+
+Our film grain simply adds noise to the scene. This can be used to make multiple different kinds of effects.
+
+Config Options:
+ - Strength: How much should the output noise blend with the scene color.
+ - NoiseScale: Used to scale the noise making it look bigger/smaller. Note this field seems backwards, a bigger number will produce a smaller noise grain.
+
+Potential Future Additions: 
+- A color field. Currently it the noise is between scene color and black, it could be handy to have a color
+- A time scale field to slow down the noise sampling
+
+```C#
+public void CustomPostProcessor(CameraControl camera)
+{
+	PostProcessing.FilmGrain(new PostProcessing.FilmGrainConfig()
+	{
+		Strength = 0.1f,
+		NoiseScale = 100f,
+	});
+}
+```
+### Vignette
+
+The vignette adds a black border around the edge of the screen. 
+
+Config Options:
+- Radius: How far from the center should the screen become completely black.
+- Softness: How far in should we start fading out to black.
+
+Potential Future Additions: 
+- A color field. Eg. could be used to flash the screen with a red vignette to indicate damage.
+
+```C#
+public void CustomPostProcessor(CameraControl camera)
+{
+	PostProcessing.Vignette(new PostProcessing.VignetteConfig()
+	{
+		Radius = 1.2f,
+		Softness = 1.0f,
+	});
+}
+```

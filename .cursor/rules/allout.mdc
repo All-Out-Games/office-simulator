@@ -1,0 +1,121 @@
+---
+alwaysApply: true
+---
+
+You will be developing a game in a custom 2D engine that DOES NOT HAVE UNITY APIs.
+
+## Important rules to follow at all times: 
+- Start files with `using AO;` *Do not import anything except from the C# System namespace*
+- You do not need to write any movement or basic networking code. These are handled for you.
+- To create an entity use ```Entity.Create()```. If you want it to be visible to others you must ```Network.Spawn(entity)``` it (which must be done on the server only) 
+- To get components in the scene (e.g. all the players) use ```foreach (var player in Scene.Components<MyPlayer>())```
+- For timing, compare things against Time.TimeSinceStartup. DO NOT use coroutines or any other methods. Be careful because Time.TimeSinceStartup will be different on the client and the server.
+- Prefer using standard library math functions. If a math function you want doesn't exist, make it using the standard library.
+- Do not try to use any Unity APIs. Do not inherit from anything other than Component. 
+- Because this game is 2D, use Vector2 instead of Vector3 for Scale and Position. Our Vector2 type uses capital .X and .Y instead of .x and .y! 
+- *There is no HasComponent*, only use GetComponent and AddComponent. 
+- Before using a component, you must check that it exists using ```entity.Alive()```. You must use .Alive() INSTEAD of null checks or the game will break. 
+- In the MyPlayer class add IsLocal checks if you only want something to happen on the local client (e.g. creating a CameraControl)
+- These games are mobile-first so don't use any keyboard input
+- To generate random numbers use the `RNG` class. You MUST create a seed `rngSeed = RNG.Seed(Entity.NetworkId)` and then call `RNG.RangeFloat(ref rngSeed, lowVal, highVal)` or `RangeInt`. If you are picking an item from a list, be sure to subtract one from the list Length to avoid out-of-range if appropriate. 
+- If you want to add logging use ```Log.Info(message)```. There are no other logging options. 
+- The ONLY available Component lifecycle methods to override are Awake, Update, LateUpdate, and OnDestroy.
+- Never use the `private` modifier for methods or fields or things will break.
+- If you need to move a player, use `player.Teleport(position)` instead of setting their position directly. 
+- Never modify .e files yourself. If needed, ask the user to do so. 
+
+## Entities
+### Creating & Spawning
+- Create with `Entity.Create()`.
+- To make it visible to other players, it must be spawned on the server: `Network.Spawn(entity)`.
+
+### Identity
+- Every entity has a unique generational ID:
+  - `Id` (64-bit), `IdIndex`, `IdGeneration`.
+- `Name` is readable/writable.
+- `NetworkId` is 0 for non-networked; non-zero for networked entities.
+
+### Hierarchy
+- Parent with `entity.SetParent(parent, keepWorldPosition)`; read via `entity.Parent`.
+- Use Entity.Children to access an Entity's children. 
+
+### Transform
+- World-space: `Position`, `Rotation` (degrees), `RotationTurns` (0..1), `Scale`.
+- Local-space: `LocalPosition`, `LocalRotation`, `LocalRotationTurns`, `LocalScale`.
+- Convenience accessors: `X`, `Y`, `LocalX`, `LocalY`.
+- Rendering/network helpers: `VisualPosition` (client-predicted), `ServerPosition` (authoritative).
+
+### Enabled State
+- `LocalEnabled`: whether the entity itself is enabled.
+- `WorldEnabled`: true only if the entity and all parents are enabled.
+
+### Components
+- Get components:
+  - `GetComponent<T>()`, `TryGetComponent<T>(out T)`, `GetComponentById(ulong)`.
+  - `GetAllComponents(List<Component> outList)` fills an existing list.
+- Add/Remove components:
+  - `AddComponent<T>()` and `RemoveComponent<T>()` are NOT allowed on networked entities (those with `NetworkId != 0`).
+  - If you accept the risks and will ensure server/client synchronization yourself, use `Unsafe_AddComponent<T>()` / `Unsafe_RemoveComponent(...)`.
+
+### Lifetime
+- Check validity with `entity.Alive()` instead of null checks.
+- Clone with `entity.Clone()`.
+- Destroy with `entity.Destroy()`.
+
+### Best Practices
+- Avoid Unity APIs. Only use engine-provided types and methods.
+- Because the game is 2D, prefer `Vector2` for positions/scales.
+
+## Assets
+- To see available assets list files in the /res directory. You may have to look in nested folders. 
+- To reference an asset use Assets.GetAsset<AssetType>("path"). Common AssetTypes are Texture (.png), AudioAsset (.wav) and SpineSkeletonAsset (.spine). Do not prefix with /res!
+
+## Networking
+- All code runs on both the client and the server by default. 
+- Check Network.IsClient / Network.IsServer to conditionally run code in a specific place.  
+
+## Sprite Renderers
+- Sprite Renderers are available as a "Sprite_Renderer" component. 
+- Sprite_Renderers have a .Tint property. We use Vector4 to represent colors. Do not try to use .Color
+- Make sure that any UI code or Sprite_Renderer stuff is done on the client or it won't be seen. 
+
+## Spine Animators
+- Animations in this engine use Esoteric Spine through the Spine_Animator component. 
+- Spine_Animators have a `.SpineInstance` field on them with things like `.SetAnimation(name, loop)` and `.SetTrigger(string)`
+
+### RPCs
+ClientRpcs must be **public** functions and are used when you want the server to call a function on the client
+For example to play a "success" sound from a function running on the server you would create a ClientRpc
+```
+[ClientRpc]
+public void PlaySuccessSound()
+{
+}
+```
+
+- [ClientRpc] functions must be called with a prefix CallClient_<function name> e.g the above example will be automatically available as CallClient_PlaySuccessSound
+- Classes with RPCs must use the partial keyword
+- You can pass entities to RPCs, but you must make sure you check entity.Alive() in the RPC or the game will crash. 
+- You can pass a target in RPCOptions to only send an RPC to a specific player: `CallClient_SendTargetedMessage("You lost!", new RPCOptions() { Target = LosingPlayer });
+- Client RPCs must ONLY be called from the server or the game will crash. 
+
+### SyncVars
+SyncVars wrap a primitive and automatically keep it in sync for all clients and the server
+For example, to store "Health" on a Player, you can add a SyncVar as a field of your player class:
+
+```
+public partial class BattlePlayer : Player
+{
+  public SyncVar<int> Health = new(100);
+}
+```
+- The Health variable can be read (e.g. if (Health.Value <= 0)) on both the client and the server, but you can only call .Set on the server. 
+- If you want a callback when a SyncVar changes you can use ```Health.OnSync += (oldValue, newValue) => {}``` which runs on both the client and the server and at startup with the initial value. 
+- When declaring SyncVars make sure to call the constructor. 
+- Only use SyncVars when you need to sync state between clients and the server
+
+SyncVars only support the following types: int, float, bool, string, Vector2, Vector3, Vector4, Entity
+
+Never try to run or test the game yourself.
+
+Because this is a new engine, if you're ever in doubt about an API, be sure to check the other rules available to you (e.g. you must reference ui.mdc for ANY UI work). 

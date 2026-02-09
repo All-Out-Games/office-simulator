@@ -1,9 +1,16 @@
 ---
-description: For playing SFX
-globs: 
+description: Only include if the user requests SFX specifically
+alwaysApply: false
 ---
 # SFX
-- To see available assets list files in the /res/sfx directory. You'll have to look in nested folders. 
+- To see available assets list files in the /res/sfx directory. You'll have to look in nested folders. DO NOT try to add sound effects unless you are absolutely certain the path is valid, otherwise the game will crash. 
 
 To play a sound:
-SFX.Play(Assets.GetAsset<AudioAsset>("INSERT PATH"), new SFX.PlaySoundDesc() { Volume = 0.7f, Position = Entity.Position, RangeMultiplier = 2f, Loop = false });
+SFX.Play(Assets.GetAsset<AudioAsset>("INSERT PATH.wav"), new SFX.PlaySoundDesc() { Volume = 0.7f, Position = Entity.Position, Positional=true, RangeMultiplier = 2f, Loop = false });
+
+Some common PlaySoundDesc modifiers to use
+- `SpeedPerturb = 0.2f`: use sparingly on sfx that are played repeatedly to give variance. Do not exceed 0.3f.
+- `VolumePerturb = 0.2f` : use sparingly on sfx that are played repeatedly to give variance. Do not exceed 0.3f.
+- If the SFX is music make sure to set PlaySoundDesc.Channel to SFX.Channel.Music. The only other option is SFX.Channel.SFX (default)
+
+This returns a ulong that can be used with SFX.Stop to stop the SFX if needed. If loop is false it will stop on its own.

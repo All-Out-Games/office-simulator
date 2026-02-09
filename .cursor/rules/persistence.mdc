@@ -1,0 +1,16 @@
+---
+description: For long term persistence of user data across sessions. Only required if the developer requests it. 
+globs: 
+alwaysApply: false
+---
+# Save Data (Persistence)
+You can easily persist player data (e.g. scores & progress) using the Save functions. Saved data will persist even when the player leaves your game. You can **only** call these methods from the server. If you need them on the client you'll need to use an RPC or SyncVar to push them down. 
+
+## Player Data
+Each player has their own "Save" that you can interact with by setting strings or ints with Save.SetInt or Save.SetString. These methods take a player as the first parameter, a key, a value, and then a default parameter.
+
+## Game Data
+The game-scoped endpoints are for storing game-wide config (e.g. level XP requirements or message-of-the-day notifications), e.g. Save.SetGameString
+
+## Ordered Player Data (Leaderboards)
+Save.Ordered* and Leaderboard methods allow you to interact with and query sorted data for your player, for example scores or levels. Reference leaderboards.mdc if the user requests help making a leaderboard. 

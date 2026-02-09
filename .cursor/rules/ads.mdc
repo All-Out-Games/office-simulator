@@ -19,12 +19,12 @@ public class AdSystem : System<AdSystem>
 
   private bool OnAdReward(Player _player, string adId)
   {
-    <!-- Cast to their custom player -->
+    // Cast to their custom player
     var player = (MyPlayer)_player;
 
     if (adId == "ANY_STRING")
     {
-      <!-- Let the developer do what they want -->
+      // Let the developer do what they want
 
       return true;
     }

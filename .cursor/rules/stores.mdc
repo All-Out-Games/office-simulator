@@ -1,0 +1,205 @@
+---
+description: Read when the user needs help creating a Store for items in their game
+globs: 
+alwaysApply: false
+---
+The Store API allows you to display UI to players for purchasing items. 
+
+Items can be sold for your own currency (using the Economy system) or for Sparks (a paid platform-wide currency)
+
+Here is an example store:
+```cs
+public partial class Store : System<Store>
+{
+    public Shop sparksShop, gunShop, generalShop;
+    public ShopCategory ammo, weapons, consumables, blackMarketCat, generateFurnitureCat;
+
+    public override void Awake()
+    {
+        if (Network.IsServer) Purchasing.SetPurchaseHandler(SparksPurchaseHandler);
+
+        CreateGeneralShop();
+        CreateGunShop();
+    }
+
+    
+    public void CreateGunShop()
+    {
+        gunShop = Economy.CreateShop("Gun Shop");
+        gunShop.SetPurchaseModifier(OnBeforeItemPurchase);
+        if (Network.IsClient)
+        {
+            gunShop.SetCustomDisplay(CustomItemShopDisplay);
+        }
+        if (Network.IsServer)
+        {
+            gunShop.SetPurchaseHandler(OnItemPurchaseSuccessful);
+        }
+
+        generateFurnitureShop = Economy.CreateShop("Generate Furniture");
+        generateFurnitureShop.SetPurchaseModifier(OnBeforeItemPurchase);
+        if (Network.IsClient)
+        {
+            generateFurnitureShop.SetCustomDisplay(GenerativeCustomItemShopDisplay);
+        }
+        if (Network.IsServer)
+        {
+            generateFurnitureShop.SetPurchaseHandler(OnItemPurchaseSuccessful);
+        }
+
+        var generateFurnitureCat = generateFurnitureShop.AddCategory("Generate Furniture");
+        generateFurnitureCat.Icon = "icons/furniture/chair.png";
+        foreach (var p in GenerativeProducts)
+        {
+            generateFurnitureCat.AddProduct(p);
+        }
+
+
+        var weaponCat = gunShop.AddCategory("Weapons");
+        weaponCat.Icon = "icons/weapons/assault_rifle.png";
+        foreach (var p in WeaponsProducts)
+        {
+            weaponCat.AddProduct(p);
+        }
+
+        var ammoCat = gunShop.AddCategory("Ammo");
+        ammoCat.Icon = "icons/weapons/ammo/smg-ammo.png";
+        foreach (var p in AmmoProducts)
+        {
+            ammoCat.AddProduct(p);
+        }
+    }
+
+    public void CreateGeneralShop()
+    {
+        generalShop = Economy.CreateShop("General Shop");
+        generalShop.SetPurchaseModifier(OnBeforeItemPurchase);
+        if (Network.IsClient)
+        {
+            generalShop.SetCustomDisplay(CustomItemShopDisplay);
+        }
+        if (Network.IsServer)
+        {
+            generalShop.SetPurchaseHandler(OnItemPurchaseSuccessful);
+        }
+
+        var consumablesCat = generalShop.AddCategory("Consumables");
+        consumablesCat.Icon = "icons/food-icon.png";
+        foreach (var p in ConsumablesProducts)
+        {
+            consumablesCat.AddProduct(p);
+        }
+    }
+    
+    private bool SparksPurchaseHandler(Player _player, string productId)
+    {
+        var player = (MyPlayer)_player;
+
+        Log.Info($"Player {player.Name} purchasing item: {productId}");
+
+        // Lambo purchase example, although you can really do anything in response to a purchase (adding currency to a player, unlocking game functionality, etc...)
+        if (productId == "68323570ee22fd461d37fde4")
+        {
+            // Find the lambo item definition
+            Item_Definition lamboItem = null;
+            foreach (var i in GameManager.Instance.GameItems.ItemPool)
+            {
+                if (i.Id == "__CAR__Lambo")
+                {
+                    lamboItem = i;
+                    break;
+                }
+            }
+
+            if (lamboItem != null)
+            {
+                player.ServerTryAddItem(lamboItem);
+                Log.Info($"Gave lambo to player {player.Name}");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // Returning false from a purchase handler will make the handler as failed and it will be retried next time the player joins
+        return false;
+    }
+
+
+    // You can modify the store UI based on the player and product they're clicking on. 
+    public PurchaseModification OnBeforeItemPurchase(Player _player, GameProduct product)
+    {
+        var player = (MyPlayer)_player;
+
+        var modification = new PurchaseModification(product)
+        {
+            ModifyProduct = false
+        };
+
+        if (MyPlayer.localPlayer != null && product.Id.StartsWith("__WEAPON__"))
+        {
+            var weaponName = product.Id.Substring(11);
+
+            var ownsWeapon = player.DefaultInventory.Items.FirstOrDefault(item => item != null && item.Definition.Id == product.Id);
+
+            if (ownsWeapon != null)
+            {
+                modification.ModifyProduct = true;
+                modification.PurchaseButtonText = "Owned";
+                modification.Color = PurchaseButtonColor.Grey;
+                modification.OnBuyButtonClicked = () => PurchaseFail(_player);
+            }
+        }
+
+        return modification;
+    }
+
+    public bool OnItemPurchaseSuccessful(Player _player, GameProduct product)
+    {
+        var player = (MyPlayer)_player;
+
+        Item_Definition item = null;
+
+        foreach (var i in GameManager.Instance.GameItems.ItemPool)
+        {
+            if (i.Id.ToLower() == product.Id.ToLower())
+            {
+                item = i;
+            }
+        }
+
+        if (item == null)
+        {
+            Log.Error($"Item {product.Id} not found");
+            return false;
+        }
+
+        GameManager.CallClient_PlayTargetedSFX("sfx/purchase.wav", 0.5f, player.Entity.Position, new RPCOptions(target: player));
+
+        Log.Info($"Purchasing item: {product.Id}");
+        if (product.Id.StartsWith("__WEAPON__") || product.Id.StartsWith("__HEALING__"))
+        {
+            player.ServerTryAddItem(item);
+        }
+        else if (product.Id.StartsWith("__AMMO__"))
+        {
+            Log.Info($"Adding ammo: {product.Id}");
+            if (Enum.TryParse<AmmoType>(item.Id.Substring(8), out var ammoType))
+            {
+                player.AmmoAmounts[ammoType].CurrentAmount += 15;
+            }
+            else
+            {
+                Log.Error($"Failed to parse ammo type from item: {item.Id}");
+                return false;
+            }
+
+            player.ServerSyncAmmoAmount(ammoType, player.AmmoAmounts[ammoType].CurrentAmount);
+        }
+
+        return true;
+    }
+}
+```

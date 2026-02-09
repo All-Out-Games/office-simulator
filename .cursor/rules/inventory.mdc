@@ -1,15 +1,17 @@
 ---
 description: For player inventory systems
 globs: 
+alwaysApply: false
 ---
 # Items & Inventory
 
-- Note that by default items in the inventory array are **null** be careful! 
+- Note that by default items in the inventory array are **null** — be careful!
 - Make sure to perform inventory operations on the client AND server
 
 ## Drawing the Inventory
-You must draw the inventory in the Player's update function. Use the default inventory unless told otherwise. 
+You must draw the inventory in the Player's Update function. Use the default inventory unless told otherwise. 
 
+```cs
 public override void Update()
 {
   var hotbarResult = Inventory.DrawHotbar(DefaultInventory.Id, new Inventory.DrawOptions()
@@ -22,7 +24,7 @@ public override void Update()
     KeyboardItemSelection = true,
   });
 
-  <!-- Optionally check if a player drag-n-dropped an item out of the inventory -->
+  // Optionally check if a player drag-n-dropped an item out of the inventory
   if (hotbarResult.DroppedItem != null)
   {
       CallServer_PleaseDropItem(hotbarResult.DroppedItem.InventorySlot);
@@ -44,9 +46,9 @@ public override void Update()
   }
 }
 
-## Creating Items
+// Creating Items
 public Item_Definition Item;
-public override void Start()
+public override void Awake()
 {
   Item = Item_Definition.Create(new ItemDescription()
   {
@@ -57,13 +59,19 @@ public override void Start()
   });
 }
 
-## Granting an Item
-Be very careful not to grant past the max stack size or it will crash. 
+// Granting an Item
+// Be very careful not to grant past the max stack size or it will crash.
 public void GrantItem()
 {
-    var item = Inventory.CreateItem(item_name, quantity);
-    Inventory.MoveItemToInventory(item, Player.DefaultInventory);
+    var item = Inventory.CreateItem(itemDefinition, quantity);
+    
+    // Returns whether or not there is space in the inventory to add the given item. If the item is stackable, willDestroyItem will be true if the passed item would get fully merged into existing stacks in the inventory.
+    if (Inventory.CanMoveItemToInventory(itemInstance, DefaultInventory, out var _))
+    {
+        Inventory.MoveItemToInventory(item, Player.DefaultInventory);
+    }
 }
+```
 
 ## Other functions
 Inventory.DestroyItem(item);

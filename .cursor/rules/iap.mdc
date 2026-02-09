@@ -1,0 +1,37 @@
+---
+description: When dealing with anything IAP or Spark Product related.
+globs: 
+alwaysApply: false
+---
+The purchasing API allows you to sell products in your game for "Sparks". Spark are All Outs currency for handling IAPs. Sparks are bought with real money and can then be redeemed in-game.
+
+## Tool Usage
+The user may ask you to create or interact with products. For this All Out exposes some tools you may use.
+products_list: List all the available products created for the game
+products_create: Create a new product
+
+Example API usage:
+```c#
+public partial class IAP : System<Store>
+{
+    public override void Awake()
+    {
+        if (Network.IsServer) Purchasing.SetPurchaseHandler(SparksPurchaseHandler);
+    }
+
+    public bool SparksPurchaseHandler(Player _player, string productId)
+    {
+        var player = (MyPlayer)_player;
+
+        Log.Info($"Player {player.Name} purchasing item: {productId}");
+
+        if (productId == "68323570ee22fd461d37fde4") // The ID here must match an id defined elsewhere, often th user will have to fill this in
+        {
+            // Do a game specific thing to grant the user something
+        }
+
+        // Returning false from a purchase handler will make the handler as failed and it will be retried next time the player joins
+        return false;
+    }
+}
+```

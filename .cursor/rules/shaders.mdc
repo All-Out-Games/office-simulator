@@ -1,0 +1,192 @@
+---
+description: Apply when dealing with shaders or adding VFX to sprites.
+alwaysApply: false
+---
+
+# AOSL Shader Authoring Rules
+
+Author shaders in AOSL (annotated HLSL). Files use block markers to declare inputs, pipeline state, and shader stages.
+
+## File structure
+- `!!inputs { ... }`: Declare uniforms and textures (become `cbuffer user_input : register(b1)` and bound textures/samplers).
+- `!!pipeline { ... }`: Optional pipeline state overrides (blend/depth/pixel format).
+- `!!vs`: Vertex shader HLSL, entry `vs_main`.
+- `!!ps`: Pixel shader HLSL, entry `ps_main`.
+
+## Inputs block
+Supported types map directly to a user cbuffer or textures:
+- Scalars/vectors: `float`, `float2`, `float3`, `float4`, `int`, `int2`, `int3`, `int4`, `matrix4x4`
+- Textures: `texture name [TAG]`
+  - Recognized tags: `ALBEDO`, `SHADOW`, `LIGHT`, `USER`
+  - Tags only need to be used if you want to reference an engine texture. If it is supplied by the dev via a 'SetUniform' then it is not required.
+  - ALBEDO references the texture passed in from the sprite renderer or a UI.Image
+
+Example:
+```hlsl
+!!inputs {
+    texture albedo ALBEDO
+    float intensity
+    float2 uvTiling
+}
+```
+
+Engine-injected params (cbuffer `params : register(b0)`):
+- `float4x4 mvp`
+- `float4 resolution_time`  // xy = resolution, z = time, w = unused
+
+Engine-injected resources/utilities:
+- `Texture2D<float4> matrices; sampler matrices_smp;` and `float4x4 final_mvp(vs_in inp)` when `MATRIX_TEXTURE_PROVIDED` is defined (instancing path)
+- `float4 bc7_correct_alpha(float4 color)`
+- `#define FLIP_IF_GL(y)` macro for OpenGL UV Y-flip
+
+## Pipeline block
+Parameters (strings are parsed, see `src/core/shaders.cpp`):
+- `Pixel_Format`: `DEFAULT`, `RGBA8_SRGB`, `HDR`
+- `Depth_Enabled`: `true|false`
+- `Blend_Enabled`: `true|false`
+- `Blend_Src|Blend_Dst|Alpha_Blend_Src|Alpha_Blend_Dst`: factors (`ONE`, `ZERO`, `SRC_ALPHA`, `ONE_MINUS_SRC_ALPHA`, etc.)
+- `Blend_Op|Alpha_Blend_Op`: `ADD`, `SUBTRACT`, `REVERSE_SUBTRACT`
+- `Blend_Color`: `(r, g, b, a)`
+
+Example:
+```hlsl
+!!pipeline {
+    Pixel_Format: DEFAULT
+    Depth_Enabled: true
+    Blend_Enabled: true
+    Blend_Src: ONE
+    Blend_Dst: ONE_MINUS_SRC_ALPHA
+    Blend_Op: ADD
+    Alpha_Blend_Src: ONE
+    Alpha_Blend_Dst: ONE
+    Alpha_Blend_Op: ADD
+    Blend_Color: (1, 1, 1, 1)
+}
+```
+
+## Vertex layout (optional)
+If omitted, the default layout is:
+```hlsl
+// injected
+struct vs_in { float2 pos: POS; float2 uv: UV; float2 uv2: UV1; float4 color: COLOR; int matrix_index: MATRIX_INDEX; };
+```
+To override:
+```hlsl
+!!vertex_layout {
+    float2 pos POS
+    float2 uv UV
+    float4 color COLOR
+    int matrix_index MATRIX_INDEX
+}
+```
+
+## Vertex shader (`!!vs`)
+Requirements:
+- Entry function must be `vs_main`.
+- Output a struct with at least `float4 pos: SV_Position;`, `float2 uv: UV;`, `float4 color: COLOR0;`.
+Recommended template:
+```hlsl
+!!vs
+struct vs_out { float4 color: COLOR0; float2 uv: UV; float4 pos: SV_Position; };
+vs_out vs_main(vs_in inp) {
+    vs_out o;
+    #ifdef MATRIX_TEXTURE_PROVIDED
+        float4x4 m = final_mvp(inp);
+        o.pos = mul(m, float4(inp.pos.xy, 0, 1));
+    #else
+        o.pos = mul(mvp, float4(inp.pos.xy, 0, 1));
+    #endif
+    o.uv = inp.uv;
+    o.color = inp.color;
+    return o;
+}
+```
+
+## Pixel shader (`!!ps`)
+Requirements:
+- Entry function must be `ps_main`.
+- Match vertex outputs: e.g. `float4 ps_main(float4 vtxColor: COLOR0, float2 uv: UV): SV_Target0`.
+```hlsl
+!!ps
+float4 ps_main(float4 vtxColor: COLOR0, float2 uv: UV): SV_Target0 {
+    FLIP_IF_GL(uv.y);
+    float4 base = bc7_correct_alpha(vtxColor * albedo.Sample(albedo_smp, uv));
+    // Use user-defined uniforms
+    base.rgb *= intensity;
+    return base;
+}
+```
+
+## Minimal full example
+```hlsl
+!!inputs {
+    texture albedo ALBEDO
+    float intensity
+}
+
+!!pipeline {
+    Pixel_Format: DEFAULT
+    Blend_Enabled: true
+    Depth_Enabled: true
+    Blend_Src: ONE
+    Blend_Dst: ONE_MINUS_SRC_ALPHA
+    Blend_Op: ADD
+}
+
+!!vs
+struct vs_out { float4 color: COLOR0; float2 uv: UV; float4 pos: SV_Position; };
+vs_out vs_main(vs_in inp) {
+    vs_out o;
+    o.pos = mul(mvp, float4(inp.pos.xy, 0, 1));
+    o.uv = inp.uv;
+    o.color = inp.color;
+    return o;
+}
+
+!!ps
+float4 ps_main(float4 vtxColor: COLOR0, float2 uv: UV): SV_Target0 {
+    float4 base = bc7_correct_alpha(vtxColor * albedo.Sample(albedo_smp, uv));
+    base.rgb *= intensity;
+    return base;
+}
+```
+
+## Using from C# (Material API)
+- Set uniforms/textures on a `Material` by name (names must match `!!inputs` identifiers):
+  - `SetUniform(string name, float|int|Vector2|Vector3|Vector4|Matrix4|Texture)`
+
+Example: mutate an existing sprite renderer material to drive shader inputs
+```cs
+public class ShaderDriver : Component
+{
+  public override void Update()
+  {
+    var sr = Entity.GetComponent<Sprite_Renderer>();
+    if (sr == null) return;
+    var mat = sr.GetMaterial();
+
+    // These names must match your AOSL inputs
+    mat.SetUniform("intensity", 1.2f);
+    mat.SetUniform("uvTiling", new Vector2(2, 2));
+
+    // Optional: set a texture uniform declared as `texture myTex`
+    // var tex = Assets.GetAsset<Texture>("ui/logo_square_ico_4.png");
+    // mat.SetUniform("myTex", tex);
+  }
+}
+```
+
+Creating and assigning a new material (optional):
+```cs
+var shader = Assets.GetAsset<ShaderAsset>("shaders/shader.aosl");
+var material = AO.Material.CreateMaterial(shader);
+// Assign to a renderer; transferOwnership=true transfers native ownership to the sprite renderer
+Entity.GetComponent<Sprite_Renderer>()?.SetMaterial(material, true);
+```
+
+## Tips and troubleshooting
+- Ensure all blocks are properly closed with `}` and entries end-of-line separated.
+- Entry names must be `vs_main` and `ps_main`.
+- OpenGL targets flip V coordinate via `FLIP_IF_GL` macro when needed.
+- If compilation fails, debug variants are emitted alongside the source (when enabled) to inspect the transformed shader per backend.
+- Texture tags help the engine wire materials: prefer `ALBEDO` for your main color map.

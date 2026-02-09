@@ -1,6 +1,7 @@
 ---
 description: Any time you use a collider check this
 globs: 
+alwaysApply: false
 ---
 # Collider Reference
 
@@ -10,29 +11,37 @@ globs:
 - Circle_Collider
 - Polygon_Collider
 
-> Do not use OnCollisionEnter with Polygon_Colliders. If the user tries to do this warn them. 
+> Note: do not use OnCollisionEnter with Polygon_Colliders. If the user tries to do this warn them. Polygon colliders have internal segments that will cause unpredictable behavior. 
 
-Here is an example that adds a player to and from a list when the enter/exit a collider. 
-public class RegionTrigger : Component
+### Example 1: Playing an ambient sound when a user enters a collider and stopping it when they leave. 
+```cs
+public class LocalAmbientAudioArea : Component
 {
-    public Polygon_Collider Collider;
+    public Box_Collider Collider;
 
     public override void Awake()
     {
-        Collider = Entity.GetComponent<Box_Collider>();
-        <!-- Set is trigger to true to allow players to walk through it -->
-        Collider.IsTrigger = true;
-        Collider.OnCollisionEnter += other =>
+        // The "2" suffixed versions of these APIS return the Collider component that was collided with. The old base API returned the Entity which wasn't specific enough.  
+        Collider.OnCollisionEnter2 += (Collider collision) =>
         {
-            var player = other.GetComponent<MyPlayer>();
-            if (player.Alive())
+            if (!collision.Entity.TryGetComponent<MyPlayer>(out var player)) return;
+
+            if (player.IsLocal)
             {
-                player.RegionsVisited.Add(Entity.Name);
-                if (Network.IsServer)
-                {
-                    player.Region.Set(Entity.Name);
-                }
+                SoundID = SFX.Play(AudioClip, new SFX.PlaySoundDesc() { Positional = false, Volume = Volume, Loop = Loop, Channel = Channel });
+            }
+        };
+
+        // Note: it is not *guaranteed* that every collision will have an exit event. For example if the player is teleported out or leaves on the same frame they enter, the exit will never be fired. Make sure to communicate this to the developer. 
+        Collider.OnCollisionExit2 += (Collider collision) => 
+        {
+            if (!collision.Entity.TryGetComponent<MyPlayer>(out var player)) return;
+
+            if (player.IsLocal)
+            {
+                SFX.Stop(SoundID);
             }
         };
     }
 }
+```

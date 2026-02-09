@@ -1,0 +1,64 @@
+---
+alwaysApply: true
+---
+### MCP usage rules (All Out Editor)
+
+- **What this is**: A local MCP server provided by the All Out Editor that exposes editor-aware tools to help you browse assets and compile the current C# project without running the game.
+- **When to use**:
+  - **Asset discovery**: You need canonical asset IDs to reference via `Assets.GetAsset<...>("path")` in code.
+  - **Rig introspection**: You need animations/skins/bones/events from a Spine rig to drive a `Spine_Animator`.
+  - **Compilation**: You need to compile the current project and surface build output/errors to the user.
+- **When NOT to use**:
+  - Do not call MCP from in-game/runtime code; it is for development-time assistance only.
+  - Do not scrape the filesystem for assets; prefer `assets_list` for authoritative IDs and types.
+  - Avoid spamming `compile`; call after meaningful edits or on user request.
+
+### Available tools and intent
+
+- **assets_list**: List available assets and their types.
+  - **Params**:
+    - `assetType` (string, optional): `texture` or `spine`.
+    - `folder` (string, optional): Prefix filter (e.g., `ui/`, `new/characters/`). Matches by string prefix.
+    - `recurse` (boolean, optional): If false, only returns direct children under `folder` (string-based, not directory traversal).
+  - **Returns**: JSON array of `{ id, type }`, where `id` is the asset path you use in code. Types are `texture` or `spine`.
+  - **Use it for**: Getting valid IDs to pass to `Assets.GetAsset<Texture>("...")` or `Assets.GetAsset<SpineSkeletonAsset>("...")`.
+
+- **rig_animations**: List animations in a Spine rig.
+  - **Params**: `assetId` (string, required) — a Spine asset id from `assets_list`.
+  - **Returns**: JSON array of animation names.
+  - **Use it for**: Valid values for `Spine_Animator.SpineInstance.SetAnimation(name, loop)`, or when creating state machines for animators.
+
+- **rig_skins**: List skins in a Spine rig.
+  - **Params**: `assetId` (string, required).
+  - **Returns**: JSON array of skin names.
+  - **Use it for**: Skin selection logic or validation.
+
+- **rig_bones**: List bones in a Spine rig.
+  - **Params**: `assetId` (string, required).
+  - **Returns**: JSON array of bone names.
+  - **Use it for**: Authoring attachment/IK logic.
+
+- **rig_events**: List events in a Spine rig.
+  - **Params**: `assetId` (string, required).
+  - **Returns**: JSON array of event names.
+  - **Use it for**: Wiring gameplay responses to Spine events.
+
+- **compile**: Compile the currently open project and return the build output.
+  - **Params**: none.
+  - **Returns**: JSON object `{ success: boolean, output: string }`. If no project is open, `{ success: false, error: "No project is currently open" }`.
+  - **Use it for**: On-demand feedback after edits. Parse and surface errors/warnings succinctly.
+
+### Practical guidance
+
+- **Asset paths**: Values in `id` from `assets_list` are the exact strings to use with `Assets.GetAsset<AssetType>("id")` (no `/res` prefix).
+- **Filtering tips**:
+  - Use `assetType` when you only care about `texture` vs `spine`.
+  - Use `folder` to narrow results (e.g., `folder: "ui/"`). Set `recurse: false` to emulate a single-level listing.
+- **Spine checks**: If a non-Spine `assetId` is passed to rig tools, an empty list is returned. Handle empty arrays gracefully.
+- **Rate limits**: Be considerate. Batch queries where possible and avoid frequent, redundant `compile` calls.
+- **Error handling**: If `compile.success` is false, you may try to fix the compile errors, or let the user know where the issues are.
+
+### Environmental assumptions
+
+- Editor must be running (MCP listens on the editor side). If the MCP provider is unavailable, fall back to static guidance without blocking.
+- Only use MCP at authoring time; never embed MCP calls in generated game runtime code.

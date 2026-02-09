@@ -1,24 +1,26 @@
 ---
 description: For applying temporary effects to any Player
-globs: 
+alwaysApply: false
 ---
 # Effects
 Effects are a powerful system for applying temporary effects to your player. Some example use cases:
 
-public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
+### Example effect:
+```cs
+public partial class BoardMeetingEffect : MyEffect
 {
-  <!-- Only one active effect may be on a player at a time. If true, this effect will cancel the existing active effect when added to a player. -->
+  // Only one active effect may be on a player at a time. If true, this effect will cancel the existing active effect when added to a player.
   public override bool IsActiveEffect => true;
-  <!-- If true, the player will not be able to use abilities while this effect is active. Default to IsActiveEffect so if you want an Active effect that doesn't block abilities then you will have to override. -->
+  // If true, the player will not be able to use abilities while this effect is active. Default to IsActiveEffect so if you want an Active effect that doesn't block abilities then you will have to override.
   public override bool BlockAbilityActivation => true;
 
   public override bool FreezePlayer => true;
-  <!-- The default duration of the effect, in seconds. Do not override if the effect is permanent, or you plan to set the duration when calling AddEffect. -->
+  // The default duration of the effect, in seconds. Do not override if the effect is permanent, or you plan to set the duration when calling AddEffect.
   public override float DefaultDuration => 17f;
 
   public bool HasPlayedEndSound;
 
-  <!-- If drop in is true the player is joining mid effect or resyncing network state, so you don't need to play animations/sounds in this case -->
+  // If drop-in is true the player is joining mid effect or resyncing network state, so you don't need to play animations/sounds in this case
   public override void OnEffectStart(bool isDropIn)
   {
 
@@ -31,10 +33,63 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
 
   public override void OnEffectUpdate()
   {
-    <!-- For doing things once during an effect use OneTime -->
+    // For doing things once during an effect use OneTime
     if (AO.Util.OneTime(DurationRemaining <= 4.25f, ref HasPlayedEndSound))
     {
 
     }
   }
+}
+```
+
+### Applying effects
+You can use the `player.AddEffect<EffectName>()` and `player.RemoveEffect<EffectName>(bool interrupt)` methods to add/remove effects on players. 
+
+If the effect is local and purely visual with no server logic is required, it's ok to call AddEffect on the client only. 
+
+Otherwise in most cases you'll want to be adding/removing effects in [ClientRpc] functions which run on both the client and server when called with `CallClient_<function name>`
+
+
+### Synchronizing Effect State for New Players
+When a player joins or reconnects mid-game, the joining player will have game state synced automatically including what effects are applied to other players. 
+
+However, if you used the preInit argument when adding an effect, that state will not be synced and as such you should conform to the INetworkedComponent interface to serialize/deserialize that info for drop-in players. 
+
+For example:
+```cs
+[ClientRpc]
+public void StartEating(Player player, long clicksRequired)
+{
+    if (!player.Alive()) return;
+
+    CurrentEater = player;
+    player.AddEffect<EatingEffect>(preInit: e =>
+    {
+        e.EatingFood = this;
+    });
+}
+
+public partial class EatingEffect : AEffect
+{
+  // ...
+  public override void NetworkSerialize(AO.StreamWriter writer)
+  {
+      writer.WriteNetworkedComponent(EatingFood);
+  }
+
+  public override void NetworkDeserialize(AO.StreamReader reader)
+  {
+      EatingFood = reader.ReadNetworkedComponent<Food>();
+      EatingFood.CurrentEater = (FatPlayer)Player;
+  }
+
+    public override void OnEffectStart(bool isDropIn)
+    {
+        if (!isDropIn)
+        {
+            EatingFood.CurrentEater = (FatPlayer)Player;
+            EatingFood.CurrentEater.SpineAnimator.SpineInstance.StateMachine.SetTrigger("start_eating");
+        }
+    }
+  // ...
 }

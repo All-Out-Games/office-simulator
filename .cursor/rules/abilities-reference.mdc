@@ -1,8 +1,7 @@
 ---
-description: For creating abilities the player can use
-globs: 
+description: For creating abilities the player can use (like weapons or consumables)
+alwaysApply: false
 ---
-
 # Abilities
 
 Make sure the Player has a MyAbility class that extends Ability so we can reference the player
@@ -37,7 +36,7 @@ public partial class KillAbility : MyAbility
 
   public override bool CanTarget(Player p)
   {
-    var op = (OfficePlayer)p;
+    var op = (MyPlayer)p;
     return op.CurrentRole != Role.JANITOR;
   }
 
@@ -55,7 +54,7 @@ public partial class KillAbility : MyAbility
     return true;
   }
 
-  // Make sure you implement this
+  // You must implement this every time
   public override bool CanUse()
   {
     return true;
@@ -69,7 +68,7 @@ public partial class KillAbility : MyAbility
 }
 ```
 
-Make sure to draw the default ability UI in your Player's LateUpdate()
+Finally, draw the ability UI using DrawDefaultAbilityUI in your MyPlayer.cs LateUpdate function. There is no "AddAbility", only GetAbility<AbilityName> 
 ```cs
 if (IsLocal)
 {

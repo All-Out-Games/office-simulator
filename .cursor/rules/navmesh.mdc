@@ -1,0 +1,87 @@
+---
+description: Apply when working with NPCs/Pathfinding.
+alwaysApply: false
+---
+
+# Navmesh and Pathfinding Rules
+
+Use these when steering NPCs or any agent that should follow the navmesh.
+
+## Core APIs
+- Navmesh
+  - **TryFindPath(from, to, ref Vector2[] result, out int pathLength)**: Computes a smoothed path (funnel). Reuses `result` and resizes as needed. On success, the first point is the agent's projected start on the navmesh, the second is the next waypoint. The last point is the projected target.
+  - **TryFindClosestPointOnNavmesh(point, out pointOnMesh)**: Project a point onto this navmesh.
+  - **Navmesh.TryFindClosestPointOnAnyNavmesh(point, out pointOnMesh, out navmesh)**: Find the nearest navmesh and clamp to it.
+  - **RebuildImmediately() / MarkedForRebuild = true**: Trigger a rebuild after changing geometry.
+- Navmesh_Loop
+  - **GetPoints(ref Vector2[] points)** and **SetPoints(Vector2[] points, int count = -1)**: Author loops used to carve the navmesh. Use `FlipInsideOutside` if needed.
+  - **ParentNavmesh**: The navmesh this loop contributes to.
+- Movement_Agent
+  - Properties: **Velocity**, **Acceleration**, **Impulse**, **Friction**, **InputThisFrame**.
+  - Navmesh binding: **LockToNavmesh** and **NavmeshToLockTo**.
+  - Custom steering: **CustomVelocityCallback(agent, currentVelocity, inputs, dt)** to compute your own velocity each tick.
+  - Entities with a movement agent must also have a rigidbody.
+
+## Best Practices
+- **Anchor before pathfinding**: Clamp both start and target using `Navmesh.TryFindClosestPointOnNavmesh` to avoid invalid requests.
+- **Use waypoint 1**: After a successful `TryFindPath`, steer toward `result[1]` (not `result[0]`) since index 0 is your current projected position.
+- **Reuse buffers**: Keep a `Vector2[] pathBuffer` per agent and pass it back into `TryFindPath` to avoid allocations.
+- **Locking**: If the agent must not leave the navmesh, set `Agent.NavmeshToLockTo` and `Agent.LockToNavmesh = true`.
+- **Rebuilds**: After editing loops or toggling collider-driven loops, set `navmesh.MarkedForRebuild = true` or call `navmesh.RebuildImmediately()`. Parent rebuilds will stitch valid child navmeshes automatically.
+- **Loops orientation**: `FlipInsideOutside` controls which side of the loop is walkable. Negative world scale flips the orientation; account for that when generating points.
+- **Colliders**: If you want a navmesh independent of scene colliders, set `navmesh.IgnoreColliders = true`.
+- **Prediction**: For networked NPCs, prefer server-side authority and use `Movement_Agent.ClientsidePrediction` only when appropriate.
+
+## Minimal Example: Steer along a navmesh path
+```cs
+public partial class NavmeshWalker : Component
+{
+  public Movement_Agent Agent;
+  public Entity Target;
+
+  Vector2[] path = new Vector2[16];
+  int pathLength = 0;
+
+  public override void Awake()
+  {
+    Agent = GetComponent<Movement_Agent>();
+    Agent.NavmeshToLockTo = GameManager.Instance.RootNavmesh;
+    Agent.LockToNavmesh = true;
+
+    Agent.CustomVelocityCallback = (agent, currentVelocity, input, dt) =>
+    {
+      if (!Target.Alive()) return currentVelocity;
+
+      // Recompute the path every frame, anchored to the bound navmesh
+      var nm = agent.NavmeshToLockTo;
+      if (nm != null &&
+          nm.TryFindClosestPointOnNavmesh(agent.Entity.Position, out var startOnMesh) &&
+          nm.TryFindClosestPointOnNavmesh(Target.Position, out var endOnMesh))
+      {
+        nm.TryFindPath(startOnMesh, endOnMesh, ref path, out pathLength);
+      }
+      else
+      {
+        pathLength = 0;
+      }
+
+      if (pathLength >= 2)
+      {
+        var next = path[1];
+        var toNext = next - agent.Entity.Position;
+        var len = (float)Math.Sqrt(toNext.X * toNext.X + toNext.Y * toNext.Y);
+        var dir = len > 0 ? toNext / len : Vector2.Zero;
+        var speed = 200f;
+        return currentVelocity + dir * speed * dt;
+      }
+
+      return currentVelocity;
+    };
+  }
+}
+```
+
+## Troubleshooting
+- **TryFindPath returns false**: No valid path; clamp start/goal to navmesh, verify a shared navmesh, and ensure the navmesh is built.
+- **Agent drifts off-mesh**: Ensure `LockToNavmesh` is true and velocity magnitudes are reasonable; reduce impulse spikes.
+- **Path oscillation**: Increase `repathInterval` and avoid steering directly to `result[last]`; follow successive waypoints.
