@@ -1,0 +1,28 @@
+14
+1735166787585
+3157365306
+{
+  "name": "Fire",
+  "local_enabled": true,
+  "local_position": {
+
+  },
+  "local_rotation": 0,
+  "local_scale": {
+    "X": 1,
+    "Y": 1
+  },
+  "previous_sibling": 77876814,
+  "next_sibling": 3161729843,
+  "parent": 396274778,
+  "spawn_as_networked_entity": true
+},
+{
+  "cid": 1,
+  "aoid": 1987170139,
+  "component_type": "Mono_Component",
+  "mono_component_type": "FireEvent",
+  "data": {
+    "Duration": 25
+  }
+}

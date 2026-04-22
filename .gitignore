@@ -10,3 +10,16 @@ scene_temp
 *.ao
 *.ao.ios
 res/.preprocessed
+*.ao.astc
+asset_report.txt
+.asset_manifest
+.asset_manifest.txt
+*.psd
+.agents
+.claude
+.mcp.json
+.gemini
+.cursor
+AGENTS.md
+CLAUDE.md
+ao_debug.lock
