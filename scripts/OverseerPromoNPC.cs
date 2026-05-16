@@ -154,24 +154,31 @@ public partial class OverseerPromoNPC : Component
     [ClientRpc]
     public void EndFight1(Entity fighter1)
     {
+        if (!fighter1.Alive()) return;
+
         var fighter1Op = fighter1.GetComponent<OfficePlayer>();
 
-        if (fighter1Op != null)
-        {
-            fighter1Op.SetLightOn(false);
-            fighter1Op.Teleport(Vector2.Zero);
-            fighter1Op.RemoveEffect<SpectatorEffect>(false);
-        }
+        if (!fighter1Op.Alive()) return;
+
+        fighter1Op.SetLightOn(false);
+        fighter1Op.Teleport(Vector2.Zero);
+        fighter1Op.RemoveEffect<SpectatorEffect>(false);
+        fighter1Op.RemoveEffect<AimingRevolver>(false);
     }
 
     [ClientRpc]
     public void EndFight2(Entity fighter2)
     {
+        if (!fighter2.Alive()) return;
+
         var fighter2Op = fighter2.GetComponent<OfficePlayer>();
+
+        if (!fighter2Op.Alive()) return;
 
         fighter2Op.SetLightOn(false);
         fighter2Op.Teleport(Vector2.Zero);
         fighter2Op.RemoveEffect<SpectatorEffect>(false);
+        fighter2Op.RemoveEffect<AimingRevolver>(false);
     }
 
 

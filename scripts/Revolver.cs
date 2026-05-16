@@ -11,7 +11,7 @@ public partial class Revolver : MyAbility
 
     public override bool CanBeginTargeting()
     {
-        return true;
+        return CanUse();
     }
 
     public override bool CanUse()
@@ -40,15 +40,31 @@ public class AimingRevolver : MyEffect
 
     public override void OnEffectEnd(bool interrupt)
     {
-        GunEntity.Destroy();
+        if (GunEntity.Alive())
+        {
+            GunEntity.Destroy();
+        }
         Player.SetMouseIKEnabled(false);
     }
 
     public override void OnEffectUpdate()
     {
+        if (!CanKeepAiming())
+        {
+            Player.RemoveEffect(this, false);
+            return;
+        }
+
+        if (!GunEntity.Alive()) return;
+
         GunEntity.Position = Player.SpineAnimator.GetBonePosition("Hand_R");
         GunEntity.Rotation = Player.SpineAnimator.GetBoneRotation("Hand_R") * (Player.Entity.LocalScaleX < 0 ? -1 : 1) + (Player.Entity.LocalScaleX < 0 ? 180 : 0);
         GunEntity.LocalScaleY = Player.Entity.LocalScaleX < 0 ? -1 : 1;
+    }
+
+    public bool CanKeepAiming()
+    {
+        return Player.CurrentRole == Role.CEO || Player.IsInOverseerBattle();
     }
 }
 

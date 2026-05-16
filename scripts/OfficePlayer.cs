@@ -564,7 +564,10 @@ public partial class OfficePlayer : Player
 
   public bool IsInOverseerBattle()
   {
-    return OverseerPromoNPC.Instance.Fighter1?.Value == this.Entity || OverseerPromoNPC.Instance.Fighter2?.Value == this.Entity;
+    var promoNpc = OverseerPromoNPC.Instance;
+    if (!promoNpc.Alive()) return false;
+
+    return promoNpc.BattleActive && (promoNpc.Fighter1.Value == this.Entity || promoNpc.Fighter2.Value == this.Entity);
   }
 
   public void CustomPostProcessor(CameraControl camera)

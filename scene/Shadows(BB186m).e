@@ -4126,10 +4126,11 @@
   "component_type": "Internal_Component",
   "internal_component_type": "Edge_Collider",
   "data": {
+    "is_loop": true,
     "points": [
       {
         "X": 10.8318014144897461,
-        "Y": 4.6722702980041504
+        "Y": 4.6722707748413086
       },
       {
         "X": 10.8318014144897461,
