@@ -72,11 +72,14 @@ public partial class DayNightManager : Component
 
     if (Network.IsClient)
     {
-      var op = (OfficePlayer)Network.LocalPlayer;
-      if (op.CurrentRoom != Room.HR)
+      var op = Network.LocalPlayer as OfficePlayer;
+      if (op.Alive() && op.CurrentRoom != Room.HR)
       {
         var clampedAmbiant = Math.Clamp(1 - Darkness, 0.225f, 1f);
-        op.CameraControl.AmbientColour = new Vector3(clampedAmbiant, clampedAmbiant, clampedAmbiant);
+        if (op.CameraControl != null)
+        {
+          op.CameraControl.AmbientColour = new Vector3(clampedAmbiant, clampedAmbiant, clampedAmbiant);
+        }
 
         // Update darkness overlay alpha
         if (darknessOverlay != null && darknessOverlay.Alive())

@@ -37,8 +37,11 @@ public partial class PowerEvent : Event
 
     if (Network.IsClient)
     {
-      var op = (OfficePlayer)Network.LocalPlayer;
-      op.CameraControl.AmbientColour = new Vector3(0f, 0f, 0f);
+      var op = Network.LocalPlayer as OfficePlayer;
+      if (op.Alive() && op.CameraControl != null)
+      {
+        op.CameraControl.AmbientColour = new Vector3(0f, 0f, 0f);
+      }
     }
 
     References.Instance.EventUI.Entity.TryGetChildByName("Title").GetComponent<UIText>().Text = $"Power Outage (Time Remaining: {TimeRemaining.Value:F0})";

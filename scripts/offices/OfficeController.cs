@@ -11,8 +11,15 @@ public class OfficeController : Component
   
   
 
-  public bool IsOwned => Owner.Value != null && Owner.Value.Alive();
-  public bool IsOwnedByMyClient => IsOwned && Owner.Value == Network.LocalPlayer.Entity;
+  public bool IsOwned => Owner.Value.Alive();
+  public bool IsOwnedByMyClient
+  {
+    get
+    {
+      var localPlayer = Network.LocalPlayer;
+      return IsOwned && localPlayer.Alive() && Owner.Value == localPlayer.Entity;
+    }
+  }
 
   public override void Awake()
   {

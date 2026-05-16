@@ -22,6 +22,8 @@ public class Buyable : Component
     interactable.PromptOffset = new Vector2(-0.6f, -0.5f);
     interactable.CanUseCallback = (Player p) =>
     {
+      if (!Controller.Alive()) return false;
+      if (!p.Alive()) return false;
       if (!Controller.IsOwned || Bought) return false;
       return Controller.Owner.Value == p.Entity;
     };
@@ -32,7 +34,10 @@ public class Buyable : Component
   public void OnInteract(Player p)
   {
     if (!Network.IsServer) return;
-    var op = (OfficePlayer)p;
+    if (!Controller.Alive()) return;
+
+    var op = p as OfficePlayer;
+    if (!op.Alive()) return;
 
     if (op.Cash < Cost)
     {
@@ -49,6 +54,8 @@ public class Buyable : Component
   public override void Update()
   {
     if (!Network.IsClient) return;
+    if (!Controller.Alive()) return;
+    if (!spriteRenderer.Alive()) return;
 
     if (Bought)
     {
@@ -58,6 +65,8 @@ public class Buyable : Component
     {
       if (Controller.IsOwnedByMyClient)
       {
+        if (!interactable.Alive()) return;
+
         interactable.Text = $"Buy {Entity.Name} - ${Cost}";
         spriteRenderer.Tint = new Vector4(0, 0, 0, 0.35f);
       }

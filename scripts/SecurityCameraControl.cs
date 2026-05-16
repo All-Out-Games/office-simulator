@@ -121,7 +121,8 @@ public class SecurityCameraControl : Component
       return;
     }
 
-    if (isInCameraMode && cameraControl != null && interactingPlayer == Network.LocalPlayer.Entity)
+    var localPlayer = Network.LocalPlayer;
+    if (isInCameraMode && cameraControl != null && localPlayer.Alive() && interactingPlayer == localPlayer.Entity)
     {
       DrawCameraUI();
     }

@@ -22,14 +22,15 @@ public partial class OverseerPromoNPC : Component
         interactable = Entity.Unsafe_AddComponent<Interactable>();
         interactable.CanUseCallback = (Player p) =>
         {
-            var op = (OfficePlayer)p;
-            return op.CurrentRole != Role.JANITOR;
+            var op = p as OfficePlayer;
+            return op.Alive() && op.CurrentRole != Role.JANITOR;
         };
 
         interactable.OnInteract = (Player p) =>
         {
             if (!Network.IsServer) return;
-            var op = (OfficePlayer)p;
+            var op = p as OfficePlayer;
+            if (!op.Alive()) return;
 
             if (op.CurrentRole == Role.OVERSEER)
             {
@@ -101,6 +102,13 @@ public partial class OverseerPromoNPC : Component
             // Fight to the death
             if (OverseerPlayer.Alive())
             {
+                if (!fighter1Seat.Alive() || !fighter2Seat.Alive())
+                {
+                    op.CallClient_ShowNotification("The trial cannot begin right now...");
+                    op.CallClient_PlaySFX(References.Instance.ErrorSfx.Name);
+                    return;
+                }
+
                 // Quest Progress
                 if (!Game.LaunchedFromEditor)
                 {
@@ -124,11 +132,31 @@ public partial class OverseerPromoNPC : Component
     [ClientRpc]
     public void StartBattle()
     {
-        var fighter1 = (OfficePlayer)Fighter1.Value.GetComponent<Player>();
-        var fighter2 = (OfficePlayer)Fighter2.Value.GetComponent<Player>();
+        if (!Fighter1.Value.Alive() || !Fighter2.Value.Alive()) return;
 
-        fighter1.GetAbility<Revolver>().CooldownRemaining = 3f;
-        fighter2.GetAbility<Revolver>().CooldownRemaining = 3f;
+        var fighter1 = Fighter1.Value.GetComponent<OfficePlayer>();
+        var fighter2 = Fighter2.Value.GetComponent<OfficePlayer>();
+        if (!fighter1.Alive() || !fighter2.Alive()) return;
+
+        var fighter1SeatEntity = fighter1.AssignedMeetingSeat.Value;
+        var fighter2SeatEntity = fighter2.AssignedMeetingSeat.Value;
+        if (!fighter1SeatEntity.Alive() || !fighter2SeatEntity.Alive()) return;
+
+        var fighter1BattleSeat = fighter1SeatEntity.GetComponent<Seat>();
+        var fighter2BattleSeat = fighter2SeatEntity.GetComponent<Seat>();
+        if (!fighter1BattleSeat.Alive() || !fighter2BattleSeat.Alive()) return;
+
+        var fighter1Revolver = fighter1.GetAbility<Revolver>();
+        var fighter2Revolver = fighter2.GetAbility<Revolver>();
+        if (fighter1Revolver != null)
+        {
+            fighter1Revolver.CooldownRemaining = 3f;
+        }
+
+        if (fighter2Revolver != null)
+        {
+            fighter2Revolver.CooldownRemaining = 3f;
+        }
 
         if (Network.IsClient)
         {
@@ -147,8 +175,8 @@ public partial class OverseerPromoNPC : Component
         fighter1.SetLightOn(true);
         fighter2.SetLightOn(true);
 
-        fighter1.Teleport(Fighter1.Value.GetComponent<OfficePlayer>().AssignedMeetingSeat.Value.GetComponent<Seat>().Position);
-        fighter2.Teleport(Fighter2.Value.GetComponent<OfficePlayer>().AssignedMeetingSeat.Value.GetComponent<Seat>().Position);
+        fighter1.Teleport(fighter1BattleSeat.Position);
+        fighter2.Teleport(fighter2BattleSeat.Position);
     }
 
     [ClientRpc]
@@ -199,7 +227,7 @@ public partial class OverseerPromoNPC : Component
                 fighter2 = Fighter2.Value.GetComponent<OfficePlayer>();
             }
 
-            if (BattleActive && (fighter1 == null || fighter2 == null))
+            if (BattleActive && (!fighter1.Alive() || !fighter2.Alive()))
             {
                 BattleActive.Set(false);
                 GameManager.Instance.CallClient_ShowNotification("The trial has been cancelled due to a candidate being unavailable.");
@@ -218,7 +246,7 @@ public partial class OverseerPromoNPC : Component
                 return;
             }
 
-            if (BattleActive && (Time.TimeSinceStartup - BattleStartTime >= 17f || fighter1?.WasKilledInOverseerBattle || fighter2?.WasKilledInOverseerBattle))
+            if (BattleActive && (Time.TimeSinceStartup - BattleStartTime >= 17f || fighter1.WasKilledInOverseerBattle || fighter2.WasKilledInOverseerBattle))
             {
                 BattleActive.Set(false);
                 // so the guns reset
@@ -254,7 +282,10 @@ public partial class OverseerPromoNPC : Component
 
 
         if (Network.IsServer) return;
-        var op = (OfficePlayer)Network.LocalPlayer;
+        var op = Network.LocalPlayer as OfficePlayer;
+        if (!op.Alive()) return;
+        if (!spriteRenderer.Alive()) return;
+
         if (op.CurrentRole == Role.JANITOR)
         {
             spriteRenderer.Tint = new Vector4(0, 0, 0, 0);
@@ -265,6 +296,8 @@ public partial class OverseerPromoNPC : Component
         }
 
         var interactible = Entity.GetComponent<Interactable>();
+        if (!interactible.Alive()) return;
+
         if (op.CurrentRole == Role.OVERSEER)
         {
             interactible.Text = "Keep my janitors safe.";
