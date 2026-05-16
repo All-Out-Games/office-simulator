@@ -214,7 +214,9 @@ public partial class Activity : Component
   // We'll show the interact option if some basic pre-reqs are met, but they may still not be able to use it (e.g. missing $$$)
   public bool MeetsBasicRequirements(Player p)
   {
-    var op = (OfficePlayer)p;
+    var op = p as OfficePlayer;
+    if (!op.Alive()) return false;
+
     if (CurrentState == ActivityState.COOLDOWN) return false;
     if (op.CurrentRole < MinimumRoleRequired) return false;
     if (op.CurrentRole > MaxRole) return false;
@@ -225,7 +227,11 @@ public partial class Activity : Component
   // If all checks out and they can actually complete the activity
   public RequirementsResult CheckAllRequirements(Player p)
   {
-    var op = (OfficePlayer)p;
+    var op = p as OfficePlayer;
+    if (!op.Alive())
+    {
+      return new RequirementsResult(false, "No local player");
+    }
 
     if (CurrentState == ActivityState.COOLDOWN)
     {
