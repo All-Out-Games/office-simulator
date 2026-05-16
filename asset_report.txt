@@ -175,7 +175,9 @@
 11096 bytes - sfx/camera.wav.ao
 10768 bytes - PortalPointer.png.ao
 10328 bytes - sfx/character_eating_loop_end_swallow_short.wav.ao
+8560 bytes - AbilityIcons/SprintIcon.png.ao.astc
 8000 bytes - anomalies/flood/mop.png.ao.astc
+7712 bytes - AbilityIcons/SprintIcon.png.ao
 7640 bytes - animations/Jump/jumpscare_asset.spine.ao
 7416 bytes - anomalies/flood/mop.png.ao
 6928 bytes - sfx/creepy-error.wav.ao
@@ -205,7 +207,9 @@
 3264 bytes - animations/finger_prints/cloud/murder_dust_cloud.spine.ao
 3256 bytes - 48x48/Modern_Office_Singles_48x48_322.png.ao.astc
 3232 bytes - Leaderboard/RANK 2.png.ao.astc
+3200 bytes - shift.png.ao.astc
 3136 bytes - 8_Gym_Singles_48x48/Gym_Singles_48x48_92.png.ao
+3136 bytes - shift.png.ao
 3128 bytes - Leaderboard/RANK 2.png.ao
 2992 bytes - Leaderboard/RANK 3.png.ao.astc
 2984 bytes - 48x48/Modern_Office_Singles_48x48_231.png.ao

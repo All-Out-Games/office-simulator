@@ -70,7 +70,25 @@ public partial class OfficePlayer : Player
   public SyncVar<Entity> OfficeController = new();
   public SyncVar<float> MoveSpeedModifier = new(0.95f);
 
+  public float CurrentStamina = 100f;
+  public float MaxStamina = 100f;
+  public bool isHoldingSprint = false;
+  public bool isSprinting = false;
+  public float ranOutOfStaminaTimer = 0;
+
+  public const float MinSprintStartStamina = 12f;
+  public const float SprintDrainPerSecond = 25f;
+  public const float SprintRegenPerSecond = 20f;
+  public const float SprintSpeedMultiplier = 1.30f;
+
   public override Vector2 CalculatePlayerVelocity(Vector2 currentVelocity, Vector2 input, float deltaTime)
+  {
+    var multiplier = GetMoveSpeedMultiplier();
+    Vector2 velocity = DefaultPlayerVelocityCalculation(currentVelocity, input, deltaTime, multiplier);
+    return velocity;
+  }
+
+  public float GetMoveSpeedMultiplier()
   {
     var multiplier = MoveSpeedModifier.Value;
     if (HasEffect<KillerEffect>())
@@ -92,9 +110,157 @@ public partial class OfficePlayer : Player
     {
       multiplier *= 1.3f;
     }
+    if (isSprinting == true)
+    {
+      multiplier *= SprintSpeedMultiplier;
+    }
 
-    Vector2 velocity = DefaultPlayerVelocityCalculation(currentVelocity, input, deltaTime, multiplier);
-    return velocity;
+    return multiplier;
+  }
+
+  public void UpdateSprintStamina()
+  {
+    if (isSprinting == true)
+    {
+      CurrentStamina -= SprintDrainPerSecond * Time.DeltaTime;
+    }
+
+    if (isSprinting == false && CurrentStamina < MaxStamina)
+    {
+      CurrentStamina += SprintRegenPerSecond * Time.DeltaTime;
+    }
+
+    CurrentStamina = Math.Clamp(CurrentStamina, 0f, MaxStamina);
+
+    if (!isHoldingSprint && isSprinting)
+    {
+      isSprinting = false;
+    }
+
+    if (CurrentStamina <= 0)
+    {
+      isHoldingSprint = false;
+      isSprinting = false;
+      if (ranOutOfStaminaTimer <= 0) ranOutOfStaminaTimer = 1f;
+    }
+
+    if (ranOutOfStaminaTimer > 0)
+    {
+      ranOutOfStaminaTimer -= Time.DeltaTime;
+    }
+  }
+
+  public void DrawSprintAbilityButtonUI()
+  {
+    using var _layer = UI.PUSH_LAYER(60);
+    var rightRect = UI.SafeRect.BottomRightRect();
+
+    rightRect = UI.SafeRect.BottomRightRect().Offset(-120, Game.IsMobile ? 375 : 315).Grow(80);
+
+    using var _id = UI.PUSH_ID("SprintButton");
+    var bs = new UI.ButtonSettings();
+
+    bs.Sprite = Assets.GetAsset<Texture>("AbilityIcons/SprintIcon.png");
+
+    if (CurrentStamina <= 0 || ranOutOfStaminaTimer > 0)
+    {
+      bs.BackgroundColorMultiplier = new Vector4(0.25f, 0.25f, 0.25f, 1f);
+    }
+    else
+    {
+      bs.BackgroundColorMultiplier = new Vector4(1f, 1f, 1f, 1f);
+    }
+
+    var ts = GetTextSettings(28, Vector4.White, 0);
+    if (UI.BeginButton(rightRect.FitAspect(bs.Sprite.Aspect), "Sprint", bs, ts).Pressed && Agent.Velocity.Length > 0.03f)
+    {
+      if (CurrentStamina > 0 && ranOutOfStaminaTimer <= 0)
+      {
+        isHoldingSprint = true;
+        if (!isSprinting)
+        {
+          ActivateAbility<SprintAbility>(0);
+        }
+      }
+      else
+      {
+        isHoldingSprint = false;
+        if (ranOutOfStaminaTimer <= 0) ranOutOfStaminaTimer = 1f;
+      }
+    }
+    else
+    {
+      isHoldingSprint = false;
+    }
+
+    UI.EndButton();
+
+    if (!Game.IsMobile)
+    {
+      if ((Input.GetKeyHeld2(Input.Keycode.KEYCODE_LEFT_SHIFT) || Input.GetKeyHeld2(Input.Keycode.KEYCODE_RIGHT_SHIFT)) && Agent.Velocity.Length > 0.03f)
+      {
+        if (CurrentStamina > 0 && ranOutOfStaminaTimer <= 0)
+        {
+          isHoldingSprint = true;
+          if (!isSprinting)
+          {
+            ActivateAbility<SprintAbility>(0);
+          }
+        }
+        else
+        {
+          isHoldingSprint = false;
+          if (ranOutOfStaminaTimer <= 0) ranOutOfStaminaTimer = 1f;
+        }
+      }
+      else if (!UI.IsChatOpen())
+      {
+        isHoldingSprint = false;
+      }
+
+      var shift = Assets.GetAsset<Texture>("shift.png");
+      UI.Image(rightRect.TopLeftRect().Offset(25, -25).Grow(35).FitAspect(shift.Aspect), shift);
+    }
+  }
+
+  public void DrawSprintStaminaUI()
+  {
+    using var _layer = UI.PUSH_LAYER(50);
+
+    var bar = UI.SafeRect.BottomCenterRect().Grow(14, 170, 14, 170).Offset(0, 92);
+    UI.Image(bar, UI.WhiteSprite, new Vector4(0f, 0f, 0f, 0.55f));
+
+    var inner = bar.Inset(4);
+    var staminaPct = Math.Clamp(CurrentStamina / MaxStamina, 0f, 1f);
+    var fill = inner.SubRect(0, 0, staminaPct, 1);
+    var fillColor = isSprinting ? new Vector4(0.15f, 0.85f, 1f, 1f) : new Vector4(0.25f, 1f, 0.35f, 1f);
+    UI.Image(fill, UI.WhiteSprite, fillColor);
+
+    var textSettings = new UI.TextSettings()
+    {
+      Font = UI.Fonts.BarlowBold,
+      Size = 20,
+      Color = Vector4.White,
+      HorizontalAlignment = UI.HorizontalAlignment.Center,
+      VerticalAlignment = UI.VerticalAlignment.Center,
+      Outline = true,
+      OutlineThickness = 2,
+      DropShadowColor = new Vector4(0f, 0f, 0.02f, 0.5f),
+      DropShadowOffset = new Vector2(0f, -2f),
+      WordWrap = false,
+    };
+    UI.TextAsync(bar, "STAMINA", textSettings);
+  }
+
+  public override void WriteFrameData(AO.StreamWriter writer)
+  {
+    Util.Assert(Network.IsClient);
+    writer.Write(isSprinting);
+  }
+
+  public override void ReadFrameData(AO.StreamReader reader)
+  {
+    isSprinting = reader.Read<bool>();
   }
 
   public override void OnDestroy()
@@ -121,28 +287,7 @@ public partial class OfficePlayer : Player
 
     Agent.CustomVelocityCallback += (agent, velocity, input, dt) =>
     {
-      var multiplier = MoveSpeedModifier.Value;
-      if (HasEffect<KillerEffect>())
-      {
-        multiplier *= 0.75f;
-      }
-      if (HasEffect<OverseerEffect>())
-      {
-        if (GameManager.Instance.FastJanitors)
-        {
-          multiplier *= 0.85f;
-        }
-        else
-        {
-          multiplier *= 0.725f;
-        }
-      }
-      if (Caffeinated)
-      {
-        multiplier *= 1.3f;
-      }
-
-      return DefaultPlayerVelocityCalculation(velocity, input, dt, multiplier);
+      return DefaultPlayerVelocityCalculation(velocity, input, dt, GetMoveSpeedMultiplier());
     };
 
     Experience.OnSync += (oldValue, newValue) =>
@@ -457,6 +602,8 @@ public partial class OfficePlayer : Player
       RemoveEffect<OverseerEffect>(false);
     }
 
+    UpdateSprintStamina();
+
     if (IsLocal)
     {
       // Handle Experience animation reset
@@ -489,23 +636,29 @@ public partial class OfficePlayer : Player
         roleAnimEndTime = 0;
       }
 
+      var abilities = new List<Ability>();
+
       if (HasEffect<KillerEffect>())
       {
-        DrawDefaultAbilityUI(new AbilityDrawOptions()
-        {
-          AbilityElementSize = 125,
-          Abilities = new Ability[] { GetAbility<KillAbility>() }
-        });
+        abilities.Add(GetAbility<KillAbility>());
       }
 
       if (CurrentRole == Role.CEO || IsInOverseerBattle())
       {
+        abilities.Add(GetAbility<Revolver>());
+      }
+
+      if (abilities.Count > 0)
+      {
         DrawDefaultAbilityUI(new AbilityDrawOptions()
         {
           AbilityElementSize = 125,
-          Abilities = new Ability[] { GetAbility<Revolver>() }
+          Abilities = abilities.ToArray()
         });
       }
+
+      DrawSprintAbilityButtonUI();
+      DrawSprintStaminaUI();
 
       if (CurrentRoom == Room.CONFERENCE || CurrentRoom == Room.CONFERENCE_SPEAKER)
       {

@@ -1126,6 +1126,8 @@ Ability_Icons/transform_evil.png - .ao - 69e927dcd8d7387349307b0a - 174492268160
 Ability_Icons/transform_evil.png - .ao.astc - 69e927dcd8d7387349307b0b - 1744922681609846756
 Ability_Icons/transform_good.png - .ao - 69e927dcd8d7387349307b0c - 13221097047824800817
 Ability_Icons/transform_good.png - .ao.astc - 69e927dcd8d7387349307b0d - 13221097047824800817
+AbilityIcons/SprintIcon.png - .ao - 6a08c5594f6fa33ad87214cb - 4365839695109916527
+AbilityIcons/SprintIcon.png - .ao.astc - 6a08c5594f6fa33ad87214ca - 4365839695109916527
 animations/alarm/MURDER_Alarm.png - .ao - 69e927dcd8d7387349307b10 - 16843749654758718211
 animations/alarm/MURDER_Alarm.png - .ao.astc - 69e927dcd8d7387349307b0f - 16843749654758718211
 animations/alarm/MURDER_Alarm.spine - .ao - 69e927dcd8d7387349307b0e - 10856369306321800571
@@ -1364,6 +1366,8 @@ sfx/vending.wav - .ao - 69e927dfd8d7387349307bf7 - 7696259538209851894
 sfx/warp.wav - .ao - 69e927dfd8d7387349307bf9 - 16641315898689352710
 sfx/zombie-hum.wav - .ao - 69e927dfd8d7387349307bfa - 3094023346531204792
 sfx/zombie.wav - .ao - 69e927dfd8d7387349307bfb - 16558233648911711112
+shift.png - .ao - 6a08c5594f6fa33ad87214cd - 3699328655436902471
+shift.png - .ao.astc - 6a08c5594f6fa33ad87214cc - 3699328655436902471
 StatsUI.prefab - .ao - 69e927dfd8d7387349307bfc - 7936871442117930147
 SwitchSpine/6091b3d2f3b9c7342d22c7764701bd33.png - .ao - 69e927dfd8d7387349307bfe - 6063208775547427615
 SwitchSpine/6091b3d2f3b9c7342d22c7764701bd33.png - .ao.astc - 69e927dfd8d7387349307bfd - 6063208775547427615
