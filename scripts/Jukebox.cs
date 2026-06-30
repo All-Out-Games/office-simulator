@@ -82,7 +82,8 @@ public partial class Jukebox : Component
             Position = Entity.Position,
             Positional = true,
             RangeMultiplier = nightVersion ? 3f : 2.75f,
-            Speed = nightVersion ? 0.875f : 1f
+            Speed = 0.25f,
+            Channel = SFX.Channel.Music
         };
         sfxHandle = SFX.Play(Sfx, soundDesc);
     }

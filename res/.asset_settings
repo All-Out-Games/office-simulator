@@ -4,5 +4,19 @@
     "texture": {
       "resample_multiplier": 1
     }
+  },
+  {
+    "id": "map_background.png",
+    "should_mip": true,
+    "texture": {
+      "resample_multiplier": 0.75
+    }
+  },
+  {
+    "id": "map_foreground.png",
+    "should_mip": true,
+    "texture": {
+      "resample_multiplier": 0.75
+    }
   }
 ]

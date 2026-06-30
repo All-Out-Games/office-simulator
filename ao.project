@@ -13,6 +13,7 @@
         {
             "name": "Matt Protocol Test",
             "id": "65cecf4d5bd2a28675a271d9"
-        },
-    ]
+        }
+    ],
+    "manual_mip_divisor": 16
 }

@@ -226,7 +226,7 @@ public partial class PromoNPC : Component
 
                 if (!Candidate1.Value.Alive() || !Candidate2.Value.Alive())
                 {
-                    Log.Error("Candidate was null");
+                    Log.Info("Board meeting cancelled: candidate was unavailable");
                     GameManager.Instance.CallClient_ShowNotification("The board meeting has been cancelled due to a candidate being unavailable.");
                     return;
                 }
@@ -236,7 +236,7 @@ public partial class PromoNPC : Component
 
                 if (!candidate1.Alive() || !candidate2.Alive())
                 {
-                    Log.Error("Candidate was not alive");
+                    Log.Info("Board meeting cancelled: candidate player component was unavailable");
                     GameManager.Instance.CallClient_ShowNotification("The board meeting has been cancelled due to a candidate being unavailable.");
                     return;
                 }

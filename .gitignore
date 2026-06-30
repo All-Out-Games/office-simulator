@@ -24,3 +24,4 @@ AGENTS.md
 CLAUDE.md
 ao_debug.lock
 .codex
+res/.upload_cache

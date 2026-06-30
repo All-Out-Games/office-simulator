@@ -284,7 +284,7 @@ public partial class DayNightManager : Component
     playerRef.SetLightOn(true);
 
     nightSfxHandle1 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-hit.wav"), new SFX.PlaySoundDesc() { Volume = 1f });
-    nightSfxHandle2 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-music.wav"), new SFX.PlaySoundDesc() { Volume = 1f });
+    nightSfxHandle2 = SFX.Play(Assets.GetAsset<AudioAsset>("sfx/night-music.wav"), new SFX.PlaySoundDesc() { Volume = 1f, Speed = 0.25f, Channel = SFX.Channel.Music });
   }
 
   [ClientRpc]
