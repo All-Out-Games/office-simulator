@@ -1,0 +1,801 @@
+{
+"skeleton": { "hash": "bKpfVjGqWAo", "spine": "4.0.49", "x": -101.67, "y": -139.22, "width": 206, "height": 466.73 },
+"bones": [
+	{ "name": "root" },
+	{ "name": "base", "parent": "root", "y": -85 },
+	{ "name": "hologram", "parent": "base", "rotation": 90, "x": 1.14, "y": 262.31 },
+	{ "name": "icon", "parent": "hologram", "x": 77.94, "y": 1.48, "transform": "noScale" },
+	{ "name": "laser1", "parent": "base", "x": -73.14, "y": -89.57 },
+	{ "name": "laser2", "parent": "base", "x": 80.33, "y": -92.36 },
+	{ "name": "laser3", "parent": "base", "x": 164.71, "y": 14.66 },
+	{ "name": "laser4", "parent": "base", "x": 66.72, "y": 67.98 },
+	{ "name": "laser5", "parent": "base", "x": -57.83, "y": 62.98 },
+	{ "name": "laser6", "parent": "base", "x": -154.66, "y": 11.64 },
+	{ "name": "FX", "parent": "base", "y": -224.39 },
+	{ "name": "electric1", "parent": "FX", "x": 56.49, "y": 37.44 },
+	{ "name": "spark", "parent": "FX", "x": -2.27, "y": 28.04 },
+	{ "name": "electric2", "parent": "FX", "x": 56.49, "y": 37.44 },
+	{ "name": "display", "parent": "base", "length": 72.38, "rotation": 88.17, "x": -1.05, "y": 79.86 }
+],
+"slots": [
+	{ "name": "laser4", "bone": "laser4" },
+	{ "name": "laser5", "bone": "laser5" },
+	{ "name": "machine", "bone": "base", "attachment": "purchase_machines/machine" },
+	{ "name": "display", "bone": "display", "attachment": "purchase_machines/buy_icon" },
+	{ "name": "laser3", "bone": "laser3" },
+	{ "name": "laser6", "bone": "laser6" },
+	{ "name": "hologram", "bone": "hologram", "attachment": "purchase_machines/hologram" },
+	{ "name": "icon", "bone": "icon", "attachment": "icon" },
+	{ "name": "laser1", "bone": "laser1" },
+	{ "name": "laser2", "bone": "laser2" },
+	{ "name": "electric1", "bone": "electric1" },
+	{ "name": "electric2", "bone": "electric2" },
+	{ "name": "spark", "bone": "spark" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"display": {
+				"purchase_machines/buy_icon": { "x": 67.3, "y": 0.59, "rotation": -88.17, "width": 97, "height": 67 },
+				"purchase_machines/machine_broken_top": { "x": 96.13, "y": -0.78, "rotation": -88.17, "width": 170, "height": 207 }
+			},
+			"electric1": {
+				"purchase_machines/electric": { "x": 0.5, "width": 61, "height": 98 },
+				"purchase_machines/electric2": { "y": 0.5, "rotation": 90, "width": 90, "height": 55 }
+			},
+			"electric2": {
+				"purchase_machines/electric": { "x": 0.5, "width": 61, "height": 98 },
+				"purchase_machines/electric2": { "y": 0.5, "rotation": 90, "width": 90, "height": 55 }
+			},
+			"hologram": {
+				"purchase_machines/hologram": { "x": 44.03, "y": 0.5, "rotation": -90, "width": 136, "height": 93 }
+			},
+			"laser1": {
+				"purchase_machines/laser_bar": { "y": 235.22, "width": 38, "height": 503 }
+			},
+			"laser2": {
+				"purchase_machines/laser_bar": { "y": 235.22, "width": 38, "height": 503 }
+			},
+			"laser3": {
+				"purchase_machines/laser_bar": { "y": 235.22, "width": 38, "height": 503 }
+			},
+			"laser4": {
+				"purchase_machines/laser_bar": { "y": 235.22, "width": 38, "height": 503 }
+			},
+			"laser5": {
+				"purchase_machines/laser_bar": { "y": 235.22, "width": 38, "height": 503 }
+			},
+			"laser6": {
+				"purchase_machines/laser_bar": { "y": 235.22, "width": 38, "height": 503 }
+			},
+			"machine": {
+				"purchase_machines/machine": { "x": 1.33, "y": 112.78, "width": 206, "height": 334 },
+				"purchase_machines/machine_broken": { "x": 1.54, "y": 61.76, "width": 206, "height": 232 }
+			},
+			"spark": {
+				"purchase_machines/spark": { "y": 0.5, "width": 108, "height": 111 }
+			}
+		}
+	},
+	{
+		"name": "clover",
+		"attachments": {
+			"icon": {
+				"icon": { "name": "purchase_machines/icon_clover", "x": 0.5, "rotation": -90, "width": 99, "height": 114 }
+			}
+		}
+	},
+	{
+		"name": "gloves",
+		"attachments": {
+			"icon": {
+				"icon": { "name": "purchase_machines/icon_globes", "x": 14.41, "y": -0.53, "rotation": -90, "width": 142, "height": 143 }
+			}
+		}
+	},
+	{
+		"name": "immunity",
+		"attachments": {
+			"icon": {
+				"icon": { "name": "purchase_machines/icon_immunity", "x": 30.88, "y": -0.5, "rotation": -90, "width": 207, "height": 204 }
+			}
+		}
+	},
+	{
+		"name": "lockdown",
+		"attachments": {
+			"icon": {
+				"icon": { "name": "purchase_machines/icon_lockdown", "x": 17.5, "y": -0.5, "rotation": -90, "width": 109, "height": 128 }
+			}
+		}
+	},
+	{
+		"name": "repair",
+		"attachments": {
+			"icon": {
+				"icon": { "name": "purchase_machines/icon_wrench", "x": 9.76, "y": -0.5, "rotation": -90, "width": 143, "height": 125 }
+			}
+		}
+	}
+],
+"animations": {
+	"get_fixed": {
+		"slots": {
+			"display": {
+				"rgba": [
+					{ "time": 0.4167, "color": "ffffff00", "curve": "stepped" },
+					{
+						"time": 0.5,
+						"color": "ffffff00",
+						"curve": [ 0.583, 1, 0.667, 1, 0.583, 1, 0.667, 1, 0.583, 1, 0.667, 1, 0.583, 0, 0.667, 1 ]
+					},
+					{ "time": 0.75, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": "purchase_machines/machine_broken_top" },
+					{ "time": 0.4167, "name": "purchase_machines/buy_icon" }
+				]
+			},
+			"hologram": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.5, "name": "purchase_machines/hologram" }
+				]
+			},
+			"icon": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 0.5833, "name": "icon" }
+				]
+			},
+			"machine": {
+				"attachment": [
+					{ "name": "purchase_machines/machine_broken" },
+					{ "time": 0.4167, "name": "purchase_machines/machine" }
+				]
+			}
+		},
+		"bones": {
+			"icon": {
+				"translate": [
+					{
+						"time": 0.5,
+						"curve": [ 0.583, 1.62, 0.667, 4.86, 0.583, 0, 0.667, 0 ]
+					},
+					{
+						"time": 0.75,
+						"x": 4.86,
+						"curve": [ 0.778, 4.86, 0.806, 0, 0.778, 0, 0.806, 0 ]
+					},
+					{ "time": 0.8333 }
+				],
+				"scale": [
+					{
+						"time": 0.5833,
+						"x": 0.48,
+						"y": 0.48,
+						"curve": [ 0.639, 0.48, 0.694, 1, 0.639, 0.48, 0.694, 1 ]
+					},
+					{ "time": 0.75 }
+				]
+			},
+			"hologram": {
+				"scale": [
+					{ "time": 0.5, "x": 0.338, "y": 0.488 },
+					{ "time": 0.6667 }
+				]
+			},
+			"display": {
+				"rotate": [
+					{
+						"value": -7.04,
+						"curve": [ 0.028, -7.04, 0.056, -10.55 ]
+					},
+					{
+						"time": 0.0833,
+						"value": -10.55,
+						"curve": [ 0.167, -10.55, 0.25, 2.21 ]
+					},
+					{
+						"time": 0.3333,
+						"value": 2.21,
+						"curve": [ 0.361, 2.21, 0.389, 0 ]
+					},
+					{ "time": 0.4167 }
+				]
+			},
+			"spark": {
+				"translate": [
+					{ "x": -107.71, "y": 268.59 }
+				],
+				"scale": [
+					{ "x": 1.2, "y": 1.2 }
+				]
+			},
+			"electric1": {
+				"rotate": [
+					{ "value": 225.24 }
+				],
+				"translate": [
+					{ "x": -155.17, "y": 359.17 }
+				]
+			},
+			"electric2": {
+				"rotate": [
+					{ "value": 139.49 }
+				],
+				"translate": [
+					{ "x": -195.44, "y": 176.53 }
+				]
+			}
+		}
+	},
+	"get_smashed": {
+		"slots": {
+			"display": {
+				"attachment": [
+					{ "name": "purchase_machines/machine_broken_top" }
+				]
+			},
+			"electric1": {
+				"attachment": [
+					{ "time": 0.0833, "name": "purchase_machines/electric" },
+					{ "time": 0.1667, "name": "purchase_machines/electric2" },
+					{ "time": 0.25, "name": null }
+				]
+			},
+			"electric2": {
+				"attachment": [
+					{ "time": 0.0833, "name": "purchase_machines/electric2" },
+					{ "time": 0.1667, "name": "purchase_machines/electric" },
+					{ "time": 0.25, "name": null }
+				]
+			},
+			"hologram": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"icon": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"machine": {
+				"attachment": [
+					{ "name": "purchase_machines/machine_broken" }
+				]
+			},
+			"spark": {
+				"attachment": [
+					{ "name": "purchase_machines/spark" },
+					{ "time": 0.125, "name": null }
+				]
+			}
+		},
+		"bones": {
+			"base": {
+				"translate": [
+					{
+						"curve": [ 0.028, 4.46, 0.056, 13.37, 0.028, 0, 0.056, 0 ]
+					},
+					{
+						"time": 0.0833,
+						"x": 13.37,
+						"curve": [ 0.139, 13.37, 0.194, -1.28, 0.139, 0, 0.194, 0 ]
+					},
+					{
+						"time": 0.25,
+						"x": -1.28,
+						"curve": [ 0.278, -1.28, 0.306, 0, 0.278, 0, 0.306, 0 ]
+					},
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{
+						"curve": [ 0.028, 0, 0.056, 0, 0.028, -2.58, 0.056, -7.74 ]
+					},
+					{
+						"time": 0.0833,
+						"y": -7.74,
+						"curve": [ 0.139, 0, 0.194, 0, 0.139, -7.74, 0.194, 1.03 ]
+					},
+					{
+						"time": 0.25,
+						"y": 1.03,
+						"curve": [ 0.278, 0, 0.306, 0, 0.278, 1.03, 0.306, 0.34 ]
+					},
+					{ "time": 0.3333 }
+				]
+			},
+			"display": {
+				"rotate": [
+					{
+						"value": 1.78,
+						"curve": [ 0.083, -5.46, 0.083, -10.86 ]
+					},
+					{
+						"time": 0.1667,
+						"value": -10.86,
+						"curve": [ 0.194, -10.86, 0.222, -5.11 ]
+					},
+					{
+						"time": 0.25,
+						"value": -5.11,
+						"curve": [ 0.278, -5.11, 0.306, -7.04 ]
+					},
+					{ "time": 0.3333, "value": -7.04 }
+				]
+			},
+			"spark": {
+				"translate": [
+					{
+						"x": -89.92,
+						"y": 268.59,
+						"curve": [ 0.056, -108.78, 0.069, -107.71, 0.056, 268.59, 0.069, 268.59 ]
+					},
+					{ "time": 0.125, "x": -107.71, "y": 268.59 }
+				],
+				"scale": [
+					{
+						"x": 0.657,
+						"y": 0.657,
+						"curve": [ 0.056, 1.019, 0.069, 1.2, 0.056, 1.019, 0.069, 1.2 ]
+					},
+					{ "time": 0.125, "x": 1.2, "y": 1.2 }
+				]
+			},
+			"electric1": {
+				"rotate": [
+					{ "time": 0.0833, "value": 225.24 }
+				],
+				"translate": [
+					{ "time": 0.0833, "x": -155.17, "y": 359.17 }
+				]
+			},
+			"electric2": {
+				"rotate": [
+					{ "time": 0.0833, "value": 139.49 }
+				],
+				"translate": [
+					{ "time": 0.0833, "x": -195.44, "y": 176.53 }
+				]
+			}
+		}
+	},
+	"idle": {
+		"slots": {
+			"hologram": {
+				"rgba": [
+					{
+						"color": "ffffffff",
+						"curve": [ 0.167, 1, 0.333, 1, 0.167, 1, 0.333, 1, 0.167, 1, 0.333, 1, 0.167, 1, 0.333, 0.52 ]
+					},
+					{
+						"time": 0.5,
+						"color": "ffffff85",
+						"curve": [ 0.667, 1, 0.833, 1, 0.667, 1, 0.833, 1, 0.667, 1, 0.833, 1, 0.667, 0.52, 0.833, 1 ]
+					},
+					{ "time": 1, "color": "ffffffff" }
+				]
+			}
+		},
+		"bones": {
+			"icon": {
+				"rotate": [
+					{
+						"value": 2.59,
+						"curve": [ 0.028, 2.82, 0.056, 3.25 ]
+					},
+					{
+						"time": 0.0833,
+						"value": 2.98,
+						"curve": [ 0.25, 1.34, 0.417, -1.94 ]
+					},
+					{
+						"time": 0.5833,
+						"value": -1.94,
+						"curve": [ 0.722, -1.94, 0.861, 1.45 ]
+					},
+					{ "time": 1, "value": 2.59 }
+				],
+				"translate": [
+					{
+						"curve": [ 0.167, 0, 0.333, 16.63, 0.167, 0, 0.333, 0 ]
+					},
+					{
+						"time": 0.5,
+						"x": 16.63,
+						"curve": [ 0.667, 16.63, 0.833, 0, 0.667, 0, 0.833, 0 ]
+					},
+					{ "time": 1 }
+				]
+			},
+			"hologram": {
+				"scale": [
+					{
+						"curve": [ 0.167, 1, 0.333, 1, 0.167, 1, 0.333, 0.867 ]
+					},
+					{
+						"time": 0.5,
+						"y": 0.867,
+						"curve": [ 0.667, 1, 0.833, 1, 0.667, 0.867, 0.833, 1 ]
+					},
+					{ "time": 1 }
+				]
+			}
+		}
+	},
+	"idle_smashed": {
+		"slots": {
+			"display": {
+				"attachment": [
+					{ "name": "purchase_machines/machine_broken_top" }
+				]
+			},
+			"electric1": {
+				"attachment": [
+					{ "time": 0.0833, "name": "purchase_machines/electric" },
+					{ "time": 0.1667, "name": "purchase_machines/electric2" },
+					{ "time": 0.25, "name": null }
+				]
+			},
+			"electric2": {
+				"attachment": [
+					{ "time": 0.5833, "name": "purchase_machines/electric" },
+					{ "time": 0.6667, "name": "purchase_machines/electric2" },
+					{ "time": 0.75, "name": null },
+					{ "time": 1.0833, "name": null }
+				]
+			},
+			"hologram": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"icon": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
+			"machine": {
+				"attachment": [
+					{ "name": "purchase_machines/machine_broken" }
+				]
+			}
+		},
+		"bones": {
+			"display": {
+				"rotate": [
+					{ "value": -7.04 }
+				]
+			},
+			"spark": {
+				"scale": [
+					{ "x": 0.657, "y": 0.657 }
+				]
+			},
+			"electric1": {
+				"rotate": [
+					{ "value": 202.83, "curve": "stepped" },
+					{ "time": 0.0833, "value": 202.83 },
+					{ "time": 0.25, "value": 194.86 }
+				],
+				"translate": [
+					{ "x": -142.46, "y": 261.56, "curve": "stepped" },
+					{ "time": 0.0833, "x": -142.46, "y": 261.56 },
+					{ "time": 0.25, "x": -140.25, "y": 322.6 }
+				]
+			},
+			"electric2": {
+				"rotate": [
+					{ "value": 183.87, "curve": "stepped" },
+					{ "time": 0.5833, "value": 183.87 },
+					{ "time": 0.75, "value": 200.82 }
+				],
+				"translate": [
+					{ "x": 31.62, "y": 242.53, "curve": "stepped" },
+					{ "time": 0.5833, "x": 31.62, "y": 242.53 },
+					{ "time": 0.75, "x": 25.05, "y": 336.95 }
+				]
+			}
+		}
+	},
+	"protected_by_lasers": {
+		"slots": {
+			"laser1": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser2": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser3": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser4": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser5": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser6": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			}
+		},
+		"bones": {
+			"icon": {
+				"rotate": [
+					{
+						"value": 2.59,
+						"curve": [ 0.028, 2.82, 0.028, 1.45 ]
+					},
+					{ "time": 0.1667, "value": 2.59 }
+				]
+			},
+			"laser6": {
+				"scale": [
+					{
+						"y": 0,
+						"curve": [ 0.056, 1, 0.111, 1, 0.056, 0, 0.111, 0.86 ]
+					},
+					{ "time": 0.1667, "y": 0.883 }
+				]
+			},
+			"laser5": {
+				"scale": [
+					{
+						"y": 0.148,
+						"curve": [ 0.167, 1, 0, 1, 0.167, 0.148, 0, 0.842 ]
+					},
+					{ "time": 0.1667, "y": 0.842 }
+				]
+			},
+			"laser4": {
+				"scale": [
+					{
+						"y": 0.195,
+						"curve": [ 0.028, 1, 0.139, 1, 0.028, 0.195, 0.139, 0.847 ]
+					},
+					{ "time": 0.1667, "y": 0.854 }
+				]
+			},
+			"laser3": {
+				"scale": [
+					{
+						"y": 0.002,
+						"curve": [ 0.083, 1, 0.083, 1, 0.083, 0.002, 0.083, 0.881 ]
+					},
+					{ "time": 0.1667, "y": 0.921 }
+				]
+			},
+			"laser2": {
+				"scale": [
+					{
+						"y": 0.001,
+						"curve": [ 0.111, 1, 0.056, 1, 0.111, 0.001, 0.056, 0.912 ]
+					},
+					{ "time": 0.1667, "y": 0.959 }
+				]
+			},
+			"laser1": {
+				"scale": [
+					{
+						"y": 0.014,
+						"curve": [ 0.139, 1, 0.028, 1, 0.139, 0.014, 0.028, 0.951 ]
+					},
+					{ "time": 0.1667, "y": 0.988 }
+				]
+			}
+		}
+	},
+	"protected_by_lasers_idle": {
+		"slots": {
+			"hologram": {
+				"rgba": [
+					{
+						"color": "ffffffff",
+						"curve": [ 0.167, 1, 0.333, 1, 0.167, 1, 0.333, 1, 0.167, 1, 0.333, 1, 0.167, 1, 0.333, 0.52 ]
+					},
+					{
+						"time": 0.5,
+						"color": "ffffff85",
+						"curve": [ 0.667, 1, 0.833, 1, 0.667, 1, 0.833, 1, 0.667, 1, 0.833, 1, 0.667, 0.52, 0.833, 1 ]
+					},
+					{ "time": 1, "color": "ffffffff" }
+				]
+			},
+			"laser1": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser2": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser3": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser4": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser5": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			},
+			"laser6": {
+				"attachment": [
+					{ "name": "purchase_machines/laser_bar" }
+				]
+			}
+		},
+		"bones": {
+			"icon": {
+				"rotate": [
+					{
+						"value": 2.59,
+						"curve": [ 0.028, 2.82, 0.056, 3.25 ]
+					},
+					{
+						"time": 0.0833,
+						"value": 2.98,
+						"curve": [ 0.25, 1.34, 0.417, -1.94 ]
+					},
+					{
+						"time": 0.5833,
+						"value": -1.94,
+						"curve": [ 0.722, -1.94, 0.861, 1.45 ]
+					},
+					{ "time": 1, "value": 2.59 }
+				],
+				"translate": [
+					{
+						"curve": [ 0.167, 0, 0.333, 16.63, 0.167, 0, 0.333, 0 ]
+					},
+					{
+						"time": 0.5,
+						"x": 16.63,
+						"curve": [ 0.667, 16.63, 0.833, 0, 0.667, 0, 0.833, 0 ]
+					},
+					{ "time": 1 }
+				]
+			},
+			"hologram": {
+				"scale": [
+					{
+						"curve": [ 0.167, 1, 0.333, 1, 0.167, 1, 0.333, 0.867 ]
+					},
+					{
+						"time": 0.5,
+						"y": 0.867,
+						"curve": [ 0.667, 1, 0.833, 1, 0.667, 0.867, 0.833, 1 ]
+					},
+					{ "time": 1 }
+				]
+			},
+			"laser6": {
+				"scale": [
+					{
+						"y": 0.883,
+						"curve": [ 0.111, 1, 0.222, 1, 0.111, 0.93, 0.222, 1 ]
+					},
+					{
+						"time": 0.3333,
+						"curve": [ 0.5, 1, 0.667, 1, 0.5, 1, 0.667, 0.842 ]
+					},
+					{
+						"time": 0.8333,
+						"y": 0.842,
+						"curve": [ 0.889, 1, 0.944, 1, 0.889, 0.842, 0.944, 0.86 ]
+					},
+					{ "time": 1, "y": 0.883 }
+				]
+			},
+			"laser5": {
+				"scale": [
+					{
+						"y": 0.842,
+						"curve": [ 0.167, 1, 0.333, 1, 0.167, 0.842, 0.333, 1 ]
+					},
+					{
+						"time": 0.5,
+						"curve": [ 0.667, 1, 0.833, 1, 0.667, 1, 0.833, 0.842 ]
+					},
+					{ "time": 1, "y": 0.842 }
+				]
+			},
+			"laser4": {
+				"scale": [
+					{
+						"y": 0.854,
+						"curve": [ 0.139, 1, 0.278, 1, 0.139, 0.891, 0.278, 1 ]
+					},
+					{
+						"time": 0.4167,
+						"curve": [ 0.583, 1, 0.75, 1, 0.583, 1, 0.75, 0.842 ]
+					},
+					{
+						"time": 0.9167,
+						"y": 0.842,
+						"curve": [ 0.944, 1, 0.972, 1, 0.944, 0.842, 0.972, 0.847 ]
+					},
+					{ "time": 1, "y": 0.854 }
+				]
+			},
+			"laser3": {
+				"scale": [
+					{
+						"y": 0.921,
+						"curve": [ 0.083, 1, 0.167, 1, 0.083, 0.96, 0.167, 1 ]
+					},
+					{
+						"time": 0.25,
+						"curve": [ 0.417, 1, 0.583, 1, 0.417, 1, 0.583, 0.842 ]
+					},
+					{
+						"time": 0.75,
+						"y": 0.842,
+						"curve": [ 0.833, 1, 0.917, 1, 0.833, 0.842, 0.917, 0.881 ]
+					},
+					{ "time": 1, "y": 0.921 }
+				]
+			},
+			"laser2": {
+				"scale": [
+					{
+						"y": 0.959,
+						"curve": [ 0.056, 1, 0.111, 1, 0.056, 0.982, 0.111, 1 ]
+					},
+					{
+						"time": 0.1667,
+						"curve": [ 0.333, 1, 0.5, 1, 0.333, 1, 0.5, 0.842 ]
+					},
+					{
+						"time": 0.6667,
+						"y": 0.842,
+						"curve": [ 0.778, 1, 0.889, 1, 0.778, 0.842, 0.889, 0.912 ]
+					},
+					{ "time": 1, "y": 0.959 }
+				]
+			},
+			"laser1": {
+				"scale": [
+					{
+						"y": 0.988,
+						"curve": [ 0.028, 1, 0.056, 1, 0.028, 0.995, 0.056, 1 ]
+					},
+					{
+						"time": 0.0833,
+						"curve": [ 0.25, 1, 0.417, 1, 0.25, 1, 0.417, 0.842 ]
+					},
+					{
+						"time": 0.5833,
+						"y": 0.842,
+						"curve": [ 0.722, 1, 0.861, 1, 0.722, 0.842, 0.861, 0.951 ]
+					},
+					{ "time": 1, "y": 0.988 }
+				]
+			}
+		}
+	}
+}
+}

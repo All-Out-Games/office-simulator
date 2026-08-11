@@ -1,0 +1,46 @@
+305663adab8e603a.png
+	size: 608, 608
+	filter: Linear, Linear
+purchase_machines/buy_icon
+	bounds: 512, 135, 90, 59
+	offsets: 3, 4, 97, 67
+purchase_machines/electric
+	bounds: 541, 230, 59, 96
+	offsets: 1, 1, 61, 98
+purchase_machines/electric2
+	bounds: 512, 76, 88, 53
+	offsets: 1, 1, 90, 55
+purchase_machines/hologram
+	bounds: 216, 49, 134, 80
+	offsets: 1, 1, 136, 93
+	rotate: 90
+purchase_machines/icon_clover
+	bounds: 302, 81, 96, 113
+	offsets: 2, 1, 99, 114
+purchase_machines/icon_globes
+	bounds: 453, 461, 140, 141
+	offsets: 1, 1, 142, 143
+purchase_machines/icon_immunity
+	bounds: 254, 411, 193, 191
+	offsets: 8, 7, 207, 204
+purchase_machines/icon_lockdown
+	bounds: 428, 200, 107, 126
+	offsets: 1, 1, 109, 128
+purchase_machines/icon_wrench
+	bounds: 453, 332, 141, 123
+	offsets: 1, 1, 143, 125
+purchase_machines/laser_bar
+	bounds: 216, 189, 32, 413
+	offsets: 3, 3, 38, 503
+purchase_machines/machine
+	bounds: 6, 270, 204, 332
+	offsets: 1, 1, 206, 334
+purchase_machines/machine_broken
+	bounds: 6, 34, 204, 230
+	offsets: 1, 1, 206, 232
+purchase_machines/machine_broken_top
+	bounds: 254, 200, 168, 205
+	offsets: 1, 1, 170, 207
+purchase_machines/spark
+	bounds: 404, 92, 102, 102
+	offsets: 3, 5, 108, 111

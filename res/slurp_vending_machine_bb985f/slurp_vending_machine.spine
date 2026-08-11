@@ -1,0 +1,256 @@
+{
+"skeleton": { "hash": "GiT1GSHAip0", "spine": "4.0.64", "x": -133, "y": -100, "width": 266, "height": 386 },
+"bones": [
+	{ "name": "root" },
+	{ "name": "base", "parent": "root", "y": -85 },
+	{ "name": "electricity", "parent": "root" },
+	{ "name": "can", "parent": "root" }
+],
+"slots": [
+	{ "name": "vending_machine", "bone": "base", "attachment": "vending_machine/vending_machine_off" },
+	{ "name": "electricity", "bone": "electricity" },
+	{ "name": "slurp_can", "bone": "can" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"electricity": {
+				"electricity/electricity_00": { "width": 352, "height": 352 },
+				"electricity/electricity_01": { "width": 352, "height": 352 },
+				"electricity/electricity_02": { "width": 352, "height": 352 },
+				"electricity/electricity_03": { "width": 352, "height": 352 },
+				"electricity/electricity_04": { "width": 352, "height": 352 },
+				"electricity/electricity_05": { "width": 352, "height": 352 },
+				"electricity/electricity_06": { "width": 352, "height": 352 },
+				"electricity/electricity_07": { "width": 352, "height": 352 },
+				"electricity/electricity_08": { "width": 352, "height": 352 },
+				"electricity/electricity_09": { "width": 352, "height": 352 },
+				"electricity/electricity_10": { "width": 352, "height": 352 },
+				"electricity/electricity_11": { "width": 352, "height": 352 },
+				"electricity/electricity_12": { "width": 352, "height": 352 },
+				"electricity/electricity_13": { "width": 352, "height": 352 },
+				"electricity/electricity_14": { "width": 352, "height": 352 },
+				"electricity/electricity_15": { "width": 352, "height": 352 },
+				"electricity/electricity_16": { "width": 352, "height": 352 },
+				"electricity/electricity_17": { "width": 352, "height": 352 },
+				"electricity/electricity_18": { "width": 352, "height": 352 },
+				"electricity/electricity_19": { "width": 352, "height": 352 },
+				"electricity/electricity_20": { "width": 352, "height": 352 },
+				"electricity/electricity_21": { "width": 352, "height": 352 },
+				"electricity/electricity_22": { "width": 352, "height": 352 },
+				"electricity/electricity_23": { "width": 352, "height": 352 },
+				"electricity/electricity_24": { "width": 352, "height": 352 },
+				"electricity/electricity_25": { "width": 352, "height": 352 },
+				"electricity/electricity_26": { "width": 352, "height": 352 },
+				"electricity/electricity_27": { "width": 352, "height": 352 },
+				"electricity/electricity_28": { "width": 352, "height": 352 },
+				"electricity/electricity_29": { "width": 352, "height": 352 },
+				"electricity/electricity_30": { "width": 352, "height": 352 },
+				"electricity/electricity_31": { "width": 352, "height": 352 },
+				"electricity/electricity_32": { "width": 352, "height": 352 },
+				"electricity/electricity_33": { "width": 352, "height": 352 },
+				"electricity/electricity_34": { "width": 352, "height": 352 },
+				"electricity/electricity_35": { "width": 352, "height": 352 }
+			},
+			"slurp_can": {
+				"vending_machine/slurp_can": { "x": 0.5, "width": 79, "height": 110 },
+				"vending_machine/slurp_can2": {
+					"type": "mesh",
+					"path": "vending_machine/slurp_can",
+					"uvs": [ 1, 1, 0, 1, 1.0E-5, 0.45833, 0.94872, 0.36012 ],
+					"triangles": [ 2, 3, 0, 1, 2, 0 ],
+					"vertices": [ 40, -55, -39, -55, -39, 4.58, 35.95, 15.39 ],
+					"hull": 4
+				},
+				"vending_machine/slurp_can3": {
+					"type": "mesh",
+					"path": "vending_machine/slurp_can",
+					"uvs": [ 1, 1, 0, 1, 0, 0.38126, 0.94871, 0.28304 ],
+					"triangles": [ 2, 3, 0, 1, 2, 0 ],
+					"vertices": [ 40, -55, -39, -55, -39, 13.06, 35.95, 23.87 ],
+					"hull": 4
+				}
+			},
+			"vending_machine": {
+				"vending_machine/vending_machine_off": { "y": 178, "width": 266, "height": 386 },
+				"vending_machine/vending_machine_on": { "x": 0.13, "y": 178.13, "width": 307, "height": 427 }
+			}
+		}
+	}
+],
+"animations": {
+	"dispense_slurp_can": {
+		"slots": {
+			"slurp_can": {
+				"attachment": [
+					{ "time": 0.0833, "name": "vending_machine/slurp_can2" },
+					{ "time": 0.125, "name": "vending_machine/slurp_can3" },
+					{ "time": 0.1667, "name": "vending_machine/slurp_can" }
+				]
+			},
+			"vending_machine": {
+				"attachment": [
+					{ "name": "vending_machine/vending_machine_on" }
+				]
+			}
+		},
+		"bones": {
+			"base": {
+				"scale": [
+					{
+						"curve": [ 0.028, 1.03, 0.056, 1.09, 0.028, 0.97, 0.056, 0.91 ]
+					},
+					{
+						"time": 0.0833,
+						"x": 1.09,
+						"y": 0.91,
+						"curve": [ 0.139, 1.09, 0.194, 0.964, 0.139, 0.91, 0.194, 1.036 ]
+					},
+					{
+						"time": 0.25,
+						"x": 0.964,
+						"y": 1.036,
+						"curve": [ 0.306, 0.964, 0.361, 0.988, 0.306, 1.036, 0.361, 1.012 ]
+					},
+					{ "time": 0.4167 }
+				]
+			},
+			"can": {
+				"rotate": [
+					{ "time": 0.0833, "value": -8.48, "curve": "stepped" },
+					{
+						"time": 0.1667,
+						"value": -8.48,
+						"curve": [ 0.222, -8.48, 0.3, -72.73 ]
+					},
+					{
+						"time": 0.3333,
+						"value": -104.37,
+						"curve": [ 0.367, -101.63, 0.383, -96.08 ]
+					},
+					{
+						"time": 0.4167,
+						"value": -96.08,
+						"curve": [ 0.44, -96.08, 0.471, -99.84 ]
+					},
+					{ "time": 0.5, "value": -104.37 }
+				],
+				"translate": [
+					{ "time": 0.0833, "x": -23.18, "y": -32.01, "curve": "stepped" },
+					{ "time": 0.125, "x": -23.18, "y": -35.85, "curve": "stepped" },
+					{
+						"time": 0.1667,
+						"x": -23.18,
+						"y": -72.65,
+						"curve": [ 0.195, -23.18, 0.233, -6.72, 0.198, -71.81, 0.236, -86.55 ]
+					},
+					{
+						"time": 0.25,
+						"x": 1.38,
+						"y": -94.92,
+						"curve": [ 0.276, 9.88, 0.317, 26.75, 0.252, -95.92, 0.317, -111.37 ]
+					},
+					{
+						"time": 0.3333,
+						"x": 26.75,
+						"y": -119.47,
+						"curve": [ 0.367, 26.75, 0.383, 26.07, 0.367, -117.45, 0.383, -113.35 ]
+					},
+					{
+						"time": 0.4167,
+						"x": 25.73,
+						"y": -113.35,
+						"curve": [ 0.433, 26.07, 0.472, 26.75, 0.433, -113.35, 0.472, -115.51 ]
+					},
+					{ "time": 0.5, "x": 26.75, "y": -119.47 }
+				]
+			}
+		}
+	},
+	"off_idle": {
+		"bones": {
+			"base": {
+				"translate": [
+					{}
+				]
+			}
+		}
+	},
+	"on_idle": {
+		"slots": {
+			"vending_machine": {
+				"attachment": [
+					{ "name": "vending_machine/vending_machine_on" }
+				]
+			}
+		},
+		"bones": {
+			"base": {
+				"translate": [
+					{}
+				]
+			}
+		}
+	},
+	"turn_on": {
+		"slots": {
+			"electricity": {
+				"attachment": [
+					{ "name": "electricity/electricity_00" },
+					{ "time": 0.0417, "name": "electricity/electricity_01" },
+					{ "time": 0.0833, "name": "electricity/electricity_02" },
+					{ "time": 0.125, "name": "electricity/electricity_03" },
+					{ "time": 0.1667, "name": "electricity/electricity_04" },
+					{ "time": 0.2083, "name": "electricity/electricity_05" },
+					{ "time": 0.25, "name": "electricity/electricity_06" },
+					{ "time": 0.2917, "name": "electricity/electricity_07" },
+					{ "time": 0.3333, "name": "electricity/electricity_08" },
+					{ "time": 0.375, "name": "electricity/electricity_09" },
+					{ "time": 0.4167, "name": "electricity/electricity_10" },
+					{ "time": 0.4583, "name": "electricity/electricity_11" },
+					{ "time": 0.5, "name": "electricity/electricity_12" },
+					{ "time": 0.5417, "name": "electricity/electricity_13" },
+					{ "time": 0.5833, "name": "electricity/electricity_14" },
+					{ "time": 0.625, "name": "electricity/electricity_15" },
+					{ "time": 0.6667, "name": "electricity/electricity_16" },
+					{ "time": 0.7083, "name": "electricity/electricity_17" },
+					{ "time": 0.75, "name": "electricity/electricity_18" },
+					{ "time": 0.7917, "name": "electricity/electricity_19" },
+					{ "time": 0.8333, "name": "electricity/electricity_20" },
+					{ "time": 0.875, "name": "electricity/electricity_21" },
+					{ "time": 0.9167, "name": "electricity/electricity_22" },
+					{ "time": 0.9583, "name": "electricity/electricity_23" },
+					{ "time": 1, "name": null }
+				]
+			},
+			"vending_machine": {
+				"attachment": [
+					{ "time": 0.1667, "name": "vending_machine/vending_machine_on" },
+					{ "time": 0.25, "name": "vending_machine/vending_machine_off" },
+					{ "time": 0.4167, "name": "vending_machine/vending_machine_on" },
+					{ "time": 0.5833, "name": "vending_machine/vending_machine_off" },
+					{ "time": 0.6667, "name": "vending_machine/vending_machine_on" },
+					{ "time": 0.75, "name": "vending_machine/vending_machine_off" },
+					{ "time": 0.8333, "name": "vending_machine/vending_machine_on" }
+				]
+			}
+		},
+		"bones": {
+			"base": {
+				"translate": [
+					{}
+				]
+			},
+			"electricity": {
+				"translate": [
+					{ "x": -1.81, "y": 102.39 }
+				],
+				"scale": [
+					{ "x": 2, "y": 2 }
+				]
+			}
+		}
+	}
+}
+}

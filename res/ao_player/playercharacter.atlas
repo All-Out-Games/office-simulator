@@ -1,0 +1,1337 @@
+playercharacter.png
+	size: 2948, 2056
+	filter: Linear, Linear
+	scale: 0.5
+003Battle/Confusion_Ball/cloud ball01
+	bounds: 2410, 1067, 98, 87
+	rotate: 90
+003Battle/Confusion_Ball/cloud ball02
+	bounds: 2317, 587, 87, 74
+003Battle/Confusion_Ball/cloud shine
+	bounds: 2092, 1290, 139, 138
+	offsets: 8, 8, 156, 159
+	rotate: 90
+003Battle/Confusion_Ball/dizzy spiral
+	bounds: 2928, 339, 16, 17
+	rotate: 90
+003Battle/Confusion_Ball/question mark ball
+	bounds: 2796, 75, 21, 30
+	rotate: 90
+003Battle/Giant Fists/giant fist L
+	bounds: 2844, 1000, 62, 64
+	rotate: 90
+003Battle/Giant Fists/giant fist R
+	bounds: 2565, 609, 67, 71
+003Battle/Hypnotize/circle_particle
+	bounds: 1157, 1291, 16, 16
+	offsets: 1, 1, 18, 18
+003Battle/Hypnotize/hypnosis_back
+	bounds: 1253, 27, 222, 226
+	offsets: 1, 1, 224, 228
+003Battle/Hypnotize/hypnosis_front
+	bounds: 1478, 140, 207, 206
+	offsets: 2, 1, 219, 217
+	rotate: 90
+003Battle/Hypnotize/particle_back
+	bounds: 2768, 99, 40, 40
+	offsets: 2, 2, 44, 44
+003Battle/Hypnotize/star_particle
+	bounds: 2909, 129, 37, 36
+	offsets: 1, 1, 39, 38
+	rotate: 90
+003Battle/Ice Storm/glow
+	bounds: 919, 981, 262, 254
+	offsets: 12, 10, 286, 274
+	rotate: 90
+003Battle/Ice Storm/ground_snowflake
+	bounds: 887, 1758, 289, 295
+	offsets: 9, 11, 307, 317
+003Battle/Ice Storm/ice_chunk_A
+	bounds: 2797, 510, 56, 54
+003Battle/Ice Storm/ice_chunk_B
+	bounds: 2899, 1892, 43, 58
+003Battle/Ice Storm/ice_chunk_C
+	bounds: 2757, 33, 38, 36
+	rotate: 90
+003Battle/Ice Storm/line_A
+	bounds: 2273, 3, 40, 134
+	offsets: 1, 1, 42, 136
+	rotate: 90
+003Battle/Ice Storm/line_B
+	bounds: 2220, 433, 114, 147
+	offsets: 1, 1, 116, 149
+003Battle/Ice Storm/line_C
+	bounds: 2733, 826, 50, 37
+	offsets: 1, 1, 52, 39
+003Battle/Ice Storm/line_D
+	bounds: 1588, 1218, 194, 135
+	offsets: 1, 1, 196, 137
+	rotate: 90
+003Battle/Ice Storm/snow_particle_A
+	bounds: 2570, 265, 47, 52
+	offsets: 1, 1, 49, 54
+	rotate: 90
+003Battle/Ice Storm/snow_particle_B
+	bounds: 2855, 412, 49, 55
+	offsets: 1, 1, 51, 57
+	rotate: 90
+003Battle/Ice Storm/snow_particle_C
+	bounds: 2774, 399, 50, 55
+	offsets: 1, 1, 52, 57
+	rotate: 90
+003Battle/Ice Storm/snow_particle_D
+	bounds: 2284, 1486, 24, 24
+	offsets: 1, 1, 26, 26
+003Battle/Parry/secondary_sparkle
+	bounds: 2829, 93, 32, 32
+	offsets: 1, 1, 35, 35
+003Battle/Parry/sparkle
+	bounds: 919, 921, 57, 90
+	offsets: 6, 0, 69, 90
+	rotate: 90
+003Battle/PsyBolt/hit/shockwave_A
+	bounds: 2632, 129, 46, 42
+	offsets: 1, 1, 48, 44
+003Battle/PsyBolt/hit/shockwave_B
+	bounds: 2732, 161, 37, 45
+	offsets: 1, 1, 39, 47
+	rotate: 90
+003Battle/PsyBolt/hit/shockwave_C
+	bounds: 2915, 224, 38, 30
+	offsets: 1, 1, 40, 32
+	rotate: 90
+003Battle/PsyThrow/psychic_particle_A Merged
+	bounds: 2735, 11, 19, 18
+	offsets: 1, 1, 21, 20
+003Battle/PsyThrow/psychic_particle_B Merged
+	bounds: 2795, 273, 12, 12
+	offsets: 1, 1, 14, 14
+003Battle/PsyThrow/psychic_particle_C Merged
+	bounds: 2470, 1168, 21, 21
+	offsets: 1, 1, 23, 23
+003Battle/PsyThrow/psythrow_body
+	bounds: 1762, 457, 169, 162
+	offsets: 2, 2, 173, 166
+	rotate: 90
+003Battle/PsyThrow/psythrow_hand
+	bounds: 2772, 1526, 96, 85
+	offsets: 2, 2, 100, 89
+003Battle/RollOutFX/smoke_A
+	bounds: 2699, 298, 44, 53
+	offsets: 1, 1, 46, 55
+	rotate: 90
+003Battle/RollOutFX/smoke_B
+	bounds: 1714, 571, 42, 55
+	offsets: 1, 1, 44, 57
+003Battle/RollOutFX/smoke_C
+	bounds: 2737, 509, 50, 56
+	offsets: 1, 1, 52, 58
+	rotate: 90
+003Battle/RollOutFX/smoke_D
+	bounds: 2716, 74, 40, 40
+	offsets: 1, 1, 42, 42
+003Battle/SelfDestruct/background_glow_shafts
+	bounds: 1173, 1405, 197, 242
+003Battle/SelfDestruct/glow
+	bounds: 1563, 371, 197, 196
+	offsets: 4, 4, 205, 204
+	rotate: 90
+003Battle/SelfDestruct/light_shaft
+	bounds: 425, 241, 52, 136
+	offsets: 2, 1, 56, 144
+003Battle/Spittle/spittle1
+	bounds: 2698, 1368, 21, 13
+003Battle/Spittle/spittle2
+	bounds: 2727, 668, 24, 16
+003Battle/TotalDarkness/darkness_cloud/darkness_cloud1
+	bounds: 2682, 1841, 100, 103
+	offsets: 0, 2, 102, 107
+003Battle/TotalDarkness/darkness_cloud/darkness_cloud2
+	bounds: 1762, 374, 80, 84
+	offsets: 1, 2, 83, 88
+	rotate: 90
+003Battle/TotalDarkness/darkness_cloud/darkness_cloud3
+	bounds: 705, 804, 113, 130
+	offsets: 1, 2, 114, 142
+	rotate: 90
+003Battle/TotalDarkness/darkness_cloud/darkness_cloud4
+	bounds: 2589, 457, 71, 65
+	offsets: 1, 2, 73, 68
+	rotate: 90
+003Battle/TotalDarkness/darkness_cloud/darkness_cloud5
+	bounds: 2691, 1950, 100, 103
+	offsets: 0, 2, 102, 107
+003Battle/TotalDarkness/darkness_cloud/darkness_cloud6
+	bounds: 2585, 1076, 80, 84
+	offsets: 1, 2, 83, 88
+003Battle/TotalDarkness/darkness_cloud/darkness_cloud7
+	bounds: 2239, 1643, 113, 130
+	offsets: 1, 2, 114, 142
+003Battle/TotalDarkness/darkness_cloud/darkness_cloud8
+	bounds: 2552, 826, 71, 65
+	offsets: 1, 2, 73, 68
+	rotate: 90
+003Battle/TotalDarkness/darkness_speedlines
+	bounds: 3, 712, 514, 269
+	offsets: 6, 1, 524, 274
+	rotate: 90
+003Battle/TotalDarkness/darkness_wave
+	bounds: 3, 1229, 824, 476
+	offsets: 21, 10, 849, 491
+	rotate: 90
+003Battle/TotalDarkness/glow
+	bounds: 883, 1338, 299, 287
+	offsets: 9, 4, 315, 295
+	rotate: 90
+003Battle/TotalDarkness/ground_burst
+	bounds: 275, 797, 427, 429
+	offsets: 1, 1, 429, 432
+003Battle/TotalDarkness/spark
+	bounds: 483, 18, 246, 359
+	offsets: 1, 2, 248, 363
+003Battle/TotalDarkness/star_field
+	bounds: 482, 1237, 400, 398
+	rotate: 90
+003Battle/birds/bird frame1
+	bounds: 2545, 131, 40, 35
+	offsets: 0, 1, 40, 36
+003Battle/birds/bird frame2
+	bounds: 2745, 1078, 43, 33
+003Battle/electro_snare/lightning shock1
+	bounds: 2856, 508, 56, 54
+	offsets: 1, 1, 59, 57
+Who_Killed_Barry/electro_snare/lightning shock1
+	bounds: 2856, 508, 56, 54
+	offsets: 1, 1, 59, 57
+003Battle/electro_snare/lightning shock10
+	bounds: 2716, 3, 26, 16
+	offsets: 2, 1, 29, 18
+	rotate: 90
+Who_Killed_Barry/electro_snare/lightning shock10
+	bounds: 2716, 3, 26, 16
+	offsets: 2, 1, 29, 18
+	rotate: 90
+003Battle/electro_snare/lightning shock2
+	bounds: 1176, 982, 17, 11
+	offsets: 2, 2, 21, 14
+	rotate: 90
+Who_Killed_Barry/electro_snare/lightning shock2
+	bounds: 1176, 982, 17, 11
+	offsets: 2, 2, 21, 14
+	rotate: 90
+003Battle/electro_snare/lightning shock3
+	bounds: 2452, 359, 46, 17
+	offsets: 2, 1, 50, 19
+Who_Killed_Barry/electro_snare/lightning shock3
+	bounds: 2452, 359, 46, 17
+	offsets: 2, 1, 50, 19
+003Battle/electro_snare/lightning shock4
+	bounds: 838, 392, 97, 39
+	offsets: 1, 1, 99, 42
+Who_Killed_Barry/electro_snare/lightning shock4
+	bounds: 838, 392, 97, 39
+	offsets: 1, 1, 99, 42
+003Battle/electro_snare/lightning shock5
+	bounds: 2661, 624, 60, 63
+	offsets: 1, 1, 63, 66
+	rotate: 90
+Who_Killed_Barry/electro_snare/lightning shock5
+	bounds: 2661, 624, 60, 63
+	offsets: 1, 1, 63, 66
+	rotate: 90
+003Battle/electro_snare/lightning shock6
+	bounds: 2916, 1278, 10, 16
+	offsets: 1, 2, 12, 20
+	rotate: 90
+Who_Killed_Barry/electro_snare/lightning shock6
+	bounds: 2916, 1278, 10, 16
+	offsets: 1, 2, 12, 20
+	rotate: 90
+003Battle/electro_snare/lightning shock7
+	bounds: 2549, 283, 18, 14
+	offsets: 1, 2, 21, 17
+Who_Killed_Barry/electro_snare/lightning shock7
+	bounds: 2549, 283, 18, 14
+	offsets: 1, 2, 21, 17
+003Battle/electro_snare/lightning shock8
+	bounds: 2682, 117, 41, 39
+	offsets: 1, 2, 44, 42
+	rotate: 90
+Who_Killed_Barry/electro_snare/lightning shock8
+	bounds: 2682, 117, 41, 39
+	offsets: 1, 2, 44, 42
+	rotate: 90
+003Battle/electro_snare/lightning shock9
+	bounds: 2688, 245, 50, 51
+	offsets: 2, 2, 54, 54
+	rotate: 90
+Who_Killed_Barry/electro_snare/lightning shock9
+	bounds: 2688, 245, 50, 51
+	offsets: 2, 2, 54, 54
+	rotate: 90
+003Battle/fist_aura/base aura
+	bounds: 2426, 265, 77, 72
+	offsets: 6, 6, 90, 84
+	rotate: 90
+003Battle/fist_aura/shine aura1
+	bounds: 2886, 669, 61, 58
+	offsets: 4, 11, 84, 84
+	rotate: 90
+003Battle/fist_aura/shine aura2
+	bounds: 2730, 1009, 66, 60
+	offsets: 28, 7, 110, 74
+	rotate: 90
+003Battle/healing ring
+	bounds: 838, 434, 272, 196
+	offsets: 5, 5, 282, 207
+003Battle/ice_fist
+	bounds: 2821, 934, 64, 63
+003Battle/meteor/back glow
+	bounds: 93, 249, 329, 460
+	offsets: 44, 18, 383, 512
+003Battle/meteor/bottom
+	bounds: 1609, 1421, 190, 108
+	offsets: 1, 1, 192, 110
+003Battle/meteor/cloud1A
+	bounds: 2796, 452, 56, 55
+003Battle/meteor/cloud1B
+	bounds: 2715, 451, 56, 55
+003Battle/meteor/cloud2A
+	bounds: 2370, 414, 83, 78
+	offsets: 0, 1, 83, 79
+	rotate: 90
+003Battle/meteor/cloud2B
+	bounds: 2401, 501, 83, 78
+	offsets: 0, 1, 83, 79
+	rotate: 90
+003Battle/meteor/cloud3A
+	bounds: 2891, 735, 62, 54
+	rotate: 90
+003Battle/meteor/cloud4A
+	bounds: 2868, 89, 37, 37
+003Battle/meteor/cloud5A
+	bounds: 2549, 213, 49, 49
+003Battle/meteor/cloud5B
+	bounds: 2863, 213, 49, 49
+003Battle/meteor/cloud6A
+	bounds: 2786, 1114, 76, 75
+003Battle/meteor/cloud6B
+	bounds: 2865, 1114, 76, 75
+003Battle/meteor/orange layer
+	bounds: 838, 633, 207, 284
+	offsets: 2, 2, 211, 288
+003Battle/meteor/side1
+	bounds: 275, 714, 83, 30
+	offsets: 1, 1, 85, 32
+003Battle/meteor/side2
+	bounds: 2211, 1486, 132, 70
+	offsets: 1, 1, 134, 72
+	rotate: 90
+003Battle/meteor/yellow layer
+	bounds: 1542, 858, 151, 186
+	offsets: 0, 0, 151, 196
+003Battle/rage clouds/cloud1
+	bounds: 2883, 613, 58, 53
+003Battle/rage clouds/cloud2
+	bounds: 2661, 434, 56, 51
+	rotate: 90
+003Battle/shoulder charge/base shield
+	bounds: 1707, 1895, 129, 158
+	offsets: 5, 2, 136, 162
+003Battle/shoulder charge/gradient01
+	bounds: 1977, 1432, 135, 141
+	offsets: 1, 0, 136, 141
+003Battle/shoulder charge/gradient02
+	bounds: 1802, 1431, 172, 141
+	offsets: 31, 0, 203, 141
+003Battle/shoulder charge/largeline1
+	bounds: 2493, 587, 66, 16
+	offsets: 1, 1, 68, 18
+003Battle/shoulder charge/largeline2
+	bounds: 2211, 1432, 51, 18
+	offsets: 1, 1, 53, 20
+	rotate: 90
+003Battle/shoulder charge/largeline3
+	bounds: 414, 748, 46, 8
+	offsets: 1, 1, 48, 10
+	rotate: 90
+003Battle/shoulder charge/line1
+	bounds: 2672, 998, 24, 5
+	offsets: 1, 0, 25, 5
+003Battle/shoulder charge/line2
+	bounds: 2784, 1787, 24, 9
+	rotate: 90
+003Battle/shoulder charge/line3
+	bounds: 2735, 3, 19, 5
+003Battle/shoulder charge/line4
+	bounds: 2303, 1776, 46, 7
+003Battle/teleport/back shadow
+	bounds: 2284, 1034, 123, 123
+	offsets: 13, 12, 150, 148
+EMOTE_VFX/teleport/back shadow
+	bounds: 2284, 1034, 123, 123
+	offsets: 13, 12, 150, 148
+003Battle/teleport/kanji1
+	bounds: 2914, 464, 29, 41
+EMOTE_VFX/teleport/kanji1
+	bounds: 2914, 464, 29, 41
+003Battle/teleport/kanji2
+	bounds: 2632, 273, 43, 53
+	rotate: 90
+EMOTE_VFX/teleport/kanji2
+	bounds: 2632, 273, 43, 53
+	rotate: 90
+003Battle/teleport/teleport cloud1
+	bounds: 2737, 621, 43, 58
+	rotate: 90
+EMOTE_VFX/teleport/teleport cloud1
+	bounds: 2737, 621, 43, 58
+	rotate: 90
+003Battle/teleport/teleport cloud2
+	bounds: 2682, 83, 31, 31
+	offsets: 1, 1, 33, 33
+EMOTE_VFX/teleport/teleport cloud2
+	bounds: 2682, 83, 31, 31
+	offsets: 1, 1, 33, 33
+003Battle/teleport/teleport cloud3
+	bounds: 2874, 265, 38, 50
+	rotate: 90
+EMOTE_VFX/teleport/teleport cloud3
+	bounds: 2874, 265, 38, 50
+	rotate: 90
+003Battle/teleport/teleport cloud4
+	bounds: 2657, 493, 62, 55
+	offsets: 0, 1, 63, 57
+	rotate: 90
+EMOTE_VFX/teleport/teleport cloud4
+	bounds: 2657, 493, 62, 55
+	offsets: 0, 1, 63, 57
+	rotate: 90
+003Battle/wind_punch/wind_orb
+	bounds: 2317, 664, 88, 88
+	offsets: 2, 2, 92, 92
+003Battle/wind_punch/wind_punch_1
+	bounds: 2500, 1074, 86, 82
+	offsets: 2, 2, 89, 85
+	rotate: 90
+003Battle/wind_punch/wind_punch_2
+	bounds: 2462, 888, 86, 84
+	offsets: 2, 2, 89, 87
+	rotate: 90
+003Battle/wind_punch/wind_punch_3
+	bounds: 2377, 841, 88, 82
+	offsets: 1, 2, 90, 86
+	rotate: 90
+003Battle/wind_punch/wind_punch_4
+	bounds: 2377, 757, 87, 81
+	offsets: 2, 2, 90, 85
+100_buttons/foam_hand
+	bounds: 2725, 1444, 79, 95
+	rotate: 90
+100_buttons/vfx/blue_button
+	bounds: 2438, 1192, 97, 94
+	rotate: 90
+100_buttons/vfx/electrocute/electricity_sparks1
+	bounds: 2607, 994, 62, 79
+100_buttons/vfx/electrocute/electricity_sparks2
+	bounds: 2888, 934, 63, 35
+	rotate: 90
+100_buttons/vfx/electrocute/electricity_sparks3
+	bounds: 2493, 681, 74, 46
+	rotate: 90
+100_buttons/vfx/electrocute/electrocute_aura1
+	bounds: 1304, 564, 195, 215
+	offsets: 1, 1, 197, 217
+100_buttons/vfx/electrocute/electrocute_aura2
+	bounds: 1502, 571, 210, 209
+	offsets: 1, 1, 212, 211
+	rotate: 90
+100_buttons/vfx/feathers1
+	bounds: 2589, 49, 29, 31
+	rotate: 90
+100_buttons/vfx/feathers2
+	bounds: 2678, 8, 25, 35
+	rotate: 90
+100_buttons/vfx/feathers3
+	bounds: 2432, 934, 40, 27
+	rotate: 90
+100_buttons/vfx/red_button
+	bounds: 2464, 1307, 97, 94
+	rotate: 90
+100_buttons/vfx/smoke_particle
+	bounds: 2632, 174, 47, 46
+	offsets: 1, 1, 49, 49
+100_buttons/vfx/smoke_particle2
+	bounds: 2588, 130, 40, 36
+	offsets: 1, 2, 42, 39
+100_buttons/vfx/smoke_particle3
+	bounds: 2757, 3, 27, 31
+	offsets: 1, 1, 31, 33
+	rotate: 90
+100_buttons/vfx/yellow_button
+	bounds: 2794, 1614, 97, 94
+2.0.1_additions/eyes/crying/lighteye_watery_L
+	bounds: 2694, 559, 62, 40
+	rotate: 90
+2.0.1_additions/eyes/crying/lighteye_watery_R
+	bounds: 2694, 559, 62, 40
+	rotate: 90
+2.0.1_additions/eyes/crying/tear_watery_L
+	bounds: 2545, 49, 41, 29
+2.0.1_additions/eyes/crying/tear_watery_R
+	bounds: 1336, 1650, 33, 27
+2.0.1_additions/mouths/mouth_cheesy_grin
+	bounds: 2288, 1168, 119, 65
+	rotate: 90
+2.0.1_additions/mouths/mouth_closed_teeth_pain
+	bounds: 2337, 433, 64, 28
+	rotate: 90
+2.0.1_additions/mouths/mouth_concentration
+	bounds: 2534, 10, 95, 36
+2.0.1_additions/mouths/mouth_grimace
+	bounds: 1684, 1532, 102, 40
+2.0.1_additions/mouths/mouth_open_scream1
+	bounds: 361, 714, 60, 30
+2.0.1_additions/mouths/mouth_open_scream2
+	bounds: 2608, 369, 54, 38
+	rotate: 90
+2.0.1_additions/puffy_cheek
+	bounds: 2686, 754, 68, 69
+2.0.1_additions/puffy_cheek_sick
+	bounds: 2628, 922, 68, 69
+2.0.1_additions/revolver spin
+	bounds: 2632, 223, 51, 47
+EMOTE_VFX/Anvil/Anvil
+	bounds: 1598, 1072, 183, 143
+	offsets: 4, 0, 187, 143
+EMOTE_VFX/Barbell
+	bounds: 1179, 26, 227, 71
+	rotate: 90
+EMOTE_VFX/Basketball
+	bounds: 2797, 868, 64, 63
+EMOTE_VFX/Bottle/bottle
+	bounds: 2742, 201, 47, 48
+	offsets: 1, 0, 48, 48
+	rotate: 90
+EMOTE_VFX/Bottle/bottle_smear
+	bounds: 1687, 140, 53, 142
+	offsets: 56, 18, 182, 188
+	rotate: 90
+EMOTE_VFX/Bottle/bottle_smear2
+	bounds: 275, 747, 47, 136
+	offsets: 56, 45, 182, 188
+	rotate: 90
+EMOTE_VFX/Bottle/soda0
+	bounds: 2233, 1357, 120, 126
+EMOTE_VFX/Bottle/soda1
+	bounds: 1908, 1256, 172, 66
+	rotate: 90
+EMOTE_VFX/Bottle/soda2
+	bounds: 1373, 1415, 233, 98
+EMOTE_VFX/Bottle/soda3
+	bounds: 1161, 256, 229, 107
+	rotate: 90
+EMOTE_VFX/Bottle/soda4
+	bounds: 1591, 1532, 232, 90
+	rotate: 90
+EMOTE_VFX/Bullets/Bullet
+	bounds: 2438, 1168, 29, 21
+EMOTE_VFX/Bullets/Bullet_Line_1
+	bounds: 1542, 796, 167, 8
+	offsets: 2, 0, 169, 8
+EMOTE_VFX/Bullets/Bullet_Line_2
+	bounds: 2284, 1513, 69, 5
+EMOTE_VFX/Bullets/Bullet_Line_3
+	bounds: 705, 797, 114, 4
+	offsets: 0, 0, 115, 4
+EMOTE_VFX/Buttons/Like_Button_Pressed
+	bounds: 2408, 671, 83, 82
+	rotate: 90
+EMOTE_VFX/Buttons/Like_Button_Unpressed
+	bounds: 2467, 802, 83, 82
+	rotate: 90
+EMOTE_VFX/Buttons/Subscribe_Button_2
+	bounds: 1823, 1576, 156, 95
+	rotate: 90
+EMOTE_VFX/Buttons/Subscribe_Button_3
+	bounds: 1921, 1576, 156, 95
+	rotate: 90
+EMOTE_VFX/CoolGuyGlasses
+	bounds: 1262, 1650, 71, 27
+	offsets: 3, 0, 74, 27
+EMOTE_VFX/Guitar/EGuitar_Full
+	bounds: 2158, 1621, 136, 78
+	rotate: 90
+EMOTE_VFX/Guitar/MusicNote_A
+	bounds: 2649, 319, 47, 54
+EMOTE_VFX/Guitar/MusicNote_B
+	bounds: 2655, 1281, 31, 57
+EMOTE_VFX/Math/equation_1
+	bounds: 2448, 1407, 109, 28
+EMOTE_VFX/Math/equation_2
+	bounds: 2917, 1349, 84, 28
+	rotate: 90
+EMOTE_VFX/Math/equation_3
+	bounds: 1181, 1650, 78, 27
+EMOTE_VFX/Math/equation_4
+	bounds: 2122, 1127, 81, 28
+EMOTE_VFX/Math/equation_5
+	bounds: 93, 3, 35, 26
+EMOTE_VFX/Math/equation_6
+	bounds: 2589, 426, 69, 28
+EMOTE_VFX/Math/equation_7
+	bounds: 2737, 562, 56, 57
+	rotate: 90
+EMOTE_VFX/Podium/collar
+	bounds: 2692, 851, 68, 38
+	rotate: 90
+EMOTE_VFX/Podium/gold_medal
+	bounds: 2889, 358, 51, 54
+	rotate: 90
+EMOTE_VFX/Podium/gold_medal copy
+	bounds: 2570, 315, 51, 54
+	rotate: 90
+EMOTE_VFX/Podium/gold_medal copy_2
+	bounds: 2832, 358, 51, 54
+	rotate: 90
+EMOTE_VFX/Podium/podium
+	bounds: 2220, 339, 91, 147
+	offsets: 0, 1, 91, 149
+	rotate: 90
+EMOTE_VFX/Podium/podium2
+	bounds: 2334, 194, 89, 142
+EMOTE_VFX/Podium/podium3
+	bounds: 2241, 192, 90, 144
+EMOTE_VFX/Popcorn/popcorn
+	bounds: 2672, 1006, 55, 69
+EMOTE_VFX/Popcorn/popcorn2
+	bounds: 2821, 669, 61, 62
+	rotate: 90
+EMOTE_VFX/Sleep Zs
+	bounds: 2793, 1009, 33, 32
+	rotate: 90
+EMOTE_VFX/SmarthPhone/camera_flash
+	bounds: 2516, 1452, 107, 107
+	offsets: 2, 2, 111, 111
+EMOTE_VFX/SmarthPhone/phone_selfie
+	bounds: 2715, 402, 46, 55
+	offsets: 4, 0, 50, 60
+	rotate: 90
+Who_Kill_My_Crush/phone/phone
+	bounds: 2715, 402, 46, 55
+	offsets: 4, 0, 50, 60
+	rotate: 90
+EMOTE_VFX/SmarthPhone/phone_selfie2
+	bounds: 2793, 186, 35, 46
+	offsets: 15, 0, 50, 60
+	rotate: 90
+EMOTE_VFX/Statue/rock_1
+	bounds: 2916, 1291, 55, 29
+	rotate: 90
+EMOTE_VFX/Statue/rock_2
+	bounds: 2795, 224, 49, 35
+EMOTE_VFX/Statue/rock_3
+	bounds: 2055, 635, 25, 23
+EMOTE_VFX/Statue/rock_4
+	bounds: 2811, 105, 20, 15
+	rotate: 90
+EMOTE_VFX/Statue/rock_5
+	bounds: 2913, 1068, 43, 31
+	rotate: 90
+EMOTE_VFX/Statue/rock_6
+	bounds: 2810, 262, 50, 39
+EMOTE_VFX/Statue/rock_7
+	bounds: 2661, 376, 55, 40
+	rotate: 90
+EMOTE_VFX/Statue/rock_8
+	bounds: 452, 3, 28, 32
+EMOTE_VFX/Statue/statue
+	bounds: 2432, 977, 70, 87
+	offsets: 0, 0, 70, 88
+EMOTE_VFX/Statue/stone
+	bounds: 2403, 49, 139, 142
+EMOTE_VFX/Uno_Reverse
+	bounds: 2426, 210, 52, 76
+	offsets: 3, 2, 57, 80
+	rotate: 90
+EMOTE_VFX/baseball
+	bounds: 2908, 57, 36, 35
+EMOTE_VFX/booger
+	bounds: 2868, 129, 38, 37
+EMOTE_VFX/dust/dust1
+	bounds: 2797, 567, 57, 47
+EMOTE_VFX/dust/dust_circle_1
+	bounds: 2128, 182, 148, 110
+	rotate: 90
+EMOTE_VFX/dust/dust_circle_2
+	bounds: 2026, 661, 166, 74
+EMOTE_VFX/dust/dust_circle_3
+	bounds: 1696, 807, 177, 79
+EMOTE_VFX/fart/fart0000
+	bounds: 2545, 81, 45, 45
+EMOTE_VFX/fart/fart0001
+	bounds: 2733, 866, 66, 61
+	rotate: 90
+EMOTE_VFX/fart/fart0002
+	bounds: 2668, 1109, 78, 74
+	rotate: 90
+EMOTE_VFX/fartcloud/fart1
+	bounds: 1684, 1575, 189, 136
+	offsets: 6, 6, 201, 148
+	rotate: 90
+EMOTE_VFX/fire/fire1
+	bounds: 2148, 1913, 126, 140
+EMOTE_VFX/fire/fire2
+	bounds: 2089, 333, 128, 159
+EMOTE_VFX/fire/fire3
+	bounds: 1839, 1900, 124, 153
+EMOTE_VFX/fire/fire4
+	bounds: 1823, 1735, 126, 157
+EMOTE_VFX/fireball/fireball1
+	bounds: 1353, 268, 79, 122
+	rotate: 90
+EMOTE_VFX/fireball/fireball2
+	bounds: 2122, 1158, 83, 129
+EMOTE_VFX/fireball/fireball3
+	bounds: 1707, 1769, 89, 123
+EMOTE_VFX/fish
+	bounds: 2596, 1725, 95, 104
+EMOTE_VFX/flowers/flower5
+	bounds: 2545, 169, 41, 41
+	offsets: 0, 0, 42, 41
+EMOTE_VFX/football
+	bounds: 2742, 251, 50, 34
+EMOTE_VFX/football_smear
+	bounds: 1190, 733, 106, 46
+	offsets: 0, 0, 107, 46
+EMOTE_VFX/gift/box open
+	bounds: 2793, 1284, 89, 77
+	offsets: 10, 0, 114, 84
+EMOTE_VFX/gift/confetti
+	bounds: 2387, 1799, 117, 101
+	rotate: 90
+EMOTE_VFX/gift/gift lid
+	bounds: 2356, 1168, 119, 79
+	offsets: 0, 22, 121, 101
+	rotate: 90
+EMOTE_VFX/gift/springs
+	bounds: 2514, 1715, 106, 79
+	rotate: 90
+EMOTE_VFX/golden_aura/aura_1
+	bounds: 1873, 635, 150, 169
+EMOTE_VFX/golden_aura/aura_2
+	bounds: 1849, 285, 156, 169
+EMOTE_VFX/golden_aura/aura_3
+	bounds: 1927, 463, 155, 169
+EMOTE_VFX/golden_aura/shock_A
+	bounds: 2767, 940, 66, 51
+	offsets: 1, 1, 68, 53
+	rotate: 90
+EMOTE_VFX/golden_aura/shock_B
+	bounds: 2632, 34, 44, 43
+	offsets: 1, 1, 46, 45
+	rotate: 90
+EMOTE_VFX/golden_aura/shock_C
+	bounds: 2793, 1045, 66, 48
+	offsets: 1, 1, 68, 50
+	rotate: 90
+EMOTE_VFX/golden_aura/shock_D
+	bounds: 2552, 759, 64, 38
+	offsets: 1, 1, 66, 40
+	rotate: 90
+EMOTE_VFX/golden_aura/shock_E
+	bounds: 1048, 633, 92, 50
+	offsets: 1, 1, 94, 52
+	rotate: 90
+EMOTE_VFX/golden_aura/shock_F
+	bounds: 1113, 434, 51, 32
+	offsets: 1, 1, 53, 34
+	rotate: 90
+EMOTE_VFX/heart  3
+	bounds: 2635, 558, 63, 56
+	rotate: 90
+EMOTE_VFX/hit_fx
+	bounds: 2589, 169, 40, 41
+EMOTE_VFX/kamehameha/blue_laser_1
+	bounds: 3, 231, 478, 87
+	offsets: 2, 2, 481, 91
+	rotate: 90
+EMOTE_VFX/kamehameha/blue_laser_2
+	bounds: 3, 123, 477, 105
+	offsets: 2, 2, 480, 109
+EMOTE_VFX/kamehameha/energy
+	bounds: 2632, 3, 28, 28
+	offsets: 3, 3, 33, 34
+EMOTE_VFX/money/Spark
+	bounds: 2757, 801, 22, 27
+	rotate: 90
+EMOTE_VFX/money/buck1
+	bounds: 2593, 81, 42, 45
+	offsets: 0, 0, 43, 45
+EMOTE_VFX/money/buck2
+	bounds: 2855, 464, 41, 56
+	rotate: 90
+EMOTE_VFX/money/coin
+	bounds: 1012, 948, 30, 33
+	rotate: 90
+EMOTE_VFX/money/wad_money
+	bounds: 2370, 345, 66, 79
+	offsets: 0, 1, 67, 80
+	rotate: 90
+EMOTE_VFX/paper_airplane
+	bounds: 2569, 1563, 100, 40
+EMOTE_VFX/poop/poop_fall
+	bounds: 1784, 1082, 153, 176
+	rotate: 90
+EMOTE_VFX/poop/poop_land
+	bounds: 1714, 629, 175, 156
+	rotate: 90
+EMOTE_VFX/poop/poop_particle1
+	bounds: 2682, 161, 47, 41
+EMOTE_VFX/poop/poop_particle2
+	bounds: 2871, 1527, 84, 69
+	rotate: 90
+EMOTE_VFX/poop/poop_particle3
+	bounds: 2725, 1368, 94, 73
+EMOTE_VFX/rain/cloud 2
+	bounds: 2085, 1904, 149, 60
+	rotate: 90
+EMOTE_VFX/rain/cloud 4
+	bounds: 883, 1246, 271, 89
+EMOTE_VFX/rain/rain/rain_1
+	bounds: 1726, 1222, 13, 55
+	rotate: 90
+EMOTE_VFX/snow/snow_dust
+	bounds: 1966, 1901, 152, 116
+	offsets: 6, 5, 165, 125
+	rotate: 90
+EMOTE_VFX/snow/snowflake 4
+	bounds: 2026, 635, 23, 26
+	offsets: 1, 0, 24, 26
+	rotate: 90
+EMOTE_VFX/snow/snowflake 8
+	bounds: 2637, 1163, 24, 27
+	rotate: 90
+EMOTE_VFX/snow/snowflake 9
+	bounds: 2842, 172, 38, 41
+	offsets: 1, 1, 40, 43
+	rotate: 90
+EMOTE_VFX/snowboard
+	bounds: 1542, 807, 142, 48
+EMOTE_VFX/stool
+	bounds: 2699, 935, 68, 65
+	rotate: 90
+EMOTE_VFX/tear-3
+	bounds: 2832, 435, 14, 20
+	rotate: 90
+EMOTE_VFX/ultra_instinct_aura/aura_1
+	bounds: 1878, 910, 150, 169
+EMOTE_VFX/ultra_instinct_aura/aura_2
+	bounds: 1963, 1084, 156, 169
+EMOTE_VFX/ultra_instinct_aura/aura_3
+	bounds: 2026, 738, 155, 169
+EMOTE_VFX/watering_can - Copy/water1
+	bounds: 2491, 1824, 79, 112
+	offsets: 0, 1, 79, 113
+Tiny Murderer/Watering Can/water_sprinkle_3
+	bounds: 2491, 1824, 79, 112
+	offsets: 0, 1, 79, 113
+EMOTE_VFX/watering_can - Copy/water2
+	bounds: 2519, 1941, 84, 112
+	offsets: 0, 1, 84, 113
+Tiny Murderer/Watering Can/water_sprinkle_1
+	bounds: 2519, 1941, 84, 112
+	offsets: 0, 1, 84, 113
+EMOTE_VFX/watering_can - Copy/watering can
+	bounds: 2794, 1891, 102, 77
+Tiny Murderer/Watering Can/watering_can
+	bounds: 2794, 1891, 102, 77
+EMOTE_VFX/weapons/Katana
+	bounds: 2204, 1776, 96, 134
+EMOTE_VFX/weapons/slash trail/trail2
+	bounds: 1952, 1744, 135, 153
+	offsets: 3, 1, 139, 155
+EMOTE_VFX/weapons/swingFX1
+	bounds: 2785, 1814, 74, 102
+	offsets: 2, 0, 76, 103
+	rotate: 90
+EMOTE_VFX/weapons/swingFX3
+	bounds: 2614, 688, 61, 70
+	rotate: 90
+EMOTE_VFX/weapons/sword_blue
+	bounds: 1176, 1083, 76, 219
+	rotate: 90
+EMOTE_VFX/weapons/sword_blue_2
+	bounds: 1878, 832, 75, 145
+	rotate: 90
+FISHERMON/deep_sea_diver/helmet
+	bounds: 1113, 488, 188, 237
+FISHERMON/deep_sea_diver/leg_L
+	bounds: 2614, 752, 69, 71
+FISHERMON/deep_sea_diver/leg_R
+	bounds: 2620, 826, 69, 71
+FISHERMON/deep_sea_diver/tank
+	bounds: 1478, 3, 175, 134
+FISHERMON/deep_sea_diver/top
+	bounds: 1179, 1759, 286, 1
+	offsets: 0, 285, 286, 286
+FISHERMON/flippers/flipper_tier1
+	bounds: 2089, 287, 43, 34
+	rotate: 90
+FISHERMON/flippers/flipper_tier2
+	bounds: 2686, 205, 48, 37
+FISHERMON/flippers/flipper_tier3
+	bounds: 2678, 36, 43, 35
+	rotate: 90
+FISHERMON/flippers/flipper_tier4
+	bounds: 2672, 1533, 97, 86
+FISHERMON/flippers/torpedo_tier5_f1
+	bounds: 2793, 1192, 89, 89
+FISHERMON/flippers/torpedo_tier5_f2
+	bounds: 2655, 1190, 89, 88
+FISHERMON/forging_VFX/big_spark
+	bounds: 2019, 1600, 141, 136
+	offsets: 0, 0, 144, 136
+	rotate: 90
+FISHERMON/forging_VFX/brown_button_poof_A
+	bounds: 940, 192, 239, 218
+	offsets: 1, 1, 241, 220
+	rotate: 90
+FISHERMON/forging_VFX/spark_forge
+	bounds: 1012, 926, 33, 19
+	offsets: 4, 1, 39, 21
+FISHERMON/forging_VFX/spark_forge2
+	bounds: 1522, 1019, 25, 17
+	rotate: 90
+FISHERMON/harpoon/bottom
+	bounds: 2531, 380, 74, 36
+FISHERMON/harpoon/cactus/gauge
+	bounds: 2563, 506, 23, 22
+FISHERMON/harpoon/cactus/harpoon
+	bounds: 2632, 1341, 94, 63
+	rotate: 90
+FISHERMON/harpoon/cactus/top
+	bounds: 2452, 379, 76, 37
+FISHERMON/harpoon/dragon/harpoon
+	bounds: 2637, 1622, 100, 71
+	rotate: 90
+FISHERMON/harpoon/dragon/top
+	bounds: 2694, 1725, 100, 59
+FISHERMON/harpoon/lightning/gauge
+	bounds: 2759, 74, 30, 22
+FISHERMON/harpoon/lightning/harpoon
+	bounds: 2410, 5, 121, 41
+	offsets: 2, 2, 124, 46
+FISHERMON/harpoon/lightning/top
+	bounds: 2900, 1953, 100, 44
+	offsets: 9, 0, 109, 44
+	rotate: 90
+FISHERMON/harpoon/pencil/harpoon
+	bounds: 3, 3, 87, 26
+FISHERMON/harpoon/pencil/top
+	bounds: 2885, 1278, 83, 28
+	rotate: 90
+FISHERMON/harpoon/standard/gauge
+	bounds: 2535, 1253, 23, 21
+FISHERMON/harpoon/standard/harpoon
+	bounds: 2747, 1114, 77, 36
+	rotate: 90
+FISHERMON/harpoon/standard/top
+	bounds: 2668, 1078, 74, 28
+FISHERMON/harpoon/star/harpoon
+	bounds: 2822, 1364, 92, 69
+FISHERMON/harpoon/star/top
+	bounds: 2505, 985, 86, 35
+	rotate: 90
+FISHERMON/harpoon/toxic/gauge
+	bounds: 2908, 95, 31, 37
+	rotate: 90
+FISHERMON/harpoon/toxic/harpoon
+	bounds: 2467, 758, 82, 41
+	offsets: 0, 1, 82, 43
+FISHERMON/harpoon/toxic/top
+	bounds: 2894, 1702, 82, 44
+	rotate: 90
+FISHERMON/tanks/infinite_oxygen_tank
+	bounds: 2184, 745, 88, 165
+FISHERMON/tanks/tank_5
+	bounds: 2711, 1623, 80, 99
+FISHERMON/tanks/tank_tier1
+	bounds: 1304, 489, 45, 72
+	offsets: 0, 1, 45, 73
+FISHERMON/tanks/tank_tier2
+	bounds: 2122, 1090, 34, 80
+	offsets: 0, 1, 34, 81
+	rotate: 90
+FISHERMON/tanks/tank_tier3
+	bounds: 2885, 1197, 50, 78
+	offsets: 3, 0, 56, 78
+FISHERMON/tanks/tank_tier4
+	bounds: 2694, 1791, 47, 87
+	rotate: 90
+FishermonHammer
+	bounds: 2894, 1618, 48, 81
+Tiny Murderer/hammer
+	bounds: 2894, 1618, 48, 81
+MurderMystery/Detective Skin/images/magnifying_glass
+	bounds: 1181, 1680, 76, 180
+	rotate: 90
+MurderMystery/Swiped/l_eye
+	bounds: 2451, 419, 79, 78
+	offsets: 0, 0, 79, 79
+	rotate: 90
+MurderMystery/Swiped/r_eye
+	bounds: 2482, 505, 79, 78
+	offsets: 0, 0, 79, 79
+	rotate: 90
+MurderMystery/detective_evidence_folder
+	bounds: 2355, 1665, 118, 88
+	rotate: 90
+MurderMystery/killer/angry
+	bounds: 2303, 1786, 130, 81
+	rotate: 90
+MurderMystery/killer/knife
+	bounds: 1048, 728, 139, 250
+MurderMystery/killer/pupil_L
+	bounds: 2400, 1521, 27, 27
+MurderMystery/killer/pupil_R
+	bounds: 2692, 826, 22, 26
+	rotate: 90
+MurderMystery/tablet1
+	bounds: 1176, 1162, 240, 215
+	offsets: 0, 0, 241, 216
+	rotate: 90
+MurderMystery/tablet2
+	bounds: 1373, 1516, 240, 215
+	offsets: 0, 0, 241, 216
+	rotate: 90
+RAND004/Pirate/black_skull_flag/flag
+	bounds: 732, 31, 205, 346
+RAND004/Pirate/blasted_torso/body_blasted
+	bounds: 1353, 350, 207, 211
+	offsets: 79, 63, 357, 357
+RAND004/Pirate/blasted_torso/torso_piece_A
+	bounds: 2762, 342, 54, 54
+RAND004/Pirate/blasted_torso/torso_piece_B
+	bounds: 2794, 1971, 82, 103
+	rotate: 90
+RAND004/Pirate/blasted_torso/torso_piece_C
+	bounds: 2275, 755, 95, 64
+RAND004/Pirate/blasted_torso/torso_piece_D
+	bounds: 2335, 932, 99, 94
+	rotate: 90
+RAND004/Pirate/blasted_torso/torso_piece_E
+	bounds: 2704, 345, 54, 55
+	rotate: 90
+RAND004/Pirate/exploded_by_keg/ashes_pile
+	bounds: 1977, 1289, 140, 112
+	rotate: 90
+RAND004/Pirate/exploded_by_keg/insides_A
+	bounds: 2469, 1562, 108, 97
+	rotate: 90
+RAND004/Pirate/exploded_by_keg/insides_B
+	bounds: 2797, 1711, 100, 85
+	rotate: 90
+RAND004/Pirate/exploded_by_keg/insides_C
+	bounds: 2408, 587, 81, 82
+	rotate: 90
+RAND004/Pirate/exploded_by_keg/insides_D
+	bounds: 2626, 1438, 96, 92
+RAND004/Pirate/exploded_by_keg/insides_E
+	bounds: 2275, 822, 99, 100
+RAND004/Pirate/exploded_by_keg/insides_F
+	bounds: 2140, 31, 130, 148
+RAND004/Pirate/exploded_by_keg/scorch_mark
+	bounds: 705, 920, 314, 211
+	offsets: 15, 18, 337, 236
+	rotate: 90
+RAND004/Pirate/flintlock/muzzle_flash
+	bounds: 1834, 23, 150, 170
+	offsets: 4, 5, 159, 180
+RAND004/Pirate/flintlock/smoke_ring_back
+	bounds: 1176, 1002, 78, 218
+	offsets: 2, 3, 82, 223
+	rotate: 90
+RAND004/Pirate/flintlock/smoke_ring_front
+	bounds: 3, 32, 88, 232
+	offsets: 2, 2, 92, 236
+	rotate: 90
+RAND004/Pirate/intro_anim/coin
+	bounds: 2505, 222, 75, 41
+	rotate: 90
+RAND004/Pirate/peg_legs/leg_L
+	bounds: 2337, 500, 61, 84
+	offsets: 37, 28, 136, 141
+RAND004/Pirate/peg_legs/leg_R
+	bounds: 2543, 985, 61, 86
+	offsets: 37, 29, 136, 141
+RAND004/Pirate/powder_keg/fuse
+	bounds: 2890, 1787, 101, 53
+	rotate: 90
+RAND004/Pirate/powder_keg/fuse_fire_1
+	bounds: 2284, 1521, 113, 119
+	offsets: 1, 0, 114, 119
+RAND004/Pirate/powder_keg/fuse_fire_2
+	bounds: 2573, 1832, 106, 106
+RAND004/Pirate/powder_keg/fuse_fire_3
+	bounds: 2358, 1292, 103, 111
+RAND004/Pirate/powder_keg/keg_piece_A
+	bounds: 1687, 196, 172, 159
+	rotate: 90
+RAND004/Pirate/powder_keg/keg_piece_B
+	bounds: 1987, 115, 138, 167
+	offsets: 0, 1, 138, 168
+RAND004/Pirate/powder_keg/keg_piece_C
+	bounds: 2090, 1760, 141, 111
+	rotate: 90
+RAND004/Pirate/powder_keg/keg_piece_D
+	bounds: 2545, 1163, 89, 84
+RAND004/Pirate/powder_keg/powder_keg
+	bounds: 1179, 1763, 290, 236
+	rotate: 90
+RAND004/Pirate/treasure/chest
+	bounds: 1190, 782, 217, 183
+	rotate: 90
+RAND004/Pirate/treasure/dirt_cover_back
+	bounds: 238, 38, 231, 82
+RAND004/Pirate/treasure/dirt_cover_front
+	bounds: 1271, 261, 224, 79
+	rotate: 90
+RAND004/Pirate/treasure/dirt_particle_A
+	bounds: 2823, 1436, 95, 87
+RAND004/Pirate/treasure/shovel
+	bounds: 887, 1650, 105, 291
+	rotate: 90
+Swiped/Blood2
+	bounds: 2915, 521, 29, 41
+Swiped/Blood3
+	bounds: 1157, 1272, 16, 16
+Swiped/Blood4
+	bounds: 2505, 196, 23, 37
+	rotate: 90
+Swiped/blood1
+	bounds: 2911, 1007, 34, 55
+Swiped/stomach gash
+	bounds: 2208, 1160, 127, 77
+	offsets: 0, 1, 128, 79
+	rotate: 90
+Tiny Murderer/Watering Can/drop_particle
+	bounds: 1157, 1259, 10, 16
+	rotate: 90
+Tiny Murderer/Watering Can/water_sprinkle_2
+	bounds: 2356, 1406, 89, 112
+	offsets: 0, 1, 89, 113
+Who_Kill_My_Crush/body_cut/body_base
+	bounds: 2561, 1250, 91, 88
+	offsets: 42, 52, 179, 179
+Who_Kill_My_Crush/body_cut/body_down
+	bounds: 2747, 1194, 84, 43
+	offsets: 47, 34, 179, 179
+	rotate: 90
+Who_Kill_My_Crush/body_cut/eyeball_rage_L
+	bounds: 2780, 142, 41, 41
+Who_Kill_My_Crush/body_cut/eyeball_rage_R
+	bounds: 2724, 117, 41, 41
+	offsets: 0, 1, 41, 42
+Who_Kill_My_Crush/chocolate_heart
+	bounds: 2716, 32, 38, 39
+	offsets: 1, 0, 39, 39
+Who_Kill_My_Crush/green_lips/ghostly_bubble
+	bounds: 2796, 21, 30, 33
+	offsets: 1, 1, 32, 35
+Who_Kill_My_Crush/green_lips/ghostly_escence
+	bounds: 1376, 784, 163, 215
+	offsets: 4, 9, 173, 233
+Who_Kill_My_Crush/green_lips/ghostly_skull
+	bounds: 2277, 1919, 123, 134
+	offsets: 3, 3, 129, 140
+Who_Kill_My_Crush/lipstick_stain
+	bounds: 2635, 534, 21, 19
+	rotate: 90
+who_killed_my_crush/support/lipstick_stain
+	bounds: 2635, 534, 21, 19
+	rotate: 90
+Who_Kill_My_Crush/phone/emote_bubble
+	bounds: 2501, 300, 76, 66
+	rotate: 90
+Who_Kill_My_Crush/phone/left_heart
+	bounds: 2500, 1163, 26, 42
+	rotate: 90
+Who_Kill_My_Crush/phone/right_heart
+	bounds: 2626, 1534, 26, 43
+	rotate: 90
+Who_Kill_My_Crush/rage/bulging_vein_A
+	bounds: 1157, 1310, 16, 25
+Who_Kill_My_Crush/rage/bulging_vein_B
+	bounds: 2204, 1760, 19, 13
+	offsets: 0, 1, 19, 14
+Who_Kill_My_Crush/rage/bulging_vein_C
+	bounds: 2927, 285, 18, 18
+Who_Kill_My_Crush/rage/eyeball_rage_L
+	bounds: 2886, 169, 41, 41
+Who_Kill_My_Crush/rage/eyeball_rage_R
+	bounds: 2824, 128, 41, 41
+	offsets: 0, 1, 41, 42
+Who_Kill_My_Crush/vine/vine_body
+	bounds: 2031, 912, 29, 169
+Who_Kill_My_Crush/vine/vine_full
+	bounds: 238, 5, 30, 211
+	rotate: 90
+Who_Kill_My_Crush/vine/vine_tip
+	bounds: 2698, 1384, 24, 51
+Who_Killed_Barry/glow
+	bounds: 2403, 1939, 114, 113
+	offsets: 9, 9, 132, 131
+	rotate: 90
+Who_Killed_Barry/impact
+	bounds: 2549, 900, 76, 82
+Who_Killed_Barry/remote_controller
+	bounds: 2206, 1027, 75, 128
+	offsets: 0, 0, 77, 129
+attack fx/effect1
+	bounds: 2606, 1947, 106, 82
+	offsets: 0, 1, 106, 83
+	rotate: 90
+attack fx/effect2
+	bounds: 2206, 925, 126, 99
+attack fx/effect3
+	bounds: 2115, 1459, 138, 93
+	rotate: 90
+attack fx/hit fx 1
+	bounds: 2569, 1606, 106, 65
+	offsets: 1, 0, 107, 66
+	rotate: 90
+attack fx/hit fx 2
+	bounds: 1987, 4, 150, 108
+	offsets: 3, 1, 154, 109
+attack fx/hit fx 3
+	bounds: 2204, 583, 159, 110
+	rotate: 90
+attack fx/hit fx 4
+	bounds: 2085, 495, 163, 116
+	rotate: 90
+base_colours/crewchsia/Backpack_Skin_Mesh
+	bounds: 1656, 3, 175, 134
+base_colours/crewchsia/Body_Base_Big_Mesh
+	bounds: 1418, 1767, 286, 286
+base_colours/crewchsia/Ear_Skin_Mesh_L
+	bounds: 2446, 1673, 65, 110
+base_colours/crewchsia/Ear_Skin_Mesh_R
+	bounds: 2448, 1438, 65, 110
+base_colours/crewchsia/EyeBall_L_Mesh
+	bounds: 2864, 867, 64, 64
+base_colours/crewchsia/EyeBall_R_Mesh
+	bounds: 2797, 801, 64, 64
+base_colours/crewchsia/Eyebrow_L_skin_Mesh
+	bounds: 2857, 565, 57, 45
+base_colours/crewchsia/Eyebrow_R_skin_Mesh
+	bounds: 2857, 565, 57, 45
+base_colours/crewchsia/FacialHair_Mesh
+	bounds: 1849, 199, 134, 83
+base_colours/crewchsia/Forehead_Mesh
+	bounds: 2561, 1358, 91, 62
+	rotate: 90
+base_colours/crewchsia/Nose_Mesh
+	bounds: 2561, 1358, 91, 62
+	rotate: 90
+base_colours/crewchsia/GlassesMaskHelmetHead_Skin_Mesh
+	bounds: 2273, 46, 143, 127
+	rotate: 90
+base_colours/crewchsia/Hat_Big_Mesh
+	bounds: 940, 3, 186, 236
+	rotate: 90
+base_colours/crewchsia/Tail_Skin_Mesh
+	bounds: 2698, 1281, 84, 92
+	rotate: 90
+base_colours/crewchsia/Wing_Skin_Mesh
+	bounds: 1398, 1047, 197, 143
+base_colours/crewchsia/body_base
+	bounds: 1726, 1238, 179, 180
+base_colours/crewchsia/body_base_Mesh
+	bounds: 1696, 889, 179, 180
+base_colours/crewchsia/eyelids/Eyelid_Angry_Skin_Mesh
+	bounds: 2864, 800, 64, 64
+base_colours/crewchsia/eyelids/Eyelid_Blink_Skin_Mesh
+	bounds: 2757, 734, 64, 64
+base_colours/crewchsia/eyelids/Eyelid_Happy_Skin_Mesh
+	bounds: 2687, 687, 64, 64
+base_colours/crewchsia/eyelids/Eyelid_Sad_Skin_Mesh
+	bounds: 2824, 733, 64, 64
+base_colours/crewchsia/eyelids/Eyelid_Skin_Mesh
+	bounds: 2754, 667, 64, 64
+base_colours/crewchsia/finger_L
+	bounds: 2410, 1045, 19, 19
+base_colours/crewchsia/hand_L_fist_Mesh
+	bounds: 2819, 304, 52, 51
+base_colours/crewchsia/hand_L_palm_Mesh
+	bounds: 2755, 288, 52, 51
+base_colours/crewchsia/hand_R_fist_Mesh
+	bounds: 2874, 306, 51, 49
+base_colours/crewchsia/leg_L
+	bounds: 2493, 606, 69, 72
+base_colours/crewchsia/leg_L_Mesh
+	bounds: 2542, 683, 69, 72
+base_colours/crewchsia/leg_R_Mesh
+	bounds: 2542, 683, 69, 72
+base_colours/crewchsia/leg_R
+	bounds: 2563, 531, 69, 72
+base_colours/crewchsia/mouth_Mesh
+	bounds: 2400, 1551, 111, 66
+	rotate: 90
+base_colours/crewchsia/mouth_flat
+	bounds: 2516, 1438, 31, 11
+base_colours/crewchsia/mouth_sleep_closed
+	bounds: 2927, 266, 18, 16
+base_colours/crewchsia/mouth_sleep_open
+	bounds: 2514, 1687, 52, 25
+base_colours/crewchsia/mouth_teethygrin
+	bounds: 2913, 412, 49, 22
+	rotate: 90
+base_colours/crewchsia/pupil_L_Mesh
+	bounds: 2140, 3, 25, 25
+base_colours/crewchsia/pupil_R_Mesh
+	bounds: 2168, 3, 25, 25
+base_colours/crewchsia/thumb_L
+	bounds: 2491, 1800, 20, 21
+projectile_spin
+	bounds: 2532, 427, 75, 54
+	offsets: 0, 0, 75, 55
+	rotate: 90
+revolver
+	bounds: 2063, 913, 168, 140
+	offsets: 0, 0, 168, 141
+	rotate: 90
+shadow
+	bounds: 2233, 1290, 122, 64
+who_killed_my_crush/arrow
+	bounds: 1977, 1257, 138, 29
+who_killed_my_crush/bow
+	bounds: 1397, 1004, 40, 122
+	rotate: 90
+who_killed_my_crush/bow_string
+	bounds: 2387, 1786, 10, 116
+	rotate: 90
+who_killed_my_crush/green_lips/green_lips
+	bounds: 2638, 82, 41, 44
+who_killed_my_crush/revival_vfx/aura
+	bounds: 482, 1640, 402, 413
+	offsets: 4, 4, 410, 421
+who_killed_my_crush/revival_vfx/giant_heart
+	bounds: 1394, 1193, 219, 191
+	offsets: 2, 2, 223, 195
+	rotate: 90
+who_killed_my_crush/revival_vfx/glow
+	bounds: 425, 380, 410, 414
+	offsets: 21, 21, 452, 455
+who_killed_my_crush/revival_vfx/heart_particle
+	bounds: 2821, 617, 59, 49
+who_killed_my_crush/revival_vfx/shine_particle
+	bounds: 2844, 1065, 46, 66
+	offsets: 2, 1, 50, 68
+	rotate: 90
+who_killed_my_crush/support/poison_splash
+	bounds: 2535, 1277, 27, 23
+	rotate: 90
+who_killed_my_crush/support/pool_of_blood
+	bounds: 2008, 293, 167, 78
+	rotate: 90

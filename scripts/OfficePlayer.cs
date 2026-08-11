@@ -691,6 +691,8 @@ public partial class OfficePlayer : Player
           References.Instance.RoleStatText.Settings = roleStatTextSettings;
         }
       }
+
+      ShareholderUpdateUI.Draw(this);
     }
 
     // Point to promo NPC when full of XP

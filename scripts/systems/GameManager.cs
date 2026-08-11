@@ -41,8 +41,17 @@ public partial class GameManager : Component
   {
     Instance = this;
     SetupLeaderboards();
+    ShareholderMachine.AttachToSceneMachine();
 
     Chat.RegisterChatCommandHandler(RunChatCommand);
+  }
+
+  public override void Update()
+  {
+    if (!ShareholderMachine.Instance.Alive())
+    {
+      ShareholderMachine.AttachToSceneMachine();
+    }
   }
 
 

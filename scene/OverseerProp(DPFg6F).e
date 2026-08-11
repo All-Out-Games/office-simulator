@@ -1,24 +1,24 @@
 14
-2280627634177
-3480422746
+2276332666881
+3474329221
 {
-  "name": "New Entity",
+  "name": "OverseerProp",
   "local_enabled": true,
   "local_position": {
     "X": -75.1689376831054688,
-    "Y": -14.8961858749389648
+    "Y": -12.2688646316528320
   },
   "local_rotation": 0,
   "local_scale": {
     "X": 1,
     "Y": 1
   },
-  "previous_sibling": 3474329221,
-  "next_sibling": 3483872355
+  "previous_sibling": 1685849622,
+  "next_sibling": 3480422746
 },
 {
   "cid": 1,
-  "aoid": 3482978404,
+  "aoid": 3483308550,
   "component_type": "Internal_Component",
   "internal_component_type": "Spine_Animator",
   "data": {

@@ -2,7 +2,7 @@
 2284922601473
 3483872355
 {
-  "name": "New Entity",
+  "name": "OverseerProp",
   "local_enabled": true,
   "local_position": {
     "X": -75.1689376831054688,
@@ -13,7 +13,8 @@
     "X": 1,
     "Y": 1
   },
-  "previous_sibling": 3480422746
+  "previous_sibling": 3480422746,
+  "next_sibling": 3479081339
 },
 {
   "cid": 1,

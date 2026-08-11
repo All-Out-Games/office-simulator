@@ -2,7 +2,7 @@
 2250562863105
 1408867218
 {
-  "name": "f1e9720e3d5a29990dc8ce7e34b03a74.png",
+  "name": "Table",
   "local_enabled": true,
   "local_position": {
     "X": -45.5499343872070312,

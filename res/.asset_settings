@@ -1,22 +1,22 @@
 [
   {
-    "id": "*",
-    "texture": {
-      "resample_multiplier": 1
-    }
+    "id": "purchaseMachines_305663/305663adab8e603a.png"
+  },
+  {
+    "id": "*"
   },
   {
     "id": "map_background.png",
-    "should_mip": true,
     "texture": {
-      "resample_multiplier": 0.75
-    }
+      "resample_multiplier": 0.7500000000000000
+    },
+    "should_mip": true
   },
   {
     "id": "map_foreground.png",
-    "should_mip": true,
     "texture": {
-      "resample_multiplier": 0.75
-    }
+      "resample_multiplier": 0.7500000000000000
+    },
+    "should_mip": true
   }
 ]

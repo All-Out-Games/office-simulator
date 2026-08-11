@@ -1,0 +1,131 @@
+bb985f3076469fa4.png
+	size: 2048, 2048
+	filter: Linear, Linear
+electricity/electricity_00
+	bounds: 623, 1122, 209, 214
+	offsets: 69, 45, 352, 352
+electricity/electricity_01
+	bounds: 255, 7, 227, 234
+	offsets: 60, 35, 352, 352
+electricity/electricity_02
+	bounds: 488, 6, 239, 247
+	offsets: 54, 29, 352, 352
+	rotate: 90
+electricity/electricity_03
+	bounds: 893, 599, 156, 148
+	offsets: 104, 80, 352, 352
+	rotate: 90
+electricity/electricity_04
+	bounds: 616, 726, 246, 250
+	offsets: 51, 28, 352, 352
+electricity/electricity_05
+	bounds: 609, 1342, 276, 284
+	offsets: 36, 11, 352, 352
+electricity/electricity_06
+	bounds: 323, 579, 287, 296
+	offsets: 31, 5, 352, 352
+electricity/electricity_07
+	bounds: 6, 247, 299, 308
+	offsets: 25, 0, 352, 352
+electricity/electricity_08
+	bounds: 6, 561, 311, 314
+	offsets: 19, 0, 352, 352
+electricity/electricity_09
+	bounds: 972, 1838, 202, 173
+	offsets: 80, 90, 352, 352
+	rotate: 90
+electricity/electricity_10
+	bounds: 276, 1274, 335, 327
+	offsets: 7, 0, 352, 352
+	rotate: 90
+electricity/electricity_11
+	bounds: 6, 881, 338, 327
+	offsets: 6, 0, 352, 352
+	rotate: 90
+electricity/electricity_12
+	bounds: 316, 1707, 333, 326
+	offsets: 8, 0, 352, 352
+	rotate: 90
+electricity/electricity_13
+	bounds: 648, 1721, 319, 318
+	offsets: 15, 0, 352, 352
+	rotate: 90
+electricity/electricity_14
+	bounds: 311, 251, 297, 304
+	offsets: 26, 1, 352, 352
+electricity/electricity_15
+	bounds: 614, 283, 283, 290
+	offsets: 33, 8, 352, 352
+electricity/electricity_16
+	bounds: 339, 982, 278, 286
+	offsets: 35, 10, 352, 352
+electricity/electricity_17
+	bounds: 741, 15, 256, 262
+	offsets: 46, 22, 352, 352
+electricity/electricity_18
+	bounds: 891, 1345, 160, 160
+	offsets: 82, 79, 352, 352
+electricity/electricity_19
+	bounds: 6, 6, 235, 243
+	offsets: 56, 31, 352, 352
+	rotate: 90
+electricity/electricity_20
+	bounds: 1025, 763, 154, 148
+	offsets: 80, 87, 352, 352
+	rotate: 90
+electricity/electricity_21
+	bounds: 838, 1128, 205, 208
+	offsets: 73, 47, 352, 352
+electricity/electricity_22
+	bounds: 868, 923, 193, 199
+	offsets: 77, 52, 352, 352
+electricity/electricity_23
+	bounds: 891, 1511, 204, 185
+	offsets: 76, 59, 352, 352
+	rotate: 90
+electricity/electricity_24
+	bounds: 516, 1622, 74, 79
+	offsets: 93, 158, 352, 352
+electricity/electricity_25
+	bounds: 868, 761, 151, 156
+	offsets: 97, 73, 352, 352
+electricity/electricity_26
+	bounds: 616, 583, 137, 142
+	offsets: 104, 80, 352, 352
+	rotate: 90
+electricity/electricity_27
+	bounds: 764, 593, 123, 127
+	offsets: 111, 87, 352, 352
+electricity/electricity_28
+	bounds: 623, 1007, 105, 109
+	offsets: 120, 96, 352, 352
+electricity/electricity_29
+	bounds: 339, 881, 95, 98
+	offsets: 125, 101, 352, 352
+	rotate: 90
+electricity/electricity_30
+	bounds: 316, 1621, 79, 80
+	offsets: 133, 110, 352, 352
+electricity/electricity_31
+	bounds: 596, 1632, 66, 69
+	offsets: 139, 115, 352, 352
+electricity/electricity_32
+	bounds: 293, 1240, 1, 1
+electricity/electricity_34
+	bounds: 293, 1240, 1, 1
+electricity/electricity_33
+	bounds: 276, 1247, 20, 21
+	offsets: 162, 139, 352, 352
+electricity/electricity_35
+	bounds: 276, 1229, 11, 12
+	offsets: 166, 143, 352, 352
+vending_machine/slurp_can
+	bounds: 401, 1622, 79, 109
+	offsets: 0, 0, 79, 110
+	rotate: 90
+vending_machine/vending_machine_off
+	bounds: 6, 1225, 264, 384
+	offsets: 1, 1, 266, 386
+vending_machine/vending_machine_on
+	bounds: 6, 1615, 304, 425
+	offsets: 1, 1, 307, 427
