@@ -59,8 +59,10 @@ public partial class BoardMeetingEffect : MyEffect, INetworkedComponent
 
         if (Player.IsLocal && PromoNPC.Instance.BoardMeetingActive)
         {
-            var candidate1 = PromoNPC.Instance.Candidate1.Value?.GetComponent<OfficePlayer>();
-            var candidate2 = PromoNPC.Instance.Candidate2.Value?.GetComponent<OfficePlayer>();
+            var candidate1Entity = PromoNPC.Instance.Candidate1.Value;
+            var candidate2Entity = PromoNPC.Instance.Candidate2.Value;
+            var candidate1 = candidate1Entity.Alive() ? candidate1Entity.GetComponent<OfficePlayer>() : null;
+            var candidate2 = candidate2Entity.Alive() ? candidate2Entity.GetComponent<OfficePlayer>() : null;
 
             if (candidate1?.Alive() == true && candidate2?.Alive() == true)
             {
